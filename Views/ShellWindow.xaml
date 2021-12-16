@@ -1,0 +1,74 @@
+﻿<Window
+    x:Class="ECN.Views.ShellWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:properties="clr-namespace:ECN.Properties"
+    xmlns:ui="http://schemas.modernwpf.com/2019"
+    ui:WindowHelper.UseModernWindowStyle="True"
+    DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
+    mc:Ignorable="d"
+    MinWidth="600"
+    MinHeight="450" >
+
+    <!--<i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Unloaded">
+            <i:InvokeCommandAction Command="{Binding UnloadedCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>-->
+
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top" VerticalAlignment="Top" HorizontalAlignment="Stretch" Background="#FFFF0033">
+            <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" VerticalAlignment="Center" Margin="10"/>
+            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
+                <StackPanel Margin="6">
+                    <TextBlock Text="{Binding Name}" FontFamily="Quicksand Medium" FontSize="15" Foreground="White" />
+                    <TextBlock Text="{Binding Department}" FontFamily="Quicksand Medium" Foreground="#FFF4FF00" HorizontalAlignment="Right" FontSize="15" />
+                </StackPanel>
+                <Image Source="/Assets/user2white.png" Width="32" Margin="5, 0, 5, 0"/>
+            </StackPanel>
+        </DockPanel>
+
+
+        <ui:NavigationView Name="nv" IsBackButtonVisible="Collapsed" PaneDisplayMode="LeftCompact" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" >
+            <ui:NavigationView.MenuItems>
+                <ui:NavigationViewItem x:Name="btnDashBoard" Margin="0, 3, 0, 0" Tag="DataGrid">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/dashboardred.png" Width="24" />
+                        <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnNewECN" Tag="Ecn" Margin="0, 3, 0, 0" >
+                    <StackPanel Orientation="Horizontal" >
+                        <Image Source="/Assets/newred.png" Width="24" />
+                        <Label Content="Nuevo" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnPendingECNs" Margin="0, 3, 0, 0" Tag="ContentGridDetail">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/task2.png" Width="24" />
+                        <Label Content="Checklist" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="History" Margin="0, 3, 0, 0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/historyred.png" Width="24" />
+                        <Label Content="Historial" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.MenuItems>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="ItemInvoked" >
+                    <i:InvokeCommandAction Command="{Binding MenuItemInvokedCommand}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+            <Frame Name="shellFrame" NavigationUIVisibility="Hidden" Focusable="False"/>
+        </ui:NavigationView>
+    </DockPanel>
+
+</Window>

@@ -1,0 +1,91 @@
+﻿<Window x:Class="ECN.Views.NumberParts"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ECN.Views"
+        xmlns:dd="urn:gong-wpf-dragdrop"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        DataContext="{Binding NumberPartsViewModel, Source={StaticResource Locator}}"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        mc:Ignorable="d"
+        Title="NumberParts" Height="500" Width="600">
+
+    <Window.Resources>
+
+        <DataTemplate x:Key="ItemTemplate">
+            <Grid Margin="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <Image Source="/Assets/wire.png" Width="36" Height="36" Grid.RowSpan="3" Margin="0, 0, 10, 0" />
+                <TextBlock Text="{Binding NumberPartId}" FontSize="16" Grid.Column="1" FontWeight="Bold" Foreground="Black" />
+                <TextBlock Text="{Binding Customer.CustomerName}" Grid.Row="1" Grid.Column="1" FontSize="15" FontWeight="Bold" Foreground="#FFFF0033"/>
+                <TextBlock  Grid.Row="2" Grid.Column="1" FontSize="15">
+                            <Run Text="Nível de revisión: " Foreground="Black" FontWeight="SemiBold"/>
+                            <Run Text="{Binding NumberPartRev}" Foreground="#FFC30D31" FontWeight="Black"/>
+                </TextBlock>
+            </Grid>
+        </DataTemplate>
+
+
+        <Style TargetType="{x:Type ListViewItem}" x:Key="ContainerStyle">
+            <Setter Property="ContentTemplate" Value="{StaticResource ItemTemplate}" />
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFCFCFCF" />
+                <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFCFCFCF" />
+            </Style.Resources>
+        </Style>
+
+    </Window.Resources>
+
+    <Grid Background="#FFE8E8E8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="20, 30, 0, 0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        Margin="0, 0, 0, 5">
+                <Label Content="Buscar" 
+                       FontFamily="Quicksand Medium" 
+                       FontSize="16" />
+                <Image Source="/Assets/search.png"
+                       Width="22" 
+                       Margin="2, 0, 0, 0"/>
+            </StackPanel>
+            <TextBox x:Name="txtSearch"
+                     Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"
+                     Background="#FFFF0033"
+                     Foreground="White"
+                     BorderThickness="0"
+                     FontFamily="Quicksand Medium" 
+                     FontSize="15" 
+                     ui:ControlHelper.PlaceholderText="Ingresa un número de parte" 
+                     ui:ControlHelper.PlaceholderForeground="White"
+                     Width="350"  />
+        </StackPanel>
+        <ListView x:Name="lvNumberParts" 
+                  Grid.Row="1" 
+                  HorizontalAlignment="Stretch" 
+                  VerticalAlignment="Stretch" 
+                  Margin="20" 
+                  SelectionMode="Single"
+                  ItemsSource="{Binding NumberPartCollection}"
+                  ItemContainerStyle="{StaticResource ContainerStyle}"
+                  dd:DragDrop.IsDragSource="True"
+                  dd:DragDrop.IsDropTarget="True">
+        </ListView>
+    </Grid>
+
+</Window>

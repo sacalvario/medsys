@@ -1,0 +1,47 @@
+﻿<Page x:Class="ECN.Views.HistoryDetails"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:local="clr-namespace:ECN.Views"
+      DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="900"
+      Title="HistoryDetails">
+
+    <Grid Background="#FFE0E0E0">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="20, 15, 0, 0" >
+            <Image Source="/Assets/file96.png" Margin="20, 15, 5, 15" />
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
+                    <TextBlock FontSize="26" FontWeight="Black" >
+                        <Run Text="Folio" />
+                        <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
+                    </TextBlock>
+                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="20" Width="60" Margin="30, 10, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" d:IsLocked="True"/>
+                    </Border>
+                </StackPanel>
+                <TextBlock FontSize="16" >
+                    <Run Text="Fecha de inicio" />
+                    <Run Text="{Binding Ecn.LongDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+                <TextBlock FontSize="16"  >
+                    <Run Text="Fecha de cierre estimada"/>
+                    <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0, 130, 0, 0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+        </Grid>
+    </Grid>
+</Page>
