@@ -12,11 +12,15 @@
     <None Remove="Assets\checkgreen.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
+    <None Remove="Assets\excel2.png" />
     <None Remove="Assets\file.png" />
     <None Remove="Assets\file96.png" />
     <None Remove="Assets\historyred.png" />
+    <None Remove="Assets\image.png" />
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\newred.png" />
+    <None Remove="Assets\pdf.png" />
+    <None Remove="Assets\powerpoint.png" />
     <None Remove="Assets\rightred.png" />
     <None Remove="Assets\search.png" />
     <None Remove="Assets\signed_.png" />
@@ -25,6 +29,7 @@
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\view.png" />
     <None Remove="Assets\wire.png" />
+    <None Remove="Assets\word.png" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="gong-wpf-dragdrop" Version="3.0.0" />
@@ -60,6 +65,9 @@
     <Content Include="Assets\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\excel2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\file.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -69,8 +77,17 @@
     <Content Include="Assets\historyred.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\newred.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\powerpoint.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\rightred.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -91,6 +108,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\wire.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\word.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

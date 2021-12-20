@@ -99,7 +99,7 @@
     </Page.Resources>
     
     <Grid>
-        <ScrollViewer Background="#FFE0E0E0" >
+        <ScrollViewer Background="#FFE0E0E0" Margin="0,40,0,-40" >
             <TreeView x:Name="tvHistory" 
                       ItemsSource="{Binding Path=CvsHistory.View.Groups}"
                       ItemContainerStyle="{StaticResource ContainerStyle}" 

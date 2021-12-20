@@ -564,6 +564,8 @@ namespace ECN.Models
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoVisibility);
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoToString);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
+            _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);
+            _ = modelBuilder.Entity<Attachment>().Ignore(t => t.Extension);
             OnModelCreatingPartial(modelBuilder);
         }
 

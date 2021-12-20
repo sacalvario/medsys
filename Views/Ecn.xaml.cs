@@ -32,6 +32,12 @@ namespace ECN.Views
                 var numberparts = new NumberParts();
                 numberparts.Show();
             }
+
+            else if (msg.Notification == "ShowEmployees")
+            {
+                var employees = new Employees();
+                employees.Show();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:ECN.Views"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="900"
+      d:DesignHeight="650" d:DesignWidth="900"
       Title="HistoryDetails">
 
     <Grid Background="#FFE0E0E0">
@@ -33,15 +33,110 @@
                 </TextBlock>
             </StackPanel>
         </StackPanel>
-        <Grid VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="0, 130, 0, 0" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-        </Grid>
+        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="40, 130, 10, 10" Style="{DynamicResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
+            <TabItem Height="40">
+                <TabItem.Header>
+                    <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+                <Grid>
+                    <ui:SimpleStackPanel Height="400" Width="550" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0, 30" Spacing="10"  >
+                        <TextBlock FontSize="16" FontWeight="Black" Visibility="{Binding Ecn.IsEcoVisibility}" >
+                            <Run Text="Número de Eco"/>
+                            <Run Text="{Binding Ecn.EcnEco.IdEco}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" Visibility="{Binding Ecn.IsEcoVisibility}">
+                            <Run Text="Tipo de Eco"/>
+                            <Run Text="{Binding Ecn.EcnEco.EcoType.EcoTypeName}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Tipo de cambio"/>
+                            <Run Text="{Binding Ecn.ChangeType.ChangeTypeName}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Tipo de documento"/>
+                            <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Número de documento"/>
+                            <Run Text="{Binding Ecn.DocumentNo}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nombre de documento"/>
+                            <Run Text="{Binding Ecn.DocumentName}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Fecha de actualización del documento"/>
+                            <Run Text="{Binding Ecn.LongDocumentUpgradeDate, Mode=OneWay}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel de revisión del documento"/>
+                            <Run Text="{Binding Ecn.DocumentLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel de revisión del dibujo"/>
+                            <Run Text="{Binding Ecn.DrawingLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel anterior de revisión del documento"/>
+                            <Run Text="{Binding Ecn.OldDocumentLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel anterior de revisión del dibujo"/>
+                            <Run Text="{Binding Ecn.OldDrawingLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                        </TextBlock>
+                    </ui:SimpleStackPanel>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40" >
+                <TabItem.Header>
+                    <TextBlock Text="Números de parte" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+                <ListView ItemsSource="{Binding NumberParts}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray"  >
+                    <ListView.ItemTemplate>
+                        <DataTemplate >
+                            <Grid Margin="0, 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/wire.png"
+                                       Grid.RowSpan="2"
+                                       Width="40"
+                                       Height="40"
+                                       Margin="6"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding NumberPartId, Mode=OneTime}"
+                                           FontWeight="Black"
+                                           Margin="12,6,0,0" 
+                                           FontSize="16"/>
+                                <TextBlock Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="{Binding Customer.CustomerName, Mode=OneTime}"
+                                           FontWeight="Black"
+                                           Margin="12,0,0,6"
+                                           FontSize="16"
+                                           Foreground="Red"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </TabItem>
+            <TabItem Height="40" >
+                <TabItem.Header>
+                    <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+            </TabItem>
+            <TabItem Height="40" >
+                <TabItem.Header>
+                    <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Page>

@@ -56,6 +56,7 @@ namespace ECN.Models
         public int Day => StartDate.Day;
         public string LongDate => StartDate.ToLongDateString();
         public string LongEndDate => EndDate.ToLongDateString();
+        public string LongDocumentUpgradeDate => DocumentUpgradeDate.ToLongDateString();
 
         private Visibility _IsEcoVisibility = Visibility.Collapsed;
         public Visibility IsEcoVisibility

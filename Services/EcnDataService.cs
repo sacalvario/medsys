@@ -124,5 +124,27 @@ namespace ECN.Services
             employee.Department = context.Departments.Find(employee.DepartmentId);
             return employee;
         }
+
+        public IEnumerable<Employee> GetEmployees()
+        {
+            return context.Employees.ToList().Where(i => i.EmployeeId != 212);
+        }
+
+        public async Task<IEnumerable<Employee>> GetEmployeesAsync()
+        {
+            await Task.CompletedTask;
+            return GetEmployees();
+        }
+
+        public async Task<Department> GetDepartmentAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetDepartment(id);
+        }
+
+        public Department GetDepartment(int id)
+        {
+            return context.Departments.Find(id);
+        }
     }
 }

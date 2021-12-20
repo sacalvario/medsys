@@ -594,7 +594,7 @@
                                                 <ColumnDefinition Width="*"/>
                                             </Grid.ColumnDefinitions>
                                             <Image Source="{Binding ImageLocation, Mode=OneTime}" Margin="5" Width="32"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding Name}" Style="{DynamicResource BaseTextBlockStyle}" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+                                            <TextBlock Grid.Column="1" Text="{Binding AttachmentFilename}" Style="{DynamicResource BaseTextBlockStyle}" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
                                         </Grid>
                                     </DataTemplate>
                                 </ListBox.ItemTemplate>
@@ -627,7 +627,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel >
+                    <StackPanel>
                         <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="18" Margin="0, 0, 0, 25"/>
                         <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
                             <TextBlock Text="Firma" FontFamily="Quicksand Medium" FontSize="18" VerticalAlignment="Center"/>
@@ -648,8 +648,8 @@
                                                 <RowDefinition Height="*"/>
                                             </Grid.RowDefinitions>
                                             <TextBlock Text="{Binding TemplatedParent.(ItemsControl.AlternationIndex), RelativeSource={RelativeSource TemplatedParent}}" FontSize="18" FontWeight="Bold" VerticalAlignment="Center" Grid.RowSpan="2"/>
-                                            <Image Source="/Electri-Cord ECN;component/Images/signed_.png" Grid.Column="1" Width="32" Margin="0, 0, 10, 0" Grid.RowSpan="2"/>
-                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" FontWeight="SemiBold"><Run Text="{Binding FirstName}"/><Run Text=" "/><Run Text="{Binding LastName}"/></TextBlock>
+                                            <Image Source="/Assets/signed_.png" Grid.Column="1" Width="32" Margin="0, 0, 10, 0" Grid.RowSpan="2"/>
+                                            <TextBlock Grid.Column="2" VerticalAlignment="Center" FontWeight="SemiBold"><Run Text="{Binding EmployeeFirstName}"/><Run Text=" "/><Run Text="{Binding EmployeeLastName}"/></TextBlock>
                                             <TextBlock Grid.Column="2" Grid.Row="1" Text="{Binding Department.DepartmentName}" Foreground="#FFFF0033" FontWeight="SemiBold" />
                                         </Grid>
                                     </DataTemplate>
@@ -662,7 +662,7 @@
                             </Button>
                         </StackPanel>
                     </StackPanel>
-                    <StackPanel Grid.Column="1" Margin="10, 50, 0, 0">
+                    <StackPanel Grid.Column="1" Grid.Row="1" Margin="10, 50, 0, 0">
                         <ui:SimpleStackPanel Orientation="Horizontal" Spacing="5">
                             <TextBlock Text="Vista" FontFamily="Quicksand Medium" FontSize="18"  VerticalAlignment="Center"/>
                             <Image Source="/Assets/view.png" Width="36"/>
@@ -679,8 +679,8 @@
                                             <RowDefinition Height="*"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
-                                        <Image Source="/Electri-Cord ECN;component/Images/view.png" Width="32" Margin="10" Grid.RowSpan="2"/>
-                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold"><Run Text="{Binding FirstName}"/><Run Text=" "/><Run Text="{Binding LastName}"/></TextBlock>
+                                        <Image Source="/Assets/view.png" Width="32" Margin="10" Grid.RowSpan="2"/>
+                                        <TextBlock Grid.Column="1" VerticalAlignment="Center" FontWeight="SemiBold"><Run Text="{Binding EmployeeFirstName}"/><Run Text=" "/><Run Text="{Binding EmployeeLastName}"/></TextBlock>
                                         <TextBlock Grid.Column="1" Grid.Row="1" Text="{Binding Department.DepartmentName}" Foreground="#FFFF0033" FontWeight="SemiBold" />
                                     </Grid>
                                 </DataTemplate>

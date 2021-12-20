@@ -36,6 +36,9 @@ namespace ECN.ViewModels
         public HistoryDetailsViewModel HistoryDetailsViewModel
             => SimpleIoc.Default.GetInstance<HistoryDetailsViewModel>();
 
+        public EmployeesViewModel EmployeesViewModel
+            => SimpleIoc.Default.GetInstance<EmployeesViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -52,12 +55,15 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IWindowManagerService, WindowManagerService>();
             SimpleIoc.Default.Register<IPageService, PageService>();
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
+            SimpleIoc.Default.Register<IOpenFileService, OpenFileService>();
 
             // Window
             SimpleIoc.Default.Register<IShellWindow, ShellWindow>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<NumberParts>();
             SimpleIoc.Default.Register<NumberPartsViewModel>();
+            SimpleIoc.Default.Register<Employees>();
+            SimpleIoc.Default.Register<EmployeesViewModel>();
 
             // Pages
             Register<MainViewModel, MainPage>();

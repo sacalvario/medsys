@@ -47,5 +47,27 @@ namespace ECN.Services
         {
             return context.NumberpartTypes.Find(id);
         }
+
+        public async Task<Numberpart> GetNumberPartAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetNumberPart(id);
+        }
+
+        public Numberpart GetNumberPart(int id)
+        {
+            return context.Numberparts.Find(id);
+        }
+
+        public ICollection<EcnNumberpart> GetNumberPartsEcn(int ecn)
+        {
+            return context.EcnNumberparts.Where(i => i.EcnId == ecn).ToList();
+        }
+
+        public async Task<ICollection<EcnNumberpart>> GetNumberPartsEcnsAsync(int ecn)
+        {
+            await Task.CompletedTask;
+            return GetNumberPartsEcn(ecn);
+        }
     }
 }

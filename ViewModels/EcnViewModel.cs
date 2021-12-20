@@ -8,6 +8,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
 using System.Windows;
+using System.IO;
+using System.Windows.Data;
+using System.ComponentModel;
 
 namespace ECN.ViewModels
 {
@@ -15,6 +18,7 @@ namespace ECN.ViewModels
     {
 
         private readonly IEcnDataService _ecnDataService;
+        private readonly IOpenFileService _openFileService;
         public Ecn ECN { get; set; }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
@@ -108,9 +112,10 @@ namespace ECN.ViewModels
             }
         }
 
-        public EcnViewModel(IEcnDataService ecnDataService)
+        public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService)
         {
             _ecnDataService = ecnDataService;
+            _openFileService = openFileService;
             ECN = new Ecn();
 
             NumberParts = new ObservableCollection<Numberpart>();
@@ -151,9 +156,9 @@ namespace ECN.ViewModels
                     ECN.IsEco = Convert.ToSByte(IsEco);
                     EcnEco EcnEco = new EcnEco
                     {
-                        IdEcnNavigation = ECN,
+                        IdEcn = ECN.Id,
                         IdEco = Eco,
-                        EcoType = SelectedEcoType
+                        EcoTypeId = SelectedEcoType.EcoTypeId
                     };
                     ECN.EcnEco = EcnEco;
                 }
@@ -165,8 +170,8 @@ namespace ECN.ViewModels
                     {
                         ECN.EcnNumberparts.Add(new EcnNumberpart()
                         {
-                            Ecn = ECN,
-                            Product = np
+                            EcnId = ECN.Id,
+                            ProductId = np.NumberPartNo
                         });
                     }
                 }
@@ -178,7 +183,7 @@ namespace ECN.ViewModels
                         ECN.EcnAttachments.Add(new EcnAttachment()
                         {
                             Attachment = ar,
-                            Ecn = ECN
+                            EcnId = ECN.Id
                         });
                     }
                 }
@@ -225,16 +230,15 @@ namespace ECN.ViewModels
 
         private void OpenFileDialog()
         {
-            //OpenFileDialog file = new OpenFileDialog();
-
-            //if (file.ShowDialog() == true)
-            //{
-            //    Attacheds.Add(new AttachedRecord(Path.GetExtension(file.FileName))
-            //    {
-            //        Path = file.FileName,
-            //        Name = file.SafeFileName
-            //    });
-            //}
+           if (_openFileService.OpenFileDialog())
+            {
+                Attacheds.Add(new Attachment(Path.GetExtension(_openFileService.Path))
+                {
+                    AttachmentFilename = _openFileService.FileName,
+                    AttachmentPath = _openFileService.Path,
+                    AttachmentFile = File.ReadAllBytes(_openFileService.Path)
+                });
+            }
         }
 
         private void OpenNumberPartsDialog()
@@ -260,12 +264,12 @@ namespace ECN.ViewModels
 
         private void OpenSignatureFlowDialog()
         {
-            Messenger.Default.Send(new NotificationMessage("ShowSignatureFlow"));
+            Messenger.Default.Send(new NotificationMessage("ShowEmployees"));
         }
 
         private void ResetData()
         {
-            ECN.ChangeDescription = string.Empty;
+            //ECN.ChangeDescription = string.Empty;
             ECN = new Ecn();
         }
 
@@ -461,6 +465,7 @@ namespace ECN.ViewModels
                 }
             }
         }
+
 
         public async void GetChangeTypes()
         {
