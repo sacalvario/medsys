@@ -62,7 +62,7 @@
                 <StackPanel Grid.Column="4" Grid.Row="0" Grid.RowSpan="4" VerticalAlignment="Center" >
                     <Border 
                         CornerRadius="10"
-                        Background="{Binding StatusColor}"
+                        Background="{Binding Status.StatusColor}"
                         Grid.Column="4"
                         Grid.Row="0"
                         Grid.RowSpan="4"
@@ -99,7 +99,7 @@
     </Page.Resources>
     
     <Grid>
-        <ScrollViewer Background="#FFE0E0E0" Margin="0,40,0,-40" >
+        <ScrollViewer Background="#FFE0E0E0">
             <TreeView x:Name="tvHistory" 
                       ItemsSource="{Binding Path=CvsHistory.View.Groups}"
                       ItemContainerStyle="{StaticResource ContainerStyle}" 

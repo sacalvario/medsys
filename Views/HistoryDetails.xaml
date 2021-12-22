@@ -33,7 +33,7 @@
                 </TextBlock>
             </StackPanel>
         </StackPanel>
-        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="40, 130, 10, 10" Style="{DynamicResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
+        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="40, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
             <TabItem Height="40">
                 <TabItem.Header>
                     <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
@@ -91,8 +91,8 @@
                 <TabItem.Header>
                     <TextBlock Text="Números de parte" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding NumberParts}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray"  >
-                    <ListView.ItemTemplate>
+                <ui:ListView ItemsSource="{Binding NumberParts}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray" IsSelectionEnabled="False"  >
+                    <ui:ListView.ItemTemplate>
                         <DataTemplate >
                             <Grid Margin="0, 5">
                                 <Grid.RowDefinitions>
@@ -124,18 +124,129 @@
                                            Foreground="Red"/>
                             </Grid>
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
             </TabItem>
             <TabItem Height="40" >
                 <TabItem.Header>
                     <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
+                <ui:ListView ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray" IsSelectionEnabled="False"  >
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate >
+                            <Grid Margin="0, 5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="{Binding ImageLocation}"
+                                       Width="38"
+                                       Height="38"
+                                       Margin="6"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding AttachmentFilename}"
+                                           VerticalAlignment="Center"
+                                           FontWeight="Black"
+                                           Margin="12,6,0,0" 
+                                           FontSize="15"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
             </TabItem>
             <TabItem Height="40" >
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top"  Margin="0, 20, 0, 0" Height="Auto" Width="Auto">
+                    <ListView.View>
+                        <GridView>
+                            <GridView.ColumnHeaderContainerStyle>
+                                <Style TargetType="GridViewColumnHeader" >
+                                    <Setter Property="Background" Value="Crimson" />
+                                    <Setter Property="Foreground" Value="White" />
+                                    <Setter Property="FontWeight" Value="Black"/>
+                                    <Setter Property="FontSize" Value="15" />
+                                    <Setter Property="Height" Value="30" />
+                                </Style>
+                            </GridView.ColumnHeaderContainerStyle>
+                            <GridViewColumn Header="Secuencia" Width="100" >
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="/Assets/signed_.png"
+                                               Width="46"
+                                               Height="46"
+                                               Margin="10"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Responsable" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Margin="10">
+                                            <TextBlock Text="{Binding Employee.Name}"
+                                                       FontWeight="Black"
+                                                       FontSize="16"/>
+                                            <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                                       FontWeight="DemiBold"
+                                                       FontStyle="Italic"
+                                                       FontSize="15"
+                                                       Foreground="Red"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Estatus" Width="150">
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <Border CornerRadius="10"
+                                                Background="{Binding Status.StatusColor}"
+                                                Height="25"
+                                                Width="95"
+                                                Margin="10,20">
+                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Fecha de firma" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LongRevisionDate}"
+                                                   FontSize="14"
+                                                   FontWeight="DemiBold"
+                                                   FontStyle="Normal"
+                                                   Margin="5, 20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Hora de firma" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding LongRevisionHour}"
+                                                   FontSize="14"
+                                                   FontWeight="DemiBold"
+                                                   FontStyle="Normal"
+                                                   Margin="15, 20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Notas" Width="250">
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Notes}"
+                                                   FontSize="14"
+                                                   FontWeight="Bold"
+                                                   FontStyle="Normal"
+                                                   Margin="15, 20"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
             </TabItem>
         </TabControl>
     </Grid>

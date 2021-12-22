@@ -2,7 +2,6 @@
 using System;
 using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Media;
 
 #nullable disable
 
@@ -15,8 +14,6 @@ namespace ECN.Models
             EcnAttachments = new HashSet<EcnAttachment>();
             EcnNumberparts = new HashSet<EcnNumberpart>();
             EcnRevisions = new HashSet<EcnRevision>();
-            ChangeType = new Changetype();
-            DocumentType = new Documenttype();
         }
 
         public int Id { get; set; }
@@ -76,26 +73,6 @@ namespace ECN.Models
             }
         }
 
-        private SolidColorBrush _StatusColor;
-        public SolidColorBrush StatusColor
-        {
-            get
-            {
-                if (Status.StatusId == 1)
-                {
-                    _StatusColor = new SolidColorBrush(Colors.Orange);
-                }
-                else if (Status.StatusId == 2)
-                {
-                    _StatusColor = new SolidColorBrush(Colors.Red);
-                }
-                else if (Status.StatusId == 3)
-                {
-                    _StatusColor = new SolidColorBrush(Colors.Green);
-                }
-                return _StatusColor;
-            }
-        }
 
         public string IsEcoToString => Convert.ToBoolean(IsEco) ? "Sí" : "No";
 

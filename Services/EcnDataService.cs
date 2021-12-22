@@ -8,10 +8,10 @@ namespace ECN.Services
 {
     public class EcnDataService : IEcnDataService
     {
-        private readonly MyDbContext context = null;
+        private readonly ecnContext context = null;
         public EcnDataService()
         {
-            context = new MyDbContext();
+            context = new ecnContext();
         }
         public async Task<IEnumerable<Ecn>> GetHistoryAsync()
         {
@@ -19,7 +19,7 @@ namespace ECN.Services
             return GetHistory();
         }
 
-        public IEnumerable<Ecn> GetHistory()
+        private IEnumerable<Ecn> GetHistory()
         {
             return context.Ecns.Where(data => data.EmployeeId == 212).ToList();
         }
@@ -30,7 +30,7 @@ namespace ECN.Services
             await Task.CompletedTask;
             return GetChangeType(id);
         }
-        public Changetype GetChangeType(int id)
+        private Changetype GetChangeType(int id)
         {
             return context.Changetypes.Find(id);
         }
@@ -41,7 +41,7 @@ namespace ECN.Services
             return GetDocumentType(id);
         }
 
-        public Documenttype GetDocumentType(int id)
+        private Documenttype GetDocumentType(int id)
         {
             return context.Documenttypes.Find(id);
         }
@@ -52,7 +52,7 @@ namespace ECN.Services
             return GetStatus(id);
         }
 
-        public Status GetStatus(int id)
+        private Status GetStatus(int id)
         {
             return context.Statuses.Find(id);
         }
@@ -63,7 +63,7 @@ namespace ECN.Services
             return GetChangeTypes();
         }
 
-        public IEnumerable<Changetype> GetChangeTypes()
+        private IEnumerable<Changetype> GetChangeTypes()
         {
             return context.Changetypes.ToList();
         }
@@ -74,7 +74,7 @@ namespace ECN.Services
             return GetDocumentTypes();
         }
 
-        public IEnumerable<Documenttype> GetDocumentTypes()
+        private IEnumerable<Documenttype> GetDocumentTypes()
         {
             return context.Documenttypes.ToList();
         }
@@ -85,7 +85,7 @@ namespace ECN.Services
             return GetEcoTypes();
         }
 
-        public IEnumerable<EcoType> GetEcoTypes()
+        private IEnumerable<EcoType> GetEcoTypes()
         {
             return context.EcoTypes.ToList();
         }
@@ -105,7 +105,7 @@ namespace ECN.Services
             return GetEcnEco(id);
         }
 
-        public EcnEco GetEcnEco(int id)
+        private EcnEco GetEcnEco(int id)
         {
             EcnEco ecnEco = context.EcnEcos.First(i => i.IdEcn == id);
             ecnEco.EcoType = context.EcoTypes.Find(ecnEco.EcoTypeId);
@@ -118,14 +118,14 @@ namespace ECN.Services
             return GetEmployee(id);
         }
 
-        public Employee GetEmployee(int id)
+        private Employee GetEmployee(int id)
         {
             Employee employee = context.Employees.Find(id);
             employee.Department = context.Departments.Find(employee.DepartmentId);
             return employee;
         }
 
-        public IEnumerable<Employee> GetEmployees()
+        private IEnumerable<Employee> GetEmployees()
         {
             return context.Employees.ToList().Where(i => i.EmployeeId != 212);
         }
@@ -142,9 +142,53 @@ namespace ECN.Services
             return GetDepartment(id);
         }
 
-        public Department GetDepartment(int id)
+        private Department GetDepartment(int id)
         {
             return context.Departments.Find(id);
+        }
+
+        public async Task<ICollection<EcnAttachment>> GetAttachmentsAsync(int ecn)
+        {
+            await Task.CompletedTask;
+            return GetAttachments(ecn);
+        }
+
+        private ICollection<EcnAttachment> GetAttachments(int ecn)
+        {
+            return context.EcnAttachments.Where(i => i.EcnId == ecn).ToList();
+        }
+
+        public async Task<Attachment> GetAttachmentAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetAttachment(id);
+        }
+
+        private Attachment GetAttachment(int id)
+        {
+            return context.Attachments.Find(id);
+        }
+
+        public async Task<ICollection<EcnRevision>> GetRevisionsAsync(int ecn)
+        {
+            await Task.CompletedTask;
+            return GetRevisions(ecn);
+        }
+
+        private ICollection<EcnRevision> GetRevisions(int ecn)
+        {
+            return context.EcnRevisions.Where(i => i.EcnId == ecn).ToList();
+        }
+
+        public async Task<IEnumerable<Ecn>> GetEcnRecordsAsync()
+        {
+            await Task.CompletedTask;
+            return GetEcnRecords();
+        }
+
+        private IEnumerable<Ecn> GetEcnRecords()
+        {
+            return context.Ecns.ToList();
         }
     }
 }

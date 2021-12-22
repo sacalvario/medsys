@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
 
 #nullable disable
@@ -11,7 +11,6 @@ namespace ECN.Models
         {
             EcnAttachments = new HashSet<EcnAttachment>();
         }
-
         public Attachment(string ext)
         {
             EcnAttachments = new HashSet<EcnAttachment>();
@@ -22,10 +21,21 @@ namespace ECN.Models
         public string AttachmentPath { get; set; }
         public string AttachmentFilename { get; set; }
         public byte[] AttachmentFile { get; set; }
-        public string Extension { get; set; }
-        public string ImageLocation { get; set; }
 
-        public virtual ICollection<EcnAttachment> EcnAttachments { get; set; }
+        private string _Extension;
+        public string Extension 
+        {
+            get => _Extension;
+            set
+            {
+                if (_Extension != value)
+                {
+                    _Extension = value;
+                    ImageLocation = SetImage(_Extension);
+                }
+            }
+        }
+        public string ImageLocation { get; set; }
 
         private string SetImage(string ext)
         {
@@ -51,5 +61,7 @@ namespace ECN.Models
             }
             return $"/Assets/other.png";
         }
+
+        public virtual ICollection<EcnAttachment> EcnAttachments { get; set; }
     }
 }

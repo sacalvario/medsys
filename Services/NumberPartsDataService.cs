@@ -8,11 +8,11 @@ namespace ECN.Services
 {
     public class NumberPartsDataService : INumberPartsDataService
     {
-        private readonly MyDbContext context = null;
+        private readonly ecnContext context = null;
 
         public NumberPartsDataService()
         {
-            context = new MyDbContext();
+            context = new ecnContext();
         }
 
         public async Task<IEnumerable<Numberpart>> GetNumberPartsAsync()

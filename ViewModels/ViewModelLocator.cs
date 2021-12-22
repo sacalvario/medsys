@@ -39,6 +39,9 @@ namespace ECN.ViewModels
         public EmployeesViewModel EmployeesViewModel
             => SimpleIoc.Default.GetInstance<EmployeesViewModel>();
 
+        public EcnRecordsViewModel EcnRecordsViewModel
+            => SimpleIoc.Default.GetInstance<EcnRecordsViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -70,6 +73,7 @@ namespace ECN.ViewModels
             Register<HistoryViewModel, History>();
             Register<EcnViewModel, Views.Ecn>();
             Register<HistoryDetailsViewModel, HistoryDetails>();
+            Register<EcnRecordsViewModel, EcnRecords>();
         }
 
         private void Register<VM, V>()

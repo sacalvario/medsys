@@ -2,12 +2,8 @@
 using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Windows;
+using System.IO;
 
 namespace ECN.ViewModels
 {
@@ -44,6 +40,34 @@ namespace ECN.ViewModels
             }
         }
 
+        private ObservableCollection<Attachment> _Attachments;
+        public ObservableCollection<Attachment> Attachments
+        {
+            get => _Attachments;
+            set
+            {
+                if (_Attachments != value)
+                {
+                    _Attachments = value;
+                    RaisePropertyChanged("Attachments");
+                }
+            }
+        }
+
+        private ObservableCollection<EcnRevision> _Revisions;
+        public ObservableCollection<EcnRevision> Revisions
+        {
+            get => _Revisions;
+            set
+            {
+                if (_Revisions != value)
+                {
+                    _Revisions = value;
+                    RaisePropertyChanged("Revisions");
+                }
+            }
+        }
+
 
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService)
         {
@@ -64,8 +88,13 @@ namespace ECN.ViewModels
             {
                 Ecn = ecn;
             }
+
             NumberParts = new ObservableCollection<Numberpart>();
+            Attachments = new ObservableCollection<Attachment>();
+            Revisions = new ObservableCollection<EcnRevision>();
             GetNumberParts();
+            GetAttachments();
+            GetRevisions();
 
         }
 
@@ -81,6 +110,32 @@ namespace ECN.ViewModels
                 NumberParts.Add(np);
             }
 
+        }
+
+        private async void GetAttachments()
+        {
+            Ecn.EcnAttachments = await _ecnDataService.GetAttachmentsAsync(Ecn.Id);
+
+            foreach (var item in Ecn.EcnAttachments)
+            {
+                var attached = await _ecnDataService.GetAttachmentAsync(item.AttachmentId);
+                attached.Extension = Path.GetExtension(attached.AttachmentPath);
+                Attachments.Add(attached);
+            }
+
+        }
+
+        private async void GetRevisions()
+        {
+            Ecn.EcnRevisions = await _ecnDataService.GetRevisionsAsync(Ecn.Id);
+
+            foreach(var item in Ecn.EcnRevisions)
+            {
+                item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
+                item.Employee.Department = await _ecnDataService.GetDepartmentAsync(item.Employee.DepartmentId);
+                item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
+                Revisions.Add(item);
+            }
         }
     }
 }

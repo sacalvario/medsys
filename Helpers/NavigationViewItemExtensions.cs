@@ -17,6 +17,9 @@ namespace ModernWpf.Controls
                 case "Ecn":
                     return typeof(EcnViewModel);
 
+                case "Records":
+                    return typeof(EcnRecordsViewModel);
+
                 default:
                     return null;
             }

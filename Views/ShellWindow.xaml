@@ -61,13 +61,25 @@
                         <Label Content="Historial" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnRecordsECNs" Tag="Records" Margin="0, 3, 0, 0" >
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/records.png" Width="24" />
+                        <Label Content="Panel de Registros" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
+                    </StackPanel>
+                </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="ItemInvoked" >
                     <i:InvokeCommandAction Command="{Binding MenuItemInvokedCommand}" />
                 </i:EventTrigger>
             </i:Interaction.Triggers>
-            <Frame Name="shellFrame" NavigationUIVisibility="Hidden" Focusable="False"/>
+            <ui:Frame Name="shellFrame" Focusable="False" >
+                <ui:Frame.ContentTransitions>
+                    <ui:TransitionCollection>
+                        <ui:NavigationThemeTransition/>
+                    </ui:TransitionCollection>
+                </ui:Frame.ContentTransitions>
+            </ui:Frame>
         </ui:NavigationView>
     </DockPanel>
 

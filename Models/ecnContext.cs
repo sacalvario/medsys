@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace ECN.Models
 {
-    public partial class MyDbContext : DbContext
+    public partial class ecnContext : DbContext
     {
-        public MyDbContext()
+        public ecnContext()
         {
         }
 
-        public MyDbContext(DbContextOptions<MyDbContext> options)
+        public ecnContext(DbContextOptions<ecnContext> options)
             : base(options)
         {
         }
@@ -39,7 +39,7 @@ namespace ECN.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=localhost;user id=root;password=user;database=ecn", ServerVersion.Parse("8.0.27-mysql"));
+                optionsBuilder.UseMySql("server=localhost;user id=root;password=user;database=ecn", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.27-mysql"));
             }
         }
 
@@ -59,17 +59,16 @@ namespace ECN.Models
 
                 entity.Property(e => e.AttachmentFile)
                     .IsRequired()
-                    .HasColumnType("blob")
                     .HasColumnName("Attachment_FIle");
 
                 entity.Property(e => e.AttachmentFilename)
                     .IsRequired()
-                    .HasMaxLength(500)
+                    .HasMaxLength(1000)
                     .HasColumnName("Attachment_Filename");
 
                 entity.Property(e => e.AttachmentPath)
                     .IsRequired()
-                    .HasMaxLength(500)
+                    .HasMaxLength(1000)
                     .HasColumnName("Attachment_Path");
             });
 
@@ -371,6 +370,14 @@ namespace ECN.Models
 
                 entity.Property(e => e.Notes).HasMaxLength(500);
 
+                entity.Property(e => e.RevisionDate)
+                    .HasColumnType("date")
+                    .HasColumnName("Revision_Date");
+
+                entity.Property(e => e.RevisionHour)
+                    .HasColumnType("time")
+                    .HasColumnName("Revision_Hour");
+
                 entity.Property(e => e.StatusId).HasColumnName("Status_ID");
 
                 entity.HasOne(d => d.Ecn)
@@ -565,6 +572,7 @@ namespace ECN.Models
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.Extension);
+
             OnModelCreatingPartial(modelBuilder);
         }
 

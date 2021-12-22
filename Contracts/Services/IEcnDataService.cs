@@ -7,6 +7,7 @@ namespace ECN.Contracts.Services
     public interface IEcnDataService
     {
         Task<IEnumerable<Ecn>> GetHistoryAsync();
+        Task<IEnumerable<Ecn>> GetEcnRecordsAsync();
         Task<Changetype> GetChangeTypeAsync(int id);
         Task<Documenttype> GetDocumentTypeAsync(int id);
         Task<Status> GetStatusAsync(int id);
@@ -17,6 +18,9 @@ namespace ECN.Contracts.Services
         Task<IEnumerable<Documenttype>> GetDocumentTypesAsync();
         Task<IEnumerable<EcoType>> GetEcoTypesAsync();
         Task<Department> GetDepartmentAsync(int id);
+        Task<ICollection<EcnAttachment>> GetAttachmentsAsync(int ecn);
+        Task<Attachment> GetAttachmentAsync(int id);
+        Task<ICollection<EcnRevision>> GetRevisionsAsync(int ecn);
         void SaveEcn(Ecn ecn);
     }
 }
