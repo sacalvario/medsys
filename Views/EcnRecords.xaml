@@ -7,23 +7,142 @@
       DataContext="{Binding EcnRecordsViewModel, Source={StaticResource Locator}}"
       xmlns:local="clr-namespace:ECN.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="650" d:DesignWidth="1350"
       Title="EcnRecords">
 
+    <Page.Resources>
+
+        <DataTemplate x:Key="RowDetailsTemplate">
+            <StackPanel Background="#FFE0E0E0">
+                <TextBlock
+                    Margin="5, 5"
+                    Text="Detalles del ECN:" 
+                    FontSize="16"
+                    FontWeight="Black"/>
+                <Grid Margin="20, 10">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="3*" />
+                    </Grid.ColumnDefinitions>
+                    <StackPanel>
+                        <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}">
+                            <Run Text="Número de eco:" FontWeight="SemiBold" />
+                            <Run Text="{Binding EcnEco.IdEco}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}">
+                            <Run Text="Tipo de eco:" FontWeight="SemiBold" />
+                            <Run Text="{Binding EcnEco.EcoType.EcoTypeName}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" >
+                            <Run Text="Nivel de revisión actual del documento:" FontWeight="SemiBold" />
+                            <Run Text="{Binding DocumentLvl}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" >
+                            <Run Text="Nivel de revisión actual del dibujo:" FontWeight="SemiBold" />
+                            <Run Text="{Binding DrawingLvl}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" >
+                            <Run Text="Nivel de revisión anterior del documento:" FontWeight="SemiBold" />
+                            <Run Text="{Binding OldDocumentLvl}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15" >
+                            <Run Text="Nivel de revisión anterior del dibujo:" FontWeight="SemiBold" />
+                            <Run Text="{Binding OldDrawingLvl}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                    </StackPanel>
+                    <StackPanel Grid.Column="1">
+                        <TextBlock FontSize="15">
+                            <Run Text="Descripción del cambio:" FontWeight="SemiBold" />
+                            <Run Text="{Binding ChangeDescription}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15">
+                            <Run Text="Justificación del cambio:" FontWeight="SemiBold" />
+                            <Run Text="{Binding ChangeJustification}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                        <TextBlock FontSize="15">
+                            <Run Text="Afectactiones de manufactura:" FontWeight="SemiBold" />
+                            <Run Text="{Binding ManufacturingAffectations}" Foreground="Red" FontWeight="Bold"/>
+                        </TextBlock>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </DataTemplate>
+
+
+    </Page.Resources>
+
     <Grid Background="#FFE0E0E0">
-        <DataGrid ItemsSource="{Binding Records}" Margin="40" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" >
+        <DataGrid ItemsSource="{Binding Records}" Margin="40" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserDeleteRows="False" GridLinesVisibility="Horizontal" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
+            <DataGrid.ColumnHeaderStyle>
+                <Style TargetType="DataGridColumnHeader" >
+                    <Setter Property="Background" Value="Crimson" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="FontWeight" Value="Black"/>
+                    <Setter Property="FontSize" Value="15" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="SeparatorBrush" Value="White" />
+                    <Setter Property="SeparatorVisibility" Value="Visible" />
+                    <Setter Property="HorizontalContentAlignment" Value="Center" />
+                </Style>
+            </DataGrid.ColumnHeaderStyle>
+            <DataGrid.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Gray" />
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Folio" Width="80" SortMemberPath="Id">
+                <DataGridTemplateColumn Header="Folio" Width="165" SortMemberPath="Id">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <StackPanel Orientation="Horizontal" Margin="0, 10, 0, 10" HorizontalAlignment="Center">
-                                <TextBlock Text="{Binding Id}" FontSize="22" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0"/>
-                                <Image Source="/Assets/file.png" Width="28" Height="28"/>
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Id}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0"/>
+                                <Image Source="/Assets/file.png" Width="32" Height="32" Grid.Column="1"/>
+                                <Border Visibility="{Binding IsEcoVisibility}" Margin="12, 0" CornerRadius="10" Background="Red" Height="20" Width="45" VerticalAlignment="Center" Grid.Column="2">
+                                    <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                <DataGridTextColumn Header="Fecha de inicio" Binding="{Binding ShortDate}" SortMemberPath="StartDate" FontWeight="Bold" Width="140" />
+                <DataGridTextColumn Header="Tipo de cambio" Binding="{Binding ChangeType.ChangeTypeName}" SortMemberPath="ChangeType.ChangeTypeName" FontWeight="Bold" Width="130" />
+                <DataGridTextColumn Header="Tipo de documento" Binding="{Binding DocumentType.DocumentTypeName}" SortMemberPath="DocumentType.DocumentTypeName" FontWeight="Bold" Width="280" />
+                <DataGridTextColumn Header="Número de documento" Binding="{Binding DocumentNo}" SortMemberPath="DocumentNo" FontWeight="DemiBold" Width="200" />
+                <DataGridTextColumn Header="Nombre de documento" Binding="{Binding DocumentName}" SortMemberPath="DocumentName" FontWeight="DemiBold" Width="200" />
+                <DataGridTemplateColumn Header="Generado por" SortMemberPath="Employee.Name" Width="300">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <Image Source="/Assets/userblack.png" Margin="0, 5, 5, 0" Width="42" Height="42"/>
+                                <StackPanel Margin="0, 10, 5, 0">
+                                    <TextBlock Text="{Binding Employee.Name}"
+                                               FontWeight="Bold"/>
+                                    <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                               FontWeight="DemiBold"
+                                               FontStyle="Italic"
+                                               Foreground="Red"/>
+                                </StackPanel>
                             </StackPanel>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Fecha de inicio" Binding="{Binding LongDate}" FontStyle="Italic"/>
+                <DataGridTemplateColumn Header="Estatus" SortMemberPath="Status.StatusName" Width="200">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Border CornerRadius="10"
+                                    Background="{Binding Status.StatusColor}"
+                                    Height="25"
+                                    Width="105"
+                                    Margin="30, 20" >
+                                <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="16"/>
+                            </Border>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

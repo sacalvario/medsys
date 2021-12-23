@@ -65,6 +65,11 @@ namespace ECN.ViewModels
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
 
+                if (Convert.ToBoolean(item.IsEco))
+                {
+                    item.EcnEco = await _ecnDataService.GetEcnEcoAsync(item.Id);
+                }
+
                 Records.Add(item);
             }
         }

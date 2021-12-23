@@ -51,9 +51,11 @@ namespace ECN.Models
         public int Month => StartDate.Month;
         public string MonthName => System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(StartDate.Month);
         public int Day => StartDate.Day;
+        public string ShortDate => StartDate.ToShortDateString();
         public string LongDate => StartDate.ToLongDateString();
         public string LongEndDate => EndDate.ToLongDateString();
         public string LongDocumentUpgradeDate => DocumentUpgradeDate.ToLongDateString();
+        public string ShortDocumentUpgradeDate => DocumentUpgradeDate.ToShortDateString();
 
         private Visibility _IsEcoVisibility = Visibility.Collapsed;
         public Visibility IsEcoVisibility
@@ -74,6 +76,7 @@ namespace ECN.Models
         }
 
 
+        public bool Is_Eco => Convert.ToBoolean(IsEco);
         public string IsEcoToString => Convert.ToBoolean(IsEco) ? "Sí" : "No";
 
         public virtual Changetype ChangeType { get; set; }
