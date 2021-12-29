@@ -26,11 +26,11 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel>
                         <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}">
-                            <Run Text="Número de eco:" FontWeight="SemiBold" />
+                            <Run Text="Número de ECO:" FontWeight="SemiBold" />
                             <Run Text="{Binding EcnEco.IdEco}" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
                         <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}">
-                            <Run Text="Tipo de eco:" FontWeight="SemiBold" />
+                            <Run Text="Tipo de ECO:" FontWeight="SemiBold" />
                             <Run Text="{Binding EcnEco.EcoType.EcoTypeName}" Foreground="Red" FontWeight="Bold"/>
                         </TextBlock>
                         <TextBlock FontSize="15" >
@@ -68,11 +68,24 @@
             </StackPanel>
         </DataTemplate>
 
+        <DataTemplate x:Key="RowGroupHeaderTemplate">
+            <StackPanel
+                Orientation="Horizontal"
+                VerticalAlignment="Center">
+                <TextBlock
+                    Margin="4,0,0,0"
+                    Text="{Binding Name}"
+                    Style="{StaticResource BodyTextBlockStyle}" />
+                <TextBlock
+                    Margin="4,0,0,0"
+                    Style="{StaticResource BodyTextBlockStyle}" />
+            </StackPanel>
+        </DataTemplate>
 
     </Page.Resources>
 
     <Grid Background="#FFE0E0E0">
-        <DataGrid ItemsSource="{Binding Records}" Margin="40" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserDeleteRows="False" GridLinesVisibility="Horizontal" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
+        <DataGrid ItemsSource="{Binding EcnRecords.View}" Margin="40" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserDeleteRows="False" GridLinesVisibility="Horizontal" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader" >
                     <Setter Property="Background" Value="Crimson" />
@@ -144,6 +157,10 @@
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
-        </DataGrid>
+            <DataGrid.GroupStyle>
+                <GroupStyle ContainerStyle="{StaticResource DataGridRowGroupContainerStyle}"
+                            HeaderTemplate="{StaticResource RowGroupHeaderTemplate}"/>
+            </DataGrid.GroupStyle>
+            </DataGrid>
     </Grid>
 </Page>

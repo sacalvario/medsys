@@ -190,5 +190,16 @@ namespace ECN.Services
         {
             return context.Ecns.ToList();
         }
+
+        public async Task<IEnumerable<Ecn>> GetChecklistAsync()
+        {
+            await Task.CompletedTask;
+            return GetChecklist();
+        }
+
+        private IEnumerable<Ecn> GetChecklist()
+        {
+            return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5)).ToList();
+        }
     }
 }

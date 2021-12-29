@@ -93,7 +93,6 @@
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="#FFCFCFCF" />
                 <SolidColorBrush x:Key="{x:Static SystemColors.InactiveSelectionHighlightBrushKey}" Color="#FFCFCFCF" />
             </Style.Resources>
-            
         </Style>
 
     </Page.Resources>

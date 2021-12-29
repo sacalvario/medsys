@@ -42,6 +42,12 @@ namespace ECN.ViewModels
         public EcnRecordsViewModel EcnRecordsViewModel
             => SimpleIoc.Default.GetInstance<EcnRecordsViewModel>();
 
+        public ChecklistViewModel ChecklistViewModel
+            => SimpleIoc.Default.GetInstance<ChecklistViewModel>();
+
+        public ChecklistCheckViewModel ChecklistCheckViewModel
+            => SimpleIoc.Default.GetInstance<ChecklistCheckViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -74,6 +80,8 @@ namespace ECN.ViewModels
             Register<EcnViewModel, Views.Ecn>();
             Register<HistoryDetailsViewModel, HistoryDetails>();
             Register<EcnRecordsViewModel, EcnRecords>();
+            Register<ChecklistViewModel, Checklist>();
+            Register<ChecklistCheckViewModel, ChecklistCheck>();
         }
 
         private void Register<VM, V>()

@@ -24,6 +24,9 @@ namespace ECN.ViewModels
             {
                 Source = Records
             };
+
+            EcnRecords.GroupDescriptions.Add(new PropertyGroupDescription("ChangeType.ChangeTypeName"));
+
         }
 
         private ObservableCollection<Ecn> _Records;

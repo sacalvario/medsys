@@ -49,7 +49,7 @@
                         <Label Content="Nuevo" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnPendingECNs" Margin="0, 3, 0, 0" Tag="ContentGridDetail">
+                <ui:NavigationViewItem x:Name="btnPendingECNs" Margin="0, 3, 0, 0" Tag="Checklist">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/task2.png" Width="24" />
                         <Label Content="Checklist" FontSize="16" FontFamily="Quicksand Medium" Margin="10"/>

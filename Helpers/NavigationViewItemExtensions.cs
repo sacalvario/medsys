@@ -20,6 +20,9 @@ namespace ModernWpf.Controls
                 case "Records":
                     return typeof(EcnRecordsViewModel);
 
+                case "Checklist":
+                    return typeof(ChecklistViewModel);
+
                 default:
                     return null;
             }

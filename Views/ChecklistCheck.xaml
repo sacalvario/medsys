@@ -1,0 +1,135 @@
+﻿<Page x:Class="ECN.Views.ChecklistCheck"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:ui="http://schemas.modernwpf.com/2019"
+      DataContext="{Binding ChecklistCheckViewModel, Source={StaticResource Locator}}"
+      xmlns:local="clr-namespace:ECN.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1000"
+      Title="ChecklistCheck">
+
+    <Grid Background="#FFE0E0E0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="3*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="20, 15, 0, 0" >
+            <Image Source="/Assets/file96.png" Margin="20, 15, 5, 15" />
+            <StackPanel Margin="10">
+                <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
+                    <TextBlock FontSize="26" FontWeight="Black" >
+                        <Run Text="Folio" />
+                        <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
+                    </TextBlock>
+                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="20" Width="60" Margin="30, 10, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" d:IsLocked="True"/>
+                    </Border>
+                </StackPanel>
+                <TextBlock FontSize="16" >
+                    <Run Text="Fecha de inicio" />
+                    <Run Text="{Binding Ecn.LongDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+                <TextBlock FontSize="16"  >
+                    <Run Text="Fecha de cierre estimada"/>
+                    <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+            </StackPanel>
+        </StackPanel>
+
+        <ScrollViewer Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <ui:SimpleStackPanel Height="300" Width="550" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="40, 30" Spacing="10"  >
+                    <TextBlock FontSize="16" FontWeight="Black" Visibility="{Binding Ecn.IsEcoVisibility}" >
+                            <Run Text="Número de Eco"/>
+                            <Run Text="{Binding Ecn.EcnEco.IdEco}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" Visibility="{Binding Ecn.IsEcoVisibility}">
+                            <Run Text="Tipo de Eco"/>
+                            <Run Text="{Binding Ecn.EcnEco.EcoType.EcoTypeName}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Tipo de cambio"/>
+                            <Run Text="{Binding Ecn.ChangeType.ChangeTypeName}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Tipo de documento"/>
+                            <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Número de documento"/>
+                            <Run Text="{Binding Ecn.DocumentNo}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nombre de documento"/>
+                            <Run Text="{Binding Ecn.DocumentName}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Fecha de actualización del documento"/>
+                            <Run Text="{Binding Ecn.LongDocumentUpgradeDate, Mode=OneWay}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel de revisión del documento"/>
+                            <Run Text="{Binding Ecn.DocumentLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel de revisión del dibujo"/>
+                            <Run Text="{Binding Ecn.DrawingLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel anterior de revisión del documento"/>
+                            <Run Text="{Binding Ecn.OldDocumentLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                    <TextBlock FontSize="15" FontWeight="Black" >
+                            <Run Text="Nivel anterior de revisión del dibujo"/>
+                            <Run Text="{Binding Ecn.OldDrawingLvl, Mode=OneWay}" Foreground="#FFF1223F"/>
+                    </TextBlock>
+                </ui:SimpleStackPanel>
+                <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" VerticalAlignment="Top" Width="350" Margin="0, 20, 0, 0" Height="300" Background="LightGray" IsSelectionEnabled="False"  >
+                    <ui:ListView.ItemTemplate>
+                        <DataTemplate >
+                            <Grid Margin="0, 5">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Image Source="/Assets/wire.png"
+                                       Grid.RowSpan="2"
+                                       Width="40"
+                                       Height="40"
+                                       Margin="6"
+                                       VerticalAlignment="Center"
+                                       HorizontalAlignment="Center" />
+                                <TextBlock Grid.Column="1"
+                                           Text="{Binding NumberPartId, Mode=OneTime}"
+                                           FontWeight="Black"
+                                           Margin="12,6,0,0" 
+                                           FontSize="16"/>
+                                <TextBlock Grid.Column="1"
+                                           Grid.Row="1"
+                                           Text="{Binding Customer.CustomerName, Mode=OneTime}"
+                                           FontWeight="Black"
+                                           Margin="12,0,0,6"
+                                           FontSize="16"
+                                           Foreground="Red"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ui:ListView.ItemTemplate>
+                </ui:ListView>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
