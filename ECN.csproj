@@ -12,6 +12,7 @@
     <None Remove="Assets\checkgreen.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
+    <None Remove="Assets\electric.png" />
     <None Remove="Assets\excel2.png" />
     <None Remove="Assets\file.png" />
     <None Remove="Assets\file96.png" />
@@ -31,6 +32,7 @@
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\view.png" />
+    <None Remove="Assets\wire-white.png" />
     <None Remove="Assets\wire.png" />
     <None Remove="Assets\word.png" />
   </ItemGroup>
@@ -66,6 +68,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\electric.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\excel2.png">
@@ -117,6 +122,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\view.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\wire-white.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\wire.png">
