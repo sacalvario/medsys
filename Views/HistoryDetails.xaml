@@ -7,7 +7,7 @@
       xmlns:local="clr-namespace:ECN.Views"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="700" d:DesignWidth="1300"
+      d:DesignHeight="850" d:DesignWidth="1400"
       Title="HistoryDetails">
 
     <Page.Resources>
@@ -19,7 +19,7 @@
                 <Setter Property="FontStyle" Value="Italic"/>
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style.Setters>
@@ -27,12 +27,13 @@
 
         <Style x:Key="TextStylePropertyName" TargetType="{x:Type TextBlock}">
             <Style.Setters>
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="FontWeight" Value="Normal" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontStyle" Value="Normal" />
+                <Setter Property="FontStyle" Value="Italic" />
                 <Setter Property="Margin" Value="10" />
                 <Setter Property="Foreground" Value="GhostWhite" />
+                <Setter Property="FontFamily" Value="Arial" />
             </Style.Setters>
         </Style>
 
@@ -71,37 +72,37 @@
                     <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
                 <Grid>
-                    <Grid VerticalAlignment="Top" HorizontalAlignment="Left" Margin="0, 60, 0, 0" >
+                    <Grid Margin="0, 40, 0, 0"  Height="Auto">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="290" />
                             <ColumnDefinition Width="600" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
-                            <RowDefinition />
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Rectangle Fill="#FFE20000" Stroke="LightGray"/>
-                        <Rectangle Grid.Row="1" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="2" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="3" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="4" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="5" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="6" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Row="7" Stroke="LightGray" Fill="#FFE20000"/>
-                        <Rectangle Grid.Column="1"  Stroke="LightGray" Fill="#FFF0EEEE" />
-                        <Rectangle Grid.Column="1" Grid.Row="1" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="2" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="3" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="4" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="5" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="6" Stroke="LightGray" Fill="#FFF0EEEE"/>
-                        <Rectangle Grid.Column="1" Grid.Row="7" Stroke="LightGray" Fill="#FFF0EEEE"/>
+                        <Border Background="#FFE20000" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="1" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="2" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="3" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="4" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="5" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="6" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="7" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent"  />
+                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="4" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="5" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="6" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                        <Border Grid.Column="1" Grid.Row="7" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
                         <TextBlock Text="Tipo de cambio" Style="{StaticResource TextStylePropertyName}" />
                         <TextBlock Text="Tipo de documento" Grid.Row="1" Style="{StaticResource TextStylePropertyName}"/>
                         <TextBlock Text="Número de documento" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
@@ -167,19 +168,26 @@
                 <TabItem.Header>
                     <TextBlock Text="Números de parte" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ui:ListView ItemsSource="{Binding NumberParts}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray" IsSelectionEnabled="False"  >
+                <ui:ListView ItemsSource="{Binding NumberParts}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="850" Height="Auto" IsSelectionEnabled="False"  >
                     <ui:ListView.ItemTemplate>
                         <DataTemplate >
-                            <Grid Margin="0, 5">
+                            <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="800" />
                                 </Grid.ColumnDefinitions>
-                                <Image Source="/Assets/wire.png"
+                                <Rectangle Stroke="LightGray" 
+                                           Fill="#FFE20000"
+                                           Grid.RowSpan="2"/>
+                                <Rectangle Stroke="LightGray" 
+                                           Fill="Transparent"
+                                           Grid.Column="1"
+                                           Grid.RowSpan="2"/>
+                                <Image Source="/Assets/wire-white.png"
                                        Grid.RowSpan="2"
                                        Width="40"
                                        Height="40"
@@ -207,14 +215,18 @@
                 <TabItem.Header>
                     <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ui:ListView ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="0, 20, 0, 0" Height="Auto" Background="LightGray" IsSelectionEnabled="False"  >
+                <ui:ListView ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" IsSelectionEnabled="False"  >
                     <ui:ListView.ItemTemplate>
                         <DataTemplate >
-                            <Grid Margin="0, 5">
+                            <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="850" />
                                 </Grid.ColumnDefinitions>
+                                <Rectangle Stroke="LightGray" 
+                                           Fill="Transparent"
+                                           Grid.Column="1"
+                                           Grid.RowSpan="2"/>
                                 <Image Source="{Binding ImageLocation}"
                                        Width="38"
                                        Height="38"

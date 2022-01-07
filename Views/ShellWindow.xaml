@@ -36,7 +36,7 @@
         </DockPanel>
 
 
-        <ui:NavigationView Name="nv" IsBackButtonVisible="Visible" IsBackEnabled="True" PaneDisplayMode="LeftCompact" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" >
+        <ui:NavigationView Name="nv" PaneDisplayMode="LeftCompact" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" >
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem x:Name="btnDashBoard" Margin="0, 3, 0, 0" Tag="DataGrid">
                     <StackPanel Orientation="Horizontal">

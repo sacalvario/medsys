@@ -201,5 +201,20 @@ namespace ECN.Services
         {
             return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5)).ToList();
         }
+
+        private List<Employee> AMEF()
+        {
+            List<Employee> AMEF = new List<Employee>();
+            AMEF.Add(context.Employees.Find(126));
+            AMEF.Add(context.Employees.Find(137));
+            AMEF.Add(context.Employees.Find(92));
+            AMEF.Add(context.Employees.Find(8));
+            AMEF.Add(context.Employees.Find(108));
+            AMEF.Add(context.Employees.Find(39));
+            AMEF.Add(context.Employees.Find(2246));
+            AMEF.Add(context.Employees.Find(198));
+            AMEF.Add(context.Employees.Find(119));
+            return AMEF;
+        }
     }
 }

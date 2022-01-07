@@ -18,7 +18,7 @@
                 <Setter Property="FontStyle" Value="Italic"/>
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
                 <Setter Property="Margin" Value="10"/>
                 <Setter Property="TextWrapping" Value="Wrap"/>
             </Style.Setters>
@@ -26,12 +26,13 @@
 
         <Style x:Key="TextStylePropertyName" TargetType="{x:Type TextBlock}">
             <Style.Setters>
-                <Setter Property="FontSize" Value="15" />
-                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property="FontSize" Value="14" />
+                <Setter Property="FontWeight" Value="SemiBold" />
                 <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontStyle" Value="Normal" />
+                <Setter Property="FontStyle" Value="Italic" />
                 <Setter Property="Margin" Value="10" />
                 <Setter Property="Foreground" Value="GhostWhite" />
+                <Setter Property="FontFamily" Value="Arial" />
             </Style.Setters>
         </Style>
     </Page.Resources>
@@ -47,10 +48,13 @@
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
                     <TextBlock FontSize="26" FontWeight="Black" >
                         <Run Text="Folio" />
-                        <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
+                        <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F" />
                     </TextBlock>
-                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="20" Width="60" Margin="30, 10, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
-                        <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" d:IsLocked="True"/>
+                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="95" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="17" >
+                            <Run Text="ECO:"/>
+                            <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
+                        </TextBlock>
                     </Border>
                 </StackPanel>
                 <TextBlock FontSize="16" >
@@ -67,17 +71,17 @@
         <ScrollViewer Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1000" />
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid Margin="40, 40, 0, 0" >
+                <Grid Margin="40, 40, 0, 0" Height="Auto" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="290" />
-                            <ColumnDefinition Width="600" />
+                            <ColumnDefinition Width="500" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition />
@@ -89,22 +93,22 @@
                             <RowDefinition />
                             <RowDefinition />
                         </Grid.RowDefinitions>
-                    <Border Background="#FFE20000" BorderBrush="White" BorderThickness="0, 0, 0, 1" />
-                    <Border Background="#FFE20000" Grid.Row="1" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="2" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="3" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="4" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="5" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="6" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Background="#FFE20000" Grid.Row="7" BorderBrush="White" BorderThickness="0, 0, 0, 1"/>
-                    <Border Grid.Column="1" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="1" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="2" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="3" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="4" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="5" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="6" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
-                    <Border Grid.Column="1" Grid.Row="7" BorderBrush="Gray" BorderThickness="0, 0, 0, 1" Background="#FFE6E6E6" />
+                    <Border Background="#FFE20000" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="1" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="2" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="3" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="4" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="5" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="6" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Background="#FFE20000" Grid.Row="7" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                    <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent"  />
+                    <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="3" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="4" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="5" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="6" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                    <Border Grid.Column="1" Grid.Row="7" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
                     <TextBlock Text="Tipo de cambio" Style="{StaticResource TextStylePropertyName}" />
                         <TextBlock Text="Tipo de documento" Grid.Row="1" Style="{StaticResource TextStylePropertyName}"/>
                         <TextBlock Text="Número de documento" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
@@ -122,7 +126,8 @@
                         <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
                         <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
                     </Grid>
-                <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" VerticalAlignment="Top" Width="350" Margin="0, 40, 0, 0" Height="320" Background="#FFE0DCDC" IsSelectionEnabled="False"  >
+                <TextBlock Grid.Column="1" HorizontalAlignment="Center" Margin="0, 5, 0, 0"  Text="Números de parte" FontWeight="Black" FontSize="17"/>
+                <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" VerticalAlignment="Top" Width="300" Margin="0, 40, 0, 0" Height="270" IsSelectionEnabled="False"  >
                     <ui:ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid HorizontalAlignment="Stretch">
@@ -131,8 +136,8 @@
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="250" />
                                 </Grid.ColumnDefinitions>
                                 <Rectangle Stroke="LightGray" 
                                            Fill="#FFE20000"
@@ -164,14 +169,19 @@
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>
                 </ui:ListView>
-                <ui:ListView ItemsSource="{Binding Attachments}" Grid.Row="1" VerticalAlignment="Top" Width="900" Margin="0, 50, 0, 0" Height="Auto" Background="#FFEAE6E6" IsSelectionEnabled="False"  >
+                <TextBlock Grid.Row="1" HorizontalAlignment="Center" Margin="0, 70, 0, 0" Text="Adjuntos" FontWeight="Black" FontSize="17" />
+                <ui:ListView ItemsSource="{Binding Attachments}" Grid.Row="1" VerticalAlignment="Top" Width="700" Margin="40, 100, 0, 0" Height="Auto" IsSelectionEnabled="False"  >
                     <ui:ListView.ItemTemplate>
                         <DataTemplate >
-                            <Grid Margin="0, 5">
+                            <Grid HorizontalAlignment="Stretch">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="50" />
+                                    <ColumnDefinition Width="850" />
                                 </Grid.ColumnDefinitions>
+                                <Rectangle Stroke="LightGray" 
+                                           Fill="Transparent"
+                                           Grid.Column="1"
+                                           Grid.RowSpan="2"/>
                                 <Image Source="{Binding ImageLocation}"
                                        Width="38"
                                        Height="38"
@@ -188,6 +198,48 @@
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>
                 </ui:ListView>
+                <Grid Grid.Row="1" Grid.Column="1" Width="300"  Margin="40, 20, 0, 0" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Revisión del documento" FontSize="15" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="{Binding Ecn.OldDocumentLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
+                        <TextBlock Text="Revisión anterior" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                    <Image Grid.Row="1" Grid.Column="1" Source="/Assets/rightred.png" Width="32" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Grid.Column="2">
+                        <TextBlock Text="{Binding Ecn.DocumentLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
+                        <TextBlock Text="Revisión nueva" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
+                <Grid  Grid.Row="1" Grid.Column="1" Margin="40, 150 , 0, 0" Width="300" VerticalAlignment="Top">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="3*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Revisión del dibujo" FontSize="15" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="{Binding Ecn.OldDrawingLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
+                        <TextBlock Text="Revisión anterior" HorizontalAlignment="Center" />
+                    </StackPanel>
+                    <Image Grid.Row="1" Grid.Column="1" Source="/Assets/rightred.png" Width="32" VerticalAlignment="Center"/>
+                    <StackPanel Grid.Row="1" Grid.Column="2">
+                        <TextBlock Text="{Binding Ecn.DrawingLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
+                        <TextBlock Text="Revisión nueva" HorizontalAlignment="Center" />
+                    </StackPanel>
+                </Grid>
             </Grid>
         </ScrollViewer>
     </Grid>
