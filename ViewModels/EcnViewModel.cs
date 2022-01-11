@@ -146,7 +146,7 @@ namespace ECN.ViewModels
         {
             if (ECN != null)
             {
-                ECN.EmployeeId = 212;
+                ECN.EmployeeId = UserRecord.Employee_ID;
                 ECN.StatusId = 1;
                 ECN.ChangeType = SelectedChangeType;
                 ECN.DocumentType = SelectedDocumentType;
@@ -434,6 +434,21 @@ namespace ECN.ViewModels
                 {
                     _SelectedDocumentType = value;
                     RaisePropertyChanged("SelectedDocumentType");
+
+                    if (SelectedChangeType != null && SelectedDocumentType != null)
+                    {
+                        if (SelectedDocumentType.DocumentTypeId == 17 || SelectedDocumentType.DocumentTypeId == 5 || SelectedDocumentType.DocumentTypeId == 15)
+                        {
+                            SelectedForSign = SelectedChangeType.ChangeTypeId == 1 || SelectedChangeType.ChangeTypeId == 2
+                                ? new ObservableCollection<Employee>(_ecnDataService.GetAMEF())
+                                : new ObservableCollection<Employee>(_ecnDataService.GetAMEFAlta());
+                        }
+                        else if (SelectedDocumentType.DocumentTypeId == 12)
+                        {
+                            SelectedForSign = new ObservableCollection<Employee>(_ecnDataService.GetManualdeCalidad());
+                        }
+                    }
+
                 }
             }
         }

@@ -16,6 +16,7 @@ namespace ECN.Services
     {
         private readonly INavigationService _navigationService;
         private IShellWindow _shellWindow;
+        private ILoginWindow _loginWindow;
         private bool _isInitialized;
 
         public ApplicationHostService(INavigationService navigationService)
@@ -68,13 +69,12 @@ namespace ECN.Services
 
             await Task.CompletedTask;
 
-            if (App.Current.Windows.OfType<IShellWindow>().Count() == 0)
+            if (App.Current.Windows.OfType<ILoginWindow>().Count() == 0)
             {
                 // Default activation that navigates to the apps default page
-                _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
-                _navigationService.Initialize(_shellWindow.GetNavigationFrame());
-                _shellWindow.ShowWindow();
-                _navigationService.NavigateTo(typeof(MainViewModel).FullName);
+                _loginWindow = SimpleIoc.Default.GetInstance<ILoginWindow>(Guid.NewGuid().ToString());
+                _loginWindow.ShowWindow();
+
                 await Task.CompletedTask;
             }
         }

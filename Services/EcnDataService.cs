@@ -21,7 +21,7 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetHistory()
         {
-            return context.Ecns.Where(data => data.EmployeeId == 212).ToList();
+            return context.Ecns.Where(data => data.EmployeeId == UserRecord.Employee_ID).ToList();
         }
 
 
@@ -127,7 +127,7 @@ namespace ECN.Services
 
         private IEnumerable<Employee> GetEmployees()
         {
-            return context.Employees.ToList().Where(i => i.EmployeeId != 212);
+            return context.Employees.ToList().Where(i => i.EmployeeId != UserRecord.Employee_ID);
         }
 
         public async Task<IEnumerable<Employee>> GetEmployeesAsync()
@@ -199,22 +199,99 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetChecklist()
         {
-            return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5)).ToList();
+            return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5 && j.EmployeeId == UserRecord.Employee_ID)).ToList();
         }
 
         private List<Employee> AMEF()
         {
-            List<Employee> AMEF = new List<Employee>();
-            AMEF.Add(context.Employees.Find(126));
-            AMEF.Add(context.Employees.Find(137));
-            AMEF.Add(context.Employees.Find(92));
-            AMEF.Add(context.Employees.Find(8));
-            AMEF.Add(context.Employees.Find(108));
-            AMEF.Add(context.Employees.Find(39));
-            AMEF.Add(context.Employees.Find(2246));
-            AMEF.Add(context.Employees.Find(198));
-            AMEF.Add(context.Employees.Find(119));
+            List<Employee> AMEF = new List<Employee>
+            {
+                context.Employees.Find(126),
+                context.Employees.Find(137),
+                context.Employees.Find(92),
+                context.Employees.Find(8),
+                context.Employees.Find(108),
+                context.Employees.Find(39),
+                context.Employees.Find(2246),
+                context.Employees.Find(198),
+                context.Employees.Find(119)
+            };
+
+            var data = AMEF;
+
+            foreach (var item in data)
+            {
+                item.Department = context.Departments.Find(item.DepartmentId);
+            }
+
             return AMEF;
+        }
+
+        private List<Employee> AMEFAlta()
+        {
+            List<Employee> AMEF = new List<Employee>
+            {
+                context.Employees.Find(117),
+                context.Employees.Find(2246),
+                context.Employees.Find(119)
+            };
+
+            var data = AMEF;
+
+            foreach (var item in data)
+            {
+                item.Department = context.Departments.Find(item.DepartmentId);
+            }
+
+            return AMEF;
+        }
+
+        private List<Employee> ManualdeCalidad()
+        {
+            List<Employee> QualityManual = new List<Employee>
+            {
+                context.Employees.Find(119),
+                context.Employees.Find(31)
+            };
+
+            var data = QualityManual;
+
+            foreach (var item in data)
+            {
+                item.Department = context.Departments.Find(item.DepartmentId);
+            }
+
+            return QualityManual;
+        }
+
+        public List<Employee> GetAMEF()
+        {
+            return AMEF();
+        }
+
+        public List<Employee> GetAMEFAlta()
+        {
+            return AMEFAlta();
+        }
+
+        public List<Employee> GetManualdeCalidad()
+        {
+            return ManualdeCalidad();
+        }
+
+        public void SignEcn(Ecn ecn)
+        {
+            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+            revision.StatusId = 4;
+            revision.RevisionDate = System.DateTime.Today;
+            revision.RevisionHour = System.DateTime.Now.TimeOfDay;
+            revision.Notes = "Firmado";
+
+            EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+            if (nextrevision != null)
+                nextrevision.StatusId = 5;
+
+            context.SaveChanges();
         }
     }
 }

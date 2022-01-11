@@ -28,7 +28,7 @@
                                 <Run Text="{Binding EmployeeFirstName}"/>
                                 <Run Text="{Binding EmployeeLastName}"/>
                 </TextBlock>
-                <TextBlock Text="{Binding Department.DepartmentName}" Grid.Column="1" Grid.Row="1" FontSize="15" Foreground="Red" FontWeight="DemiBold" FontStyle="Italic"/>
+                <TextBlock Text="{Binding Department.DepartmentName}" Grid.Column="1" Grid.Row="1" FontSize="15" Foreground="Red" FontWeight="Bold"/>
                 <TextBlock Grid.Column="1" Grid.Row="2" FontSize="14" Margin="0, 2, 0, 0" >
                                 <Run Text="No. de Empleado:" Foreground="Black" FontWeight="Normal" />
                                 <Run Text="{Binding EmployeeId}" Foreground="Red" FontWeight="Black" />

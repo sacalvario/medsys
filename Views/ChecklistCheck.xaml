@@ -68,6 +68,8 @@
             </StackPanel>
         </StackPanel>
 
+        <Button Command="{Binding SignCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="600, 50, 0, 0" Width="150" Content="Firmar" Background="Red" Foreground="White"/>
+
         <ScrollViewer Grid.Row="1">
             <Grid>
                 <Grid.ColumnDefinitions>

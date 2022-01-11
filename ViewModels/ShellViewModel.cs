@@ -2,7 +2,7 @@
 using System.Windows.Input;
 
 using ECN.Contracts.Services;
-
+using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
@@ -19,8 +19,8 @@ namespace ECN.ViewModels
         private ICommand _loadedCommand;
         private ICommand _unloadedCommand;
 
-        public string Name => "Simón Alejandro Calvario Reyes";
-        public string Department => "Ingenieria";
+        public string Name => UserRecord.Employee.EmployeeFirstName + " " + UserRecord.Employee.EmployeeLastName;
+        public string Department => UserRecord.Employee.Department.DepartmentName;
 
         public NavigationViewItem SelectedMenuItem
         {

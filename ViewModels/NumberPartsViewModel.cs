@@ -55,6 +55,21 @@ namespace ECN.ViewModels
             CvsNumberParts.View.Refresh();
         }
 
+        private Numberpart _SelectedNumberPart;
+        public Numberpart SelectedNumberPart
+        {
+            get => _SelectedNumberPart;
+            set
+            {
+                if (_SelectedNumberPart != value)
+                {
+                    _SelectedNumberPart = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
         {

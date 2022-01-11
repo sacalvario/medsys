@@ -10,8 +10,7 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"
-    MinWidth="900"
-    MinHeight="850"
+    WindowState="Maximized"
     WindowStartupLocation="CenterScreen">
 
     <!--<i:Interaction.Triggers>
@@ -75,11 +74,6 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
             <ui:Frame Name="shellFrame" Focusable="False" >
-                <ui:Frame.ContentTransitions>
-                    <ui:TransitionCollection>
-                        <ui:NavigationThemeTransition/>
-                    </ui:TransitionCollection>
-                </ui:Frame.ContentTransitions>
             </ui:Frame>
         </ui:NavigationView>
     </DockPanel>

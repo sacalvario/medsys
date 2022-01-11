@@ -2,6 +2,7 @@
 using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -23,6 +24,19 @@ namespace ECN.ViewModels
                     _ecn = value;
                     RaisePropertyChanged("Ecn");
                 }
+            }
+        }
+
+        private RelayCommand _SignCommand;
+        public RelayCommand SignCommand
+        {
+            get
+            {
+                if (_SignCommand == null)
+                {
+                    _SignCommand = new RelayCommand(SignEcn);
+                }
+                return _SignCommand;
             }
         }
 
@@ -96,6 +110,11 @@ namespace ECN.ViewModels
             GetAttachments();
             GetRevisions();
 
+        }
+
+        private void SignEcn()
+        {
+            _ecnDataService.SignEcn(Ecn);
         }
 
         private async void GetNumberParts()
