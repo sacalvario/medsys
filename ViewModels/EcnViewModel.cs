@@ -11,6 +11,7 @@ using System.Windows;
 using System.IO;
 using System.Windows.Data;
 using System.ComponentModel;
+using System.Collections.Specialized;
 
 namespace ECN.ViewModels
 {
@@ -140,6 +141,14 @@ namespace ECN.ViewModels
             TxtEcoVisibility = Visibility.Hidden;
             CbEcoTypeVisibility = Visibility.Hidden;
             BtnRemoveAttachedVisibility = Visibility.Collapsed;
+
+        }
+        private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                MessageBox.Show("Cambio");
+            }
         }
 
         private void SaveECN()
@@ -481,6 +490,14 @@ namespace ECN.ViewModels
             }
         }
 
+        public int CountSelectedForSign
+        {
+            get => SelectedForSign.Count;
+            set
+            {
+
+            }
+        }
 
         public async void GetChangeTypes()
         {

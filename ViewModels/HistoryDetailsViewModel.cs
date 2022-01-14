@@ -2,6 +2,7 @@
 using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.IO;
 
@@ -68,6 +69,34 @@ namespace ECN.ViewModels
             }
         }
 
+        private Attachment _SelectedAttachment;
+        public Attachment SelectedAttachment
+        {
+            get => _SelectedAttachment;
+            set
+            {
+                if (_SelectedAttachment != value)
+                {
+                    _SelectedAttachment = value;
+                    RaisePropertyChanged();
+                }
+            }
+        }
+
+        private RelayCommand _DownloadAttachmentCommand;
+        public RelayCommand DownloadAttachmentCommand
+        {
+            get
+            {
+                if (_DownloadAttachmentCommand == null)
+                {
+                    _DownloadAttachmentCommand = new RelayCommand(DownloadAttachment);
+                }
+                return _DownloadAttachmentCommand;
+            }
+        }
+
+        
 
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService)
         {
@@ -136,6 +165,11 @@ namespace ECN.ViewModels
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 Revisions.Add(item);
             }
+        }
+
+        private void DownloadAttachment()
+        {
+            File.WriteAllBytes(@"C:\Development\Adjuntos\" + SelectedAttachment.AttachmentFilename + SelectedAttachment.Extension, SelectedAttachment.AttachmentFile);
         }
     }
 }

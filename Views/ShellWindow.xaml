@@ -10,7 +10,8 @@
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
     mc:Ignorable="d"
-    WindowState="Maximized"
+    Width="1366"
+    Height="768"
     WindowStartupLocation="CenterScreen">
 
     <!--<i:Interaction.Triggers>
@@ -27,15 +28,15 @@
             <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" VerticalAlignment="Center" Margin="10"/>
             <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" HorizontalAlignment="Right" Margin="5">
                 <StackPanel Margin="6">
-                    <TextBlock Text="{Binding Name}" FontFamily="Quicksand Medium" FontSize="15" Foreground="White" />
-                    <TextBlock Text="{Binding Department}" FontFamily="Quicksand Medium" Foreground="#FFF4FF00" HorizontalAlignment="Right" FontSize="15" />
+                    <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" /> 
+                    <TextBlock Text="{Binding Department}" Foreground="White" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
                 </StackPanel>
                 <Image Source="/Assets/user2white.png" Width="32" Margin="5, 0, 5, 0"/>
             </StackPanel>
         </DockPanel>
 
 
-        <ui:NavigationView Name="nv" PaneDisplayMode="LeftCompact" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}" >
+        <ui:NavigationView Name="nv" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem x:Name="btnDashBoard" Margin="0, 3, 0, 0" Tag="DataGrid">
                     <StackPanel Orientation="Horizontal">

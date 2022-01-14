@@ -215,7 +215,7 @@
                 <TabItem.Header>
                     <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ui:ListView ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" IsSelectionEnabled="False"  >
+                <ui:ListView Name="lvattachs" ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" SelectedItem="{Binding SelectedAttachment}"  >
                     <ui:ListView.ItemTemplate>
                         <DataTemplate >
                             <Grid>
@@ -239,6 +239,12 @@
                                            FontWeight="Black"
                                            Margin="12,6,0,0" 
                                            FontSize="15"/>
+                                <Button Grid.Column="1"
+                                        Margin="355, 6, 0, 0"
+                                        Content="Descargar"
+                                        Background="SeaGreen"
+                                        Foreground="White"
+                                        Command="{Binding ElementName=lvattachs, Path=DataContext.DownloadAttachmentCommand}"/>
                             </Grid>
                         </DataTemplate>
                     </ui:ListView.ItemTemplate>

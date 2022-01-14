@@ -10,6 +10,7 @@ namespace ECN.Views
         public ShellWindow()
         {
             InitializeComponent();
+
         }
 
         public Frame GetNavigationFrame()

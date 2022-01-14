@@ -31,6 +31,7 @@
     <None Remove="Assets\task2.png" />
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\userblack.png" />
+    <None Remove="Assets\userw.png" />
     <None Remove="Assets\view.png" />
     <None Remove="Assets\wire-white.png" />
     <None Remove="Assets\wire.png" />
@@ -120,6 +121,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\user2white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\userw.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\view.png">
