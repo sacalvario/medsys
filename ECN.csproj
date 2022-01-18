@@ -14,6 +14,7 @@
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\electric.png" />
     <None Remove="Assets\excel2.png" />
+    <None Remove="Assets\eye.png" />
     <None Remove="Assets\file.png" />
     <None Remove="Assets\file96.png" />
     <None Remove="Assets\historyred.png" />
@@ -76,6 +77,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\excel2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\eye.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\file.png">

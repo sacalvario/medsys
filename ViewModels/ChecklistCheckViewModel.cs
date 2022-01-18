@@ -138,7 +138,7 @@ namespace ECN.ViewModels
             foreach (var item in Ecn.EcnAttachments)
             {
                 var attached = await _ecnDataService.GetAttachmentAsync(item.AttachmentId);
-                attached.Extension = Path.GetExtension(attached.AttachmentPath);
+                attached.Extension = Path.GetExtension(attached.AttachmentFilename);
                 Attachments.Add(attached);
             }
 

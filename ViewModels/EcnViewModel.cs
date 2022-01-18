@@ -21,6 +21,7 @@ namespace ECN.ViewModels
         private readonly IEcnDataService _ecnDataService;
         private readonly IOpenFileService _openFileService;
         public Ecn ECN { get; set; }
+        public CollectionViewSource SelectedPersonsForSign { get; set; }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
         public RelayCommand OpenNumberPartsDialogCommand { get; set; }
@@ -123,6 +124,11 @@ namespace ECN.ViewModels
             Attacheds = new ObservableCollection<Attachment>();
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
+            Indexes = new ObservableCollection<int>();
+            SelectedPersonsForSign = new CollectionViewSource
+            {
+                Source = SelectedForSign
+            };
             SetData();
 
             GetChangeTypes();
@@ -142,12 +148,38 @@ namespace ECN.ViewModels
             CbEcoTypeVisibility = Visibility.Hidden;
             BtnRemoveAttachedVisibility = Visibility.Collapsed;
 
+            SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
+
         }
-        private void FullObservableCollectionCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void FullObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            if (e.NewItems != null)
+            //if (e.NewItems != null)
+            //{
+            //    if (e.NewStartingIndex == Indexes.Count)
+            //        Indexes.Add(1);
+            //}
+            //else if (e.OldItems != null)
+            //{
+            //    Indexes.RemoveAt(Indexes.Count - 1);
+            //}
+
+            foreach(var item in SelectedForSign)
             {
-                MessageBox.Show("Cambio");
+                item.Index = SelectedForSign.IndexOf(item) + 1;
+            }
+        }
+
+        private ObservableCollection<int> _Indexes;
+        public ObservableCollection<int> Indexes
+        {
+            get => _Indexes;
+            set
+            {
+                if (_Indexes != value)
+                {
+                    _Indexes = value;
+                    RaisePropertyChanged("Indexes");
+                }
             }
         }
 
@@ -244,7 +276,6 @@ namespace ECN.ViewModels
                 Attacheds.Add(new Attachment(Path.GetExtension(_openFileService.Path))
                 {
                     AttachmentFilename = _openFileService.FileName,
-                    AttachmentPath = _openFileService.Path,
                     AttachmentFile = File.ReadAllBytes(_openFileService.Path)
                 });
             }
@@ -286,7 +317,6 @@ namespace ECN.ViewModels
         {
             ECN.StartDate = DateTime.Now;
             ECN.EndDate = DateTime.Now.AddDays(30);
-            ECN.DocumentUpgradeDate = DateTime.Now;
             IsEco = false;
         }
 

@@ -24,6 +24,7 @@ namespace ECN.Models
         public virtual DbSet<Documenttype> Documenttypes { get; set; }
         public virtual DbSet<Ecn> Ecns { get; set; }
         public virtual DbSet<EcnAttachment> EcnAttachments { get; set; }
+        public virtual DbSet<EcnDocumenttype> EcnDocumenttypes { get; set; }
         public virtual DbSet<EcnEco> EcnEcos { get; set; }
         public virtual DbSet<EcnNumberpart> EcnNumberparts { get; set; }
         public virtual DbSet<EcnRevision> EcnRevisions { get; set; }
@@ -65,11 +66,6 @@ namespace ECN.Models
                     .IsRequired()
                     .HasMaxLength(1000)
                     .HasColumnName("Attachment_Filename");
-
-                entity.Property(e => e.AttachmentPath)
-                    .IsRequired()
-                    .HasMaxLength(1000)
-                    .HasColumnName("Attachment_Path");
             });
 
             modelBuilder.Entity<Changetype>(entity =>
@@ -163,12 +159,12 @@ namespace ECN.Models
 
                 entity.Property(e => e.ChangeDescription)
                     .IsRequired()
-                    .HasMaxLength(45)
+                    .HasMaxLength(1000)
                     .HasColumnName("Change_Description");
 
                 entity.Property(e => e.ChangeJustification)
                     .IsRequired()
-                    .HasMaxLength(45)
+                    .HasMaxLength(1000)
                     .HasColumnName("Change_Justification");
 
                 entity.Property(e => e.ChangeTypeId).HasColumnName("ChangeType_ID");
@@ -190,10 +186,6 @@ namespace ECN.Models
 
                 entity.Property(e => e.DocumentTypeId).HasColumnName("DocumentType_ID");
 
-                entity.Property(e => e.DocumentUpgradeDate)
-                    .HasColumnType("date")
-                    .HasColumnName("Document_UpgradeDate");
-
                 entity.Property(e => e.DrawingLvl)
                     .IsRequired()
                     .HasMaxLength(45)
@@ -209,7 +201,7 @@ namespace ECN.Models
 
                 entity.Property(e => e.ManufacturingAffectations)
                     .IsRequired()
-                    .HasMaxLength(45)
+                    .HasMaxLength(1000)
                     .HasColumnName("Manufacturing_Affectations");
 
                 entity.Property(e => e.OldDocumentLvl)
@@ -278,6 +270,33 @@ namespace ECN.Models
                     .HasForeignKey(d => d.EcnId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_id-ecn");
+            });
+
+            modelBuilder.Entity<EcnDocumenttype>(entity =>
+            {
+                entity.HasKey(e => new { e.EcnId, e.DocumentTypeId })
+                    .HasName("PRIMARY")
+                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+
+                entity.ToTable("ecn_documenttype");
+
+                entity.HasIndex(e => e.DocumentTypeId, "fk-id-documenttype_idx");
+
+                entity.Property(e => e.EcnId).HasColumnName("ECN_ID");
+
+                entity.Property(e => e.DocumentTypeId).HasColumnName("DocumentType_ID");
+
+                entity.HasOne(d => d.DocumentType)
+                    .WithMany(p => p.EcnDocumenttypes)
+                    .HasForeignKey(d => d.DocumentTypeId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk-id-documenttype");
+
+                entity.HasOne(d => d.Ecn)
+                    .WithMany(p => p.EcnDocumenttypes)
+                    .HasForeignKey(d => d.EcnId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("fk-id-ecn");
             });
 
             modelBuilder.Entity<EcnEco>(entity =>
@@ -371,7 +390,7 @@ namespace ECN.Models
                 entity.Property(e => e.Notes).HasMaxLength(500);
 
                 entity.Property(e => e.RevisionDate)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("Revision_Date");
 
                 entity.Property(e => e.RevisionHour)
@@ -566,12 +585,6 @@ namespace ECN.Models
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_employee_id_");
             });
-
-            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoVisibility);
-            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoToString);
-            _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
-            _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);
-            _ = modelBuilder.Entity<Attachment>().Ignore(t => t.Extension);
 
             OnModelCreatingPartial(modelBuilder);
         }

@@ -5,22 +5,29 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:dd="urn:gong-wpf-dragdrop"
-      xmlns:local="clr-namespace:ECN.Views"
+      xmlns:conv="clr-namespace:ECN.Converters"
       DataContext="{Binding EcnViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="768" d:DesignWidth="1366"
       Title="Ecn">
 
     <Page.Resources>
+
+        <conv:RowNumberConverter x:Key="RowNumberConverter" />
+
+        <CollectionViewSource x:Key="SelectedForSign" Source="{Binding SelectedPersonsForSign}" />
+
         <DataTemplate x:Key="RequiredHeaderTemplate">
             <TextBlock Text="{Binding}"
-                           FontSize="17" 
-                           FontFamily="Quicksand Medium"/>
+                       FontSize="17" 
+                       FontFamily="Quicksand"
+                       FontWeight="Medium"/>
         </DataTemplate>
         <DataTemplate x:Key="ToggleSwitchHeaderTemplate">
             <TextBlock Text="{Binding}"
                        FontSize="17"
-                       FontFamily="Quicksand Medium"/>
+                       FontFamily="Quicksand"
+                       FontWeight="Medium"/>
         </DataTemplate>
 
         <DataTemplate x:Key="NumberPartListViewTemplate">
@@ -630,56 +637,100 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center"> 
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Seleccionados para firmar"  FontSize="22" VerticalAlignment="Center"/>
-                            <Image Source="/Assets/signed_.png" Margin="5, 0, 0, 0" Height="42"/>
+                            <TextBlock Text="Seleccionados para firmar" FontFamily="Quicksand" FontWeight="Medium" FontSize="18" VerticalAlignment="Center"/>
+                            <Image Source="/Assets/signed_.png" Margin="5, 0, 0, 0" Height="36"/>
                         </StackPanel>
+                        <ui:ListView ItemsSource="{Binding SelectedForSign}" Margin="0, 15, 0, 0" Background="Transparent" Width="400" Height="400" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0, 5">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="250" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Stroke="LightGray" 
+                                                   Fill="Transparent"
+                                                   Grid.Column="2"
+                                                   Grid.RowSpan="2"/>
+                                        <StackPanel Grid.RowSpan="2" Orientation="Horizontal">
+                                            <TextBlock Text="{Binding Index}" FontSize="18" FontWeight="Black" VerticalAlignment="Center"/>
+                                            <Image Source="/Assets/userblack.png"
+                                                   Width="44"
+                                                   Height="44"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                        </StackPanel>
+                                        <TextBlock Grid.Column="2"
+                                                   Text="{Binding Name}"
+                                                   FontWeight="Black"
+                                                   Margin="5,0,0,0" 
+                                                   FontSize="16"
+                                                   VerticalAlignment="Bottom"/>
+                                        <TextBlock Grid.Column="2"
+                                                   Grid.Row="1"
+                                                   Text="{Binding Department.DepartmentName}"
+                                                   FontWeight="Black"
+                                                   FontStyle="Normal"
+                                                   Margin="5,0,0,0"
+                                                   FontSize="15"
+                                                   Foreground="Red"
+                                                   VerticalAlignment="Top"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </StackPanel>
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
-                            <ListBox Width="50" Background="Gainsboro" Height="500" Margin="0, 15, 0, 0">
-                                
-                            </ListBox>
-                            <ui:ListView ItemsSource="{Binding SelectedForSign}" Margin="0, 15, 0, 0" Background="Gainsboro" Width="450" Height="500" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
-                                <ui:ListView.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid HorizontalAlignment="Stretch">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="*" />
-                                                <RowDefinition Height="*" />
-                                            </Grid.RowDefinitions>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="50" />
-                                                <ColumnDefinition Width="250*" />
-                                            </Grid.ColumnDefinitions>
-                                            <Rectangle Stroke="LightGray" 
+                            <TextBlock Text="Seleccionados para visualizar" FontSize="18" VerticalAlignment="Center"/>
+                            <Image Source="/Assets/eye.png" Margin="5, 0, 0, 0" Height="36"/>
+                        </StackPanel>
+                        <ui:ListView ItemsSource="{Binding SelectedForView}" Margin="0, 15, 0, 0" Background="Gainsboro" Width="400" Height="400" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Stretch">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*" />
+                                            <RowDefinition Height="*" />
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="50" />
+                                            <ColumnDefinition Width="250*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Rectangle Stroke="LightGray" 
                                                    Fill="Transparent"
                                                    Grid.Column="1"
                                                    Grid.RowSpan="2"/>
-                                            <Image Source="/Assets/userblack.png"
+                                        <Image Source="/Assets/userblack.png"
                                                    Grid.RowSpan="2"
                                                    Width="40"
                                                    Height="40"
                                                    Margin="6"
                                                    VerticalAlignment="Center"
                                                    HorizontalAlignment="Center" />
-                                            <TextBlock Grid.Column="1"
-                                                       Text="{Binding Name, Mode=OneTime}"
-                                                       FontWeight="Black"
-                                                       Margin="12,6,0,0" 
-                                                       FontSize="16"/>
-                                            <TextBlock Grid.Column="1"
-                                                       Grid.Row="1"
-                                                       Text="{Binding Department.DepartmentName, Mode=OneTime}"
-                                                       FontWeight="DemiBold"
-                                                       FontStyle="Italic"
-                                                       Margin="12,0,0,6"
-                                                       FontSize="16"
-                                                       Foreground="Red"/>
-                                        </Grid>
-                                    </DataTemplate>
-                                </ui:ListView.ItemTemplate>
-                            </ui:ListView>
-                        </StackPanel>
+                                        <TextBlock Grid.Column="1"
+                                                   Text="{Binding Name, Mode=OneTime}"
+                                                   FontWeight="Black"
+                                                   Margin="12,6,0,0" 
+                                                   FontSize="16"/>
+                                        <TextBlock Grid.Column="1"
+                                                   Grid.Row="1"
+                                                   Text="{Binding Department.DepartmentName, Mode=OneTime}"
+                                                   FontWeight="DemiBold"
+                                                   FontStyle="Italic"
+                                                   Margin="12,0,0,6"
+                                                   FontSize="16"
+                                                   Foreground="Red"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
                     </StackPanel>
                     <Button x:Name="btnAddSignature" Grid.Column="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20, 60" Command="{Binding OpenSignatureFlowDialogCommand}">
                         <StackPanel Orientation="Horizontal">

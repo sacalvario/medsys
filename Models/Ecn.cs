@@ -12,6 +12,7 @@ namespace ECN.Models
         public Ecn()
         {
             EcnAttachments = new HashSet<EcnAttachment>();
+            EcnDocumenttypes = new HashSet<EcnDocumenttype>();
             EcnNumberparts = new HashSet<EcnNumberpart>();
             EcnRevisions = new HashSet<EcnRevision>();
         }
@@ -38,9 +39,8 @@ namespace ECN.Models
         public string DocumentName { get; set; }
         public string DocumentLvl { get; set; }
         public string DrawingLvl { get; set; }
-        public string OldDocumentLvl { get; set; }
         public string OldDrawingLvl { get; set; }
-        public DateTime DocumentUpgradeDate { get; set; }
+        public string OldDocumentLvl { get; set; }
         public int EmployeeId { get; set; }
         public sbyte IsEco { get; set; }
         public string ChangeDescription { get; set; }
@@ -54,8 +54,6 @@ namespace ECN.Models
         public string ShortDate => StartDate.ToShortDateString();
         public string LongDate => StartDate.ToLongDateString();
         public string LongEndDate => EndDate.ToLongDateString();
-        public string LongDocumentUpgradeDate => DocumentUpgradeDate.ToLongDateString();
-        public string ShortDocumentUpgradeDate => DocumentUpgradeDate.ToShortDateString();
 
         private Visibility _IsEcoVisibility = Visibility.Collapsed;
         public Visibility IsEcoVisibility
@@ -79,12 +77,14 @@ namespace ECN.Models
         public bool Is_Eco => Convert.ToBoolean(IsEco);
         public string IsEcoToString => Convert.ToBoolean(IsEco) ? "Sí" : "No";
 
+
         public virtual Changetype ChangeType { get; set; }
         public virtual Documenttype DocumentType { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Status Status { get; set; }
         public virtual EcnEco EcnEco { get; set; }
         public virtual ICollection<EcnAttachment> EcnAttachments { get; set; }
+        public virtual ICollection<EcnDocumenttype> EcnDocumenttypes { get; set; }
         public virtual ICollection<EcnNumberpart> EcnNumberparts { get; set; }
         public virtual ICollection<EcnRevision> EcnRevisions { get; set; }
     }

@@ -1,4 +1,4 @@
-﻿
+﻿using System;
 using System.Collections.Generic;
 
 #nullable disable
@@ -18,12 +18,11 @@ namespace ECN.Models
         }
 
         public int AttachmentId { get; set; }
-        public string AttachmentPath { get; set; }
         public string AttachmentFilename { get; set; }
         public byte[] AttachmentFile { get; set; }
 
         private string _Extension;
-        public string Extension 
+        public string Extension
         {
             get => _Extension;
             set
