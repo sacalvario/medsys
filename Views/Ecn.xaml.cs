@@ -82,7 +82,7 @@ namespace ECN.Views
 
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
-            Tab.SelectedIndex = 4;
+            Tab.SelectedIndex = 5;
         }
     }
 }

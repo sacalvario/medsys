@@ -8,7 +8,7 @@
       xmlns:conv="clr-namespace:ECN.Converters"
       DataContext="{Binding EcnViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="768" d:DesignWidth="1366"
+      d:DesignHeight="650" d:DesignWidth="1200"
       Title="Ecn">
 
     <Page.Resources>
@@ -142,7 +142,7 @@
                                  Text="{Binding Eco, Mode=TwoWay}"
                                  Visibility="{Binding TxtEcoVisibility}"
                                  VerticalAlignment="Center"
-                                 Width="350"
+                                 Width="300"
                                  Margin="20, 0, 0, 0"
                                  Foreground="White"
                                  ui:ControlHelper.Header="No. de ECO"
@@ -152,7 +152,8 @@
                                  ui:ControlHelper.CornerRadius="5" 
                                  FontFamily="Quicksan Medium"
                                  BorderThickness="0"
-                                 FontSize="15" Background="#FFFF0033"/>
+                                 FontSize="15" 
+                                 Background="#FFFF0033"/>
                         <ComboBox ItemsSource="{Binding EcoTypes}"
                                   DisplayMemberPath="EcoTypeName"
                                   SelectedValuePath="EcoTypeId"
@@ -166,98 +167,51 @@
                                   FontFamily="Quicksan Medium"
                                   BorderThickness="0"
                                   FontSize="15"
-                                  Width="350"
+                                  Width="300"
                                   Background="#FFFF0033"
                                   ui:ControlHelper.Header="Tipo de ECO" 
                                   ui:ControlHelper.PlaceholderText="Selecciona el tipo de ECO"
                                   ui:ControlHelper.PlaceholderForeground="White"/>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" >
-                        <Label Content="Selecciona números de parte." Grid.Row="1" FontFamily="Quicksand Medium" FontSize="17"  Margin="0, 0, 0, 10"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                            <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
-                            <Label Content="{Binding NumberParts.Count}" />
-                            <Label Content="/10" />
-                        </StackPanel>
-                        <ListView x:Name="lvNumberParts" Background="#FFD6D6D6" Height="Auto" MinHeight="150" MaxHeight="350" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                            <Button x:Name="btnAddNumberPart" Background="Transparent" Visibility="{Binding BtnAddNumberPartVisibility}" Command="{Binding OpenNumberPartsDialogCommand}">
-                                <StackPanel Orientation="Horizontal">
-                                    <Image Source="/Assets/add.png" Height="22" Margin="5"/>
-                                    <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
-                                </StackPanel>
-                            </Button>
-                            <Button x:Name="btnDeleteNumberPart" Background="Transparent" Visibility="{Binding BtnRemoveNumberPartVisibility}" Command="{Binding RemoveNumberPartCommand}" >
-                                <StackPanel Orientation="Horizontal">
-                                    <Label Content="Eliminar" FontFamily="Quicksand Medium" FontSize="14" VerticalAlignment="Center" Foreground="#FFE40F0F"/>
-                                    <Image Source="/Assets/delete.png" Height="24" Margin="5"/>
-                                </StackPanel>
-                            </Button>
-
-                        </StackPanel>
-                    </StackPanel>
-                    <Button Grid.Row="1"
-                            Grid.Column="1"
-                            Background="Transparent"
-                            BorderBrush="Transparent"
-                            Foreground="Black"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            FontFamily="Quicksand Medium"
-                            FontSize="14" Click="Button_Click">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Siguiente" VerticalAlignment="Center"/>
-                            <Image Source="/Assets/rightred.png" Width="30"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
-            </TabItem>
-            <TabItem Height="40">
-                <TabItem.Header>
-                    <TextBlock Text="2." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
-                </TabItem.Header>
-                <Grid Margin="80">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <DatePicker x:Name="dpStartDate"
-                                SelectedDate="{Binding ECN.StartDate, Mode=TwoWay}"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Bottom"
-                                IsEnabled="False"
-                                Foreground="White"
-                                Margin="10, 0, 10, 0"
-                                FontFamily="Quicksand Medium"
-                                FontSize="15"
-                                ui:ControlHelper.Header="Fecha de inicio"
-                                ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                ui:ControlHelper.CornerRadius="5"/>
-                    <DatePicker x:Name="dpEndDate"
-                                SelectedDate="{Binding ECN.EndDate}"
-                                Grid.Column="1"
-                                Margin="10, 0, 10, 0"
-                                VerticalAlignment="Bottom"
-                                HorizontalAlignment="Stretch"
-                                FontFamily="Quicksand Medium"
-                                FontSize="15"
-                                IsEnabled="False"
-                                ui:ControlHelper.Header="Fecha de cierre"
-                                ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                ui:ControlHelper.CornerRadius="5"/>
+                    <ui:SimpleStackPanel Orientation="Horizontal"
+                                         Grid.Row="1"
+                                         Grid.ColumnSpan="2"
+                                         Spacing="30"
+                                         VerticalAlignment="Top"
+                                         Margin="0, 20, 0, 0">
+                        <TextBox Text="{Binding ECN.LongDate, Mode=OneTime}"
+                                 IsReadOnly="True"
+                                 Width="300"
+                                 Background="#FFFF0033"
+                                 BorderBrush="Transparent"
+                                 Foreground="White"
+                                 FontFamily="Quicksand Medium"
+                                 FontSize="15"
+                                 ui:ControlHelper.Header="Fecha de inicio"
+                                 ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                                 ui:ControlHelper.PlaceholderForeground="White"
+                                 ui:ControlHelper.CornerRadius="5" />
+                        <TextBox Text="{Binding ECN.LongEndDate}"
+                                 IsReadOnly="True"
+                                 Width="300"
+                                 Background="#FFFF0033"
+                                 BorderBrush="Transparent"
+                                 Foreground="White"
+                                 FontFamily="Quicksand Medium"
+                                 FontSize="15"
+                                 ui:ControlHelper.Header="Fecha de cierre"
+                                 ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                                 ui:ControlHelper.PlaceholderForeground="White"
+                                 ui:ControlHelper.CornerRadius="5" />
+                    </ui:SimpleStackPanel>
                     <ComboBox x:Name="cbChangeType"
                               Grid.Row="1"
                               Grid.ColumnSpan="2"
                               Background="#FFFF0033"
                               BorderBrush="Transparent"
                               Foreground="White"
-                              Margin="10, 0, 150, 0"
-                              HorizontalAlignment="Stretch"
+                              Margin="0, 70, 0, 0"
+                              Width="830"
                               VerticalAlignment="Center"
                               FontFamily="Quicksand Medium"
                               FontSize="15"
@@ -270,15 +224,111 @@
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de cambio"
                               ui:ControlHelper.PlaceholderForeground="White"
                               ui:ControlHelper.CornerRadius="5"/>
+                    <Button Grid.Row="1"
+                            Grid.Column="1"
+                            Background="Transparent"
+                            BorderBrush="Transparent"
+                            Foreground="Black"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Bottom"
+                            FontFamily="Quicksand Medium"
+                            FontSize="14" 
+                            Click="Button_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="Siguiente" VerticalAlignment="Center"/>
+                            <Image Source="/Assets/rightred.png" Width="30"/>
+                        </StackPanel>
+                    </Button>
+                </Grid>
+            </TabItem>
+            <TabItem Height="40">
+                <TabItem.Header>
+                    <TextBlock Text="2." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                </TabItem.Header>
+                <Grid Margin="100, 50, 100, 50">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Selecciona los documentos que apliquen para el cambio"
+                               FontSize="17"
+                               FontFamily="Quicksand"
+                               FontWeight="Medium"/>
+                    <ui:ListView ItemsSource="{Binding DocumentTypes}" IsItemClickEnabled="False" IsSelectionEnabled="False" Grid.RowSpan="2" Margin="0, 40, 0, 0" Background="#FFDCDADA" >
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <CheckBox Content="{Binding DocumentTypeName}"
+                                          FontSize="15"
+                                          FontFamily="Quicksand Medium"/>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                    <ComboBox Grid.ColumnSpan="1"
+                              Grid.Column="1"
+                              VerticalAlignment="Top"
+                              Margin="50, 20, 0, 0"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ItemsSource="{Binding DocumentTypes}"
+                              DisplayMemberPath="DocumentTypeName"
+                              SelectedValuePath="DocumentTypeId"
+                              SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
+                              ui:ControlHelper.Header="Tipo de documento"
+                              ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
+                              ui:ControlHelper.PlaceholderForeground="White"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox Grid.Row="1"
+                             Grid.Column="1"
+                             Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
+                             VerticalAlignment="Top"
+                             Margin="50, 20, 20, 0"
+                             Background="#FFFF0033"
+                             BorderBrush="Transparent"
+                             FontFamily="Quicksand Medium"
+                             Foreground="White"
+                             FontSize="15"
+                             ui:ControlHelper.Header="No. de Documento"
+                             ui:ControlHelper.PlaceholderText="Ingresa el número del documento"
+                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                             ui:ControlHelper.PlaceholderForeground="White"
+                             ui:ControlHelper.CornerRadius="5" d:IsHidden="True"/>
+                    <TextBox Text="{Binding ECN.DocumentName, Mode=TwoWay}"
+                             Grid.Row="2"
+                             Grid.Column="1"
+                             Margin="0, 0, 20, 0"
+                             Background="#FFFF0033"
+                             BorderBrush="Transparent"
+                             VerticalAlignment="Top"
+                             FontFamily="Quicksand Medium"
+                             FontSize="15"
+                             Foreground="White"
+                             ui:ControlHelper.Header="Nombre de Documento"
+                             ui:ControlHelper.PlaceholderText="Ingresa el nombre del documento"
+                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                             ui:ControlHelper.PlaceholderForeground="White"
+                             ui:ControlHelper.CornerRadius="5" d:IsHidden="True"/>
                     <Button Background="Transparent"
                             Grid.Row="3"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Left"
                             FontFamily="Quicksand Medium"
-                            FontSize="15" Click="Button_Click_4">
+                            FontSize="15" 
+                            Click="Button_Click_4">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/leftred.png" Width="30"/>
-                            <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
+                            <Image Source="/Assets/leftred.png" 
+                                   Width="30"/>
+                            <TextBlock Text="Anterior" 
+                                       VerticalAlignment="Center" 
+                                       Foreground="Black"/>
                         </StackPanel>
                     </Button>
                     <Button 
@@ -311,7 +361,6 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-
                     <ComboBox x:Name="cbDocumentType"
                               Grid.ColumnSpan="1"
                               HorizontalAlignment="Stretch"
@@ -330,19 +379,6 @@
                               ui:ControlHelper.PlaceholderForeground="White"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <DatePicker x:Name="dpDocumentUpgradeDate"
-                                Grid.Column="1"
-                                SelectedDate="{Binding ECN.DocumentUpgradeDate, Mode=TwoWay}"
-                                VerticalAlignment="Top"
-                                Margin="15, 0, 0, 0"
-                                FontFamily="Quicksand Medium"
-                                FontSize="15"
-                                BorderBrush="Red"
-                                ui:ControlHelper.Header="Fecha de actualización del documento"
-                                ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                ui:ControlHelper.PlaceholderText="Seleccione una fecha"
-                                ui:ControlHelper.PlaceholderForeground="White"
-                                ui:ControlHelper.CornerRadius="5"/>
                     <TextBox x:Name="txtDocumentNo" 
                              Grid.Row="1"
                              Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
@@ -579,7 +615,8 @@
                             Grid.Column="1"
                             FontFamily="Quicksand Medium"
                             FontSize="15"
-                            HorizontalAlignment="Right" Click="Button_Click_8">
+                            HorizontalAlignment="Right" 
+                            Click="Button_Click_8">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black"/>
                             <Image Source="/Assets/rightred.png" Width="30"/>

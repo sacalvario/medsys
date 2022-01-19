@@ -30,6 +30,7 @@ namespace ECN.Models
                 {
                     _EndDate = value;
                     RaisePropertyChanged("EndDate");
+                    RaisePropertyChanged("LongEndDate");
                 }
             }
         }
@@ -53,7 +54,11 @@ namespace ECN.Models
         public int Day => StartDate.Day;
         public string ShortDate => StartDate.ToShortDateString();
         public string LongDate => StartDate.ToLongDateString();
-        public string LongEndDate => EndDate.ToLongDateString();
+        public string LongEndDate
+        {
+            get => EndDate.ToLongDateString();
+            set { }
+        }
 
         private Visibility _IsEcoVisibility = Visibility.Collapsed;
         public Visibility IsEcoVisibility
