@@ -21,11 +21,9 @@ namespace ECN.ViewModels
         private readonly IEcnDataService _ecnDataService;
         private readonly IOpenFileService _openFileService;
         public Ecn ECN { get; set; }
-        public CollectionViewSource SelectedPersonsForSign { get; set; }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
         public RelayCommand OpenNumberPartsDialogCommand { get; set; }
-        public RelayCommand RemoveNumberPartCommand { get; set; }
         public RelayCommand OpenSignatureFlowDialogCommand { get; set; }
         public RelayCommand RemoveAttachedCommand { get; set; }
 
@@ -42,19 +40,7 @@ namespace ECN.ViewModels
                 }
             }
         }
-        private Visibility _BtnRemoveNumberPartVisibility;
-        public Visibility BtnRemoveNumberPartVisibility
-        {
-            get => _BtnRemoveNumberPartVisibility;
-            set
-            {
-                if (_BtnRemoveNumberPartVisibility != value)
-                {
-                    _BtnRemoveNumberPartVisibility = value;
-                    RaisePropertyChanged("BtnRemoveNumberPartVisibility");
-                }
-            }
-        }
+
         private Visibility _TxtEcoVisibility;
         public Visibility TxtEcoVisibility
         {
@@ -97,6 +83,34 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _EcnRegisterTypeVisibility;
+        public Visibility EcnRegisterTypeVisibility
+        {
+            get => _EcnRegisterTypeVisibility;
+            set
+            {
+                if (_EcnRegisterTypeVisibility != value)
+                {
+                    _EcnRegisterTypeVisibility = value;
+                    RaisePropertyChanged("EcnRegisterTypeVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnIntExtTypeVisibility;
+        public Visibility EcnIntExtTypeVisibility
+        {
+            get => _EcnIntExtTypeVisibility;
+            set
+            {
+                if (_EcnIntExtTypeVisibility != value)
+                {
+                    _EcnIntExtTypeVisibility = value;
+                    RaisePropertyChanged("EcnIntExtTypeVisibility");
+                }
+            }
+        }
+
         private bool _IsEco;
         public bool IsEco
         {
@@ -125,10 +139,7 @@ namespace ECN.ViewModels
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
             Indexes = new ObservableCollection<int>();
-            SelectedPersonsForSign = new CollectionViewSource
-            {
-                Source = SelectedForSign
-            };
+
             SetData();
 
             GetChangeTypes();
@@ -138,15 +149,15 @@ namespace ECN.ViewModels
             SaveECNCommand = new RelayCommand(SaveECN);
             OpenFileDialogCommand = new RelayCommand(OpenFileDialog);
             OpenNumberPartsDialogCommand = new RelayCommand(OpenNumberPartsDialog);
-            RemoveNumberPartCommand = new RelayCommand(RemoveNumberPart);
             OpenSignatureFlowDialogCommand = new RelayCommand(OpenSignatureFlowDialog);
             RemoveAttachedCommand = new RelayCommand(RemoveAttached);
 
             BtnAddNumberPartVisibility = Visibility.Visible;
-            BtnRemoveNumberPartVisibility = Visibility.Hidden;
             TxtEcoVisibility = Visibility.Hidden;
             CbEcoTypeVisibility = Visibility.Hidden;
             BtnRemoveAttachedVisibility = Visibility.Collapsed;
+            EcnRegisterTypeVisibility = Visibility.Collapsed;
+            EcnIntExtTypeVisibility = Visibility.Visible;
 
             SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
 
@@ -345,7 +356,6 @@ namespace ECN.ViewModels
                     _SelectedNumberPart = value;
                     RaisePropertyChanged("SelectedNumberPart");
 
-                    BtnRemoveNumberPartVisibility = _SelectedNumberPart != null ? Visibility.Visible : Visibility.Hidden;
                 }
             }
         }
@@ -459,6 +469,20 @@ namespace ECN.ViewModels
                 {
                     _SelectedChangeType = value;
                     RaisePropertyChanged("SelectedChangeType");
+
+                    if (_SelectedChangeType.ChangeTypeId == 3)
+                    {
+                        EcnRegisterTypeVisibility = Visibility.Visible;
+                        EcnIntExtTypeVisibility = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        if (EcnIntExtTypeVisibility == Visibility.Collapsed)
+                        {
+                            EcnIntExtTypeVisibility = Visibility.Visible;
+                            EcnRegisterTypeVisibility = Visibility.Collapsed;
+                        }
+                    }
                 }
             }
         }
@@ -520,14 +544,6 @@ namespace ECN.ViewModels
             }
         }
 
-        public int CountSelectedForSign
-        {
-            get => SelectedForSign.Count;
-            set
-            {
-
-            }
-        }
 
         public async void GetChangeTypes()
         {

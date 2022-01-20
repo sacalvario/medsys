@@ -5,17 +5,12 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:dd="urn:gong-wpf-dragdrop"
-      xmlns:conv="clr-namespace:ECN.Converters"
       DataContext="{Binding EcnViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
       Title="Ecn">
 
     <Page.Resources>
-
-        <conv:RowNumberConverter x:Key="RowNumberConverter" />
-
-        <CollectionViewSource x:Key="SelectedForSign" Source="{Binding SelectedPersonsForSign}" />
 
         <DataTemplate x:Key="RequiredHeaderTemplate">
             <TextBlock Text="{Binding}"
@@ -117,7 +112,7 @@
                 <TabItem.Header>
                     <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="100, 50, 100, 50">
+                <Grid Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -147,7 +142,7 @@
                                  Foreground="White"
                                  ui:ControlHelper.Header="No. de ECO"
                                  ui:ControlHelper.PlaceholderText="Ingresa el número de ECO"
-                                 ui:ControlHelper.PlaceholderForeground="White"
+                                 ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                                  ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                                  ui:ControlHelper.CornerRadius="5" 
                                  FontFamily="Quicksan Medium"
@@ -171,7 +166,7 @@
                                   Background="#FFFF0033"
                                   ui:ControlHelper.Header="Tipo de ECO" 
                                   ui:ControlHelper.PlaceholderText="Selecciona el tipo de ECO"
-                                  ui:ControlHelper.PlaceholderForeground="White"/>
+                                  ui:ControlHelper.PlaceholderForeground="#FFECEAEC"/>
                     </StackPanel>
                     <ui:SimpleStackPanel Orientation="Horizontal"
                                          Grid.Row="1"
@@ -189,7 +184,7 @@
                                  FontSize="15"
                                  ui:ControlHelper.Header="Fecha de inicio"
                                  ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                 ui:ControlHelper.PlaceholderForeground="White"
+                                 ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
                                  ui:ControlHelper.CornerRadius="5" />
                         <TextBox Text="{Binding ECN.LongEndDate}"
                                  IsReadOnly="True"
@@ -201,7 +196,7 @@
                                  FontSize="15"
                                  ui:ControlHelper.Header="Fecha de cierre"
                                  ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                 ui:ControlHelper.PlaceholderForeground="White"
+                                 ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
                                  ui:ControlHelper.CornerRadius="5" />
                     </ui:SimpleStackPanel>
                     <ComboBox x:Name="cbChangeType"
@@ -222,7 +217,7 @@
                               ui:ControlHelper.Header="Tipo de cambio"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de cambio"
-                              ui:ControlHelper.PlaceholderForeground="White"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.CornerRadius="5"/>
                     <Button Grid.Row="1"
                             Grid.Column="1"
@@ -245,7 +240,7 @@
                 <TabItem.Header>
                     <TextBlock Text="2." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="100, 50, 100, 50">
+                <Grid Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -254,12 +249,20 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Selecciona los documentos que apliquen para el cambio"
                                FontSize="17"
                                FontFamily="Quicksand"
-                               FontWeight="Medium"/>
-                    <ui:ListView ItemsSource="{Binding DocumentTypes}" IsItemClickEnabled="False" IsSelectionEnabled="False" Grid.RowSpan="2" Margin="0, 40, 0, 0" Background="#FFDCDADA" >
+                               FontWeight="Medium"
+                               Visibility="{Binding EcnIntExtTypeVisibility}"/>
+                    <ui:ListView ItemsSource="{Binding DocumentTypes}"
+                                 Visibility="{Binding EcnIntExtTypeVisibility}"
+                                 IsItemClickEnabled="False" 
+                                 IsSelectionEnabled="False" 
+                                 Grid.RowSpan="3" 
+                                 Margin="0, 40, 0, 0" 
+                                 Background="#FFDCDADA" >
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding DocumentTypeName}"
@@ -268,10 +271,11 @@
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                    <ComboBox Grid.ColumnSpan="1"
-                              Grid.Column="1"
+                    <ComboBox Grid.Column="1"
+                              Visibility="{Binding EcnIntExtTypeVisibility}"
+                              HorizontalAlignment="Stretch"
                               VerticalAlignment="Top"
-                              Margin="50, 20, 0, 0"
+                              Margin="50, 30, 30, 0"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
@@ -283,14 +287,63 @@
                               SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
                               ui:ControlHelper.Header="Tipo de documento"
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
-                              ui:ControlHelper.PlaceholderForeground="White"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <ComboBox Visibility="{Binding EcnRegisterTypeVisibility}"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ItemsSource="{Binding DocumentTypes}"
+                              DisplayMemberPath="DocumentTypeName"
+                              SelectedValuePath="DocumentTypeId"
+                              SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
+                              ui:ControlHelper.Header="Tipo de documento"
+                              ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              Margin="50, 30, 100, 0"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Top"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión actual"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              Margin="50, 30, 100, 0"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión nuevo"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva del documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Grid.Row="1"
-                             Grid.Column="1"
+                             Visibility="{Binding EcnRegisterTypeVisibility}"
                              Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
                              VerticalAlignment="Top"
-                             Margin="50, 20, 20, 0"
+                             Margin="0, 0, 20, 0"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
                              FontFamily="Quicksand Medium"
@@ -299,11 +352,12 @@
                              ui:ControlHelper.Header="No. de Documento"
                              ui:ControlHelper.PlaceholderText="Ingresa el número del documento"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.PlaceholderForeground="White"
-                             ui:ControlHelper.CornerRadius="5" d:IsHidden="True"/>
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                             ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Text="{Binding ECN.DocumentName, Mode=TwoWay}"
+                             Visibility="{Binding EcnRegisterTypeVisibility}"
                              Grid.Row="2"
-                             Grid.Column="1"
+                             Grid.ColumnSpan="2"
                              Margin="0, 0, 20, 0"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
@@ -314,11 +368,11 @@
                              ui:ControlHelper.Header="Nombre de Documento"
                              ui:ControlHelper.PlaceholderText="Ingresa el nombre del documento"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.PlaceholderForeground="White"
-                             ui:ControlHelper.CornerRadius="5" d:IsHidden="True"/>
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                             ui:ControlHelper.CornerRadius="5"/>
                     <Button Background="Transparent"
                             Grid.Row="3"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
                             FontFamily="Quicksand Medium"
                             FontSize="15" 
@@ -335,7 +389,7 @@
                             Background="Transparent"
                             Grid.Row="3"
                             Grid.Column="1"
-                            VerticalAlignment="Center"
+                            VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             FontFamily="Quicksand Medium"
                             FontSize="15" Click="Button_Click_1">
@@ -350,7 +404,7 @@
                 <TabItem.Header>
                     <TextBlock Text="3." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="80">
+                <Grid Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
@@ -361,55 +415,54 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ComboBox x:Name="cbDocumentType"
-                              Grid.ColumnSpan="1"
+                    <ScrollViewer Grid.RowSpan="3" >
+                        <StackPanel >
+                            <Label Content="Selecciona números de parte." Grid.Row="1" FontFamily="Quicksand Medium" FontSize="17"  Margin="0, 0, 0, 10"/>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 10, 0">
+                                <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
+                                <Label Content="{Binding NumberParts.Count}" />
+                                <Label Content="/10" />
+                            </StackPanel>
+                            <ListView x:Name="lvNumberParts" Background="#FFDCDADA" MinHeight="290" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                    <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding BtnAddNumberPartVisibility}" Command="{Binding OpenNumberPartsDialogCommand}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image Source="/Assets/add.png" Height="22" Margin="5"/>
+                            <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
+                        </StackPanel>
+                    </Button>
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Grid.Column="1"
+                              VerticalAlignment="Bottom"
+                              Margin="80, 30, 50, 0"
                               HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
                               Foreground="White"
                               BorderBrush="Transparent"
-                              ItemsSource="{Binding DocumentTypes}"
-                              DisplayMemberPath="DocumentTypeName"
-                              SelectedValuePath="DocumentTypeId"
-                              SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
-                              ui:ControlHelper.Header="Tipo de documento"
-                              ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
-                              ui:ControlHelper.PlaceholderForeground="White"
+                              ui:ControlHelper.Header="Nivel de revisión actual"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del dibujo"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox x:Name="txtDocumentNo" 
-                             Grid.Row="1"
-                             Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
-                             VerticalAlignment="Top"
-                             Margin="0, 0, 20, 0"
-                             Background="#FFFF0033"
-                             BorderBrush="Transparent"
-                             FontFamily="Quicksand Medium"
-                             Foreground="White"
-                             FontSize="15"
-                             ui:ControlHelper.Header="No. de Documento"
-                             ui:ControlHelper.PlaceholderText="Ingresa el número del documento"
-                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.PlaceholderForeground="White"
-                             ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox x:Name="txtDocumentName" 
-                             Text="{Binding ECN.DocumentName, Mode=TwoWay}"
-                             Grid.Row="2"
-                             Grid.ColumnSpan="2"
-                             Margin="0, 0, 20, 0"
-                             Background="#FFFF0033"
-                             BorderBrush="Transparent"
-                             VerticalAlignment="Top"
-                             FontFamily="Quicksand Medium"
-                             FontSize="15"
-                             Foreground="White"
-                             ui:ControlHelper.Header="Nombre de Documento"
-                             ui:ControlHelper.PlaceholderText="Ingresa el nombre del documento"
-                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.PlaceholderForeground="White"
-                             ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Grid.Column="1"
+                              Grid.Row="1"
+                              Margin="80, 0, 50, 0"
+                              VerticalAlignment="Bottom"
+                              HorizontalAlignment="Stretch"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión nuevo"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva del dibujo"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
                     <Button Background="Transparent"
                             Foreground="White"
                             Grid.Column="1"
@@ -418,7 +471,8 @@
                             FontSize="15"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
-                            Margin="5" Click="Button_Click_2">
+                            Margin="5"
+                            Click="Button_Click_2">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black"/>
                             <Image Source="/Assets/rightred.png" Width="30"/>
@@ -443,113 +497,7 @@
                 <TabItem.Header>
                     <TextBlock Text="4." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="80"  >
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Text="Documento" FontFamily="Quicksand" Foreground="Red" FontSize="16"/>
-                    <TextBox x:Name="txtActualDocumentRevisionLvL"
-                              Text="{Binding ECN.OldDocumentLvl, Mode=TwoWay}"
-                              FontFamily="Quicksand Medium"
-                              FontSize="15"
-                              Margin="0, 0, 10, 0"
-                              Background="#FFFF0033"
-                              Foreground="White"
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              ui:ControlHelper.Header="Nivel de revisión actual "
-                              ui:ControlHelper.PlaceholderText="Seleccione el nivel actual"
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.PlaceholderForeground="White"
-                              ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox x:Name="txtNewDocumentRevisionLvL"
-                             Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
-                              Grid.Column="1"
-                              FontFamily="Quicksand Medium"
-                              FontSize="15"
-                              Foreground="White"
-                              Background="#FFFF0033"
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              ui:ControlHelper.Header="Nivel de revisión nuevo "
-                              ui:ControlHelper.PlaceholderText="Seleccione el nivel nuevo"
-                              ui:ControlHelper.PlaceholderForeground="White"
-                              ui:ControlHelper.CornerRadius="5"
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"/>
-                    <TextBlock Grid.Row="1" Text="Dibujo" FontFamily="Quicksand" Foreground="Red" FontSize="16"/>
-                    <TextBox x:Name="txtActualDrawingRevisionLvL"
-                              Text="{Binding ECN.OldDrawingLvl, Mode=TwoWay}"
-                              Grid.Row="1"
-                              FontFamily="Quicksand Medium"
-                              FontSize="15"
-                              Foreground="White"
-                              Background="#FFFF0033"
-                              BorderBrush="Transparent"
-                              Margin="0, 0, 10, 0"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              ui:ControlHelper.Header="Nivel de revisión actual "
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.PlaceholderText="Seleccione el nivel actual"
-                              ui:ControlHelper.PlaceholderForeground="White"
-                              ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox x:Name="txtNewDrawingRevisionLvL"
-                             Text="{Binding ECN.DrawingLvl, Mode=TwoWay}"
-                              Grid.Row="1"
-                              Grid.Column="1"
-                              FontFamily="Quicksand Medium"
-                              FontSize="15"
-                              Foreground="White"
-                              Background="#FFFF0033"
-                              BorderBrush="Transparent"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              ui:ControlHelper.Header="Nivel de revisión nuevo"
-                              ui:ControlHelper.PlaceholderText="Seleccione el nivel nuevo"
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.PlaceholderForeground="White"
-                              ui:ControlHelper.CornerRadius="5"/>
-                    <Button Background="Transparent"
-                            Grid.Column="1"
-                            Grid.Row="3"
-                            FontFamily="Quicksand Medium"
-                            FontSize="15"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Bottom"
-                            Margin="20" Click="Button_Click_3">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black"/>
-                            <Image Source="/Assets/rightred.png" Width="30"/>
-                        </StackPanel>
-                    </Button>
-                    <Button Background="Transparent"
-                            Grid.Column="0"
-                            Grid.Row="3"
-                            FontFamily="Quicksand Medium"
-                            FontSize="15"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            Margin="20" Click="Button_Click_6">
-                        <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/leftred.png" Width="32"/>
-                            <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
-                        </StackPanel>
-                    </Button>
-                </Grid>
-            </TabItem>
-            <TabItem Height="40">
-                <TabItem.Header>
-                    <TextBlock Text="5." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
-                </TabItem.Header>
-                <Grid  Margin="100">
+                <Grid  Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -565,42 +513,48 @@
                              Foreground="White"
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
-                             FontSize="15"
-                             Margin="25"
+                             FontSize="16"
+                             Margin="50, 25"
+                             AcceptsReturn="True"
+                             Height="110"
                              ui:ControlHelper.Header="Descripción del cambio"
                              ui:ControlHelper.PlaceholderText="¿Qué estoy cambiando?"
-                             ui:ControlHelper.PlaceholderForeground="White"
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="10"/>
+                             ui:ControlHelper.CornerRadius="15"/>
                     <TextBox x:Name="txtJustification"
                              Text="{Binding ECN.ChangeJustification, Mode=TwoWay}"
                              Grid.Column="1"
+                             Height="110"
                              Background="#FFFF0033"
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
-                             FontSize="15"
-                             Margin="25"
+                             FontSize="16"
+                             Margin="50, 25"
+                             AcceptsReturn="True"
                              Foreground="White"
                              ui:ControlHelper.Header="Justificación del cambio"
                              ui:ControlHelper.PlaceholderText="¿Por qué lo estoy cambiando?"
-                             ui:ControlHelper.PlaceholderForeground="White"
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="10"/>
+                             ui:ControlHelper.CornerRadius="15"/>
                     <TextBox x:Name="txtManufacturingAffectations"
                              Text="{Binding ECN.ManufacturingAffectations, Mode=TwoWay}"
                              Grid.Row="1"
                              Grid.ColumnSpan="2"
+                             Height="110"
                              Background="#FFFF0033"
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
                              Foreground="White"
-                             Margin="25"
-                             FontSize="15"
+                             Margin="50, 25"
+                             FontSize="16"
+                             AcceptsReturn="True"
                              ui:ControlHelper.Header="Afectaciones de manufactura"
                              ui:ControlHelper.PlaceholderText="¿Qué procesos afecta el cambio?"
-                             ui:ControlHelper.PlaceholderForeground="White"
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="10"/>
+                             ui:ControlHelper.CornerRadius="15"/>
                     <Button Background="Transparent"
                             Grid.Row="3"
                             FontFamily="Quicksand Medium"
@@ -626,7 +580,7 @@
             </TabItem>
             <TabItem Height="40" >
                 <TabItem.Header>
-                    <TextBlock Text="6." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                    <TextBlock Text="5." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
                 <Grid Margin="80">
                     <ui:ScrollViewerEx >
@@ -667,7 +621,7 @@
             </TabItem>
             <TabItem Height="40">
                 <TabItem.Header>
-                    <TextBlock Text="7." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
+                    <TextBlock Text="6." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
                 <Grid Margin="30" >
                     <Grid.ColumnDefinitions>
