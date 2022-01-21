@@ -115,13 +115,13 @@
                 <Grid Margin="80, 50, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
-                        <RowDefinition Height="3*"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="1.5*"/>
                     </Grid.RowDefinitions>
-                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" VerticalAlignment="Top">
                         <ui:ToggleSwitch x:Name="tsIsEco"
                                          Header="¿El ECN corresponde a un cambio de ECO?"
                                          OffContent="No"
@@ -130,15 +130,19 @@
                                          FontFamily="Quicksand Medium"
                                          FontSize="17"
                                          Foreground="Black"
-                                         HorizontalAlignment="Center"
-                                         HorizontalContentAlignment="Center"
+                                         HorizontalAlignment="Left"
+                                         VerticalAlignment="Top"
                                          HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <Grid Grid.Column="1" VerticalAlignment="Top" Visibility="{Binding EcnEcoVisibility}" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <TextBox x:Name="txtEco"
                                  Text="{Binding Eco, Mode=TwoWay}"
-                                 Visibility="{Binding TxtEcoVisibility}"
                                  VerticalAlignment="Center"
-                                 Width="300"
-                                 Margin="20, 0, 0, 0"
+                                 HorizontalAlignment="Stretch"
+                                 Margin="0, 0, 20, 0"
                                  Foreground="White"
                                  ui:ControlHelper.Header="No. de ECO"
                                  ui:ControlHelper.PlaceholderText="Ingresa el número de ECO"
@@ -150,34 +154,32 @@
                                  FontSize="15" 
                                  Background="#FFFF0033"/>
                         <ComboBox ItemsSource="{Binding EcoTypes}"
+                                  Grid.Column="1"
                                   DisplayMemberPath="EcoTypeName"
                                   SelectedValuePath="EcoTypeId"
                                   SelectedItem="{Binding SelectedEcoType, Mode=TwoWay}"
-                                  Margin="20, 0, 0, 0"
+                                  Margin="10, 0, 20, 0"
                                   VerticalAlignment="Center"
-                                  Visibility="{Binding CbEcoTypeVisibility}"
+                                  HorizontalAlignment="Stretch"
                                   Foreground="White"
                                   ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                                   ui:ControlHelper.CornerRadius="5" 
                                   FontFamily="Quicksan Medium"
                                   BorderThickness="0"
                                   FontSize="15"
-                                  Width="300"
                                   Background="#FFFF0033"
                                   ui:ControlHelper.Header="Tipo de ECO" 
                                   ui:ControlHelper.PlaceholderText="Selecciona el tipo de ECO"
                                   ui:ControlHelper.PlaceholderForeground="#FFECEAEC"/>
-                    </StackPanel>
-                    <ui:SimpleStackPanel Orientation="Horizontal"
-                                         Grid.Row="1"
-                                         Grid.ColumnSpan="2"
-                                         Spacing="30"
-                                         VerticalAlignment="Top"
-                                         Margin="0, 20, 0, 0">
+                    </Grid>
+                    <Grid Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
                         <TextBox Text="{Binding ECN.LongDate, Mode=OneTime}"
-                                 IsReadOnly="True"
-                                 Width="300"
-                                 Background="#FFFF0033"
+                                 IsEnabled="False"
+                                 Margin="0, 0, 20, 0"
                                  BorderBrush="Transparent"
                                  Foreground="White"
                                  FontFamily="Quicksand Medium"
@@ -187,27 +189,27 @@
                                  ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
                                  ui:ControlHelper.CornerRadius="5" />
                         <TextBox Text="{Binding ECN.LongEndDate}"
-                                 IsReadOnly="True"
-                                 Width="300"
-                                 Background="#FFFF0033"
+                                 IsEnabled="False"
                                  BorderBrush="Transparent"
                                  Foreground="White"
+                                 Grid.Column="1"
+                                 Margin="0, 0, 20, 0"
                                  FontFamily="Quicksand Medium"
                                  FontSize="15"
                                  ui:ControlHelper.Header="Fecha de cierre"
                                  ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                                  ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
                                  ui:ControlHelper.CornerRadius="5" />
-                    </ui:SimpleStackPanel>
+                    </Grid>
                     <ComboBox x:Name="cbChangeType"
-                              Grid.Row="1"
+                              Grid.Row="2"
                               Grid.ColumnSpan="2"
                               Background="#FFFF0033"
                               BorderBrush="Transparent"
                               Foreground="White"
-                              Margin="0, 70, 0, 0"
-                              Width="830"
-                              VerticalAlignment="Center"
+                              Margin="0, 0, 300, 0"
+                              VerticalAlignment="Top"
+                              HorizontalAlignment="Stretch"
                               FontFamily="Quicksand Medium"
                               FontSize="15"
                               ItemsSource="{Binding ChangeTypes}"
@@ -219,7 +221,7 @@
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de cambio"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <Button Grid.Row="1"
+                    <Button Grid.Row="2"
                             Grid.Column="1"
                             Background="Transparent"
                             BorderBrush="Transparent"
@@ -266,8 +268,7 @@
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding DocumentTypeName}"
-                                          FontSize="15"
-                                          FontFamily="Quicksand Medium"/>
+                                          FontSize="15"/>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
@@ -370,6 +371,27 @@
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.CornerRadius="5"/>
+                    <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0, 0, 0, 60">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ListBox Background="#FFD6D6D6" Width="Auto" Height="100" ItemsSource="{Binding Attacheds}" >
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="/Assets/attachment.png" Width="28"/>
+                                        <TextBlock Grid.Column="1" Text="{Binding AttachmentFilename}" Style="{DynamicResource BaseTextBlockStyle}" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
+                                    </Grid>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                        <Button Content="Adjuntar" Background="Gray" Foreground="White" Command="{Binding OpenFileDialogCommand}" Grid.Column="1" />
+                    </Grid>
                     <Button Background="Transparent"
                             Grid.Row="3"
                             VerticalAlignment="Bottom"
@@ -415,16 +437,20 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <ScrollViewer Grid.RowSpan="3" >
-                        <StackPanel >
-                            <Label Content="Selecciona números de parte." Grid.Row="1" FontFamily="Quicksand Medium" FontSize="17"  Margin="0, 0, 0, 10"/>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 10, 0">
-                                <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
-                                <Label Content="{Binding NumberParts.Count}" />
-                                <Label Content="/10" />
+                    <Label Content="Selecciona números de parte." FontFamily="Quicksand Medium" FontSize="17"  Margin="0, 0, 0, 10"/>
+                    <ScrollViewer Grid.RowSpan="3" Margin="0, 25, 0, 0" >
+                        <Grid >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>                      
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 10, 0" >
+                                    <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
+                                    <Label Content="{Binding NumberParts.Count}" />
+                                    <Label Content="/10" />
                             </StackPanel>
-                            <ListView x:Name="lvNumberParts" Background="#FFDCDADA" MinHeight="290" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
-                        </StackPanel>
+                            <ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
+                        </Grid>
                     </ScrollViewer>
                     <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding BtnAddNumberPartVisibility}" Command="{Binding OpenNumberPartsDialogCommand}">
                         <StackPanel Orientation="Horizontal">
@@ -530,7 +556,7 @@
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
                              FontSize="16"
-                             Margin="50, 25"
+                             Margin="0, 25, 50, 25"
                              AcceptsReturn="True"
                              Foreground="White"
                              ui:ControlHelper.Header="Justificación del cambio"

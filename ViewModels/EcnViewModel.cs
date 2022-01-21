@@ -41,30 +41,16 @@ namespace ECN.ViewModels
             }
         }
 
-        private Visibility _TxtEcoVisibility;
-        public Visibility TxtEcoVisibility
+        private Visibility _EcnEcoVisibility;
+        public Visibility EcnEcoVisibility
         {
-            get => _TxtEcoVisibility;
+            get => _EcnEcoVisibility;
             set
             {
-                if (_TxtEcoVisibility != value)
+                if (_EcnEcoVisibility != value)
                 {
-                    _TxtEcoVisibility = value;
-                    RaisePropertyChanged("TxtEcoVisibility");
-                }
-            }
-        }
-
-        private Visibility _CbEcoTypeVisibility;
-        public Visibility CbEcoTypeVisibility
-        {
-            get => _CbEcoTypeVisibility;
-            set
-            {
-                if (_CbEcoTypeVisibility != value)
-                {
-                    _CbEcoTypeVisibility = value;
-                    RaisePropertyChanged("CbEcoTypeVisibility");
+                    _EcnEcoVisibility = value;
+                    RaisePropertyChanged("EcnEcoVisibility");
                 }
             }
         }
@@ -121,8 +107,7 @@ namespace ECN.ViewModels
                 {
                     _IsEco = value;
                     RaisePropertyChanged("IsEco");
-                    TxtEcoVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
-                    CbEcoTypeVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
+                    EcnEcoVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
                     ECN.EndDate = IsEco ? DateTime.Now.AddDays(45) : DateTime.Now.AddDays(30);
                 }
             }
@@ -153,8 +138,7 @@ namespace ECN.ViewModels
             RemoveAttachedCommand = new RelayCommand(RemoveAttached);
 
             BtnAddNumberPartVisibility = Visibility.Visible;
-            TxtEcoVisibility = Visibility.Hidden;
-            CbEcoTypeVisibility = Visibility.Hidden;
+            EcnEcoVisibility = Visibility.Collapsed;
             BtnRemoveAttachedVisibility = Visibility.Collapsed;
             EcnRegisterTypeVisibility = Visibility.Collapsed;
             EcnIntExtTypeVisibility = Visibility.Visible;
