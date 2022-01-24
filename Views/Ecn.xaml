@@ -108,7 +108,7 @@
 
     <Grid>
         <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0"  >
-            <TabItem Height="40">
+            <TabItem Height="40" >
                 <TabItem.Header>
                     <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
@@ -144,7 +144,7 @@
                                  HorizontalAlignment="Stretch"
                                  Margin="0, 0, 20, 0"
                                  Foreground="White"
-                                 ui:ControlHelper.Header="No. de ECO"
+                                 ui:ControlHelper.Header="Número de ECO"
                                  ui:ControlHelper.PlaceholderText="Ingresa el número de ECO"
                                  ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                                  ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
@@ -254,14 +254,14 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Selecciona los documentos que apliquen para el cambio"
-                               FontSize="17"
+                               FontSize="16"
                                FontFamily="Quicksand"
                                FontWeight="Medium"
                                Visibility="{Binding EcnIntExtTypeVisibility}"/>
                     <ui:ListView ItemsSource="{Binding DocumentTypes}"
                                  Visibility="{Binding EcnIntExtTypeVisibility}"
                                  IsItemClickEnabled="False" 
-                                 IsSelectionEnabled="False" 
+                                 IsSelectionEnabled="False"
                                  Grid.RowSpan="3" 
                                  Margin="0, 40, 0, 0" 
                                  Background="#FFDCDADA" >
@@ -286,13 +286,13 @@
                               DisplayMemberPath="DocumentTypeName"
                               SelectedValuePath="DocumentTypeId"
                               SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
-                              ui:ControlHelper.Header="Tipo de documento"
+                              ui:ControlHelper.Header="Documento principal"
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <ComboBox Visibility="{Binding EcnRegisterTypeVisibility}"
-                              HorizontalAlignment="Stretch"
+                    <ComboBox HorizontalAlignment="Stretch"
+                              Visibility="{Binding EcnRegisterTypeVisibility}"
                               VerticalAlignment="Top"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
@@ -302,7 +302,7 @@
                               ItemsSource="{Binding DocumentTypes}"
                               DisplayMemberPath="DocumentTypeName"
                               SelectedValuePath="DocumentTypeId"
-                              SelectedItem="{Binding SelectedDocumentType, Mode=TwoWay}"
+                              SelectedItem="{Binding SelectedRegisterDocumentType, Mode=TwoWay}"
                               ui:ControlHelper.Header="Tipo de documento"
                               ui:ControlHelper.PlaceholderText="Seleccione un tipo de documento"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
@@ -350,7 +350,7 @@
                              FontFamily="Quicksand Medium"
                              Foreground="White"
                              FontSize="15"
-                             ui:ControlHelper.Header="No. de Documento"
+                             ui:ControlHelper.Header="Número de Documento"
                              ui:ControlHelper.PlaceholderText="Ingresa el número del documento"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
@@ -359,7 +359,7 @@
                              Visibility="{Binding EcnRegisterTypeVisibility}"
                              Grid.Row="2"
                              Grid.ColumnSpan="2"
-                             Margin="0, 0, 20, 0"
+                             Margin="0, 0, 200, 0"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
                              VerticalAlignment="Top"
@@ -371,27 +371,22 @@
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.CornerRadius="5"/>
-                    <Grid Grid.Row="3" Grid.ColumnSpan="2" HorizontalAlignment="Right" Margin="0, 0, 0, 60">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-                        <ListBox Background="#FFD6D6D6" Width="Auto" Height="100" ItemsSource="{Binding Attacheds}" >
-                            <ListBox.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*"/>
-                                            <ColumnDefinition Width="*"/>
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="/Assets/attachment.png" Width="28"/>
-                                        <TextBlock Grid.Column="1" Text="{Binding AttachmentFilename}" Style="{DynamicResource BaseTextBlockStyle}" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
-                                    </Grid>
-                                </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                        <Button Content="Adjuntar" Background="Gray" Foreground="White" Command="{Binding OpenFileDialogCommand}" Grid.Column="1" />
-                    </Grid>
+                    <TextBox Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
+                             Visibility="{Binding EcnRegisterTypeVisibility}"
+                             Grid.Row="3"
+                             Grid.ColumnSpan="2"
+                             Margin="0, 0, 600, 0"
+                             Background="#FFFF0033"
+                             BorderBrush="Transparent"
+                             VerticalAlignment="Top"
+                             FontFamily="Quicksand Medium"
+                             FontSize="15"
+                             Foreground="White"
+                             ui:ControlHelper.Header="Nivel de revisión del documento"
+                             ui:ControlHelper.PlaceholderText="Ingresa el nivel de revisión"
+                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                             ui:ControlHelper.CornerRadius="5"/>
                     <Button Background="Transparent"
                             Grid.Row="3"
                             VerticalAlignment="Bottom"
@@ -437,7 +432,7 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="Selecciona números de parte." FontFamily="Quicksand Medium" FontSize="17"  Margin="0, 0, 0, 10"/>
+                    <Label Content="Arrastre los números de parte que aplican para el cambio" FontFamily="Quicksand Medium" FontSize="16" Margin="0, 0, 0, 10"/>
                     <ScrollViewer Grid.RowSpan="3" Margin="0, 25, 0, 0" >
                         <Grid >
                             <Grid.RowDefinitions>
@@ -584,7 +579,8 @@
                     <Button Background="Transparent"
                             Grid.Row="3"
                             FontFamily="Quicksand Medium"
-                            FontSize="15" Click="Button_Click_7">
+                            FontSize="15" 
+                            Click="Button_Click_7">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" Width="30"/>
                             <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
@@ -608,153 +604,78 @@
                 <TabItem.Header>
                     <TextBlock Text="5." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="80">
-                    <ui:ScrollViewerEx >
-                        <StackPanel VerticalAlignment="Stretch">
-                            <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="18" Foreground="Crimson" Margin="0, 10, 0, 10"/>
-                            <ListBox x:Name="lbAttachments" Background="#FFD6D6D6" Width="Auto" Height="Auto" ItemsSource="{Binding Attacheds}" SelectedItem="{Binding SelectedAttached}">
-                                <ListBox.ItemTemplate>
-                                    <DataTemplate>
-                                        <Grid>
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="*"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Image Source="{Binding ImageLocation, Mode=OneTime}" Margin="5" Width="32"/>
-                                            <TextBlock Grid.Column="1" Text="{Binding AttachmentFilename}" Style="{DynamicResource BaseTextBlockStyle}" VerticalAlignment="Center" Margin="10, 0, 0, 0" />
-                                        </Grid>
-                                    </DataTemplate>
-                                </ListBox.ItemTemplate>
-                            </ListBox>
-                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom">
-                                <Button x:Name="btnAddAttachment" Background="Transparent" Command="{Binding OpenFileDialogCommand}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Adjuntar" FontFamily="Quicksand Medium" FontSize="15" VerticalAlignment="Center"/>
-                                        <Image Source="/Assets/attach.png" Width="28" Margin="5"/>
-                                    </StackPanel>
-                                </Button>
-                                <Button x:Name="btnDeleteAttachment" Background="Transparent" Visibility="{Binding BtnRemoveAttachedVisibility}" Command="{Binding RemoveAttachedCommand}">
-                                    <StackPanel Orientation="Horizontal">
-                                        <TextBlock Text="Quitar" FontFamily="Quicksand Medium" FontSize="15" VerticalAlignment="Center"/>
-                                        <Image Source="/Assets/delete.png" Width="24" Margin="5"/>
-                                    </StackPanel>
-                                </Button>
-                            </StackPanel>
-                        </StackPanel>
-                    </ui:ScrollViewerEx>
-                    <Button Content="Terminar" Background="Crimson" Foreground="Wheat" FontFamily="Quicksand Medium" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding SaveECNCommand}"/>
-                </Grid>
-            </TabItem>
-            <TabItem Height="40">
-                <TabItem.Header>
-                    <TextBlock Text="6." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
-                </TabItem.Header>
-                <Grid Margin="30" >
+                <Grid Margin="80, 30, 80, 50">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Seleccionados para firmar" FontFamily="Quicksand" FontWeight="Medium" FontSize="18" VerticalAlignment="Center"/>
-                            <Image Source="/Assets/signed_.png" Margin="5, 0, 0, 0" Height="36"/>
-                        </StackPanel>
-                        <ui:ListView ItemsSource="{Binding SelectedForSign}" Margin="0, 15, 0, 0" Background="Transparent" Width="400" Height="400" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid Margin="0, 5">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="250" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Stroke="LightGray" 
-                                                   Fill="Transparent"
-                                                   Grid.Column="2"
-                                                   Grid.RowSpan="2"/>
-                                        <StackPanel Grid.RowSpan="2" Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Index}" FontSize="18" FontWeight="Black" VerticalAlignment="Center"/>
-                                            <Image Source="/Assets/userblack.png"
-                                                   Width="44"
-                                                   Height="44"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                        </StackPanel>
-                                        <TextBlock Grid.Column="2"
-                                                   Text="{Binding Name}"
-                                                   FontWeight="Black"
-                                                   Margin="5,0,0,0" 
-                                                   FontSize="16"
-                                                   VerticalAlignment="Bottom"/>
-                                        <TextBlock Grid.Column="2"
-                                                   Grid.Row="1"
-                                                   Text="{Binding Department.DepartmentName}"
-                                                   FontWeight="Black"
-                                                   FontStyle="Normal"
-                                                   Margin="5,0,0,0"
-                                                   FontSize="15"
-                                                   Foreground="Red"
-                                                   VerticalAlignment="Top"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </StackPanel>
-                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Grid.Column="1">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Seleccionados para visualizar" FontSize="18" VerticalAlignment="Center"/>
-                            <Image Source="/Assets/eye.png" Margin="5, 0, 0, 0" Height="36"/>
-                        </StackPanel>
-                        <ui:ListView ItemsSource="{Binding SelectedForView}" Margin="0, 15, 0, 0" Background="Gainsboro" Width="400" Height="400" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid HorizontalAlignment="Stretch">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*" />
-                                            <RowDefinition Height="*" />
-                                        </Grid.RowDefinitions>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="50" />
-                                            <ColumnDefinition Width="250*" />
-                                        </Grid.ColumnDefinitions>
-                                        <Rectangle Stroke="LightGray" 
-                                                   Fill="Transparent"
-                                                   Grid.Column="1"
-                                                   Grid.RowSpan="2"/>
-                                        <Image Source="/Assets/userblack.png"
-                                                   Grid.RowSpan="2"
-                                                   Width="40"
-                                                   Height="40"
-                                                   Margin="6"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
-                                        <TextBlock Grid.Column="1"
-                                                   Text="{Binding Name, Mode=OneTime}"
-                                                   FontWeight="Black"
-                                                   Margin="12,6,0,0" 
-                                                   FontSize="16"/>
-                                        <TextBlock Grid.Column="1"
-                                                   Grid.Row="1"
-                                                   Text="{Binding Department.DepartmentName, Mode=OneTime}"
-                                                   FontWeight="DemiBold"
-                                                   FontStyle="Italic"
-                                                   Margin="12,0,0,6"
-                                                   FontSize="16"
-                                                   Foreground="Red"/>
-                                    </Grid>
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                    </StackPanel>
-                    <Button x:Name="btnAddSignature" Grid.Column="1" Background="Transparent" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="20, 60" Command="{Binding OpenSignatureFlowDialogCommand}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Text="Arrastre los empleados elegidos para firmar o visualizar el cambio" Margin="0, 0, 0, 0" FontFamily="Quicksand Medium" FontSize="16" />
+                    <Button Grid.Row="1" Grid.Column="1" Background="Transparent" Margin="0, 20, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding OpenSignatureFlowDialogCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/add.png" Height="22" Margin="5"/>
                             <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
                         </StackPanel>
                     </Button>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 45, 40, 0" Height="Auto">
+                        <TextBlock Text="Seleccionados para firmar" FontSize="15" />
+                        <Image Source="/Assets/signed_.png" Width="28" Height="28" VerticalAlignment="Top" Margin="5, 0, 0, 0"/>
+                    </StackPanel>
+                    <ui:ListView ItemsSource="{Binding SelectedForSign}"  Background="#FFDCDADA" Margin="0, 70, 50, 20"  IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0, 5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="30" />
+                                        <ColumnDefinition Width="40" />
+                                        <ColumnDefinition Width="250" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Index}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <Image Source="/Assets/employee.png"
+                                           Width="32"
+                                           Height="32"
+                                           Grid.Column="1"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="2"
+                                               Text="{Binding Name}"
+                                               Style="{StaticResource BaseTextBlockStyle}"
+                                               Margin="5,0,0,0" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Grid.Row="1" Margin="0, 5, 40, 0" Height="Auto">
+                        <TextBlock Text="Seleccionados para visualizar" FontSize="15" />
+                        <Image Source="/Assets/eye.png" Width="28" Height="28" VerticalAlignment="Top" Margin="5, 0, 0, 0"/>
+                    </StackPanel>
+                    <ui:ListView ItemsSource="{Binding SelectedForView}" Background="#FFDCDADA" Margin="0,30, 50, 40" Grid.Row="1" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid Margin="0, 5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="250" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="/Assets/employee.png"
+                                           Width="32"
+                                           Height="32"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding Name}"
+                                               Style="{StaticResource BaseTextBlockStyle}"
+                                               Margin="5,0,0,0" 
+                                               VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                    <Button Content="Terminar" Grid.Row="1" Grid.Column="1" Background="Crimson" Foreground="Wheat" FontFamily="Quicksand Medium" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding SaveECNCommand}"/>
                 </Grid>
             </TabItem>
         </TabControl>

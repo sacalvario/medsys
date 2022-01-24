@@ -113,6 +113,7 @@ namespace ECN.ViewModels
             }
         }
 
+
         public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService)
         {
             _ecnDataService = ecnDataService;
@@ -496,6 +497,20 @@ namespace ECN.ViewModels
                         }
                     }
 
+                }
+            }
+        }
+
+        private Documenttype _SelectedRegisterDocumentType;
+        public Documenttype SelectedRegisterDocumentType
+        {
+            get => _SelectedRegisterDocumentType;
+            set
+            {
+                if (_SelectedRegisterDocumentType != value)
+                {
+                    _SelectedRegisterDocumentType = value;
+                    RaisePropertyChanged("SelectedRegisterDocumentType");
                 }
             }
         }

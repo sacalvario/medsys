@@ -36,7 +36,7 @@ namespace ECN.Views
             else if (msg.Notification == "ShowEmployees")
             {
                 var employees = new Employees();
-                employees.Show();
+                employees.ShowDialog();
             }
         }
 
@@ -55,11 +55,6 @@ namespace ECN.Views
             Tab.SelectedIndex = 3;
         }
 
-        private void Button_Click_3(object sender, RoutedEventArgs e)
-        {
-            Tab.SelectedIndex = 4;
-        }
-
         private void Button_Click_4(object sender, RoutedEventArgs e)
         {
             Tab.SelectedIndex = 0;
@@ -70,19 +65,14 @@ namespace ECN.Views
             Tab.SelectedIndex = 1;
         }
 
-        private void Button_Click_6(object sender, RoutedEventArgs e)
+        private void Button_Click_7(object sender, RoutedEventArgs e)
         {
             Tab.SelectedIndex = 2;
         }
 
-        private void Button_Click_7(object sender, RoutedEventArgs e)
-        {
-            Tab.SelectedIndex = 3;
-        }
-
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
-            Tab.SelectedIndex = 5;
+            Tab.SelectedIndex = 4;
         }
     }
 }
