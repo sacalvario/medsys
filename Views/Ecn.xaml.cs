@@ -69,10 +69,15 @@ namespace ECN.Views
         {
             Tab.SelectedIndex = 2;
         }
+        private void Button_Click_3(object sender, RoutedEventArgs e)
+        {
+            Tab.SelectedIndex = 3;
+        }
 
         private void Button_Click_8(object sender, RoutedEventArgs e)
         {
             Tab.SelectedIndex = 4;
         }
+
     }
 }
