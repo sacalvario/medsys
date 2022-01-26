@@ -15,6 +15,7 @@ namespace ECN.Models
 
         public int DocumentTypeId { get; set; }
         public string DocumentTypeName { get; set; }
+        public bool IsSelected { get; set; }
 
         public virtual ICollection<EcnDocumenttype> EcnDocumenttypes { get; set; }
         public virtual ICollection<Ecn> Ecns { get; set; }

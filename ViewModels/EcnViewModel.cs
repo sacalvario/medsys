@@ -124,7 +124,6 @@ namespace ECN.ViewModels
             Attacheds = new ObservableCollection<Attachment>();
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
-            Indexes = new ObservableCollection<int>();
 
             SetData();
 
@@ -149,33 +148,9 @@ namespace ECN.ViewModels
         }
         private void FullObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            //if (e.NewItems != null)
-            //{
-            //    if (e.NewStartingIndex == Indexes.Count)
-            //        Indexes.Add(1);
-            //}
-            //else if (e.OldItems != null)
-            //{
-            //    Indexes.RemoveAt(Indexes.Count - 1);
-            //}
-
             foreach(var item in SelectedForSign)
             {
                 item.Index = SelectedForSign.IndexOf(item) + 1;
-            }
-        }
-
-        private ObservableCollection<int> _Indexes;
-        public ObservableCollection<int> Indexes
-        {
-            get => _Indexes;
-            set
-            {
-                if (_Indexes != value)
-                {
-                    _Indexes = value;
-                    RaisePropertyChanged("Indexes");
-                }
             }
         }
 
@@ -183,10 +158,25 @@ namespace ECN.ViewModels
         {
             if (ECN != null)
             {
+                ECN.ChangeType = SelectedChangeType;
+
+                if (ECN.ChangeType.ChangeTypeId != 3)
+                {
+                    ECN.DocumentName = "N/A";
+                    ECN.DocumentNo = "N/A";
+                    ECN.DocumentType = SelectedDocumentType;
+                }
+
+                else if (ECN.ChangeType.ChangeTypeId == 3)
+                {
+                    ECN.DocumentType = SelectedRegisterDocumentType;
+                    ECN.OldDocumentLvl = "N/A";
+                    ECN.OldDrawingLvl = "N/A";
+                    ECN.DrawingLvl = "N/A";
+                }
+
                 ECN.EmployeeId = UserRecord.Employee_ID;
                 ECN.StatusId = 1;
-                ECN.ChangeType = SelectedChangeType;
-                ECN.DocumentType = SelectedDocumentType;
 
                 if (IsEco)
                 {
@@ -200,15 +190,14 @@ namespace ECN.ViewModels
                     ECN.EcnEco = EcnEco;
                 }
 
-
-                if (NumberParts.Count > 0)
+                foreach(Documenttype dt in DocumentTypes)
                 {
-                    foreach (Numberpart np in NumberParts)
+                    if (dt.IsSelected)
                     {
-                        ECN.EcnNumberparts.Add(new EcnNumberpart()
+                        ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
                         {
                             EcnId = ECN.Id,
-                            ProductId = np.NumberPartNo
+                            DocumentTypeId = dt.DocumentTypeId
                         });
                     }
                 }
@@ -225,6 +214,17 @@ namespace ECN.ViewModels
                     }
                 }
 
+                if (NumberParts.Count > 0)
+                {
+                    foreach (Numberpart np in NumberParts)
+                    {
+                        ECN.EcnNumberparts.Add(new EcnNumberpart()
+                        {
+                            EcnId = ECN.Id,
+                            ProductId = np.NumberPartNo
+                        });
+                    }
+                }
 
                 if (SelectedForSign.Count > 0)
                 {
@@ -234,7 +234,7 @@ namespace ECN.ViewModels
                         {
                             Ecn = ECN,
                             Employee = er,
-                            RevisionSequence = SelectedForSign.IndexOf(er) + 1,
+                            RevisionSequence = er.Index,
                             StatusId = SetStatus(er),
                             Notes = ""
                         };

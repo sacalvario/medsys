@@ -593,6 +593,7 @@ namespace ECN.Models
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Index);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.Extension);
+            _ = modelBuilder.Entity<Documenttype>().Ignore(t => t.IsSelected);
 
             OnModelCreatingPartial(modelBuilder);
         }

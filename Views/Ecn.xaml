@@ -122,7 +122,7 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="1.5*"/>
                     </Grid.RowDefinitions>
-                        <ui:ToggleSwitch x:Name="tsIsEco"
+                    <ui:ToggleSwitch x:Name="tsIsEco"
                                          Header="¿El ECN corresponde a un cambio de ECO?"
                                          OffContent="No"
                                          OnContent="Si" 
@@ -207,7 +207,7 @@
                               Background="#FFFF0033"
                               BorderBrush="Transparent"
                               Foreground="White"
-                              Margin="0, 0, 300, 0"
+                              Margin="0, 40, 300, 0"
                               VerticalAlignment="Top"
                               HorizontalAlignment="Stretch"
                               FontFamily="Quicksand Medium"
@@ -242,7 +242,7 @@
                 <TabItem.Header>
                     <TextBlock Text="2." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <Grid Margin="80, 50, 80, 50">
+                <Grid Margin="80, 20, 80, 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
@@ -252,31 +252,60 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Selecciona los documentos que apliquen para el cambio"
                                FontSize="16"
                                FontFamily="Quicksand"
                                FontWeight="Medium"
+                               Margin="0, 10, 0, 0"
                                Visibility="{Binding EcnIntExtTypeVisibility}"/>
+                    <TextBlock Text="Adjunta los documentos que apliquen para el cambio"
+                               FontSize="16"
+                               Grid.Column="1"
+                               FontFamily="Quicksand"
+                               FontWeight="Medium"
+                               Margin="50, 10, 0, 0"/>
+                    <Button Command="{Binding OpenFileDialogCommand}" Margin="0, 0, 20, 0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent">
+                        <Image Source="/Assets/attach.png" Width="28" Height="28" />
+                    </Button >
+                    <ui:ListView ItemsSource="{Binding Attacheds}"
+                                 IsItemClickEnabled="False"
+                                 IsSelectionEnabled="False"
+                                 Grid.Column="1"
+                                 Grid.RowSpan="2"
+                                 Margin="45, 40, 45, 50">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                    <Image Source="/Assets/attachment.png" Width="28" Margin="0, 0, 10, 0"/>
+                                    <TextBlock Text="{Binding AttachmentFilename}" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
                     <ui:ListView ItemsSource="{Binding DocumentTypes}"
                                  Visibility="{Binding EcnIntExtTypeVisibility}"
                                  IsItemClickEnabled="False" 
                                  IsSelectionEnabled="False"
-                                 Grid.RowSpan="3" 
+                                 Grid.RowSpan="4" 
                                  Margin="0, 40, 0, 0" 
                                  Background="#FFDCDADA" >
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding DocumentTypeName}"
-                                          FontSize="15"/>
+                                          FontSize="15"
+                                          IsChecked="{Binding IsSelected}"/>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
                     <ComboBox Grid.Column="1"
+                              Grid.Row="1"
+                              Grid.RowSpan="2"
                               Visibility="{Binding EcnIntExtTypeVisibility}"
                               HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top"
-                              Margin="50, 30, 30, 0"
+                              VerticalAlignment="Center"
+                              Margin="50, 5, 30, 0"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
@@ -291,9 +320,46 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <ComboBox HorizontalAlignment="Stretch"
-                              Visibility="{Binding EcnRegisterTypeVisibility}"
-                              VerticalAlignment="Top"
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Text="{Binding ECN.OldDocumentLvl}"
+                              Grid.Column="1"
+                              Grid.Row="2"
+                              Grid.RowSpan="2"
+                              Margin="50, 0, 100, 20"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión actual"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Text="{Binding ECN.DocumentLvl}"
+                              Grid.Column="1"
+                              Grid.Row="3"
+                              Grid.RowSpan="2"
+                              Margin="50, 0, 100, 40"
+                              VerticalAlignment="Center"
+                              HorizontalAlignment="Stretch"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión nuevo"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva del documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <ComboBox Visibility="{Binding EcnRegisterTypeVisibility}"
+                              HorizontalAlignment="Stretch"
+                              VerticalAlignment="Center"
+                              Margin="0, 0, 50, 0"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
@@ -308,43 +374,27 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
-                              Grid.Column="1"
-                              Grid.Row="1"
-                              Margin="50, 30, 100, 0"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Top"
-                              FontFamily="Quicksand Medium"
-                              Background="#FFFF0033"
-                              FontSize="15"
-                              Foreground="White"
-                              BorderBrush="Transparent"
-                              ui:ControlHelper.Header="Nivel de revisión actual"
-                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del documento"
-                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
-                              Grid.Column="1"
-                              Grid.Row="2"
-                              Margin="50, 30, 100, 0"
-                              VerticalAlignment="Top"
-                              HorizontalAlignment="Stretch"
-                              FontFamily="Quicksand Medium"
-                              Background="#FFFF0033"
-                              FontSize="15"
-                              Foreground="White"
-                              BorderBrush="Transparent"
-                              ui:ControlHelper.Header="Nivel de revisión nuevo"
-                              ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva del documento"
-                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
-                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox Grid.Row="1"
+                    <TextBox Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
+                             Visibility="{Binding EcnRegisterTypeVisibility}"
+                             Grid.Row="1"
+                             Margin="0, 0, 100, 0"
+                             Background="#FFFF0033"
+                             BorderBrush="Transparent"
+                             VerticalAlignment="Bottom"
+                             FontFamily="Quicksand Medium"
+                             FontSize="15"
+                             Foreground="White"
+                             ui:ControlHelper.Header="Nivel de revisión del documento"
+                             ui:ControlHelper.PlaceholderText="Ingresa el nivel de revisión"
+                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                             ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox Grid.Row="2"
+                             Grid.RowSpan="2"
                              Visibility="{Binding EcnRegisterTypeVisibility}"
                              Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
-                             VerticalAlignment="Top"
-                             Margin="0, 0, 20, 0"
+                             VerticalAlignment="Center"
+                             Margin="0, 30, 50, 0"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
                              FontFamily="Quicksand Medium"
@@ -358,11 +408,12 @@
                     <TextBox Text="{Binding ECN.DocumentName, Mode=TwoWay}"
                              Visibility="{Binding EcnRegisterTypeVisibility}"
                              Grid.Row="2"
-                             Grid.ColumnSpan="2"
-                             Margin="0, 0, 200, 0"
+                             Grid.RowSpan="2"
+                             Grid.Column="1"
+                             Margin="10, 40, 20, 10"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
-                             VerticalAlignment="Top"
+                             VerticalAlignment="Center"
                              FontFamily="Quicksand Medium"
                              FontSize="15"
                              Foreground="White"
@@ -371,29 +422,14 @@
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
-                             Visibility="{Binding EcnRegisterTypeVisibility}"
-                             Grid.Row="3"
-                             Grid.ColumnSpan="2"
-                             Margin="0, 0, 600, 0"
-                             Background="#FFFF0033"
-                             BorderBrush="Transparent"
-                             VerticalAlignment="Top"
-                             FontFamily="Quicksand Medium"
-                             FontSize="15"
-                             Foreground="White"
-                             ui:ControlHelper.Header="Nivel de revisión del documento"
-                             ui:ControlHelper.PlaceholderText="Ingresa el nivel de revisión"
-                             ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
-                             ui:ControlHelper.CornerRadius="5"/>
                     <Button Background="Transparent"
-                            Grid.Row="3"
+                            Grid.Row="4"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Left"
                             FontFamily="Quicksand Medium"
                             FontSize="15" 
-                            Click="Button_Click_4">
+                            Click="Button_Click_4"
+                            Margin="0, 0, 0, 20">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" 
                                    Width="30"/>
@@ -404,12 +440,14 @@
                     </Button>
                     <Button 
                             Background="Transparent"
-                            Grid.Row="3"
+                            Grid.Row="4"
                             Grid.Column="1"
                             VerticalAlignment="Bottom"
                             HorizontalAlignment="Right"
                             FontFamily="Quicksand Medium"
-                            FontSize="15" Click="Button_Click_1">
+                            FontSize="15"
+                            Margin="0, 0, 0, 20"
+                            Click="Button_Click_1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black" />
                             <Image Source="/Assets/rightred.png" Width="30" />
@@ -438,11 +476,11 @@
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>                      
+                            </Grid.RowDefinitions>
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0, 0, 10, 0" >
-                                    <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
-                                    <Label Content="{Binding NumberParts.Count}" />
-                                    <Label Content="/10" />
+                                <Label Content="Seleccionados: " Margin="220, 0, 0, 0"/>
+                                <Label Content="{Binding NumberParts.Count}" />
+                                <Label Content="/10" />
                             </StackPanel>
                             <ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
                         </Grid>
@@ -454,6 +492,7 @@
                         </StackPanel>
                     </Button>
                     <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Text="{Binding ECN.OldDrawingLvl}"
                               Grid.Column="1"
                               VerticalAlignment="Bottom"
                               Margin="80, 30, 50, 0"
@@ -469,6 +508,7 @@
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              Text="{Binding ECN.DrawingLvl}"
                               Grid.Column="1"
                               Grid.Row="1"
                               Margin="80, 0, 50, 0"
@@ -534,7 +574,7 @@
                              Foreground="White"
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
-                             FontSize="16"
+                             FontSize="15"
                              Margin="50, 25"
                              AcceptsReturn="True"
                              Height="110"
@@ -542,7 +582,7 @@
                              ui:ControlHelper.PlaceholderText="¿Qué estoy cambiando?"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="15"/>
+                             ui:ControlHelper.CornerRadius="10"/>
                     <TextBox x:Name="txtJustification"
                              Text="{Binding ECN.ChangeJustification, Mode=TwoWay}"
                              Grid.Column="1"
@@ -550,7 +590,7 @@
                              Background="#FFFF0033"
                              BorderThickness="0"
                              FontFamily="Quicksand Medium"
-                             FontSize="16"
+                             FontSize="15"
                              Margin="0, 25, 50, 25"
                              AcceptsReturn="True"
                              Foreground="White"
@@ -558,7 +598,7 @@
                              ui:ControlHelper.PlaceholderText="¿Por qué lo estoy cambiando?"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="15"/>
+                             ui:ControlHelper.CornerRadius="10"/>
                     <TextBox x:Name="txtManufacturingAffectations"
                              Text="{Binding ECN.ManufacturingAffectations, Mode=TwoWay}"
                              Grid.Row="1"
@@ -569,13 +609,13 @@
                              FontFamily="Quicksand Medium"
                              Foreground="White"
                              Margin="50, 25"
-                             FontSize="16"
+                             FontSize="15"
                              AcceptsReturn="True"
                              ui:ControlHelper.Header="Afectaciones de manufactura"
                              ui:ControlHelper.PlaceholderText="¿Qué procesos afecta el cambio?"
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                             ui:ControlHelper.CornerRadius="15"/>
+                             ui:ControlHelper.CornerRadius="10"/>
                     <Button Background="Transparent"
                             Grid.Row="3"
                             FontFamily="Quicksand Medium"
@@ -615,7 +655,9 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <TextBlock Text="Arrastre los empleados elegidos para firmar o visualizar el cambio" FontFamily="Quicksand Medium" FontSize="16" />
-                    <ui:ListView ItemsSource="{Binding SelectedForSign}" Grid.RowSpan="2" Background="#FFDCDADA" Margin="0, 70, 50, 30" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                    <TextBlock Text="Seleccionados para firma" HorizontalAlignment="Center" Margin="0, 60, 70, 0"/>
+                    <TextBlock Text="Seleccionados para visualizar" HorizontalAlignment="Center" Margin="0, 60, 70, 0" Grid.Column="1"/>
+                    <ui:ListView ItemsSource="{Binding SelectedForSign}" Grid.RowSpan="2" Background="#FFDCDADA" Margin="20, 90, 100, 30" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5, 5, 0, 5">
@@ -665,11 +707,12 @@
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                    <ui:ListView ItemsSource="{Binding SelectedForView}" Background="#FFDCDADA" Margin="0, 70, 50, 30" Grid.Column="1" Grid.RowSpan="2" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                    <ui:ListView ItemsSource="{Binding SelectedForView}" Background="#FFDCDADA" Margin="20, 90, 100, 30" Grid.Column="1" Grid.RowSpan="2" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5, 5, 0, 5">
                                     <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="50" />
                                         <ColumnDefinition Width="300" />
                                     </Grid.ColumnDefinitions>
@@ -677,21 +720,29 @@
                                         <RowDefinition Height="*" />
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
-                                    <Image Source="/Assets/userblack.png"
+                                    <Image Source="/Assets/eye.png"
                                            Width="42"
                                            Height="42"
                                            Margin="0, 4"
                                            VerticalAlignment="Center"
                                            HorizontalAlignment="Center" 
                                            Grid.RowSpan="2"/>
-                                    <TextBlock Grid.Column="1"
+                                    <Image Source="/Assets/userblack.png"
+                                           Grid.Column="1"
+                                           Width="42"
+                                           Height="42"
+                                           Margin="0, 4"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" 
+                                           Grid.RowSpan="2"/>
+                                    <TextBlock Grid.Column="2"
                                                Text="{Binding Name}"
                                                Style="{StaticResource BaseTextBlockStyle}"
                                                FontSize="16"
                                                FontWeight="Black"
                                                Margin="2, 0, 0, 0"
                                                VerticalAlignment="Bottom"/>
-                                    <TextBlock Grid.Column="1"
+                                    <TextBlock Grid.Column="2"
                                                Grid.Row="1"
                                                Text="{Binding Department.DepartmentName}"
                                                Style="{StaticResource BaseTextBlockStyle}"
