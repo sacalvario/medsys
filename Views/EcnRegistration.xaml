@@ -1,0 +1,15 @@
+﻿<Page x:Class="ECN.Views.EcnRegistration"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      DataContext="{Binding EcnRegistrationViewModel, Source={StaticResource Locator}}"
+      xmlns:local="clr-namespace:ECN.Views"
+      mc:Ignorable="d"
+      Title="EcnRegistration" Height="150" Width="400">
+    <Grid Background="#FFD8D8D8">
+        <Image Source="/Assets/checkgreen.png" Width="28" Height="28" VerticalAlignment="Top" Margin="0, 20, 0, 0" />
+        <TextBlock Text="Se ha registrado correctamente el ECN con el folio:" Margin="0, 60, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Quicksand Medium" FontSize="16"/>
+        <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Red" FontWeight="Black" FontSize="24"/>
+    </Grid>
+</Page>

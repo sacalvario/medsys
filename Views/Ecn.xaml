@@ -107,7 +107,7 @@
     </Page.Resources>
 
     <Grid>
-        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0"  >
+        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}"  >
             <TabItem Height="40" >
                 <TabItem.Header>
                     <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
@@ -230,7 +230,7 @@
                             VerticalAlignment="Bottom"
                             FontFamily="Quicksand Medium"
                             FontSize="14" 
-                            Click="Button_Click">
+                            Command="{Binding GoToNextTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center"/>
                             <Image Source="/Assets/rightred.png" Width="30"/>
@@ -277,9 +277,12 @@
                                  Margin="45, 40, 45, 50">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
-                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                    <Image Source="/Assets/attachment.png" Width="28" Margin="0, 0, 10, 0"/>
-                                    <TextBlock Text="{Binding AttachmentFilename}" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
+                                    <Image Source="/Assets/attachment.png" Width="28" Margin="0, 0, 10, 0" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{Binding AttachmentFilename}" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Center" Width="300"/>
+                                    <Button Margin="10, 0, 0, 0" VerticalAlignment="Center" Background="Transparent">
+                                        <Image Source="/Assets/delete.png" Width="18"/>
+                                    </Button>
                                 </StackPanel>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
@@ -428,7 +431,7 @@
                             HorizontalAlignment="Left"
                             FontFamily="Quicksand Medium"
                             FontSize="15" 
-                            Click="Button_Click_4"
+                            Command="{Binding GoToLastTabItemCommand}"
                             Margin="0, 0, 0, 20">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" 
@@ -447,7 +450,7 @@
                             FontFamily="Quicksand Medium"
                             FontSize="15"
                             Margin="0, 0, 0, 20"
-                            Click="Button_Click_1">
+                            Command="{Binding GoToNextTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black" />
                             <Image Source="/Assets/rightred.png" Width="30" />
@@ -533,7 +536,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             Margin="5"
-                            Click="Button_Click_2">
+                            Command="{Binding GoToNextTabItemCommand}">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black"/>
                             <Image Source="/Assets/rightred.png" Width="30"/>
@@ -546,7 +549,8 @@
                             FontSize="15"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Bottom"
-                            Margin="5" Click="Button_Click_5">
+                            Margin="5"
+                            Command="{Binding GoToLastTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" Width="30"/>
                             <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
@@ -620,7 +624,7 @@
                             Grid.Row="3"
                             FontFamily="Quicksand Medium"
                             FontSize="15" 
-                            Click="Button_Click_7">
+                            Command="{Binding GoToLastTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" Width="30"/>
                             <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
@@ -632,7 +636,7 @@
                             FontFamily="Quicksand Medium"
                             FontSize="15"
                             HorizontalAlignment="Right" 
-                            Click="Button_Click_8">
+                            Command="{Binding GoToNextTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center" Foreground="Black"/>
                             <Image Source="/Assets/rightred.png" Width="30"/>
@@ -765,7 +769,8 @@
                             Grid.Row="2"
                             VerticalAlignment="Bottom"
                             FontFamily="Quicksand Medium"
-                            FontSize="15" Click="Button_Click_3">
+                            FontSize="15"
+                            Command="{Binding GoToLastTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/leftred.png" Width="30"/>
                             <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>

@@ -51,13 +51,15 @@ namespace ECN.ViewModels
         public LoginViewModel LoginViewModel
             => SimpleIoc.Default.GetInstance<LoginViewModel>();
 
+        public EcnRegistrationViewModel EcnRegistrationViewModel
+            => SimpleIoc.Default.GetInstance<EcnRegistrationViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
             SimpleIoc.Default.Register<IApplicationHostService, ApplicationHostService>();
 
-            // Core Services
-            //SimpleIoc.Default.Register<IServiceProvider, ServiceProvider>();
+
 
             // Data Services
             SimpleIoc.Default.Register<IEcnDataService, EcnDataService>();
@@ -73,7 +75,9 @@ namespace ECN.ViewModels
             // Window
             SimpleIoc.Default.Register<ILoginWindow, Login>();
             SimpleIoc.Default.Register<IShellWindow, ShellWindow>();
+            SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
             SimpleIoc.Default.Register<ShellViewModel>();
+            SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<NumberParts>();
             SimpleIoc.Default.Register<NumberPartsViewModel>();
@@ -88,6 +92,7 @@ namespace ECN.ViewModels
             Register<EcnRecordsViewModel, EcnRecords>();
             Register<ChecklistViewModel, Checklist>();
             Register<ChecklistCheckViewModel, ChecklistCheck>();
+            Register<EcnRegistrationViewModel, EcnRegistration>();
         }
 
         private void Register<VM, V>()

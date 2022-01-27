@@ -4,14 +4,10 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
-using System.IO;
-using System.Windows.Data;
-using System.ComponentModel;
 using System.Collections.Specialized;
+using System.IO;
+using System.Windows;
 
 namespace ECN.ViewModels
 {
@@ -20,12 +16,15 @@ namespace ECN.ViewModels
 
         private readonly IEcnDataService _ecnDataService;
         private readonly IOpenFileService _openFileService;
+        private readonly IWindowManagerService _windowManagerService;
         public Ecn ECN { get; set; }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
         public RelayCommand OpenNumberPartsDialogCommand { get; set; }
         public RelayCommand OpenSignatureFlowDialogCommand { get; set; }
         public RelayCommand RemoveAttachedCommand { get; set; }
+        public RelayCommand GoToNextTabItemCommand { get; set; }
+        public RelayCommand GoToLastTabItemCommand { get; set; }
 
         private Visibility _BtnAddNumberPartVisibility;
         public Visibility BtnAddNumberPartVisibility
@@ -114,10 +113,12 @@ namespace ECN.ViewModels
         }
 
 
-        public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService)
+        public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService)
         {
-            _ecnDataService = ecnDataService;
+             _ecnDataService = ecnDataService;
             _openFileService = openFileService;
+            _windowManagerService = windowManagerService;
+
             ECN = new Ecn();
 
             NumberParts = new ObservableCollection<Numberpart>();
@@ -136,6 +137,8 @@ namespace ECN.ViewModels
             OpenNumberPartsDialogCommand = new RelayCommand(OpenNumberPartsDialog);
             OpenSignatureFlowDialogCommand = new RelayCommand(OpenSignatureFlowDialog);
             RemoveAttachedCommand = new RelayCommand(RemoveAttached);
+            GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
+            GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
 
             BtnAddNumberPartVisibility = Visibility.Visible;
             EcnEcoVisibility = Visibility.Collapsed;
@@ -144,6 +147,8 @@ namespace ECN.ViewModels
             EcnIntExtTypeVisibility = Visibility.Visible;
 
             SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
+
+            //SelectedTabItem = 1;
 
         }
         private void FullObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -245,7 +250,8 @@ namespace ECN.ViewModels
                 try
                 {
                     _ecnDataService.SaveEcn(ECN);
-                    _ = MessageBox.Show("Record saving sucefully.");
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
+                    SelectedTabItem = 0;
                 }
                 catch (Exception ex)
                 {
@@ -306,6 +312,7 @@ namespace ECN.ViewModels
         private void ResetData()
         {
             //ECN.ChangeDescription = string.Empty;
+            ECN = null;
             ECN = new Ecn();
         }
 
@@ -314,6 +321,15 @@ namespace ECN.ViewModels
             ECN.StartDate = DateTime.Now;
             ECN.EndDate = DateTime.Now.AddDays(30);
             IsEco = false;
+        }
+
+        private void GoToNexTabItem()
+        {
+            SelectedTabItem++;
+        }
+        private void GoToLastTabItem()
+        {
+            SelectedTabItem--;
         }
 
         private static ObservableCollection<Numberpart> _NumberParts;
@@ -539,6 +555,20 @@ namespace ECN.ViewModels
                 {
                     _SelectedForSign = value;
                     RaisePropertyChanged("SelectedForSign");
+                }
+            }
+        }
+
+        private int _SelectedTabItem;
+        public int SelectedTabItem
+        {
+            get => _SelectedTabItem;
+            set
+            {
+                if (_SelectedTabItem != value)
+                {
+                    _SelectedTabItem = value;
+                    RaisePropertyChanged("SelectedTabItem");
                 }
             }
         }

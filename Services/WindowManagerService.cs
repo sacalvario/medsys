@@ -6,22 +6,20 @@ using System.Windows.Navigation;
 using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Contracts.Views;
-
+using GalaSoft.MvvmLight.Ioc;
 using MahApps.Metro.Controls;
 
 namespace ECN.Services
 {
     public class WindowManagerService : IWindowManagerService
     {
-        private readonly IServiceProvider _serviceProvider;
         private readonly IPageService _pageService;
 
         public Window MainWindow
             => Application.Current.MainWindow;
 
-        public WindowManagerService(IServiceProvider serviceProvider, IPageService pageService)
+        public WindowManagerService (IPageService pageService)
         {
-            _serviceProvider = serviceProvider;
             _pageService = pageService;
         }
 
@@ -54,9 +52,9 @@ namespace ECN.Services
             }
         }
 
-        public bool? OpenInDialog(string key, object parameter = null)
+        public bool? OpenInDialog(string key, object parameter)
         {
-            var shellwindow = _serviceProvider.GetService(typeof(IShellDialogWindow)) as Window;
+            var shellwindow = SimpleIoc.Default.GetInstance<IShellDialogWindow>(Guid.NewGuid().ToString()) as Window;
             var frame = ((IShellDialogWindow)shellwindow).GetDialogFrame();
             frame.Navigated += OnNavigated;
             shellwindow.Closed += OnWindowClosed;

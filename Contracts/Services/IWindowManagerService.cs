@@ -8,7 +8,7 @@ namespace ECN.Contracts.Services
 
         void OpenInNewWindow(string pageKey, object parameter = null);
 
-        bool? OpenInDialog(string pageKey, object parameter = null);
+        bool? OpenInDialog(string pageKey, object parameter);
 
         Window GetWindow(string pageKey);
     }
