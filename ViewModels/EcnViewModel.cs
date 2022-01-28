@@ -17,6 +17,7 @@ namespace ECN.ViewModels
         private readonly IEcnDataService _ecnDataService;
         private readonly IOpenFileService _openFileService;
         private readonly IWindowManagerService _windowManagerService;
+        private readonly IMailService _mailService;
         public Ecn ECN { get; set; }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
@@ -113,11 +114,12 @@ namespace ECN.ViewModels
         }
 
 
-        public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService)
+        public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService)
         {
              _ecnDataService = ecnDataService;
             _openFileService = openFileService;
             _windowManagerService = windowManagerService;
+            _mailService = mailService;
 
             ECN = new Ecn();
 
@@ -250,7 +252,15 @@ namespace ECN.ViewModels
                 try
                 {
                     _ecnDataService.SaveEcn(ECN);
+
+                    foreach(Employee er in SelectedForView)
+                    {
+                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                    }
+
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
+
+
                     SelectedTabItem = 0;
                 }
                 catch (Exception ex)

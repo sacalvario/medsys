@@ -91,7 +91,7 @@
                 <Run Text="ECN's por firmar: " FontStyle="Italic" />
                 <Run Text="{Binding ChecklistCount, Mode=OneWay}" Foreground="Red" />
             </TextBlock>
-            <ListView x:Name="lvChecklist" ItemsSource="{Binding Checklist}" ItemTemplate="{StaticResource Template}"  Margin="80" >
+            <ListView x:Name="lvChecklist" ItemsSource="{Binding Checklist}" ItemTemplate="{StaticResource Template}" Margin="80" >
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick" >
                         <i:InvokeCommandAction Command="{Binding ElementName=lvChecklist, Path=DataContext.NavigateToCheckCommand}" CommandParameter="{Binding ElementName=lvChecklist, Path=SelectedItem}" />

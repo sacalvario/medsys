@@ -60,7 +60,6 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IApplicationHostService, ApplicationHostService>();
 
 
-
             // Data Services
             SimpleIoc.Default.Register<IEcnDataService, EcnDataService>();
             SimpleIoc.Default.Register<INumberPartsDataService, NumberPartsDataService>();
@@ -71,6 +70,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IPageService, PageService>();
             SimpleIoc.Default.Register<INavigationService, NavigationService>();
             SimpleIoc.Default.Register<IOpenFileService, OpenFileService>();
+            SimpleIoc.Default.Register<IMailService, MailService>();
 
             // Window
             SimpleIoc.Default.Register<ILoginWindow, Login>();
