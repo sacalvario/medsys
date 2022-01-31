@@ -21,6 +21,10 @@ namespace ECN.ViewModels
             {
                 Source = Employees
             };
+
+            CvsEmployees.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
+
+
             CvsEmployees.Filter += ApplyFilter;
         }
 

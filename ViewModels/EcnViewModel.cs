@@ -253,11 +253,7 @@ namespace ECN.ViewModels
                 {
                     _ecnDataService.SaveEcn(ECN);
 
-                    foreach(Employee er in SelectedForView)
-                    {
-                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
-                    }
-
+                    _mailService.SendEmail(SelectedForView[0].EmployeeEmail, ECN.Id, SelectedForView[0].Name);
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
 
 
@@ -265,7 +261,7 @@ namespace ECN.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    _ = MessageBox.Show("Error occured while saving. " + ex.InnerException);
+                    _ = MessageBox.Show("Error occured while saving. " + ex.Message);
                 }
                 finally
                 {

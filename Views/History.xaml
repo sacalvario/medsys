@@ -96,15 +96,42 @@
         </Style>
 
     </Page.Resources>
-    
-    <Grid>
-        <ScrollViewer Background="#FFE0E0E0">
+
+    <Grid Background="#FFE0E0E0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="6*" />
+        </Grid.RowDefinitions>
+        <StackPanel VerticalAlignment="Center"
+                    HorizontalAlignment="Left"
+                    Margin="100, 0, 0, 0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        Margin="0, 0, 0, 5">
+                <Label Content="Buscar" 
+                       FontFamily="Quicksand Medium" 
+                       FontSize="16" />
+                <Image Source="/Assets/search.png"
+                       Width="22" 
+                       Margin="2, 0, 0, 0"/>
+            </StackPanel>
+            <TextBox Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"
+                     Background="#FFFF0033"
+                     Foreground="White"
+                     BorderThickness="0"
+                     FontFamily="Quicksand Medium" 
+                     FontSize="15" 
+                     ui:ControlHelper.PlaceholderText="Ingresa un folio" 
+                     ui:ControlHelper.PlaceholderForeground="White"
+                     Width="450"  />
+        </StackPanel>
+        <ScrollViewer Grid.Row="1">
             <TreeView x:Name="tvHistory" 
                       ItemsSource="{Binding Path=CvsHistory.View.Groups}"
                       ItemContainerStyle="{StaticResource ContainerStyle}" 
                       ItemTemplate="{StaticResource YearTemplate}" 
-                      Margin="140, 40"
-                      HorizontalAlignment="Left">
+                      Margin="100, 10 , 40, 40"
+                      HorizontalAlignment="Stretch">
                 <i:Interaction.Triggers>
                     <i:EventTrigger EventName="MouseDoubleClick" >
                         <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem}" />

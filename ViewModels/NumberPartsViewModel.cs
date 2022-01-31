@@ -2,6 +2,7 @@
 using ECN.Models;
 using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Windows.Data;
 
@@ -20,7 +21,18 @@ namespace ECN.ViewModels
             {
                 Source = NumberParts
             };
+
+            CvsNumberParts.SortDescriptions.Add(new SortDescription("Customer.CustomerName", ListSortDirection.Ascending));
+            CvsNumberParts.SortDescriptions.Add(new SortDescription("NumberPartId", ListSortDirection.Ascending));
+
             CvsNumberParts.Filter += ApplyFilter;
+            CvsNumberParts.Filter += FilterCustomerRevision;
+            NumberPartCollection.CollectionChanged += NumberPartCollectionChanged;
+        }
+
+        private void NumberPartCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+           
         }
 
         public async void GetAll()
@@ -83,7 +95,16 @@ namespace ECN.ViewModels
             }
         }
 
+        public Numberpart NumberPartSelected { get; set; }
+
         private void ApplyFilter(object sender, FilterEventArgs e)
+        {
+            Numberpart np = (Numberpart)e.Item;
+
+            e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower());
+        }
+
+        private void FilterCustomerRevision(object sender, FilterEventArgs e)
         {
             Numberpart np = (Numberpart)e.Item;
 

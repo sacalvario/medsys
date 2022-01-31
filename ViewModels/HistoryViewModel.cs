@@ -36,6 +36,10 @@ namespace ECN.ViewModels
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
             CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
             CvsHistory.SortDescriptions.Add(new SortDescription("Month", ListSortDirection.Descending));
+            CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
+
+            CvsHistory.Filter += ApplyFilter;
+            
         }
 
         private CollectionViewSource _CvsHistory;
@@ -87,9 +91,35 @@ namespace ECN.ViewModels
             }
         }
 
+        private string filter;
+        public string Filter
+        {
+            get => filter;
+            set
+            {
+                filter = value;
+                OnFilterChanged();
+            }
+        }
+
+        private void OnFilterChanged()
+        {
+            CvsHistory.View.Refresh();
+        }
+
+        private void ApplyFilter(object sender, FilterEventArgs e)
+        {
+            Ecn ecn = (Ecn)e.Item;
+
+            e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || ecn.Id.ToString().Contains(Filter);
+        }
+
         private void NavigateToDetail(Ecn ecn)
         {
-            _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, ecn);
+            if (ecn != null)
+            {
+                _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, ecn);
+            }
         }
 
         public void OnNavigatedTo(object parameter)
