@@ -125,7 +125,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBox x:Name="txtEco"
-                                 Text="{Binding Eco, Mode=TwoWay}"
+                                 Text="{Binding ECN.EcnEco.IdEco, Mode=TwoWay}"
                                  VerticalAlignment="Center"
                                  HorizontalAlignment="Stretch"
                                  Margin="0, 0, 20, 0"
@@ -143,7 +143,7 @@
                                   Grid.Column="1"
                                   DisplayMemberPath="EcoTypeName"
                                   SelectedValuePath="EcoTypeId"
-                                  SelectedItem="{Binding SelectedEcoType, Mode=TwoWay}"
+                                  SelectedValue="{Binding ECN.EcnEco.EcoTypeId, Mode=TwoWay}"
                                   Margin="10, 0, 20, 0"
                                   VerticalAlignment="Center"
                                   HorizontalAlignment="Stretch"

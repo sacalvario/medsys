@@ -18,7 +18,20 @@ namespace ECN.ViewModels
         private readonly IOpenFileService _openFileService;
         private readonly IWindowManagerService _windowManagerService;
         private readonly IMailService _mailService;
-        public Ecn ECN { get; set; }
+
+        private Ecn _ECN;
+        public Ecn ECN
+        {
+            get => _ECN;
+            set
+            {
+                if (_ECN != value)
+                {
+                    _ECN = value;
+                    RaisePropertyChanged("ECN");
+                }
+            }
+        }
         public RelayCommand SaveECNCommand { get; set; }
         public RelayCommand OpenFileDialogCommand { get; set; }
         public RelayCommand OpenNumberPartsDialogCommand { get; set; }
@@ -109,6 +122,13 @@ namespace ECN.ViewModels
                     RaisePropertyChanged("IsEco");
                     EcnEcoVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
                     ECN.EndDate = IsEco ? DateTime.Now.AddDays(45) : DateTime.Now.AddDays(30);
+
+                    if (_IsEco)
+                    {
+                        ECN.EcnEco = new EcnEco();
+                    }
+                    else
+                        ECN.EcnEco = null;
                 }
             }
         }
@@ -128,7 +148,7 @@ namespace ECN.ViewModels
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
 
-            SetData();
+            IsEco = false;
 
             GetChangeTypes();
             GetDocumentTypes();
@@ -188,13 +208,13 @@ namespace ECN.ViewModels
                 if (IsEco)
                 {
                     ECN.IsEco = Convert.ToSByte(IsEco);
-                    EcnEco EcnEco = new EcnEco
-                    {
-                        IdEcn = ECN.Id,
-                        IdEco = Eco,
-                        EcoTypeId = SelectedEcoType.EcoTypeId
-                    };
-                    ECN.EcnEco = EcnEco;
+                    //EcnEco EcnEco = new EcnEco
+                    //{
+                    //    IdEcn = ECN.Id,
+                    //    IdEco = Eco,
+                    //    EcoTypeId = SelectedEcoType.EcoTypeId
+                    //};
+                    //ECN.EcnEco = EcnEco;
                 }
 
                 foreach(Documenttype dt in DocumentTypes)
@@ -251,9 +271,15 @@ namespace ECN.ViewModels
 
                 try
                 {
+
                     _ecnDataService.SaveEcn(ECN);
 
-                    _mailService.SendEmail(SelectedForView[0].EmployeeEmail, ECN.Id, SelectedForView[0].Name);
+                    _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name);
+                    foreach(Employee er in SelectedForView)
+                    {
+                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                    }
+
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
 
 
@@ -261,7 +287,7 @@ namespace ECN.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    _ = MessageBox.Show("Error occured while saving. " + ex.Message);
+                    _ = MessageBox.Show("Error occured while saving. " + ex.ToString());
                 }
                 finally
                 {
@@ -317,15 +343,28 @@ namespace ECN.ViewModels
 
         private void ResetData()
         {
-            //ECN.ChangeDescription = string.Empty;
-            ECN = null;
             ECN = new Ecn();
+
+            if (IsEco)
+            {
+                IsEco = false;
+                ECN.EcnEco = new EcnEco();
+            }
+
+            SelectedChangeType = new Changetype();
+            SelectedDocumentType = new Documenttype();
+            SelectedRegisterDocumentType = new Documenttype();
+            Attacheds = new ObservableCollection<Attachment>();
+            NumberParts = new ObservableCollection<Numberpart>();
+            SelectedForSign = new ObservableCollection<Employee>();
+            SelectedForView = new ObservableCollection<Employee>();
+            GetDocumentTypes();
         }
 
         private void SetData()
         {
-            ECN.StartDate = DateTime.Now;
-            ECN.EndDate = DateTime.Now.AddDays(30);
+            //ECN.StartDate = DateTime.Now;
+            //ECN.EndDate = DateTime.Now.AddDays(30);
             IsEco = false;
         }
 
@@ -338,8 +377,8 @@ namespace ECN.ViewModels
             SelectedTabItem--;
         }
 
-        private static ObservableCollection<Numberpart> _NumberParts;
-        public static ObservableCollection<Numberpart> NumberParts
+        private ObservableCollection<Numberpart> _NumberParts;
+        public ObservableCollection<Numberpart> NumberParts
         {
             get => _NumberParts;
             set
@@ -347,7 +386,7 @@ namespace ECN.ViewModels
                 if (_NumberParts != value)
                 {
                     _NumberParts = value;
-                    //RaisePropertyChanged("NumberParts");
+                    RaisePropertyChanged("NumberParts");
                 }
             }
         }
@@ -390,6 +429,7 @@ namespace ECN.ViewModels
                 if (_DocumentTypes != value)
                 {
                     _DocumentTypes = value;
+
                     RaisePropertyChanged("DocumentTypes");
                 }
             }
