@@ -7,33 +7,26 @@
       xmlns:local="clr-namespace:ECN.Views"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="850" d:DesignWidth="1400"
+      d:DesignHeight="650" d:DesignWidth="1200"
       Title="HistoryDetails">
 
     <Page.Resources>
 
-        <Style x:Key="TextStyleProperty" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TextStyleProperty" TargetType="{x:Type Run}">
             <Style.Setters>
                 <Setter Property="FontSize" Value="15" />
                 <Setter Property="FontWeight" Value="Bold"/>
-                <Setter Property="FontStyle" Value="Italic"/>
                 <Setter Property="Foreground" Value="Black" />
-                <Setter Property="VerticalAlignment" Value="Center"/>
-                <Setter Property="HorizontalAlignment" Value="Left"/>
-                <Setter Property="Margin" Value="10"/>
-                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="FontFamily" Value="Quicksand" />
             </Style.Setters>
         </Style>
 
-        <Style x:Key="TextStylePropertyName" TargetType="{x:Type TextBlock}">
+        <Style x:Key="TextStylePropertyName" TargetType="{x:Type Run}">
             <Style.Setters>
-                <Setter Property="FontSize" Value="14" />
-                <Setter Property="FontWeight" Value="SemiBold" />
-                <Setter Property="VerticalAlignment" Value="Center" />
-                <Setter Property="FontStyle" Value="Italic" />
-                <Setter Property="Margin" Value="10" />
-                <Setter Property="Foreground" Value="GhostWhite" />
-                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="FontSize" Value="15" />
+                <Setter Property="Foreground" Value="Red" />
+                <Setter Property="FontFamily" Value="Quicksand Medium" />
+                <Setter Property="FontWeight" Value="Bold" />
             </Style.Setters>
         </Style>
 
@@ -72,55 +65,43 @@
                     <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
                 <Grid>
-                    <Grid Margin="0, 40, 0, 0"  Height="Auto">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="290" />
-                            <ColumnDefinition Width="600" />
-                        </Grid.ColumnDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid Height="Auto" Margin="0, 40, 0, 0">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Border Background="#FFE20000" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="1" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="2" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="3" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="4" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="5" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="6" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="7" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent"  />
-                        <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="3" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="4" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="5" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="6" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <Border Grid.Column="1" Grid.Row="7" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
-                        <TextBlock Text="Tipo de cambio" Style="{StaticResource TextStylePropertyName}" />
-                        <TextBlock Text="Tipo de documento" Grid.Row="1" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="Número de documento" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="Nombre de documento" Grid.Row="3" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="Fecha de actualización del documento" Grid.Row="4" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="{Binding Ecn.ChangeType.ChangeTypeName}" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="{Binding Ecn.DocumentType.DocumentTypeName}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
-                        <TextBlock Text="{Binding Ecn.DocumentNo}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="{Binding Ecn.DocumentName}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="{Binding Ecn.LongDocumentUpgradeDate}" Grid.Row="4" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="Descripción del cambio" Grid.Row="5" Style="{StaticResource TextStylePropertyName}" />
-                        <TextBlock Text="Justificación del cambio" Grid.Row="6" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="Afectaciones de manufactura" Grid.Row="7" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="5" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="6" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
-                        <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="7" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
+                        <Border Background="Transparent" BorderThickness="0" />
+                        <Border Background="Transparent" Grid.Row="1" BorderThickness="0" />
+                        <Border Background="Transparent" Grid.Row="2" BorderThickness="0" />
+                        <Border Background="Transparent" Grid.Row="3" BorderThickness="0"/>
+                        <TextBlock Margin="0, 0, 0, 10">
+                                <Run Text="TIPO DE CAMBIO: " Style="{StaticResource TextStylePropertyName}"/>
+                                <Run Text="{Binding Ecn.ChangeType.ChangeTypeName}" Style="{StaticResource TextStyleProperty}" />
+                        </TextBlock>
+                        <TextBlock Grid.Row="1" TextWrapping="Wrap" Margin="0, 0, 0, 10">
+                                <Run Text="DESCRIPCIÓN DEL CAMBIO: " Style="{StaticResource TextStylePropertyName}"/>
+                                <Run Text="{Binding Ecn.ChangeDescription}"  Style="{StaticResource TextStyleProperty}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Row="2" TextWrapping="Wrap" Margin="0, 0, 0, 10">
+                                <Run Text="JUSTIFICACIÓN DEL CAMBIO: " Style="{StaticResource TextStylePropertyName}"/>
+                                <Run Text="{Binding Ecn.ChangeJustification}"  Style="{StaticResource TextStyleProperty}"/>
+                        </TextBlock>
+                        <TextBlock Grid.Row="3"  TextWrapping="Wrap" Margin="0, 0, 0, 10">
+                                <Run Text="AFECTACIONES DE MANUFACTURA: " Style="{StaticResource TextStylePropertyName}"/>
+                                <Run Text="{Binding Ecn.ManufacturingAffectations}" Style="{StaticResource TextStyleProperty}"/>
+                        </TextBlock>
                     </Grid>
-                    <Grid Height="100" Width="280" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1000, 80, 0, 10">
+                    <Grid Height="100" Width="280" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1000, 80, 0, 10" d:IsHidden="True">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
@@ -141,7 +122,7 @@
                             <TextBlock Text="Revisión nueva" HorizontalAlignment="Center"/>
                         </StackPanel>
                     </Grid>
-                    <Grid Height="100" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1000, 270, 0, 10" >
+                    <Grid Height="100" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1000, 270, 0, 10" d:IsHidden="True" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />

@@ -122,13 +122,6 @@ namespace ECN.ViewModels
                     RaisePropertyChanged("IsEco");
                     EcnEcoVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
                     ECN.EndDate = IsEco ? DateTime.Now.AddDays(45) : DateTime.Now.AddDays(30);
-
-                    if (_IsEco)
-                    {
-                        ECN.EcnEco = new EcnEco();
-                    }
-                    else
-                        ECN.EcnEco = null;
                 }
             }
         }
@@ -141,7 +134,10 @@ namespace ECN.ViewModels
             _windowManagerService = windowManagerService;
             _mailService = mailService;
 
-            ECN = new Ecn();
+            ECN = new Ecn
+            {
+                EcnEco = new EcnEco()
+            };
 
             NumberParts = new ObservableCollection<Numberpart>();
             Attacheds = new ObservableCollection<Attachment>();
@@ -208,16 +204,13 @@ namespace ECN.ViewModels
                 if (IsEco)
                 {
                     ECN.IsEco = Convert.ToSByte(IsEco);
-                    //EcnEco EcnEco = new EcnEco
-                    //{
-                    //    IdEcn = ECN.Id,
-                    //    IdEco = Eco,
-                    //    EcoTypeId = SelectedEcoType.EcoTypeId
-                    //};
-                    //ECN.EcnEco = EcnEco;
+                }
+                else
+                {
+                    ECN.EcnEco = null;
                 }
 
-                foreach(Documenttype dt in DocumentTypes)
+                foreach (Documenttype dt in DocumentTypes)
                 {
                     if (dt.IsSelected)
                     {
@@ -343,12 +336,14 @@ namespace ECN.ViewModels
 
         private void ResetData()
         {
-            ECN = new Ecn();
+            ECN = new Ecn
+            {
+                EcnEco = new EcnEco()
+            };
 
             if (IsEco)
             {
                 IsEco = false;
-                ECN.EcnEco = new EcnEco();
             }
 
             SelectedChangeType = new Changetype();
@@ -359,13 +354,8 @@ namespace ECN.ViewModels
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
             GetDocumentTypes();
-        }
 
-        private void SetData()
-        {
-            //ECN.StartDate = DateTime.Now;
-            //ECN.EndDate = DateTime.Now.AddDays(30);
-            IsEco = false;
+            SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
         }
 
         private void GoToNexTabItem()
@@ -544,20 +534,6 @@ namespace ECN.ViewModels
                 {
                     _SelectedDocumentType = value;
                     RaisePropertyChanged("SelectedDocumentType");
-
-                    if (SelectedChangeType != null && SelectedDocumentType != null)
-                    {
-                        if (SelectedDocumentType.DocumentTypeId == 17 || SelectedDocumentType.DocumentTypeId == 5 || SelectedDocumentType.DocumentTypeId == 15)
-                        {
-                            SelectedForSign = SelectedChangeType.ChangeTypeId == 1 || SelectedChangeType.ChangeTypeId == 2
-                                ? new ObservableCollection<Employee>(_ecnDataService.GetAMEF())
-                                : new ObservableCollection<Employee>(_ecnDataService.GetAMEFAlta());
-                        }
-                        else if (SelectedDocumentType.DocumentTypeId == 12)
-                        {
-                            SelectedForSign = new ObservableCollection<Employee>(_ecnDataService.GetManualdeCalidad());
-                        }
-                    }
 
                 }
             }
