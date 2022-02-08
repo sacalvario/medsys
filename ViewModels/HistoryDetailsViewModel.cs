@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 
 namespace ECN.ViewModels
 {
@@ -23,6 +24,34 @@ namespace ECN.ViewModels
                 {
                     _ecn = value;
                     RaisePropertyChanged("Ecn");
+                }
+            }
+        }
+
+        private Visibility _EcnRegisterTypeVisibility = Visibility.Collapsed;
+        public Visibility EcnRegisterTypeVisibility
+        {
+            get => _EcnRegisterTypeVisibility;
+            set
+            {
+                if (_EcnRegisterTypeVisibility != value)
+                {
+                    _EcnRegisterTypeVisibility = value;
+                    RaisePropertyChanged("EcnRegisterTypeVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnIntExtTypeVisibility = Visibility.Visible;
+        public Visibility EcnIntExtTypeVisibility
+        {
+            get => _EcnIntExtTypeVisibility;
+            set
+            {
+                if (_EcnIntExtTypeVisibility != value)
+                {
+                    _EcnIntExtTypeVisibility = value;
+                    RaisePropertyChanged("EcnIntExtTypeVisibility");
                 }
             }
         }
@@ -66,6 +95,20 @@ namespace ECN.ViewModels
                     _Revisions = value;
                     RaisePropertyChanged("Revisions");
                 }
+            }
+        }
+
+        private ObservableCollection<EcnDocumenttype> _Documents;
+        public ObservableCollection<EcnDocumenttype> Documents
+        {
+            get => _Documents;
+            set
+            {
+                if (_Documents != value)
+                {
+                    _Documents = value;
+                    RaisePropertyChanged("Documents");
+                } 
             }
         }
 
@@ -118,12 +161,28 @@ namespace ECN.ViewModels
                 Ecn = ecn;
             }
 
+            if (Ecn.ChangeType.ChangeTypeId == 3)
+            {
+                EcnRegisterTypeVisibility = Visibility.Visible;
+                EcnIntExtTypeVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (EcnIntExtTypeVisibility == Visibility.Collapsed)
+                {
+                    EcnIntExtTypeVisibility = Visibility.Visible;
+                    EcnRegisterTypeVisibility = Visibility.Collapsed;
+                }
+            }
+
             NumberParts = new ObservableCollection<Numberpart>();
             Attachments = new ObservableCollection<Attachment>();
             Revisions = new ObservableCollection<EcnRevision>();
+            Documents = new ObservableCollection<EcnDocumenttype>();
             GetNumberParts();
             GetAttachments();
             GetRevisions();
+            GetDocuments();
 
         }
 
@@ -158,13 +217,25 @@ namespace ECN.ViewModels
         {
             Ecn.EcnRevisions = await _ecnDataService.GetRevisionsAsync(Ecn.Id);
 
-            foreach(var item in Ecn.EcnRevisions)
+            foreach (var item in Ecn.EcnRevisions)
             {
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
                 item.Employee.Department = await _ecnDataService.GetDepartmentAsync(item.Employee.DepartmentId);
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 Revisions.Add(item);
             }
+        }
+
+        private async void GetDocuments()
+        {
+            Ecn.EcnDocumenttypes = await _ecnDataService.GetDocumentsAsync(Ecn.Id);
+
+            foreach (var item in Ecn.EcnDocumenttypes)
+            {
+                item.DocumentType = await _ecnDataService.GetDocumentTypeAsync(item.DocumentTypeId);
+                Documents.Add(item);
+            }
+
         }
 
         private void DownloadAttachment()

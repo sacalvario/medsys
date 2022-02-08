@@ -293,5 +293,16 @@ namespace ECN.Services
 
             context.SaveChanges();
         }
+
+        public async Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn)
+        {
+            await Task.CompletedTask;
+            return GetDocuments(ecn);
+        }
+
+        private ICollection<EcnDocumenttype> GetDocuments(int ecn)
+        {
+            return context.EcnDocumenttypes.Where(i => i.EcnId == ecn).ToList();
+        }
     }
 }

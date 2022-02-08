@@ -66,14 +66,14 @@
                 </TabItem.Header>
                 <Grid>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="1.5*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid Height="Auto" Margin="0, 40, 0, 0">
+                    <Grid Height="Auto"  VerticalAlignment="Center" Margin="0, 0, 100, 0"> 
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
@@ -101,135 +101,144 @@
                                 <Run Text="{Binding Ecn.ManufacturingAffectations}" Style="{StaticResource TextStyleProperty}"/>
                         </TextBlock>
                     </Grid>
-                    <Grid Height="100" Width="280" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="1000, 80, 0, 10" d:IsHidden="True">
+                    <Grid Grid.Row="1">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
-                        </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="3*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="Revisión del documento" FontSize="15" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1">
-                            <TextBlock Text="{Binding Ecn.OldDocumentLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
-                            <TextBlock Text="Revisión anterior" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                        <Image Grid.Row="1" Grid.Column="1" Source="/Assets/rightred.png" Width="32" VerticalAlignment="Center"/>
-                        <StackPanel Grid.Row="1" Grid.Column="2">
-                            <TextBlock Text="{Binding Ecn.DocumentLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
-                            <TextBlock Text="Revisión nueva" HorizontalAlignment="Center"/>
-                        </StackPanel>
-                    </Grid>
-                    <Grid Height="100" Width="280" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1000, 270, 0, 10" d:IsHidden="True" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="2*" />
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2*" />
                         </Grid.ColumnDefinitions>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="3*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Text="Revisión del dibujo" FontSize="15" Grid.ColumnSpan="3" HorizontalAlignment="Center" FontStyle="Italic" FontWeight="Bold"/>
-                        <StackPanel Grid.Row="1">
-                            <TextBlock Text="{Binding Ecn.OldDrawingLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
-                            <TextBlock Text="Revisión anterior" HorizontalAlignment="Center" />
-                        </StackPanel>
-                        <Image Grid.Row="1" Grid.Column="1" Source="/Assets/rightred.png" Width="32" VerticalAlignment="Center"/>
-                        <StackPanel Grid.Row="1" Grid.Column="2">
-                            <TextBlock Text="{Binding Ecn.DrawingLvl}" FontSize="42" HorizontalAlignment="Center" Foreground="Red" FontWeight="Bold"/>
-                            <TextBlock Text="Revisión nueva" HorizontalAlignment="Center" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
-            <TabItem Height="40" >
-                <TabItem.Header>
-                    <TextBlock Text="Números de parte" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
-                </TabItem.Header>
-                <ui:ListView ItemsSource="{Binding NumberParts}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="850" Height="Auto" IsSelectionEnabled="False"  >
-                    <ui:ListView.ItemTemplate>
-                        <DataTemplate >
+                        <TextBlock Text="Documento principal" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
+                        <ui:SimpleStackPanel Spacing="10" Margin="0, 40, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" >
+                            <Image Source="/Assets/document64.png" Width="64"/>
+                            <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Tipo de documento: "/>
+                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}"/>
+                            </TextBlock>
                             <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="800" />
+                                    <ColumnDefinition Width="4*" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="4*" />
                                 </Grid.ColumnDefinitions>
-                                <Rectangle Stroke="LightGray" 
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Ecn.OldDocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Nivel de revisión anterior" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                                <Image Source="/Assets/rightred.png" Grid.Column="1" Width="24" HorizontalAlignment="Center"/>
+                                <StackPanel Grid.Column="2">
+                                    <TextBlock Text="{Binding Ecn.DocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                                    <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
+                                </StackPanel>
+                            </Grid>
+                        </ui:SimpleStackPanel>
+                        <TextBlock Text="Otros documentos afectados" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
+                        <ui:ListView Grid.Column="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnIntExtTypeVisibility}" Margin="40, 40, 0, 0">
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="/Assets/registerdocument.png" Width="28" Margin="5"/>
+                                        <TextBlock Text="{Binding DocumentType.DocumentTypeName}" Grid.Column="1" VerticalAlignment="Center"/>
+                                    </Grid>    
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                        <TextBlock Text="Documento de alta" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}"/>
+                        <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}">
+                            <Image Source="/Assets/document64.png" Width="64"/>
+                            <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Número de documento: "/>
+                                <Run Text="{Binding Ecn.DocumentNo}"/>
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Nombre de documento: " />
+                                <Run Text="{Binding Ecn.DocumentName}" />
+                            </TextBlock>
+                            <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Tipo de documento: " />
+                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" />
+                            </TextBlock>
+                        </ui:SimpleStackPanel>
+                    </Grid>
+                    <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="850" Height="Auto" IsSelectionEnabled="False"  >
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="800" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Stroke="LightGray" 
                                            Fill="#FFE20000"
                                            Grid.RowSpan="2"/>
-                                <Rectangle Stroke="LightGray" 
+                                    <Rectangle Stroke="LightGray" 
                                            Fill="Transparent"
                                            Grid.Column="1"
                                            Grid.RowSpan="2"/>
-                                <Image Source="/Assets/wire-white.png"
+                                    <Image Source="/Assets/wire-white.png"
                                        Grid.RowSpan="2"
                                        Width="40"
                                        Height="40"
                                        Margin="6"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
-                                <TextBlock Grid.Column="1"
+                                    <TextBlock Grid.Column="1"
                                            Text="{Binding NumberPartId, Mode=OneTime}"
                                            FontWeight="Black"
                                            Margin="12,6,0,0" 
                                            FontSize="16"/>
-                                <TextBlock Grid.Column="1"
+                                    <TextBlock Grid.Column="1"
                                            Grid.Row="1"
                                            Text="{Binding Customer.CustomerName, Mode=OneTime}"
                                            FontWeight="Black"
                                            Margin="12,0,0,6"
                                            FontSize="16"
                                            Foreground="Red"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ui:ListView.ItemTemplate>
-                </ui:ListView>
-            </TabItem>
-            <TabItem Height="40" >
-                <TabItem.Header>
-                    <TextBlock Text="Adjuntos" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
-                </TabItem.Header>
-                <ui:ListView Name="lvattachs" ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" SelectedItem="{Binding SelectedAttachment}"  >
-                    <ui:ListView.ItemTemplate>
-                        <DataTemplate >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="50" />
-                                    <ColumnDefinition Width="850" />
-                                </Grid.ColumnDefinitions>
-                                <Rectangle Stroke="LightGray" 
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                    <ui:ListView Name="lvattachs" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" SelectedItem="{Binding SelectedAttachment}"  >
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate >
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50" />
+                                        <ColumnDefinition Width="850" />
+                                    </Grid.ColumnDefinitions>
+                                    <Rectangle Stroke="LightGray" 
                                            Fill="Transparent"
                                            Grid.Column="1"
                                            Grid.RowSpan="2"/>
-                                <Image Source="{Binding ImageLocation}"
+                                    <Image Source="{Binding ImageLocation}"
                                        Width="38"
                                        Height="38"
                                        Margin="6"
                                        VerticalAlignment="Center"
                                        HorizontalAlignment="Center" />
-                                <TextBlock Grid.Column="1"
+                                    <TextBlock Grid.Column="1"
                                            Text="{Binding AttachmentFilename}"
                                            VerticalAlignment="Center"
                                            FontWeight="Black"
                                            Margin="12,6,0,0" 
                                            FontSize="15"/>
-                                <Button Grid.Column="1"
+                                    <Button Grid.Column="1"
                                         Margin="355, 6, 0, 0"
                                         Content="Descargar"
                                         Background="SeaGreen"
                                         Foreground="White"
                                         Command="{Binding ElementName=lvattachs, Path=DataContext.DownloadAttachmentCommand}"/>
-                            </Grid>
-                        </DataTemplate>
-                    </ui:ListView.ItemTemplate>
-                </ui:ListView>
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                </Grid>
             </TabItem>
             <TabItem Height="40" >
                 <TabItem.Header>
