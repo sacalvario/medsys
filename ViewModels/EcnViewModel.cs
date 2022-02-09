@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
@@ -36,23 +37,13 @@ namespace ECN.ViewModels
         public RelayCommand OpenFileDialogCommand { get; set; }
         public RelayCommand OpenNumberPartsDialogCommand { get; set; }
         public RelayCommand OpenSignatureFlowDialogCommand { get; set; }
-        public RelayCommand RemoveAttachedCommand { get; set; }
         public RelayCommand GoToNextTabItemCommand { get; set; }
         public RelayCommand GoToLastTabItemCommand { get; set; }
 
-        private Visibility _BtnAddNumberPartVisibility;
-        public Visibility BtnAddNumberPartVisibility
-        {
-            get => _BtnAddNumberPartVisibility;
-            set
-            {
-                if (_BtnAddNumberPartVisibility != value)
-                {
-                    _BtnAddNumberPartVisibility = value;
-                    RaisePropertyChanged("BtnAddNumberPartVisibility");
-                }
-            }
-        }
+        private ICommand _deleteAttachedCommand;
+
+        public ICommand DeleteAttachedCommand => _deleteAttachedCommand ??= new RelayCommand<Attachment>(RemoveAttached);
+
 
         private Visibility _EcnEcoVisibility;
         public Visibility EcnEcoVisibility
@@ -68,19 +59,6 @@ namespace ECN.ViewModels
             }
         }
 
-        private Visibility _BtnRemoveAtachedVisibility;
-        public Visibility BtnRemoveAttachedVisibility
-        {
-            get => _BtnRemoveAtachedVisibility;
-            set
-            {
-                if (_BtnRemoveAtachedVisibility != value)
-                {
-                    _BtnRemoveAtachedVisibility = value;
-                    RaisePropertyChanged("BtnRemoveAttachedVisibility");
-                }
-            }
-        }
 
         private Visibility _EcnRegisterTypeVisibility;
         public Visibility EcnRegisterTypeVisibility
@@ -154,13 +132,11 @@ namespace ECN.ViewModels
             OpenFileDialogCommand = new RelayCommand(OpenFileDialog);
             OpenNumberPartsDialogCommand = new RelayCommand(OpenNumberPartsDialog);
             OpenSignatureFlowDialogCommand = new RelayCommand(OpenSignatureFlowDialog);
-            RemoveAttachedCommand = new RelayCommand(RemoveAttached);
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
 
-            BtnAddNumberPartVisibility = Visibility.Visible;
+
             EcnEcoVisibility = Visibility.Collapsed;
-            BtnRemoveAttachedVisibility = Visibility.Collapsed;
             EcnRegisterTypeVisibility = Visibility.Collapsed;
             EcnIntExtTypeVisibility = Visibility.Visible;
 
@@ -321,11 +297,11 @@ namespace ECN.ViewModels
             }
         }
 
-        private void RemoveAttached()
+        private void RemoveAttached(Attachment attachment)
         {
-            if (SelectedAttached != null)
+            if (attachment != null)
             {
-                _ = Attacheds.Remove(SelectedAttached);
+                _ = Attacheds.Remove(attachment);
             }
         }
 
@@ -439,34 +415,6 @@ namespace ECN.ViewModels
             }
         }
 
-        private EcoType _SelectedEcoType;
-        public EcoType SelectedEcoType
-        {
-            get => _SelectedEcoType;
-            set
-            {
-                if (_SelectedEcoType != value)
-                {
-                    _SelectedEcoType = value;
-                    RaisePropertyChanged("SelectedEcoType");
-                }
-            }
-        }
-
-        private string _Eco;
-        public string Eco
-        {
-            get => _Eco;
-            set
-            {
-                if (_Eco != value)
-                {
-                    _Eco = value;
-                    RaisePropertyChanged("Eco");
-                }
-            }
-        }
-
         private ObservableCollection<Attachment> _Attacheds;
         public ObservableCollection<Attachment> Attacheds
         {
@@ -477,21 +425,6 @@ namespace ECN.ViewModels
                 {
                     _Attacheds = value;
                     RaisePropertyChanged("Attacheds");
-                }
-            }
-        }
-
-        private Attachment _SelectedAttached;
-        public Attachment SelectedAttached
-        {
-            get => _SelectedAttached;
-            set
-            {
-                if (_SelectedAttached != value)
-                {
-                    _SelectedAttached = value;
-                    RaisePropertyChanged("SelectedAttached");
-                    BtnRemoveAttachedVisibility = _SelectedAttached != null ? Visibility.Visible : Visibility.Collapsed;
                 }
             }
         }

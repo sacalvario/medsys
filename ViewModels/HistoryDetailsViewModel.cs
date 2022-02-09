@@ -4,8 +4,10 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
@@ -13,6 +15,7 @@ namespace ECN.ViewModels
     {
         private IEcnDataService _ecnDataService;
         private INumberPartsDataService _numberPartsDataService;
+        private IOpenFileService _openFileService;
         private Ecn _ecn;
 
         public Ecn Ecn
@@ -126,27 +129,26 @@ namespace ECN.ViewModels
             }
         }
 
-        private RelayCommand _DownloadAttachmentCommand;
-        public RelayCommand DownloadAttachmentCommand
+        private ICommand _DownloadAttachmentCommand;
+        public ICommand DownloadAttachmentCommand
         {
             get
             {
                 if (_DownloadAttachmentCommand == null)
                 {
-                    _DownloadAttachmentCommand = new RelayCommand(DownloadAttachment);
+                    _DownloadAttachmentCommand = new RelayCommand<Attachment>(DownloadAttachment);
                 }
                 return _DownloadAttachmentCommand;
             }
         }
 
-        
 
-        public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService)
+        public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService)
         {
             Ecn = new Ecn();
             _ecnDataService = ecnDataService;
             _numberPartsDataService = numberPartsDataService;
-
+            _openFileService = openFileService;
         }
 
         public void OnNavigatedFrom()
@@ -238,9 +240,22 @@ namespace ECN.ViewModels
 
         }
 
-        private void DownloadAttachment()
+        private void DownloadAttachment(Attachment attachment)
         {
-            File.WriteAllBytes(@"C:\Development\Adjuntos\" + SelectedAttachment.AttachmentFilename, SelectedAttachment.AttachmentFile);
+            if (_openFileService.SaveFileDialog(attachment.AttachmentFilename))
+            {
+                File.WriteAllBytes(_openFileService.Path, attachment.AttachmentFile);
+
+                Process process = new Process
+                {
+                    StartInfo = new ProcessStartInfo(_openFileService.Path)
+                    {
+                        UseShellExecute = true
+                    }
+                };
+                _ = process.Start();
+
+            }
         }
     }
 }

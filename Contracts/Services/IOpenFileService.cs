@@ -9,5 +9,6 @@ namespace ECN.Contracts.Services
         string FileName { get; set; }
         string Path { get; set; }
         bool OpenFileDialog();
+        bool SaveFileDialog(string filename);
     }
 }

@@ -14,6 +14,8 @@
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\document64.png" />
+    <None Remove="Assets\download.png" />
+    <None Remove="Assets\downloadblack.png" />
     <None Remove="Assets\electric.png" />
     <None Remove="Assets\employee.png" />
     <None Remove="Assets\excel2.png" />
@@ -79,6 +81,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\delete.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\download.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\electric.png">
@@ -200,6 +205,12 @@
 
   <ItemGroup>
     <Content Include="Assets\document64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\downloadblack.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

@@ -131,15 +131,15 @@
                             </Grid>
                         </ui:SimpleStackPanel>
                         <TextBlock Text="Otros documentos afectados" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
-                        <ui:ListView Grid.Column="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnIntExtTypeVisibility}" Margin="40, 40, 0, 0">
+                        <ui:ListView Grid.Column="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnIntExtTypeVisibility}" Margin="40" IsSelectionEnabled="False">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
-                                    <Grid HorizontalAlignment="Center">
+                                    <Grid>
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="200" />
                                         </Grid.ColumnDefinitions>
-                                        <Image Source="/Assets/registerdocument.png" Width="28" Margin="5"/>
+                                        <Image Source="/Assets/registerdocument.png" Width="28" Margin="0, 5, 10, 5"/>
                                         <TextBlock Text="{Binding DocumentType.DocumentTypeName}" Grid.Column="1" VerticalAlignment="Center"/>
                                     </Grid>    
                                 </DataTemplate>
@@ -162,7 +162,8 @@
                             </TextBlock>
                         </ui:SimpleStackPanel>
                     </Grid>
-                    <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="850" Height="Auto" IsSelectionEnabled="False"  >
+                    <TextBlock Text="Números de parte" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" />
+                    <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="1" Margin="40" IsSelectionEnabled="False"  >
                         <ui:ListView.ItemTemplate>
                             <DataTemplate >
                                 <Grid>
@@ -171,69 +172,57 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="800" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Stroke="LightGray" 
-                                           Fill="#FFE20000"
-                                           Grid.RowSpan="2"/>
-                                    <Rectangle Stroke="LightGray" 
-                                           Fill="Transparent"
-                                           Grid.Column="1"
-                                           Grid.RowSpan="2"/>
+                                    <Border BorderThickness="0" 
+                                            Background="#FFE20000"
+                                            CornerRadius="20"
+                                            Margin="0, 5, 10, 5"
+                                            Grid.RowSpan="2"/>
                                     <Image Source="/Assets/wire-white.png"
-                                       Grid.RowSpan="2"
-                                       Width="40"
-                                       Height="40"
-                                       Margin="6"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
+                                           Grid.RowSpan="2"
+                                           Width="24"
+                                           Margin="0, 5, 10, 5"
+                                           VerticalAlignment="Center"
+                                           HorizontalAlignment="Center" />
                                     <TextBlock Grid.Column="1"
-                                           Text="{Binding NumberPartId, Mode=OneTime}"
-                                           FontWeight="Black"
-                                           Margin="12,6,0,0" 
-                                           FontSize="16"/>
+                                               Text="{Binding NumberPartId, Mode=OneTime}"
+                                               VerticalAlignment="Center"/>
                                     <TextBlock Grid.Column="1"
-                                           Grid.Row="1"
-                                           Text="{Binding Customer.CustomerName, Mode=OneTime}"
-                                           FontWeight="Black"
-                                           Margin="12,0,0,6"
-                                           FontSize="16"
-                                           Foreground="Red"/>
+                                               Grid.Row="1"
+                                               Text="{Binding Customer.CustomerName, Mode=OneTime}"
+                                               Foreground="Red"/>
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                    <ui:ListView Name="lvattachs" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Attachments}" VerticalAlignment="Top" HorizontalAlignment="Left" Width="850" Margin="0, 20, 0, 0" Height="Auto" SelectedItem="{Binding SelectedAttachment}"  >
+                    <TextBlock Text="Documentos adjuntos" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" />
+                    <ui:ListView Name="lvattachs" Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Attachments}" Margin="40" IsSelectionEnabled="False" >
                         <ui:ListView.ItemTemplate>
-                            <DataTemplate >
+                            <DataTemplate>
                                 <Grid>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="50" />
-                                        <ColumnDefinition Width="850" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="300" />
+                                        <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
-                                    <Rectangle Stroke="LightGray" 
-                                           Fill="Transparent"
-                                           Grid.Column="1"
-                                           Grid.RowSpan="2"/>
-                                    <Image Source="{Binding ImageLocation}"
-                                       Width="38"
-                                       Height="38"
-                                       Margin="6"
-                                       VerticalAlignment="Center"
-                                       HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Column="1"
-                                           Text="{Binding AttachmentFilename}"
+                                    <Image Source="/Assets/attachment.png"
+                                           Width="28"
+                                           Margin="0, 5, 10, 5"
                                            VerticalAlignment="Center"
-                                           FontWeight="Black"
-                                           Margin="12,6,0,0" 
-                                           FontSize="15"/>
-                                    <Button Grid.Column="1"
-                                        Margin="355, 6, 0, 0"
-                                        Content="Descargar"
-                                        Background="SeaGreen"
-                                        Foreground="White"
-                                        Command="{Binding ElementName=lvattachs, Path=DataContext.DownloadAttachmentCommand}"/>
+                                           HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding AttachmentFilename}"
+                                               VerticalAlignment="Center"/>
+                                    <Button Grid.Column="2"
+                                            Margin="10, 0, 0, 0"
+                                            VerticalAlignment="Center"
+                                            Background="Transparent"
+                                            Command="{Binding ElementName=lvattachs, Path=DataContext.DownloadAttachmentCommand}"
+                                            CommandParameter="{Binding}">
+                                        <Image Source="/Assets/downloadblack.png" Width="24"/>
+                                    </Button>
                                 </Grid>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
