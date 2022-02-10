@@ -27,6 +27,8 @@
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\newred.png" />
     <None Remove="Assets\pdf.png" />
+    <None Remove="Assets\plug.png" />
+    <None Remove="Assets\plug48.png" />
     <None Remove="Assets\powerpoint.png" />
     <None Remove="Assets\records.png" />
     <None Remove="Assets\registerdocument.png" />
@@ -114,6 +116,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pdf.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\plug.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\plug48.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\powerpoint.png">

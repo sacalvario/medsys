@@ -26,23 +26,27 @@
         </DataTemplate>
 
         <DataTemplate x:Key="NumberPartListViewTemplate">
-            <Grid Margin="8">
+            <Grid Margin="0, 5, 0, 5">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="55" />
-                    <ColumnDefinition Width="480" />
+                    <ColumnDefinition Width="40" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Image Source="/Assets/wire.png" Width="42" Height="42" Grid.RowSpan="3" HorizontalAlignment="Center"  />
-                <TextBlock Text="{Binding NumberPartId}" FontSize="16" Grid.Column="1" FontWeight="Bold" Foreground="Black" />
-                <TextBlock Text="{Binding Customer.CustomerName}"  Grid.Row="1" Grid.Column="1" FontSize="15" FontWeight="Bold"  Foreground="#FFE20000"/>
-                <TextBlock  Grid.Row="2" Grid.Column="1" FontSize="14" Margin="0, 2, 0, 0">
-                            <Run Text="Nível de revisión: " Foreground="Black" FontWeight="Normal"/>
-                            <Run Text="{Binding NumberPartRev}" Foreground="#FFE20000" FontWeight="Black"/>
-                </TextBlock>
+                <StackPanel Grid.RowSpan="2" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <TextBlock Text="Rev."/>
+                    <TextBlock Text="{Binding NumberPartRev}" FontSize="15" HorizontalAlignment="Center" Foreground="#FFE20000" FontWeight="Bold" TextWrapping="Wrap"/>
+                </StackPanel>
+                <Image Source="/Assets/plug48.png" Grid.Column="1" Width="38" Height="38" Grid.RowSpan="3" HorizontalAlignment="Center" Margin="10, 5, 0, 5" />
+                <TextBlock Text="{Binding NumberPartId}" FontSize="16" Grid.Column="2" FontWeight="Bold" Foreground="Black" Margin="10, 0, 0 ,0"/>
+                <TextBlock Text="{Binding Customer.CustomerName}"  Grid.Row="1" Grid.Column="2" FontSize="15" FontWeight="Bold"  Foreground="#FFE20000"  Margin="10, 0, 0 ,0"/>
+                <Button Margin="10, 0, 0, 0" Grid.RowSpan="2" Grid.Column="3" VerticalAlignment="Center" Background="Transparent" Command="{Binding ElementName=lvNumberParts, Path=DataContext.DeleteNumberPartCommand}" CommandParameter="{Binding}" >
+                    <Image Source="/Assets/delete.png" Width="18"/>
+                </Button>
             </Grid>
         </DataTemplate>
 
@@ -266,7 +270,7 @@
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
                                     <Image Source="/Assets/attachment.png" Width="28" Margin="0, 0, 10, 0" VerticalAlignment="Center"/>
-                                    <TextBlock Text="{Binding AttachmentFilename}" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Center" Width="300"/>
+                                    <TextBlock Text="{Binding AttachmentFilename}" Style="{StaticResource BaseTextBlockStyle}" VerticalAlignment="Center" Width="350"/>
                                     <Button Margin="10, 0, 0, 0" VerticalAlignment="Center" Background="Transparent" Command="{Binding ElementName=lvAttachs, Path=DataContext.DeleteAttachedCommand}" CommandParameter="{Binding}">
                                         <Image Source="/Assets/delete.png" Width="18"/>
                                     </Button>
@@ -472,7 +476,7 @@
                                 <Label Content="{Binding NumberParts.Count}" />
                                 <Label Content="/10" />
                             </StackPanel>
-                            <ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" SelectionMode="Single" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" SelectedItem="{Binding SelectedNumberPart}" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True"/>
+                            <ui:ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" IsSelectionEnabled="False"  dd:DragDrop.IsDropTarget="True"/>
                         </Grid>
                     </ScrollViewer>
                     <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding BtnAddNumberPartVisibility}" Command="{Binding OpenNumberPartsDialogCommand}">
@@ -648,7 +652,7 @@
                     <TextBlock Text="Arrastre los empleados elegidos para firmar o visualizar el cambio" FontFamily="Quicksand Medium" FontSize="16" />
                     <TextBlock Text="Seleccionados para firma" HorizontalAlignment="Center" Margin="0, 60, 70, 0"/>
                     <TextBlock Text="Seleccionados para visualizar" HorizontalAlignment="Center" Margin="0, 60, 70, 0" Grid.Column="1"/>
-                    <ui:ListView ItemsSource="{Binding SelectedForSign}" Grid.RowSpan="2" Background="#FFDCDADA" Margin="20, 90, 100, 30" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                    <ui:ListView ItemsSource="{Binding SelectedForSign}" Grid.RowSpan="2" Background="#FFDCDADA" Margin="20, 90, 100, 30" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.UseDefaultDragAdorner="True">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5, 5, 0, 5">
@@ -698,7 +702,7 @@
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                    <ui:ListView ItemsSource="{Binding SelectedForView}" Background="#FFDCDADA" Margin="20, 90, 100, 30" Grid.Column="1" Grid.RowSpan="2" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True">
+                    <ui:ListView ItemsSource="{Binding SelectedForView}" Background="#FFDCDADA" Margin="20, 90, 100, 30" Grid.Column="1" Grid.RowSpan="2" IsSelectionEnabled="False" dd:DragDrop.IsDragSource="True" dd:DragDrop.IsDropTarget="True" dd:DragDrop.UseDefaultDragAdorner="True">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Margin="5, 5, 0, 5">

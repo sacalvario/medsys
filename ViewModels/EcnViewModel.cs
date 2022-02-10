@@ -41,8 +41,11 @@ namespace ECN.ViewModels
         public RelayCommand GoToLastTabItemCommand { get; set; }
 
         private ICommand _deleteAttachedCommand;
-
         public ICommand DeleteAttachedCommand => _deleteAttachedCommand ??= new RelayCommand<Attachment>(RemoveAttached);
+
+        private ICommand _deleteNumberPartCommand;
+        public ICommand DeleteNumberPartCommand => _deleteNumberPartCommand ??= new RelayCommand<Numberpart>(RemoveNumberPart);
+
 
 
         private Visibility _EcnEcoVisibility;
@@ -289,11 +292,11 @@ namespace ECN.ViewModels
             Messenger.Default.Send(new NotificationMessage("ShowNumberParts"));
         }
 
-        private void RemoveNumberPart()
+        private void RemoveNumberPart(Numberpart numberpart)
         {
-            if (SelectedNumberPart != null)
+            if (numberpart != null)
             {
-                _ = NumberParts.Remove(SelectedNumberPart);
+                _ = NumberParts.Remove(numberpart);
             }
         }
 
