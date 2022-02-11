@@ -66,7 +66,7 @@ namespace ECN.ViewModels
 
         private void NavigateToCheck(Ecn ecn)
         {
-            _navigationService.NavigateTo(typeof(ChecklistCheckViewModel).FullName, ecn);
+            _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, ecn);
         }
 
         public void OnNavigatedTo(object parameter)

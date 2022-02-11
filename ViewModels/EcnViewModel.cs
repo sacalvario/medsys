@@ -191,7 +191,7 @@ namespace ECN.ViewModels
 
                 foreach (Documenttype dt in DocumentTypes)
                 {
-                    if (dt.IsSelected)
+                    if (dt.IsSelected && dt != ECN.DocumentType)
                     {
                         ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
                         {

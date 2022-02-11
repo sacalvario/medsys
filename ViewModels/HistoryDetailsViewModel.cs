@@ -59,6 +59,48 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _EcnHistoryTypeVisibility = Visibility.Visible;
+        public Visibility EcnHistoryTypeVisibility
+        {
+            get => _EcnHistoryTypeVisibility;
+            set
+            {
+                if (_EcnHistoryTypeVisibility != value)
+                {
+                    _EcnHistoryTypeVisibility = value;
+                    RaisePropertyChanged("EcnHistoryTypeVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnSignTypeVisibility = Visibility.Collapsed;
+        public Visibility EcnSignTypeVisibility
+        {
+            get => _EcnSignTypeVisibility;
+            set
+            {
+                if (_EcnSignTypeVisibility != value)
+                {
+                    _EcnSignTypeVisibility = value;
+                    RaisePropertyChanged("EcnSignTypeVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnNumberPartsVisibility = Visibility.Visible;
+        public Visibility EcnNumberPartsVisibility
+        {
+            get => _EcnNumberPartsVisibility;
+            set
+            {
+                if (_EcnNumberPartsVisibility != value)
+                {
+                    _EcnNumberPartsVisibility = value;
+                    RaisePropertyChanged("EcnNumberPartsVisibility");
+                }
+            }
+        }
+
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
         {
@@ -163,6 +205,22 @@ namespace ECN.ViewModels
                 Ecn = ecn;
             }
 
+            if (Ecn.Employee != UserRecord.Employee)
+            {
+                EcnSignTypeVisibility = Visibility.Visible;
+                EcnHistoryTypeVisibility = Visibility.Collapsed;
+            }
+
+
+            NumberParts = new ObservableCollection<Numberpart>();
+            Attachments = new ObservableCollection<Attachment>();
+            Revisions = new ObservableCollection<EcnRevision>();
+            Documents = new ObservableCollection<EcnDocumenttype>();
+            GetNumberParts();
+            GetAttachments();
+            GetRevisions();
+            GetDocuments();
+
             if (Ecn.ChangeType.ChangeTypeId == 3)
             {
                 EcnRegisterTypeVisibility = Visibility.Visible;
@@ -177,15 +235,10 @@ namespace ECN.ViewModels
                 }
             }
 
-            NumberParts = new ObservableCollection<Numberpart>();
-            Attachments = new ObservableCollection<Attachment>();
-            Revisions = new ObservableCollection<EcnRevision>();
-            Documents = new ObservableCollection<EcnDocumenttype>();
-            GetNumberParts();
-            GetAttachments();
-            GetRevisions();
-            GetDocuments();
-
+            if (NumberParts.Count == 0)
+            {
+                EcnNumberPartsVisibility = Visibility.Collapsed;
+            }
         }
 
         private async void GetNumberParts()
