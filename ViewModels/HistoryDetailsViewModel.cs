@@ -31,6 +31,20 @@ namespace ECN.ViewModels
             }
         }
 
+        private string _Customer;
+        public string Customer
+        {
+            get => _Customer;
+            set
+            {
+                if (_Customer != value)
+                {
+                    _Customer = value;
+                    RaisePropertyChanged("Customer");
+                }
+            }
+        }
+
         private Visibility _EcnRegisterTypeVisibility = Visibility.Collapsed;
         public Visibility EcnRegisterTypeVisibility
         {
@@ -97,6 +111,20 @@ namespace ECN.ViewModels
                 {
                     _EcnNumberPartsVisibility = value;
                     RaisePropertyChanged("EcnNumberPartsVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnDocumentsVisibility = Visibility.Visible;
+        public Visibility EcnDocumentsVisibility
+        {
+            get => _EcnDocumentsVisibility;
+            set
+            {
+                if (_EcnDocumentsVisibility != value)
+                {
+                    _EcnDocumentsVisibility = value;
+                    RaisePropertyChanged("EcnDocumentsVisibility");
                 }
             }
         }
@@ -210,6 +238,14 @@ namespace ECN.ViewModels
                 EcnSignTypeVisibility = Visibility.Visible;
                 EcnHistoryTypeVisibility = Visibility.Collapsed;
             }
+            else
+            {
+                if (EcnHistoryTypeVisibility == Visibility.Collapsed)
+                {
+                    EcnHistoryTypeVisibility = Visibility.Visible;
+                    EcnSignTypeVisibility = Visibility.Collapsed;
+                }
+            }
 
 
             NumberParts = new ObservableCollection<Numberpart>();
@@ -221,23 +257,49 @@ namespace ECN.ViewModels
             GetRevisions();
             GetDocuments();
 
+            if (NumberParts.Count != 0)
+            {
+                Customer = NumberParts[0].Customer.CustomerName;
+            }
+
             if (Ecn.ChangeType.ChangeTypeId == 3)
             {
                 EcnRegisterTypeVisibility = Visibility.Visible;
                 EcnIntExtTypeVisibility = Visibility.Collapsed;
+                EcnDocumentsVisibility = Visibility.Collapsed;
             }
             else
             {
                 if (EcnIntExtTypeVisibility == Visibility.Collapsed)
                 {
                     EcnIntExtTypeVisibility = Visibility.Visible;
+                    EcnDocumentsVisibility = Visibility.Visible;
                     EcnRegisterTypeVisibility = Visibility.Collapsed;
+                }
+            }
+
+            if (Documents.Count == 0)
+            {
+                EcnDocumentsVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (EcnDocumentsVisibility == Visibility.Collapsed)
+                {
+                    EcnDocumentsVisibility = Visibility.Visible;
                 }
             }
 
             if (NumberParts.Count == 0)
             {
                 EcnNumberPartsVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (EcnNumberPartsVisibility == Visibility.Collapsed)
+                {
+                    EcnNumberPartsVisibility = Visibility.Visible;
+                }
             }
         }
 

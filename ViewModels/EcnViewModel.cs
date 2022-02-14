@@ -189,82 +189,81 @@ namespace ECN.ViewModels
                     ECN.EcnEco = null;
                 }
 
-                foreach (Documenttype dt in DocumentTypes)
-                {
-                    if (dt.IsSelected && dt != ECN.DocumentType)
-                    {
-                        ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
-                        {
-                            EcnId = ECN.Id,
-                            DocumentTypeId = dt.DocumentTypeId
-                        });
-                    }
-                }
-
-                if (Attacheds.Count > 0)
-                {
-                    foreach (Attachment ar in Attacheds)
-                    {
-                        ECN.EcnAttachments.Add(new EcnAttachment()
-                        {
-                            Attachment = ar,
-                            EcnId = ECN.Id
-                        });
-                    }
-                }
-
-                if (NumberParts.Count > 0)
-                {
-                    foreach (Numberpart np in NumberParts)
-                    {
-                        ECN.EcnNumberparts.Add(new EcnNumberpart()
-                        {
-                            EcnId = ECN.Id,
-                            ProductId = np.NumberPartNo
-                        });
-                    }
-                }
-
-                if (SelectedForSign.Count > 0)
-                {
-                    foreach (Employee er in SelectedForSign)
-                    {
-                        EcnRevision revision = new EcnRevision
-                        {
-                            Ecn = ECN,
-                            Employee = er,
-                            RevisionSequence = er.Index,
-                            StatusId = SetStatus(er),
-                            Notes = ""
-                        };
-                        ECN.EcnRevisions.Add(revision);
-                    }
-                }
-
                 try
                 {
 
-                    _ecnDataService.SaveEcn(ECN);
-
-                    _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name);
-                    foreach(Employee er in SelectedForView)
+                    if (_ecnDataService.SaveEcn(ECN))
                     {
-                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                       
+                        foreach (Documenttype dt in DocumentTypes)
+                        {
+                            if (dt.IsSelected && dt != ECN.DocumentType)
+                            {
+                                ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
+                                {
+                                    EcnId = ECN.Id,
+                                    DocumentTypeId = dt.DocumentTypeId
+                                });
+                            }
+                        }
+
+                        if (Attacheds.Count > 0)
+                        {
+                            foreach (Attachment ar in Attacheds)
+                            {
+                                ECN.EcnAttachments.Add(new EcnAttachment()
+                                {
+                                    Attachment = ar,
+                                    EcnId = ECN.Id
+                                });
+                            }
+                        }
+
+                        if (NumberParts.Count > 0)
+                        {
+                            foreach (Numberpart np in NumberParts)
+                            {
+                                ECN.EcnNumberparts.Add(new EcnNumberpart()
+                                {
+                                    EcnId = ECN.Id,
+                                    ProductId = np.NumberPartNo
+                                });
+                            }
+                        }
+
+                        if (SelectedForSign.Count > 0)
+                        {
+                            foreach (Employee er in SelectedForSign)
+                            {
+                                EcnRevision revision = new EcnRevision
+                                {
+                                    Ecn = ECN,
+                                    Employee = er,
+                                    RevisionSequence = er.Index,
+                                    StatusId = SetStatus(er),
+                                    Notes = ""
+                                };
+                                ECN.EcnRevisions.Add(revision);
+                            }
+                        }
+
+                        _ecnDataService.SaveChanges();
+
+                        _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name);
+                        foreach (Employee er in SelectedForView)
+                        {
+                            _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                        }
+
+                        _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
+                        ResetData();
+                        SelectedTabItem = 0;
                     }
 
-                    _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
-
-
-                    SelectedTabItem = 0;
                 }
                 catch (Exception ex)
                 {
                     _ = MessageBox.Show("Error occured while saving. " + ex.ToString());
-                }
-                finally
-                {
-
-                    ResetData();
                 }
             }
         }

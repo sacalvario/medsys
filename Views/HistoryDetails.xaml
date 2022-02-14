@@ -34,6 +34,7 @@
             </Style.Setters>
         </Style>
 
+        <ui:UniformGridLayout x:Key="LayoutNumberParts" MinRowSpacing="5" MinColumnSpacing="20" Orientation="Vertical" />
 
     </Page.Resources>
 
@@ -75,13 +76,14 @@
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="1.5*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 0, 0, 20" VerticalAlignment="Center">
+                    <!--<TextBlock Text="Información de cambio" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" FontSize="15" Margin="0, 10, 0, 0"/>-->
+                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 0, 100, 0" VerticalAlignment="Center">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="2.5*" />
+                            <ColumnDefinition Width="2.2*" />
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
@@ -89,10 +91,10 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Border Background="#FFE20000" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="1" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="2" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
-                        <Border Background="#FFE20000" Grid.Row="3" BorderBrush="White" BorderThickness="0, 0, 1, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="1" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="5"/>
+                        <Border Background="#FFE20000" Grid.Row="3" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="5"/>
                         <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent"  />
                         <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
                         <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
@@ -108,7 +110,7 @@
                         <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
                     </Grid>
                     <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
-                        <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 40, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" >
+                        <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" >
                             <Image Source="/Assets/document64.png" Width="64"/>
                             <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Tipo de documento: "/>
@@ -131,8 +133,8 @@
                                 </StackPanel>
                             </Grid>
                         </ui:SimpleStackPanel>
-                        <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
-                        <ui:ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnIntExtTypeVisibility}" Margin="0, 40, 20, 0" HorizontalAlignment="Center" IsSelectionEnabled="False">
+                        <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnDocumentsVisibility}"/>
+                    <ui:ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnDocumentsVisibility}" Margin="0, 30, 20, 0" HorizontalAlignment="Center" IsSelectionEnabled="False">
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -146,8 +148,8 @@
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>
                         </ui:ListView>
-                        <TextBlock Text="Documento de alta" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}"/>
-                        <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}">
+                        <TextBlock Text="Documento de alta" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}" d:IsHidden="True"/>
+                        <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}" d:IsHidden="True">
                             <Image Source="/Assets/document64.png" Width="64"/>
                             <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Número de documento: "/>
@@ -163,29 +165,52 @@
                             </TextBlock>
                         </ui:SimpleStackPanel>
                     <TextBlock Text="Números de parte" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnNumberPartsVisibility}" />
-                    <ui:ListView ItemsSource="{Binding NumberParts}" Grid.Column="2" Margin="40, 40, 200, 40" IsSelectionEnabled="False" Visibility="{Binding EcnNumberPartsVisibility}" >
-                        <ui:ListView.ItemTemplate>
-                            <DataTemplate >
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="40" />
-                                        <ColumnDefinition Width="250" />
-                                    </Grid.ColumnDefinitions>
-                                    <Image Source="/Assets/plug.png"
-                                           Grid.RowSpan="2"
-                                           Width="28"
-                                           Margin="0, 5, 10, 5"
-                                           VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
-                                    <TextBlock Grid.Column="1"
-                                               Text="{Binding NumberPartId, Mode=OneTime}"
-                                               VerticalAlignment="Center"/>
-                                </Grid>
-                            </DataTemplate>
-                        </ui:ListView.ItemTemplate>
-                    </ui:ListView>
+                    <TextBlock Text="{Binding Customer}" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="2" Margin="0, 20, 0, 0"/>
+                    <Grid Grid.Column="2"  Margin="0, 40, 0, 40" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="4*" />
+                        </Grid.RowDefinitions>
+                        <Grid >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Ecn.OldDrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="18" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Nivel de revisión anterior" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <Image Source="/Assets/rightred.png" Grid.Column="1" Width="24" HorizontalAlignment="Center"/>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="{Binding Ecn.DrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="18" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                        <ui:ListView ItemsSource="{Binding NumberParts}" Visibility="{Binding EcnNumberPartsVisibility}" HorizontalAlignment="Center" IsSelectionEnabled="False" Grid.Row="1" Margin="0, 10, 0 ,0" >
+                            <ui:ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="40" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+                                        <Image Source="/Assets/plug.png"
+                                                   Grid.RowSpan="2"
+                                                   Width="28"
+                                                   Margin="0, 5, 5, 5"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center" />
+                                        <TextBlock Grid.Column="1"
+                                                       Text="{Binding NumberPartId, Mode=OneTime}"
+                                                       VerticalAlignment="Center"/>
+                                    </Grid>
+                                </DataTemplate>
+                            </ui:ListView.ItemTemplate>
+                        </ui:ListView>
+                    </Grid>
                     <TextBlock Text="Documentos adjuntos" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" />
-                    <ui:ListView Name="lvattachs" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Attachments}" HorizontalAlignment="Center" Margin="0, 40, 0, 20" IsSelectionEnabled="False" >
+                    <ui:ListView Name="lvattachs" Grid.Column="2" Grid.Row="1" ItemsSource="{Binding Attachments}" HorizontalAlignment="Center" Margin="0, 30, 0, 20" IsSelectionEnabled="False" >
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <Grid Width="{Binding ElementName=lvattachs, Path=Width }">
@@ -221,25 +246,27 @@
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top"  Margin="0, 20, 0, 0" Height="Auto" Width="Auto">
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Height="Auto" Width="Auto">
                     <ListView.View>
                         <GridView>
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="GridViewColumnHeader" >
-                                    <Setter Property="Background" Value="Crimson" />
+                                    <Setter Property="Background" Value="#FFFF0033" />
                                     <Setter Property="Foreground" Value="White" />
                                     <Setter Property="FontWeight" Value="Black"/>
-                                    <Setter Property="FontSize" Value="15" />
                                     <Setter Property="Height" Value="30" />
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Header="Secuencia" Width="100" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <Image Source="/Assets/signed_.png"
-                                               Width="46"
-                                               Height="46"
-                                               Margin="10"/>
+                                        <StackPanel>
+                                            <Image Source="/Assets/signing.png"
+                                                   Width="46"
+                                                   Height="46"
+                                                   Margin="0, 5, 5, 5"/>
+                                            <TextBlock Text="{Binding RevisionSequence}" FontWeight="Bold" VerticalAlignment="Center"/>
+                                        </StackPanel>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

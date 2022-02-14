@@ -23,8 +23,9 @@ namespace ECN.Contracts.Services
         Task<Attachment> GetAttachmentAsync(int id);
         Task<ICollection<EcnRevision>> GetRevisionsAsync(int ecn);
         Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn);
-        void SaveEcn(Ecn ecn);
+        bool SaveEcn(Ecn ecn);
         void SignEcn(Ecn ecn);
+        void SaveChanges();
         List<Employee> GetAMEF();
         List<Employee> GetAMEFAlta();
         List<Employee> GetManualdeCalidad();

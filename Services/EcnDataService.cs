@@ -90,13 +90,15 @@ namespace ECN.Services
             return context.EcoTypes.ToList();
         }
 
-        public void SaveEcn(Ecn ecn)
+        public bool SaveEcn(Ecn ecn)
         {
             if (ecn != null)
             {
                 context.Ecns.Add(ecn);
-                context.SaveChanges();
+                var result = context.SaveChanges();
+                return result > 0;
             }
+            return false;
         }
 
         public async Task<EcnEco> GetEcnEcoAsync(int id)
@@ -303,6 +305,11 @@ namespace ECN.Services
         private ICollection<EcnDocumenttype> GetDocuments(int ecn)
         {
             return context.EcnDocumenttypes.Where(i => i.EcnId == ecn).ToList();
+        }
+
+        public void SaveChanges()
+        {
+            context.SaveChanges();
         }
     }
 }
