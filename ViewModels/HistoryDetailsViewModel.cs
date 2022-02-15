@@ -16,6 +16,9 @@ namespace ECN.ViewModels
         private IEcnDataService _ecnDataService;
         private INumberPartsDataService _numberPartsDataService;
         private IOpenFileService _openFileService;
+        private IWindowManagerService _windowManagerService;
+        private IMailService _mailService;
+        private INavigationService _navigationService;
         private Ecn _ecn;
 
         public Ecn Ecn
@@ -129,6 +132,8 @@ namespace ECN.ViewModels
             }
         }
 
+        public string Notes { get; set; }
+
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
         {
@@ -212,13 +217,28 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _VerifiedECNCommand;
+        public ICommand VerifiedECNCommand
+        {
+            get
+            {
+                if (_VerifiedECNCommand == null)
+                {
+                    _VerifiedECNCommand = new RelayCommand(VerifiedECN);
+                }
+                return _VerifiedECNCommand;
+            }
+        }
 
-        public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService)
+        public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             Ecn = new Ecn();
             _ecnDataService = ecnDataService;
             _numberPartsDataService = numberPartsDataService;
             _openFileService = openFileService;
+            _windowManagerService = windowManagerService;
+            _mailService = mailService;
+            _navigationService = navigationService;
         }
 
         public void OnNavigatedFrom()
@@ -370,6 +390,15 @@ namespace ECN.ViewModels
                 };
                 _ = process.Start();
 
+            }
+        }
+
+        private void VerifiedECN()
+        {
+            if (_ecnDataService.SignEcn(Ecn, Notes))
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, Ecn.Id);
+                _navigationService.GoBack();
             }
         }
     }

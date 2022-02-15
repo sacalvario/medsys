@@ -114,7 +114,7 @@ namespace ECN.ViewModels
 
         private void SignEcn()
         {
-            _ecnDataService.SignEcn(Ecn);
+            //_ecnDataService.SignEcn(Ecn);
         }
 
         private async void GetNumberParts()

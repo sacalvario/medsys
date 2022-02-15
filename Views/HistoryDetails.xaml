@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
-      xmlns:local="clr-namespace:ECN.Views"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
@@ -14,7 +13,6 @@
 
         <Style x:Key="TextStyleProperty" TargetType="{x:Type TextBlock}">
             <Style.Setters>
-                <Setter Property="FontStyle" Value="Italic"/>
                 <Setter Property="Foreground" Value="Black" />
                 <Setter Property="VerticalAlignment" Value="Center"/>
                 <Setter Property="HorizontalAlignment" Value="Left"/>
@@ -64,6 +62,30 @@
                 </TextBlock>
             </StackPanel>
         </StackPanel>
+        <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0, 50, 50, 0" Visibility="{Binding EcnSignTypeVisibility}">
+            <StackPanel>
+                <TextBlock Text="{Binding Ecn.Employee.Name}"/>
+                <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" HorizontalAlignment="Right" Foreground="Red"/>
+            </StackPanel>
+            <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
+        </StackPanel>-->
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="500, 40, 0, 0" Orientation="Horizontal">
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300"/>
+            <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
+                <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
+                    <StackPanel>
+                        <Image Source="/Assets/verified.png" Width="34"/>
+                        <TextBlock Text="Aprobar" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+                <Button Background="Transparent">
+                    <StackPanel>
+                        <Image Source="/Assets/refuse.png" Width="34"/>
+                        <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </ui:SimpleStackPanel>
+        </StackPanel>
         <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="40, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
             <TabItem Height="40">
                 <TabItem.Header>
@@ -80,7 +102,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--<TextBlock Text="Información de cambio" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" FontSize="15" Margin="0, 10, 0, 0"/>-->
-                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 0, 100, 0" VerticalAlignment="Center">
+                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 100, 0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2.2*" />
@@ -246,43 +268,45 @@
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Height="Auto" Width="Auto">
-                    <ListView.View>
-                        <GridView>
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" >
+                    <ListView.View >
+                        <GridView >
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="GridViewColumnHeader" >
-                                    <Setter Property="Background" Value="#FFFF0033" />
-                                    <Setter Property="Foreground" Value="White" />
-                                    <Setter Property="FontWeight" Value="Black"/>
-                                    <Setter Property="Height" Value="30" />
+                                    <Setter Property="Background" Value="#FFE20000"/>
+                                    <Setter Property="Foreground" Value="White"/>
+                                    <Setter Property="Height" Value="30"/>
+                                    <Setter Property="FontStyle" Value="Italic"/>
+                                    <Setter Property="FontWeight" Value="Bold"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Secuencia" Width="100" >
+                            <GridViewColumn Header="Responsable" Width="350" >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <StackPanel>
-                                            <Image Source="/Assets/signing.png"
-                                                   Width="46"
-                                                   Height="46"
-                                                   Margin="0, 5, 5, 5"/>
-                                            <TextBlock Text="{Binding RevisionSequence}" FontWeight="Bold" VerticalAlignment="Center"/>
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Responsable" Width="250">
-                                <GridViewColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Margin="10">
-                                            <TextBlock Text="{Binding Employee.Name}"
-                                                       FontWeight="Black"
-                                                       FontSize="16"/>
-                                            <TextBlock Text="{Binding Employee.Department.DepartmentName}"
-                                                       FontWeight="DemiBold"
-                                                       FontStyle="Italic"
-                                                       FontSize="15"
-                                                       Foreground="Red"/>
-                                        </StackPanel>
+                                        <Grid Margin="0, 10, 0, 0" >
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding RevisionSequence}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
+                                                <Image Source="/Assets/signing.png"
+                                                       Width="32"
+                                                       Height="32"
+                                                       Margin="5"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                                <Image Source="/Assets/userblack.png" Width="32"/>
+                                                <StackPanel Margin="5">
+                                                    <TextBlock Text="{Binding Employee.Name}"
+                                                               FontWeight="Black"/>
+                                                    <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                                               FontWeight="DemiBold"
+                                                               FontStyle="Italic"
+                                                               Foreground="Red"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </Grid>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -293,8 +317,8 @@
                                                 Background="{Binding Status.StatusColor}"
                                                 Height="25"
                                                 Width="95"
-                                                Margin="10,20">
-                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                                                Margin="5, 20, 5, 20">
+                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
                                         </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
@@ -310,7 +334,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Hora de firma" Width="250">
+                            <GridViewColumn Header="Hora de firma" Width="150">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding LongRevisionHour}"
@@ -321,7 +345,7 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Notas" Width="250">
+                            <GridViewColumn Header="Notas" Width="200">
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Notes}"

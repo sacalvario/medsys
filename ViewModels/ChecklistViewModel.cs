@@ -44,6 +44,7 @@ namespace ECN.ViewModels
 
         public int ChecklistCount => Checklist.Count;
 
+
         private async void GetChecklist()
         {
             var data = await _ecnDataService.GetChecklistAsync();

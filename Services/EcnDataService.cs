@@ -281,19 +281,25 @@ namespace ECN.Services
             return ManualdeCalidad();
         }
 
-        public void SignEcn(Ecn ecn)
+        public bool SignEcn(Ecn ecn, string notes)
         {
             EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
             revision.StatusId = 4;
             revision.RevisionDate = System.DateTime.Today;
             revision.RevisionHour = System.DateTime.Now.TimeOfDay;
-            revision.Notes = "Firmado";
+            revision.Notes = notes;
 
             EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
             if (nextrevision != null)
+            {
                 nextrevision.StatusId = 5;
+            }
 
-            context.SaveChanges();
+            ecn.EcnNumberparts = null;
+
+            var result = context.SaveChanges();
+            return result > 0;
+            
         }
 
         public async Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn)

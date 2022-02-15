@@ -31,6 +31,7 @@
     <None Remove="Assets\plug48.png" />
     <None Remove="Assets\powerpoint.png" />
     <None Remove="Assets\records.png" />
+    <None Remove="Assets\refuse.png" />
     <None Remove="Assets\registerdocument.png" />
     <None Remove="Assets\rightred.png" />
     <None Remove="Assets\search.png" />
@@ -41,6 +42,7 @@
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\userw.png" />
+    <None Remove="Assets\verified.png" />
     <None Remove="Assets\view.png" />
     <None Remove="Assets\wire-white.png" />
     <None Remove="Assets\wire.png" />
@@ -130,6 +132,9 @@
     <Content Include="Assets\records.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\refuse.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\registerdocument.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -155,6 +160,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\userw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\verified.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\view.png">
