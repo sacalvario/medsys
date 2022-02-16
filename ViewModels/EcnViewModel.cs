@@ -231,6 +231,11 @@ namespace ECN.ViewModels
                             }
                         }
 
+                        if (ECN.ChangeType.ChangeTypeId == 3)
+                        {
+                            ECN.EcnNumberparts = null;
+                        }
+
                         if (SelectedForSign.Count > 0)
                         {
                             foreach (Employee er in SelectedForSign)

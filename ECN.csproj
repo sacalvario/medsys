@@ -5,12 +5,14 @@
     <RootNamespace>ECN</RootNamespace>
     <UseWPF>true</UseWPF>
     <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SignAssembly>false</SignAssembly>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\add.png" />
     <None Remove="Assets\attach.png" />
     <None Remove="Assets\attachment.png" />
     <None Remove="Assets\checkgreen.png" />
+    <None Remove="Assets\completo.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\document64.png" />
@@ -25,6 +27,7 @@
     <None Remove="Assets\historyred.png" />
     <None Remove="Assets\image.png" />
     <None Remove="Assets\leftred.png" />
+    <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\newred.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
@@ -50,18 +53,10 @@
     <None Remove="Assets\word.png" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="gong-wpf-dragdrop" Version="3.0.0" />
-    <PackageReference Include="MahApps.Metro" Version="2.4.6" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="5.0.12">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.16" />
+    <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
+    <PackageReference Include="MahApps.Metro" Version="2.4.9" />
+    <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci74" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
@@ -112,6 +107,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\image.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\logorecortado.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\newred.png">
@@ -227,6 +225,12 @@
 
   <ItemGroup>
     <Content Include="Assets\downloadblack.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\completo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

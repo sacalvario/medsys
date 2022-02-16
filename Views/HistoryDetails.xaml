@@ -4,6 +4,7 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
@@ -70,7 +71,7 @@
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
         </StackPanel>-->
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="500, 40, 0, 0" Orientation="Horizontal">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300"/>
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" />
             <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
                     <StackPanel>
@@ -187,8 +188,8 @@
                             </TextBlock>
                         </ui:SimpleStackPanel>
                     <TextBlock Text="Números de parte" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnNumberPartsVisibility}" />
-                    <TextBlock Text="{Binding Customer}" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="2" Margin="0, 20, 0, 0"/>
-                    <Grid Grid.Column="2"  Margin="0, 40, 0, 40" >
+                    <TextBlock Text="{Binding Customer}" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="2" Margin="0, 20, 0, 0" Visibility="{Binding EcnNumberPartsVisibility}"/>
+                    <Grid Grid.Column="2"  Margin="0, 40, 0, 40" Visibility="{Binding EcnNumberPartsVisibility}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*" />
                             <RowDefinition Height="4*" />
