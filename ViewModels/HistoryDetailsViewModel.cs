@@ -132,6 +132,34 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _EcnNumberPartChangeRevision = Visibility.Collapsed;
+        public Visibility EcnNumberPartChangeRevision
+        {
+            get => _EcnNumberPartChangeRevision;
+            set
+            {
+                if (_EcnNumberPartChangeRevision != value)
+                {
+                    _EcnNumberPartChangeRevision = value;
+                    RaisePropertyChanged("EcnNumberPartChangeRevision");
+                }
+            }
+        }
+
+        private Visibility _EcnNumberPartRevision = Visibility.Visible;
+        public Visibility EcnNumberPartRevision
+        {
+            get => _EcnNumberPartRevision;
+            set
+            {
+                if (_EcnNumberPartRevision != value)
+                {
+                    _EcnNumberPartRevision = value;
+                    RaisePropertyChanged("EcnNumberPartRevision");
+                }
+            }
+        }
+
         public string Notes { get; set; }
 
         private ObservableCollection<Numberpart> _NumberParts;
@@ -230,6 +258,21 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _RefuseECNCommand;
+        public ICommand RefuseECNCommand
+        {
+            get
+            {
+                if (_RefuseECNCommand == null)
+                {
+                    _RefuseECNCommand = new RelayCommand(RefuseECN);
+                }
+                return _RefuseECNCommand;
+            }
+        }
+
+        public string CustomerRevision { get; set; }
+
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             Ecn = new Ecn();
@@ -320,6 +363,24 @@ namespace ECN.ViewModels
                 {
                     EcnNumberPartsVisibility = Visibility.Visible;
                 }
+
+                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4)
+                {
+                    if (Ecn.ChangeType.ChangeTypeId != 3)
+                    {
+                        EcnNumberPartChangeRevision = Visibility.Visible;
+                        EcnNumberPartRevision = Visibility.Collapsed;
+                    }
+                    else
+                    {
+                        if (EcnNumberPartRevision == Visibility.Collapsed)
+                        {
+                            EcnNumberPartRevision = Visibility.Visible;
+                        }
+                    }
+                }
+
+                CustomerRevision = NumberParts[0].NumberPartRev;
             }
         }
 
@@ -334,6 +395,7 @@ namespace ECN.ViewModels
                 np.Customer = await _numberPartsDataService.GetCustomerAsync(np.CustomerId);
                 NumberParts.Add(np);
             }
+
 
         }
 
@@ -401,5 +463,13 @@ namespace ECN.ViewModels
                 _navigationService.GoBack();
             }
         }
-    }
+
+        private void RefuseECN()
+        {
+            if (_ecnDataService.RefuseEcn(Ecn, Notes))
+            {
+
+            }
+        }
+    } 
 }

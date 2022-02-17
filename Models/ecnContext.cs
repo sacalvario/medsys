@@ -393,10 +393,6 @@ namespace ECN.Models
                     .HasColumnType("datetime")
                     .HasColumnName("Revision_Date");
 
-                entity.Property(e => e.RevisionHour)
-                    .HasColumnType("time")
-                    .HasColumnName("Revision_Hour");
-
                 entity.Property(e => e.StatusId).HasColumnName("Status_ID");
 
                 entity.HasOne(d => d.Ecn)

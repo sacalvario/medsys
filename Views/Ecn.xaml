@@ -485,7 +485,7 @@
                             <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
                         </StackPanel>
                     </Button>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                    <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
                               Text="{Binding ECN.OldDrawingLvl}"
                               Grid.Column="1"
                               VerticalAlignment="Bottom"
@@ -501,7 +501,7 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                    <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
                               Text="{Binding ECN.DrawingLvl}"
                               Grid.Column="1"
                               Grid.Row="1"

@@ -13,9 +13,8 @@ namespace ECN.Models
         public int StatusId { get; set; }
         public string Notes { get; set; }
         public DateTime? RevisionDate { get; set; }
-        public TimeSpan? RevisionHour { get; set; }
         public string LongRevisionDate => RevisionDate.HasValue ? RevisionDate.Value.ToLongDateString() : string.Empty;
-        public string LongRevisionHour => RevisionHour.HasValue ? RevisionHour.Value.ToString() : string.Empty;
+        public string LongRevisionHour => RevisionDate.HasValue ? RevisionDate.Value.ToLongTimeString() : string.Empty;
         public virtual Ecn Ecn { get; set; }
         public virtual Employee Employee { get; set; }
         public virtual Status Status { get; set; }

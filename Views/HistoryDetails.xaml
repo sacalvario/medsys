@@ -70,18 +70,18 @@
             </StackPanel>
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
         </StackPanel>-->
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="500, 40, 0, 0" Orientation="Horizontal">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" />
+        <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="600, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True"/>
             <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
                     <StackPanel>
-                        <Image Source="/Assets/verified.png" Width="34"/>
+                        <Image Source="/Assets/verified.png" />
                         <TextBlock Text="Aprobar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-                <Button Background="Transparent">
+                <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
                     <StackPanel>
-                        <Image Source="/Assets/refuse.png" Width="34"/>
+                        <Image Source="/Assets/refuse.png"/>
                         <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
@@ -194,7 +194,11 @@
                             <RowDefinition Height="*" />
                             <RowDefinition Height="4*" />
                         </Grid.RowDefinitions>
-                        <Grid >
+                        <StackPanel Visibility="{Binding EcnNumberPartRevision}">
+                            <TextBlock Text="{Binding CustomerRevision}" Foreground="Red" FontWeight="Black" FontSize="18" HorizontalAlignment="Center"/>
+                            <TextBlock Text="Nivel de revisión" HorizontalAlignment="Center"/>
+                        </StackPanel>
+                        <Grid Visibility="{Binding EcnNumberPartChangeRevision}" >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*" />
                                 <ColumnDefinition Width="*" />
@@ -311,27 +315,12 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
-                            <GridViewColumn Header="Estatus" Width="150">
-                                <GridViewColumn.CellTemplate >
-                                    <DataTemplate >
-                                        <Border CornerRadius="10"
-                                                Background="{Binding Status.StatusColor}"
-                                                Height="25"
-                                                Width="95"
-                                                Margin="5, 20, 5, 20">
-                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
-                                        </Border>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
                             <GridViewColumn Header="Fecha de firma" Width="250">
-                                <GridViewColumn.CellTemplate>
+                                <GridViewColumn.CellTemplate >
                                     <DataTemplate>
                                         <TextBlock Text="{Binding LongRevisionDate}"
-                                                   FontSize="14"
-                                                   FontWeight="DemiBold"
-                                                   FontStyle="Normal"
-                                                   Margin="5, 20"/>
+                                                   FontStyle="Italic"
+                                                   Margin="20"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -339,10 +328,8 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding LongRevisionHour}"
-                                                   FontSize="14"
-                                                   FontWeight="DemiBold"
-                                                   FontStyle="Normal"
-                                                   Margin="15, 20"/>
+                                                   FontStyle="Italic"
+                                                   Margin="20"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -350,10 +337,20 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Notes}"
-                                                   FontSize="14"
-                                                   FontWeight="Bold"
-                                                   FontStyle="Normal"
-                                                   Margin="15, 20"/>
+                                                   TextWrapping="Wrap"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            <GridViewColumn Header="Estatus" Width="150">
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <Border CornerRadius="10"
+                                                Background="{Binding Status.StatusColor}"
+                                                Height="25"
+                                                Width="95"
+                                                Margin="20">
+                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                        </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

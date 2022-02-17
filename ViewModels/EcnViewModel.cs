@@ -47,7 +47,6 @@ namespace ECN.ViewModels
         public ICommand DeleteNumberPartCommand => _deleteNumberPartCommand ??= new RelayCommand<Numberpart>(RemoveNumberPart);
 
 
-
         private Visibility _EcnEcoVisibility;
         public Visibility EcnEcoVisibility
         {
@@ -61,7 +60,6 @@ namespace ECN.ViewModels
                 }
             }
         }
-
 
         private Visibility _EcnRegisterTypeVisibility;
         public Visibility EcnRegisterTypeVisibility
@@ -87,6 +85,20 @@ namespace ECN.ViewModels
                 {
                     _EcnIntExtTypeVisibility = value;
                     RaisePropertyChanged("EcnIntExtTypeVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnChangeCustomerRevision;
+        public Visibility EcnChangeCustomerRevision
+        {
+            get => _EcnChangeCustomerRevision;
+            set
+            {
+                if (_EcnChangeCustomerRevision != value)
+                {
+                    _EcnChangeCustomerRevision = value;
+                    RaisePropertyChanged("EcnChangeCustomerRevision");
                 }
             }
         }
@@ -142,6 +154,7 @@ namespace ECN.ViewModels
             EcnEcoVisibility = Visibility.Collapsed;
             EcnRegisterTypeVisibility = Visibility.Collapsed;
             EcnIntExtTypeVisibility = Visibility.Visible;
+            EcnChangeCustomerRevision = Visibility.Collapsed;
 
             SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
 
@@ -154,6 +167,9 @@ namespace ECN.ViewModels
             {
                 item.Index = SelectedForSign.IndexOf(item) + 1;
             }
+
+            Cleanup();
+            base.Cleanup();
         }
 
         private void SaveECN()
@@ -167,6 +183,12 @@ namespace ECN.ViewModels
                     ECN.DocumentName = "N/A";
                     ECN.DocumentNo = "N/A";
                     ECN.DocumentType = SelectedDocumentType;
+
+                    if (ECN.DocumentType.DocumentTypeId != 2 || ECN.DocumentType.DocumentTypeId != 4)
+                    {
+                        ECN.OldDrawingLvl = "N/A";
+                        ECN.DrawingLvl = "N/A";
+                    }
                 }
 
                 else if (ECN.ChangeType.ChangeTypeId == 3)
@@ -178,7 +200,7 @@ namespace ECN.ViewModels
                 }
 
                 ECN.EmployeeId = UserRecord.Employee_ID;
-                ECN.StatusId = 1;
+                ECN.StatusId = 5;
 
                 if (IsEco)
                 {
@@ -339,6 +361,8 @@ namespace ECN.ViewModels
             GetDocumentTypes();
 
             SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
+
+            
         }
 
         private void GoToNexTabItem()
@@ -360,21 +384,6 @@ namespace ECN.ViewModels
                 {
                     _NumberParts = value;
                     RaisePropertyChanged("NumberParts");
-                }
-            }
-        }
-
-        private Numberpart _SelectedNumberPart;
-        public Numberpart SelectedNumberPart
-        {
-            get => _SelectedNumberPart;
-            set
-            {
-                if (_SelectedNumberPart != value)
-                {
-                    _SelectedNumberPart = value;
-                    RaisePropertyChanged("SelectedNumberPart");
-
                 }
             }
         }
@@ -475,6 +484,20 @@ namespace ECN.ViewModels
                     _SelectedDocumentType = value;
                     RaisePropertyChanged("SelectedDocumentType");
 
+                    if (_SelectedDocumentType != null)
+                    {
+                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4)
+                        {
+                            EcnChangeCustomerRevision = Visibility.Visible;
+                        }
+                        else
+                        {
+                            if (EcnChangeCustomerRevision == Visibility.Visible)
+                            {
+                                EcnChangeCustomerRevision = Visibility.Collapsed;
+                            }
+                        }
+                    }
                 }
             }
         }

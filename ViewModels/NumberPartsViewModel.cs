@@ -32,7 +32,7 @@ namespace ECN.ViewModels
 
         private void NumberPartCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-           
+            base.Cleanup();
         }
 
         public async void GetAll()

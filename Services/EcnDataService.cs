@@ -285,14 +285,18 @@ namespace ECN.Services
         {
             EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
             revision.StatusId = 4;
-            revision.RevisionDate = System.DateTime.Today;
-            revision.RevisionHour = System.DateTime.Now.TimeOfDay;
+            revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
 
             EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+
             if (nextrevision != null)
             {
                 nextrevision.StatusId = 5;
+            }
+            else
+            {
+                ecn.StatusId = 4;
             }
 
             ecn.EcnNumberparts = null;
@@ -316,6 +320,20 @@ namespace ECN.Services
         public void SaveChanges()
         {
             context.SaveChanges();
+        }
+
+        public bool RefuseEcn(Ecn ecn, string notes)
+        {
+            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+            revision.StatusId = 6;
+            revision.RevisionDate = System.DateTime.Now;
+            revision.Notes = notes;
+
+            ecn.StatusId = 1;
+            ecn.EcnNumberparts = null;
+
+            var result = context.SaveChanges();
+            return result > 0;
         }
     }
 }

@@ -69,6 +69,7 @@ namespace ECN.ViewModels
             }
         }
 
+
         private void OnNavigated(object sender, string viewModelName)
         {
             //    var item = MenuItems

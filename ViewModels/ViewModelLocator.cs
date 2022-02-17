@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 
 using ECN.Contracts.Services;
 using ECN.Contracts.Views;
@@ -25,10 +26,10 @@ namespace ECN.ViewModels
             => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         public HistoryViewModel HistoryViewModel
-            => SimpleIoc.Default.GetInstance<HistoryViewModel>();
+            => SimpleIoc.Default.GetInstance<HistoryViewModel>(Guid.NewGuid().ToString());
 
         public EcnViewModel EcnViewModel
-            => SimpleIoc.Default.GetInstance<EcnViewModel>();
+            => SimpleIoc.Default.GetInstance<EcnViewModel>(Guid.NewGuid().ToString());
 
         public NumberPartsViewModel NumberPartsViewModel
             => SimpleIoc.Default.GetInstance<NumberPartsViewModel>();
