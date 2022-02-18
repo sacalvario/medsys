@@ -6,6 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -15,9 +16,12 @@ namespace ECN.ViewModels
     {
         private readonly INavigationService _navigationService;
         private readonly IEcnDataService _historyDataService;
-        private ICommand _navigateToDetailCommand;
 
+        private ICommand _navigateToDetailCommand;
         public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);
+
+        private ICommand _RefreshHistoryCommand;
+        public ICommand RefreshHistoryCommand => _RefreshHistoryCommand ??= new RelayCommand(RefreshHistory);
 
         public HistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService)
         {
@@ -39,7 +43,7 @@ namespace ECN.ViewModels
             CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
 
             CvsHistory.Filter += ApplyFilter;
-            
+
         }
 
         private CollectionViewSource _CvsHistory;
@@ -87,7 +91,11 @@ namespace ECN.ViewModels
                     item.EcnEco = await _historyDataService.GetEcnEcoAsync(item.Id);
                 }
 
-                History.Add(item);
+                if (!History.Contains(item))
+                {
+                    History.Add(item);
+                }
+
             }
         }
 
@@ -124,12 +132,17 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
+            GetHistory();
         }
 
         public void OnNavigatedFrom()
         {
+            
         }
 
-
+        private void RefreshHistory()
+        {
+           
+        }
     }
 }

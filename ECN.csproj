@@ -34,6 +34,7 @@
     <None Remove="Assets\plug48.png" />
     <None Remove="Assets\powerpoint.png" />
     <None Remove="Assets\records.png" />
+    <None Remove="Assets\refresh.png" />
     <None Remove="Assets\refuse.png" />
     <None Remove="Assets\registerdocument.png" />
     <None Remove="Assets\rightred.png" />
@@ -128,6 +129,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\records.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\refresh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\refuse.png">

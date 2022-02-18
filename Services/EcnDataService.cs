@@ -95,6 +95,8 @@ namespace ECN.Services
             if (ecn != null)
             {
                 context.Ecns.Add(ecn);
+                ecn.EcnNumberparts = null;
+
                 var result = context.SaveChanges();
                 return result > 0;
             }
@@ -334,6 +336,19 @@ namespace ECN.Services
 
             var result = context.SaveChanges();
             return result > 0;
+        }
+
+        public Employee NextToSignEcn(Ecn ecn)
+        {
+            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+
+            EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+
+            if (nextrevision != null)
+            {
+                return GetEmployee(nextrevision.EmployeeId);
+            }
+            return null;
         }
     }
 }

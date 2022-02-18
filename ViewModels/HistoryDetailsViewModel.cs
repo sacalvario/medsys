@@ -48,6 +48,20 @@ namespace ECN.ViewModels
             }
         }
 
+        private string _CustomerRevision;
+        public string CustomerRevision
+        {
+            get => _CustomerRevision;
+            set
+            {
+                if (_CustomerRevision != value)
+                {
+                    _CustomerRevision = value;
+                    RaisePropertyChanged("CustomerRevision");
+                }
+            }
+        }
+
         private Visibility _EcnRegisterTypeVisibility = Visibility.Collapsed;
         public Visibility EcnRegisterTypeVisibility
         {
@@ -271,8 +285,6 @@ namespace ECN.ViewModels
             }
         }
 
-        public string CustomerRevision { get; set; }
-
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             Ecn = new Ecn();
@@ -376,7 +388,16 @@ namespace ECN.ViewModels
                         if (EcnNumberPartRevision == Visibility.Collapsed)
                         {
                             EcnNumberPartRevision = Visibility.Visible;
+                            EcnNumberPartChangeRevision = Visibility.Collapsed;
                         }
+                    }
+                }
+                else
+                {
+                    if (EcnNumberPartRevision == Visibility.Collapsed)
+                    {
+                        EcnNumberPartRevision = Visibility.Visible;
+                        EcnNumberPartChangeRevision = Visibility.Collapsed;
                     }
                 }
 
@@ -395,7 +416,6 @@ namespace ECN.ViewModels
                 np.Customer = await _numberPartsDataService.GetCustomerAsync(np.CustomerId);
                 NumberParts.Add(np);
             }
-
 
         }
 
@@ -459,6 +479,13 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.SignEcn(Ecn, Notes))
             {
+                Employee emp = _ecnDataService.NextToSignEcn(Ecn);
+
+                if (emp != null)
+                {
+                    _mailService.SendSignEmail("scalvario@electri-cord.com.mx", Ecn.Id, emp.Name, Ecn.Employee.Name);
+                }
+
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, Ecn.Id);
                 _navigationService.GoBack();
             }

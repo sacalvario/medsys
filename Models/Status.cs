@@ -24,7 +24,7 @@ namespace ECN.Models
             {
                 if (StatusId == 1)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.Orange);
+                    _StatusColor = new SolidColorBrush(Colors.OrangeRed);
                 }
                 else if (StatusId == 2)
                 {
@@ -40,7 +40,7 @@ namespace ECN.Models
                 }
                 else if (StatusId == 5)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.OrangeRed);
+                    _StatusColor = new SolidColorBrush(Colors.Orange);
                 }
                 return _StatusColor;
             }

@@ -26,10 +26,10 @@ namespace ECN.ViewModels
             => SimpleIoc.Default.GetInstance<MainViewModel>();
 
         public HistoryViewModel HistoryViewModel
-            => SimpleIoc.Default.GetInstance<HistoryViewModel>(Guid.NewGuid().ToString());
+            => SimpleIoc.Default.GetInstance<HistoryViewModel>();
 
         public EcnViewModel EcnViewModel
-            => SimpleIoc.Default.GetInstance<EcnViewModel>(Guid.NewGuid().ToString());
+            => SimpleIoc.Default.GetInstance<EcnViewModel>();
 
         public NumberPartsViewModel NumberPartsViewModel
             => SimpleIoc.Default.GetInstance<NumberPartsViewModel>();

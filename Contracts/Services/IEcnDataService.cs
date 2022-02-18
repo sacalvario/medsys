@@ -25,6 +25,7 @@ namespace ECN.Contracts.Services
         Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn);
         bool SaveEcn(Ecn ecn);
         bool SignEcn(Ecn ecn, string notes);
+        Employee NextToSignEcn(Ecn ecn);
         bool RefuseEcn(Ecn ecn, string notes);
         void SaveChanges();
         List<Employee> GetAMEF();

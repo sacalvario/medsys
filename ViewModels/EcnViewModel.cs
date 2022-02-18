@@ -132,6 +132,8 @@ namespace ECN.ViewModels
                 EcnEco = new EcnEco()
             };
 
+            ECN.EcnNumberparts = null;
+
             NumberParts = new ObservableCollection<Numberpart>();
             Attacheds = new ObservableCollection<Attachment>();
             SelectedForSign = new ObservableCollection<Employee>();
@@ -184,7 +186,7 @@ namespace ECN.ViewModels
                     ECN.DocumentNo = "N/A";
                     ECN.DocumentType = SelectedDocumentType;
 
-                    if (ECN.DocumentType.DocumentTypeId != 2 || ECN.DocumentType.DocumentTypeId != 4)
+                    if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4)
                     {
                         ECN.OldDrawingLvl = "N/A";
                         ECN.DrawingLvl = "N/A";
@@ -216,7 +218,6 @@ namespace ECN.ViewModels
 
                     if (_ecnDataService.SaveEcn(ECN))
                     {
-                       
                         foreach (Documenttype dt in DocumentTypes)
                         {
                             if (dt.IsSelected && dt != ECN.DocumentType)
@@ -243,19 +244,15 @@ namespace ECN.ViewModels
 
                         if (NumberParts.Count > 0)
                         {
+                            ECN.EcnNumberparts = new ObservableCollection<EcnNumberpart>();
                             foreach (Numberpart np in NumberParts)
                             {
                                 ECN.EcnNumberparts.Add(new EcnNumberpart()
                                 {
-                                    EcnId = ECN.Id,
+                                    Ecn = ECN,
                                     ProductId = np.NumberPartNo
                                 });
                             }
-                        }
-
-                        if (ECN.ChangeType.ChangeTypeId == 3)
-                        {
-                            ECN.EcnNumberparts = null;
                         }
 
                         if (SelectedForSign.Count > 0)
@@ -276,7 +273,7 @@ namespace ECN.ViewModels
 
                         _ecnDataService.SaveChanges();
 
-                        _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name);
+                        _mailService.SendSignEmail("scalvario@electri-cord.com.mx", ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
                         foreach (Employee er in SelectedForView)
                         {
                             _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
@@ -345,6 +342,8 @@ namespace ECN.ViewModels
             {
                 EcnEco = new EcnEco()
             };
+
+            ECN.EcnNumberparts = null;
 
             if (IsEco)
             {

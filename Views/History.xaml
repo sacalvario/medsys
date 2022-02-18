@@ -5,8 +5,6 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:ui="http://schemas.modernwpf.com/2019"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
-      xmlns:behaviors="clr-namespace:ECN.Behaviors"
-      xmlns:local="clr-namespace:ECN.Views"
       DataContext="{Binding HistoryViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="1000"
@@ -125,6 +123,9 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="450"  />
         </StackPanel>
+        <Button HorizontalAlignment="Center" Margin="600, 20, 0, 0" Background="Transparent" Command="{Binding RefreshHistoryCommand}">
+            <Image Source="/Assets/refresh.png" Width="24" Height="24"/>
+        </Button>
         <ScrollViewer Grid.Row="1">
             <TreeView x:Name="tvHistory" 
                       ItemsSource="{Binding Path=CvsHistory.View.Groups}"

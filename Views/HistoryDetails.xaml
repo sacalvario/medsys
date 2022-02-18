@@ -214,7 +214,7 @@
                                 <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
-                        <ui:ListView ItemsSource="{Binding NumberParts}" Visibility="{Binding EcnNumberPartsVisibility}" HorizontalAlignment="Center" IsSelectionEnabled="False" Grid.Row="1" Margin="0, 10, 0 ,0" >
+                        <ui:ListView ItemsSource="{Binding NumberParts}" Visibility="{Binding EcnNumberPartsVisibility}" Width="250" HorizontalAlignment="Center" IsSelectionEnabled="False" Grid.Row="1" Margin="0, 10, 0 ,0" >
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -315,6 +315,19 @@
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
+                            <GridViewColumn Header="Estatus" Width="150">
+                                <GridViewColumn.CellTemplate >
+                                    <DataTemplate >
+                                        <Border CornerRadius="10"
+                                                Background="{Binding Status.StatusColor}"
+                                                Height="25"
+                                                Width="95"
+                                                Margin="20">
+                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
                             <GridViewColumn Header="Fecha de firma" Width="250">
                                 <GridViewColumn.CellTemplate >
                                     <DataTemplate>
@@ -338,19 +351,6 @@
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Notes}"
                                                    TextWrapping="Wrap"/>
-                                    </DataTemplate>
-                                </GridViewColumn.CellTemplate>
-                            </GridViewColumn>
-                            <GridViewColumn Header="Estatus" Width="150">
-                                <GridViewColumn.CellTemplate >
-                                    <DataTemplate >
-                                        <Border CornerRadius="10"
-                                                Background="{Binding Status.StatusColor}"
-                                                Height="25"
-                                                Width="95"
-                                                Margin="20">
-                                            <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
-                                        </Border>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

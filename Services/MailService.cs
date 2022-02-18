@@ -43,7 +43,7 @@ namespace ECN.Services
             }
         }
 
-        public void SendSignEmail(string email, int id, string name)
+        public void SendSignEmail(string email, int id, string signedname, string generatorname)
         {
             MailMessage msg = new MailMessage();
             SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
@@ -54,10 +54,10 @@ namespace ECN.Services
 
 
             msg.Subject = "Nuevo ECN!";
-            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + name + "!</span></strong></span></span></p>" +
+            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "!</span></strong></span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Tienes un <span style = 'color:#ff0000'><strong> ECN </strong></span> pendiente de firmar</span></span>&nbsp;<span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'>con el folio<span style= 'color:#ff0000'><strong> " + id + "&nbsp;</strong></span></span></span></p>" +
-              "<p><span style='font-size:16px'><span style='font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style='color:#0066cc'> " + UserRecord.Employee.Name + "</span></strong>.</span></span></p>";
+              "<p><span style='font-size:16px'><span style='font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style='color:#0066cc'> " + generatorname + "</span></strong>.</span></span></p>";
 
             msg.IsBodyHtml = true;
 
