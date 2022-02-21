@@ -97,8 +97,8 @@
     </Page.Resources>
 
     <Grid>
-        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}"  >
-            <TabItem Height="40" >
+        <TabControl x:Name="Tab" Style="{StaticResource TabControlPivotStyle}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}" >
+            <TabItem Height="40" IsHitTestVisible="False" >
                 <TabItem.Header>
                     <TextBlock Text="1." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
@@ -229,7 +229,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Height="40">
+            <TabItem Height="40" IsHitTestVisible="False">
                 <TabItem.Header>
                     <TextBlock Text="2." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
@@ -450,7 +450,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Height="40">
+            <TabItem Height="40" IsHitTestVisible="False">
                 <TabItem.Header>
                     <TextBlock Text="3." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
@@ -550,7 +550,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Height="40">
+            <TabItem Height="40" IsHitTestVisible="False">
                 <TabItem.Header>
                     <TextBlock Text="4." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
@@ -636,7 +636,7 @@
                     </Button>
                 </Grid>
             </TabItem>
-            <TabItem Height="40" >
+            <TabItem Height="40" IsHitTestVisible="False">
                 <TabItem.Header>
                     <TextBlock Text="5." FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
