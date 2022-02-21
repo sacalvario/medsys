@@ -42,6 +42,10 @@ namespace ECN.Models
                 {
                     _StatusColor = new SolidColorBrush(Colors.Orange);
                 }
+                else if (StatusId == 6)
+                {
+                    _StatusColor = new SolidColorBrush(Colors.Red);
+                }
                 return _StatusColor;
             }
         }

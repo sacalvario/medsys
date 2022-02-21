@@ -24,8 +24,6 @@ namespace ECN.ViewModels
             _ecnDataService = ecnDataService;
             _navigationService = navigationService;
 
-            Checklist = new ObservableCollection<Ecn>();
-            GetChecklist();
         }
 
         private ObservableCollection<Ecn> _Checklist;
@@ -42,7 +40,19 @@ namespace ECN.ViewModels
             }
         }
 
-        public int ChecklistCount => Checklist.Count;
+        private int _ChecklistCount;
+        public int ChecklistCount
+        {
+            get => _ChecklistCount;
+            set
+            {
+                if (_ChecklistCount != value)
+                {
+                    _ChecklistCount = value;
+                    RaisePropertyChanged("ChecklistCount");
+                }
+            }
+        }
 
 
         private async void GetChecklist()
@@ -72,6 +82,10 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
+            Checklist = new ObservableCollection<Ecn>();
+            GetChecklist();
+
+            ChecklistCount = Checklist.Count;
         }
 
         public void OnNavigatedFrom()

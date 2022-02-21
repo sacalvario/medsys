@@ -118,5 +118,16 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register(() => appConfig);
         }
 
+        public static void UnregisterNumberPartViewModel()
+        {
+            SimpleIoc.Default.Unregister<NumberPartsViewModel>();
+            SimpleIoc.Default.Register<NumberPartsViewModel>();
+        }
+
+        public static void UnregisterEmployeestViewModel()
+        {
+            SimpleIoc.Default.Unregister<EmployeesViewModel>();
+            SimpleIoc.Default.Register<EmployeesViewModel>();
+        }
     }
 }

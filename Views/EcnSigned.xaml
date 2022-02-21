@@ -6,12 +6,11 @@
        DataContext="{Binding EcnSignedViewModel, Source={StaticResource Locator}}"
       xmlns:local="clr-namespace:ECN.Views"
       mc:Ignorable="d" 
-      d:DesignHeight="150" d:DesignWidth="400"
+      d:DesignHeight="140" d:DesignWidth="350"
       Title="EcnSigned">
 
     <Grid Background="White">
         <Image Source="/Assets/checkgreen.png" Width="28" Height="28" VerticalAlignment="Top" Margin="0, 20, 0, 0" />
-        <TextBlock Text="Se ha validado correctamente el ECN con el folio:" Margin="0, 60, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Quicksand Medium" FontSize="16"/>
-        <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Red" FontWeight="Black" FontSize="24"/>
+        <TextBlock Text="{Binding Message}" Margin="0, 60, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Quicksand Medium" FontSize="16" TextWrapping="Wrap"/>
     </Grid>
 </Page>

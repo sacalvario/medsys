@@ -119,6 +119,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private bool _NextToSecondTabButton = false;
+        public bool NextToSecondTabButton
+        {
+            get => _NextToSecondTabButton;
+            set
+            {
+                if (_NextToSecondTabButton != value)
+                {
+                    _NextToSecondTabButton = value;
+                    RaisePropertyChanged("NextToSecondTabButton");
+                }
+            }
+        }
 
         public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService)
         {
@@ -169,9 +182,6 @@ namespace ECN.ViewModels
             {
                 item.Index = SelectedForSign.IndexOf(item) + 1;
             }
-
-            Cleanup();
-            base.Cleanup();
         }
 
         private void SaveECN()
@@ -282,6 +292,8 @@ namespace ECN.ViewModels
                         _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
                         ResetData();
                         SelectedTabItem = 0;
+                        ViewModelLocator.UnregisterNumberPartViewModel();
+                        ViewModelLocator.UnregisterEmployeestViewModel();
                     }
 
                 }
@@ -454,6 +466,8 @@ namespace ECN.ViewModels
                 {
                     _SelectedChangeType = value;
                     RaisePropertyChanged("SelectedChangeType");
+
+                    NextToSecondTabButton = true;
 
                     if (_SelectedChangeType.ChangeTypeId == 3)
                     {

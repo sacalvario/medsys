@@ -20,13 +20,13 @@ namespace ECN.Views
             if (msg.Notification == "ShowNumberParts")
             {
                 var numberparts = new NumberParts();
-                numberparts.ShowDialog();
+                _ = numberparts.ShowDialog();
             }
 
             else if (msg.Notification == "ShowEmployees")
             {
                 var employees = new Employees();
-                employees.ShowDialog();
+                _ = employees.ShowDialog();
             }
         }
 

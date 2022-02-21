@@ -350,7 +350,9 @@
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <TextBlock Text="{Binding Notes}"
-                                                   TextWrapping="Wrap"/>
+                                                   TextWrapping="Wrap"
+                                                   Margin="20, 5"
+                                                   FontStyle="Italic"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

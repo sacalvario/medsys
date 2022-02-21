@@ -8,16 +8,16 @@ namespace ECN.ViewModels
 {
     public class EcnSignedViewModel : ViewModelBase, INavigationAware
     {
-        private int _ID;
-        public int ID
+        private string _Message;
+        public string Message
         {
-            get => _ID;
+            get => _Message;
             set
             {
-                if (_ID != value)
+                if (_Message != value)
                 {
-                    _ID = value;
-                    RaisePropertyChanged("ID");
+                    _Message = value;
+                    RaisePropertyChanged("Message");
                 }
             }
         }
@@ -28,9 +28,9 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            if (parameter is int id)
+            if (parameter is string message)
             {
-                ID = id;
+                Message = message;
             }
         }
 

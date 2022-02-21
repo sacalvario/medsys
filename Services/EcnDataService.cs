@@ -331,7 +331,23 @@ namespace ECN.Services
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
 
-            ecn.StatusId = 1;
+            if (ecn.DocumentType.DocumentTypeId != 3 && ecn.DocumentType.DocumentTypeId != 9 && ecn.DocumentType.DocumentTypeId != 14)
+            {
+                ecn.StatusId = 1;
+            }
+            else
+            {
+                EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+
+                if (revision.RevisionSequence == 3)
+                {
+                    ecn.StatusId = 1;
+                }
+                else if(revision.RevisionSequence < 3 && nextrevision != null)
+                {
+                    nextrevision.StatusId = 5;
+                }
+            }
             ecn.EcnNumberparts = null;
 
             var result = context.SaveChanges();
@@ -344,7 +360,7 @@ namespace ECN.Services
 
             EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
 
-            if (nextrevision != null)
+            if (nextrevision != null && nextrevision.StatusId == 5)
             {
                 return GetEmployee(nextrevision.EmployeeId);
             }

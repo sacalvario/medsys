@@ -20,9 +20,6 @@ namespace ECN.ViewModels
         private ICommand _navigateToDetailCommand;
         public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);
 
-        private ICommand _RefreshHistoryCommand;
-        public ICommand RefreshHistoryCommand => _RefreshHistoryCommand ??= new RelayCommand(RefreshHistory);
-
         public HistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService)
         {
             _navigationService = navigationService;
@@ -140,9 +137,5 @@ namespace ECN.ViewModels
             
         }
 
-        private void RefreshHistory()
-        {
-           
-        }
     }
 }
