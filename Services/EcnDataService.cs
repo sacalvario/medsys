@@ -366,5 +366,21 @@ namespace ECN.Services
             }
             return null;
         }
+
+        public async Task<EcnRevision> GetCurrentSignatureAsync(int ecn)
+        {
+            await Task.CompletedTask;
+            return GetRevision(ecn);
+        }
+
+        private EcnRevision GetRevision(int ecn)
+        {
+            return context.EcnRevisions.First(i => i.EcnId == ecn && i.StatusId == 5);
+        }
+
+        public int GetSignatureCount(int ecn)
+        {
+            return context.EcnRevisions.Count(i => i.EcnId == ecn);
+        }
     }
 }

@@ -285,6 +285,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _GoToBackCommand;
+        public ICommand GoToBackCommand
+        {
+            get
+            {
+                if (_GoToBackCommand == null)
+                {
+                    _GoToBackCommand = new RelayCommand(GoBack);
+                }
+                return _GoToBackCommand;
+            }
+        }
+
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             Ecn = new Ecn();
@@ -519,6 +532,11 @@ namespace ECN.ViewModels
                 Notes = string.Empty;
                 _navigationService.GoBack();
             }
+        }
+
+        private void GoBack()
+        {
+            _navigationService.GoBack();
         }
     } 
 }

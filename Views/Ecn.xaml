@@ -219,8 +219,7 @@
                             HorizontalAlignment="Right"
                             VerticalAlignment="Bottom"
                             FontFamily="Quicksand Medium"
-                            FontSize="14" 
-                            IsHitTestVisible="{Binding NextToSecondTabButton}"
+                            FontSize="14"
                             Command="{Binding GoToNextTabItemCommand}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Siguiente" VerticalAlignment="Center"/>

@@ -21,8 +21,10 @@ namespace ECN.Contracts.Services
         Task<Department> GetDepartmentAsync(int id);
         Task<ICollection<EcnAttachment>> GetAttachmentsAsync(int ecn);
         Task<Attachment> GetAttachmentAsync(int id);
+        Task<EcnRevision> GetCurrentSignatureAsync(int ecn);
         Task<ICollection<EcnRevision>> GetRevisionsAsync(int ecn);
         Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn);
+        int GetSignatureCount(int ecn);
         bool SaveEcn(Ecn ecn);
         bool SignEcn(Ecn ecn, string notes);
         Employee NextToSignEcn(Ecn ecn);

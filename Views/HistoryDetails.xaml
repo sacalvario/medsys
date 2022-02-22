@@ -38,9 +38,12 @@
     </Page.Resources>
 
     <Grid Background="#FFE0E0E0">
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="20, 15, 0, 0" >
-            <Image Source="/Assets/file96.png" Margin="20, 15, 5, 15" />
-            <StackPanel Margin="10">
+        <Button VerticalAlignment="Top" Margin="0, 30, 0, 0" Background="Transparent" Command="{Binding GoToBackCommand}">
+            <Image Source="/Assets/reply.png" Width="32" Height="32"/>
+        </Button>
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="50, 10, 0, 0" >
+            <Image Source="/Assets/file96.png" Margin="0, 15, 5, 15" />
+            <StackPanel Margin="5, 10, 10, 10">
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
                     <TextBlock FontSize="26" FontWeight="Black" >
                         <Run Text="Folio" />
@@ -63,31 +66,35 @@
                 </TextBlock>
             </StackPanel>
         </StackPanel>
-        <!--<StackPanel VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" Margin="0, 50, 50, 0" Visibility="{Binding EcnSignTypeVisibility}">
-            <StackPanel>
-                <TextBlock Text="{Binding Ecn.Employee.Name}"/>
-                <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" HorizontalAlignment="Right" Foreground="Red"/>
-            </StackPanel>
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" Visibility="{Binding EcnSignTypeVisibility}">
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
-        </StackPanel>-->
-        <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="600, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True"/>
+            <TextBlock Text="{Binding Ecn.Employee.Name}" HorizontalAlignment="Center" FontWeight="Black"/>
+            <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="500, 15, 0, 0" FontSize="18" Visibility="{Binding EcnSignTypeVisibility}">
+            <Run Text="{Binding Ecn.CurrentSignature.RevisionSequence}" FontWeight="Black"/>
+            <Run Text="/" />
+            <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
+            <Run Text="firmas" />
+        </TextBlock>
+        <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="15"/>
             <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
                     <StackPanel>
-                        <Image Source="/Assets/verified.png" />
+                        <Image Source="/Assets/verified.png"/>
                         <TextBlock Text="Aprobar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
                 <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
                     <StackPanel>
-                        <Image Source="/Assets/refuse.png"/>
+                        <Image Source="/Assets/refuse.png" />
                         <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </ui:SimpleStackPanel>
         </StackPanel>
-        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="40, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
+        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
             <TabItem Height="40">
                 <TabItem.Header>
                     <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
@@ -283,6 +290,7 @@
                                     <Setter Property="Height" Value="30"/>
                                     <Setter Property="FontStyle" Value="Italic"/>
                                     <Setter Property="FontWeight" Value="Bold"/>
+                                    <Setter Property="IsHitTestVisible" Value="False"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
                             <GridViewColumn Header="Responsable" Width="350" >
@@ -301,14 +309,15 @@
                                                        Margin="5"/>
                                             </StackPanel>
                                             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                                                <Image Source="/Assets/userblack.png" Width="32"/>
+                                                <Image Source="/Assets/userblack.png" Width="40" Height="40"/>
                                                 <StackPanel Margin="5">
                                                     <TextBlock Text="{Binding Employee.Name}"
-                                                               FontWeight="Black"/>
+                                                               FontWeight="Black"
+                                                               FontSize="14"/>
                                                     <TextBlock Text="{Binding Employee.Department.DepartmentName}"
-                                                               FontWeight="DemiBold"
-                                                               FontStyle="Italic"
-                                                               Foreground="Red"/>
+                                                               FontWeight="Bold"
+                                                               Foreground="Red"
+                                                               FontSize="14"/>
                                                 </StackPanel>
                                             </StackPanel>
                                         </Grid>

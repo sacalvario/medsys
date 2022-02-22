@@ -585,6 +585,8 @@ namespace ECN.Models
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoVisibility);
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.IsEcoToString);
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.LongEndDate);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.CurrentSignature);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.SignatureCount);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Index);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);

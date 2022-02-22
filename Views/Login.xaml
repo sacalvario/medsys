@@ -12,7 +12,8 @@
 
     <Grid Background="#FFCD1F1F">
         <StackPanel Margin="30 50, 30, 50" >
-            <Image  Width="65" Height="32" Source="/Assets/completo.png" />
+            <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="26" FontStyle="Oblique" HorizontalAlignment="Center"/>
+            <!--<Image  Width="65" Height="32" Source="/Assets/completo.png" />-->
             <Border Background="White" Margin="10, 20" CornerRadius="5">
                 <StackPanel Margin="25" >
                     <TextBox Text="{Binding Username}" Margin="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"/>
@@ -20,7 +21,6 @@
                     <Button Margin="15, 50" Content="Iniciar sesión" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding LoginCommand}"/>
                     </StackPanel>
             </Border>
-            <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" HorizontalAlignment="Center"/>
         </StackPanel>
     </Grid>
 

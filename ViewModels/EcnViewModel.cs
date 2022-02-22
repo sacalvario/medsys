@@ -119,20 +119,6 @@ namespace ECN.ViewModels
             }
         }
 
-        private bool _NextToSecondTabButton = false;
-        public bool NextToSecondTabButton
-        {
-            get => _NextToSecondTabButton;
-            set
-            {
-                if (_NextToSecondTabButton != value)
-                {
-                    _NextToSecondTabButton = value;
-                    RaisePropertyChanged("NextToSecondTabButton");
-                }
-            }
-        }
-
         public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService)
         {
              _ecnDataService = ecnDataService;
@@ -466,8 +452,6 @@ namespace ECN.ViewModels
                 {
                     _SelectedChangeType = value;
                     RaisePropertyChanged("SelectedChangeType");
-
-                    NextToSecondTabButton = true;
 
                     if (_SelectedChangeType.ChangeTypeId == 3)
                     {

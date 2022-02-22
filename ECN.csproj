@@ -37,6 +37,7 @@
     <None Remove="Assets\refresh.png" />
     <None Remove="Assets\refuse.png" />
     <None Remove="Assets\registerdocument.png" />
+    <None Remove="Assets\reply.png" />
     <None Remove="Assets\rightred.png" />
     <None Remove="Assets\search.png" />
     <None Remove="Assets\signed.png" />
@@ -138,6 +139,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\registerdocument.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\reply.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\rightred.png">

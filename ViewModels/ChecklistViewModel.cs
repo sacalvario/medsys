@@ -65,6 +65,8 @@ namespace ECN.ViewModels
                 item.DocumentType = await _ecnDataService.GetDocumentTypeAsync(item.DocumentTypeId);
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
+                item.CurrentSignature = await _ecnDataService.GetCurrentSignatureAsync(item.Id);
+                item.SignatureCount = _ecnDataService.GetSignatureCount(item.Id);
 
                 if (Convert.ToBoolean(item.IsEco))
                 {

@@ -6,7 +6,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Windows;
+using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -19,6 +19,62 @@ namespace ECN.ViewModels
 
         private ICommand _navigateToDetailCommand;
         public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);
+
+        private int _HistoryCount;
+        public int HistoryCount
+        {
+            get => _HistoryCount;
+            set
+            {
+                if (_HistoryCount != value)
+                {
+                    _HistoryCount = value;
+                    RaisePropertyChanged("HistoryCount");
+                }
+            }
+        }
+
+        private int _InternalChangesCount;
+        public int InternalChangesCount
+        {
+            get => _InternalChangesCount;
+            set
+            {
+                if (_InternalChangesCount != value)
+                {
+                    _InternalChangesCount = value;
+                    RaisePropertyChanged("InternalChangesCount");
+                }
+            }
+        }
+
+        private int _ExternalChangesCount;
+        public int ExternalChangesCount
+        {
+            get => _ExternalChangesCount;
+            set
+            {
+                if (_ExternalChangesCount != value)
+                {
+                    _ExternalChangesCount = value;
+                    RaisePropertyChanged("ExternalChangesCount");
+                }
+            }
+        }
+
+        private int _RegisterChangesCount;
+        public int RegisterChangesCount
+        {
+            get => _RegisterChangesCount;
+            set
+            {
+                if (_RegisterChangesCount != value)
+                {
+                    _RegisterChangesCount = value;
+                    RaisePropertyChanged("RegisterChangesCount");
+                }
+            }
+        }
 
         public HistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService)
         {
@@ -41,6 +97,8 @@ namespace ECN.ViewModels
 
             CvsHistory.Filter += ApplyFilter;
 
+
+           
         }
 
         private CollectionViewSource _CvsHistory;
@@ -93,6 +151,10 @@ namespace ECN.ViewModels
                     History.Add(item);
                 }
 
+                HistoryCount = History.Count;
+                InternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 1);
+                ExternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 2);
+                RegisterChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 3);
             }
         }
 

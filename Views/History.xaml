@@ -123,6 +123,34 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="450"  />
         </StackPanel>
+        <Grid HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="350, 0, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <StackPanel Grid.RowSpan="2" Margin="5, 0">
+                <TextBlock Text="{Binding HistoryCount}" FontSize="30" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Ecn's generados" FontStyle="Italic"/>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="5, 0">
+                <TextBlock Text="{Binding InternalChangesCount}" FontSize="15" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="internos" FontStyle="Italic"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="5, 0">
+                <TextBlock Text="{Binding ExternalChangesCount}" FontSize="15" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Externos" FontStyle="Italic"/>
+            </StackPanel>
+            <StackPanel Grid.Column="3" Margin="5, 0">
+                <TextBlock Text="{Binding RegisterChangesCount}" FontSize="15" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Altas" FontStyle="Italic"/>
+            </StackPanel>
+        </Grid>
         <ScrollViewer Grid.Row="1">
             <TreeView x:Name="tvHistory" 
                       ItemsSource="{Binding Path=CvsHistory.View.Groups}"
