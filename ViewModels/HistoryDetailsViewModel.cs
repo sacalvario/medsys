@@ -174,7 +174,19 @@ namespace ECN.ViewModels
             }
         }
 
-        public string Notes { get; set; }
+        private string _Notes;
+        public string Notes
+        {
+            get => _Notes;
+            set
+            {
+                if (_Notes != value)
+                {
+                    _Notes = value;
+                    RaisePropertyChanged("Notes");
+                }
+            }
+        }
 
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
@@ -245,6 +257,21 @@ namespace ECN.ViewModels
                 }
             }
         }
+         
+        private int _SelectedTabItem;
+        public int SelectedTabItem
+        {
+            get => _SelectedTabItem;
+            set
+            {
+                if (_SelectedTabItem != value)
+                {
+                    _SelectedTabItem = value;
+                    RaisePropertyChanged("SelectedTabItem");
+                }
+            }
+        }
+
 
         private ICommand _DownloadAttachmentCommand;
         public ICommand DownloadAttachmentCommand

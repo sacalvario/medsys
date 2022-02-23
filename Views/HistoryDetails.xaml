@@ -4,7 +4,6 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
-      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding HistoryDetailsViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
@@ -94,7 +93,7 @@
                 </Button>
             </ui:SimpleStackPanel>
         </StackPanel>
-        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0">
+        <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}">
             <TabItem Height="40">
                 <TabItem.Header>
                     <TextBlock Text="Información General" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
@@ -280,7 +279,7 @@
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" >
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" IsHitTestVisible="False">
                     <ListView.View >
                         <GridView >
                             <GridView.ColumnHeaderContainerStyle>
@@ -293,7 +292,7 @@
                                     <Setter Property="IsHitTestVisible" Value="False"/>
                                 </Style>
                             </GridView.ColumnHeaderContainerStyle>
-                            <GridViewColumn Header="Responsable" Width="350" >
+                            <GridViewColumn Header="Responsable" Width="350"  >
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
                                         <Grid Margin="0, 10, 0, 0" >
