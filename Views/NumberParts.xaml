@@ -73,6 +73,20 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="350"  />
         </StackPanel>
+        <Grid HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0, 0, 60, 10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="5">
+                <TextBlock Text="{Binding Customer}" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Cliente" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Margin="5">
+                <TextBlock Text="{Binding Revision}" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Revision" />
+            </StackPanel>
+        </Grid>
         <ListView x:Name="lvNumberParts" 
                   Grid.Row="1" 
                   HorizontalAlignment="Stretch" 

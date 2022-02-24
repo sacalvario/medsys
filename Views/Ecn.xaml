@@ -479,7 +479,7 @@
                             <ui:ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" IsSelectionEnabled="False"  dd:DragDrop.IsDropTarget="True"/>
                         </Grid>
                     </ScrollViewer>
-                    <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Visibility="{Binding BtnAddNumberPartVisibility}" Command="{Binding OpenNumberPartsDialogCommand}">
+                    <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding OpenNumberPartsDialogCommand}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/add.png" Height="22" Margin="5"/>
                             <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />

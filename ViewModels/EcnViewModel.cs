@@ -157,16 +157,25 @@ namespace ECN.ViewModels
             EcnIntExtTypeVisibility = Visibility.Visible;
             EcnChangeCustomerRevision = Visibility.Collapsed;
 
-            SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
+            SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
+            NumberParts.CollectionChanged += NumberPartCollectionChanged;
 
             //SelectedTabItem = 1;
 
         }
-        private void FullObservableCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        private void SelectedForSignCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
             foreach(var item in SelectedForSign)
             {
                 item.Index = SelectedForSign.IndexOf(item) + 1;
+            }
+        }
+
+        private void NumberPartCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (NumberParts.Count == 0)
+            {
+                ViewModelLocator.UnregisterNumberPartViewModel();
             }
         }
 
@@ -357,7 +366,7 @@ namespace ECN.ViewModels
             SelectedForView = new ObservableCollection<Employee>();
             GetDocumentTypes();
 
-            SelectedForSign.CollectionChanged += FullObservableCollectionChanged;
+            SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
 
             
         }

@@ -29,6 +29,7 @@ namespace ECN.ViewModels
             CvsNumberParts.Filter += ApplyFilter;
            
             NumberPartCollection.CollectionChanged += NumberPartCollectionChanged;
+
         }
 
         private void NumberPartCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -37,18 +38,16 @@ namespace ECN.ViewModels
             {
                 if (e.OldItems.Count > 0)
                 {
-                    if (!CvsNumberParts.View.Contains(SelectedNumberPart))
+                    if (!NumberPartCollection.Contains(SelectedNumberPart))
                     {
                         Customer = SelectedNumberPart.Customer.CustomerName;
                         Revision = SelectedNumberPart.NumberPartRev;
-                        //NumberPartCollection.CollectionChanged += null;
+
+                        NumberPartCollection.CollectionChanged -= NumberPartCollectionChanged;
+                        OnFilterChanged();
                     }
                 }
             }
-            //else
-            //{
-            //    return;
-            //}
         }
 
         public async void GetAll()
@@ -65,6 +64,7 @@ namespace ECN.ViewModels
         }
 
         internal CollectionViewSource CvsNumberParts { get; set; }
+
         public ICollectionView NumberPartCollection => CvsNumberParts.View;
 
         private string filter;
@@ -74,11 +74,22 @@ namespace ECN.ViewModels
             set
             {
                 filter = value;
+                RaisePropertyChanged("Filter");
                 OnFilterChanged();
             }
         }
 
-        public string Customer { get; set; }
+        private string customer;
+        public string Customer
+        {
+            get => customer;
+            set
+            {
+                customer = value;
+                RaisePropertyChanged("Customer");
+            }
+        }
+
 
         private string revision;
         public string Revision
@@ -88,14 +99,14 @@ namespace ECN.ViewModels
             {
                 revision = value;
                 RaisePropertyChanged("Revision");
-                OnFilterChanged();
+                
             }
         }
 
 
         private void OnFilterChanged()
         {
-            CvsNumberParts.View.Refresh();
+            NumberPartCollection.Refresh();
         }
 
         private Numberpart _SelectedNumberPart;
@@ -122,6 +133,7 @@ namespace ECN.ViewModels
                 if (_NumberParts != value)
                 {
                     _NumberParts = value;
+                    RaisePropertyChanged("NumberParts");
                 }
             }
         }
@@ -147,20 +159,17 @@ namespace ECN.ViewModels
 
             if (Filter != null)
             {
-                e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower());
+                e.Accepted = Revision == null
+                    ? string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower())
+                    : np.NumberPartId.ToLower().Contains(Filter.ToLower()) && np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Equals(Revision);
+
             }
-            else
+            else if (Customer != null && Revision != null)
             {
-                e.Accepted = string.IsNullOrWhiteSpace(Revision) || Revision.Length == 0 || np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Contains(Revision);
+                e.Accepted =  np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Equals(Revision);
             }
         }
 
-        private void FilterCustomerRevision(object sender, FilterEventArgs e)
-        {
-            Numberpart np = (Numberpart)e.Item;
-
-            e.Accepted = string.IsNullOrWhiteSpace(Revision) || Revision.Length == 0  || (np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Contains(Revision));
-        }
 
     }
 }
