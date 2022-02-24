@@ -476,7 +476,7 @@
                                 <Label Content="{Binding NumberParts.Count}" />
                                 <Label Content="/10" />
                             </StackPanel>
-                            <ui:ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" IsSelectionEnabled="False"  dd:DragDrop.IsDropTarget="True"/>
+                            <ui:ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" IsSelectionEnabled="False" dd:DragDrop.IsDropTarget="True" />
                         </Grid>
                     </ScrollViewer>
                     <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding OpenNumberPartsDialogCommand}">

@@ -3,7 +3,7 @@ using GalaSoft.MvvmLight;
 
 namespace ECN.ViewModels
 {
-    public class EcnSignedViewModel : ViewModelBase, INavigationAware
+    public class ErrorViewModel : ViewModelBase, INavigationAware
     {
         private string _Message;
         public string Message
@@ -18,11 +18,10 @@ namespace ECN.ViewModels
                 }
             }
         }
-        public EcnSignedViewModel()
+        public ErrorViewModel()
         {
 
         }
-
         public void OnNavigatedTo(object parameter)
         {
             if (parameter is string message)

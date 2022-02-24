@@ -121,7 +121,7 @@ namespace ECN.ViewModels
 
         public EcnViewModel(IEcnDataService ecnDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService)
         {
-             _ecnDataService = ecnDataService;
+            _ecnDataService = ecnDataService;
             _openFileService = openFileService;
             _windowManagerService = windowManagerService;
             _mailService = mailService;
@@ -165,7 +165,7 @@ namespace ECN.ViewModels
         }
         private void SelectedForSignCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
         {
-            foreach(var item in SelectedForSign)
+            foreach (var item in SelectedForSign)
             {
                 item.Index = SelectedForSign.IndexOf(item) + 1;
             }
@@ -177,6 +177,17 @@ namespace ECN.ViewModels
             {
                 ViewModelLocator.UnregisterNumberPartViewModel();
             }
+            else if (NumberParts.Count == 11)
+            {
+                //e.NewItems.Clear();
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Solo se permiten 10 números de parte");
+            }
+            
+        }
+
+        private void RemoveNumberPart()
+        {
+            //NumberParts.RemoveAt(10);
         }
 
         private void SaveECN()
@@ -307,7 +318,7 @@ namespace ECN.ViewModels
 
         private void OpenFileDialog()
         {
-           if (_openFileService.OpenFileDialog())
+            if (_openFileService.OpenFileDialog())
             {
                 Attacheds.Add(new Attachment(Path.GetExtension(_openFileService.Path))
                 {
@@ -367,8 +378,8 @@ namespace ECN.ViewModels
             GetDocumentTypes();
 
             SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
+            NumberParts.CollectionChanged += NumberPartCollectionChanged;
 
-            
         }
 
         private void GoToNexTabItem()

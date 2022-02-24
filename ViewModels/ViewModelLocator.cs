@@ -54,8 +54,12 @@ namespace ECN.ViewModels
 
         public EcnRegistrationViewModel EcnRegistrationViewModel
             => SimpleIoc.Default.GetInstance<EcnRegistrationViewModel>();
+
         public EcnSignedViewModel EcnSignedViewModel
             => SimpleIoc.Default.GetInstance<EcnSignedViewModel>();
+
+        public ErrorViewModel ErrorViewModel
+            => SimpleIoc.Default.GetInstance<ErrorViewModel>();
 
         public ViewModelLocator()
         {
@@ -97,6 +101,7 @@ namespace ECN.ViewModels
             Register<ChecklistCheckViewModel, ChecklistCheck>();
             Register<EcnRegistrationViewModel, EcnRegistration>();
             Register<EcnSignedViewModel, EcnSigned>();
+            Register<ErrorViewModel, Error>();
         }
 
         private void Register<VM, V>()

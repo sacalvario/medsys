@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Windows;
+using System.Linq;
 using System.Windows.Data;
 
 namespace ECN.ViewModels
@@ -26,9 +26,11 @@ namespace ECN.ViewModels
             CvsNumberParts.SortDescriptions.Add(new SortDescription("Customer.CustomerName", ListSortDirection.Ascending));
             CvsNumberParts.SortDescriptions.Add(new SortDescription("NumberPartId", ListSortDirection.Ascending));
 
+            NumberPartCollection = CvsNumberParts.View;
+
             CvsNumberParts.Filter += ApplyFilter;
-           
-            NumberPartCollection.CollectionChanged += NumberPartCollectionChanged;
+
+            CvsNumberParts.View.CollectionChanged += NumberPartCollectionChanged;
 
         }
 
@@ -38,13 +40,22 @@ namespace ECN.ViewModels
             {
                 if (e.OldItems.Count > 0)
                 {
-                    if (!NumberPartCollection.Contains(SelectedNumberPart))
+                    if (!CvsNumberParts.View.Contains(SelectedNumberPart))
                     {
                         Customer = SelectedNumberPart.Customer.CustomerName;
                         Revision = SelectedNumberPart.NumberPartRev;
 
-                        NumberPartCollection.CollectionChanged -= NumberPartCollectionChanged;
-                        OnFilterChanged();
+                        GetPerCustomer(SelectedNumberPart.Customer.CustomerId, SelectedNumberPart.NumberPartRev);
+                        NumberParts.Remove(SelectedNumberPart);
+                        CvsNumberParts = new CollectionViewSource
+                        {
+                            Source = NumberParts
+                        };
+
+                        NumberPartCollection = CvsNumberParts.View;
+                        CvsNumberParts.Filter += ApplyFilter;
+
+                        CvsNumberParts.View.CollectionChanged -= NumberPartCollectionChanged;
                     }
                 }
             }
@@ -63,9 +74,46 @@ namespace ECN.ViewModels
             }
         }
 
-        internal CollectionViewSource CvsNumberParts { get; set; }
+        public async void GetPerCustomer(int customerid, string revision)
+        {
+            NumberParts = new ObservableCollection<Numberpart>();
 
-        public ICollectionView NumberPartCollection => CvsNumberParts.View;
+            var data = await _numberPartsDataService.GetNumberPartsPerCustomerAsync(customerid, revision);
+            foreach (var item in data)
+            {
+                item.NumberPartTypeNavigation = await _numberPartsDataService.GetNumberpartTypeAsync(item.NumberPartType);
+                item.Customer = await _numberPartsDataService.GetCustomerAsync(item.CustomerId);
+                NumberParts.Add(item);
+            }
+        }
+
+        private CollectionViewSource _CvsNumberPart;
+        internal CollectionViewSource CvsNumberParts
+        {
+            get => _CvsNumberPart;
+            set
+            {
+                if (_CvsNumberPart != value)
+                {
+                    _CvsNumberPart = value;
+                    RaisePropertyChanged("CvsNumberParts");
+                }
+            }
+        }
+
+        private ICollectionView _NumberPartCollection;
+        public ICollectionView NumberPartCollection
+        {
+            get => _NumberPartCollection;
+            set
+            {
+                if (_NumberPartCollection != value)
+                {
+                    _NumberPartCollection = value;
+                    RaisePropertyChanged("NumberPartCollection");
+                }
+            }
+        }
 
         private string filter;
         public string Filter
@@ -106,7 +154,7 @@ namespace ECN.ViewModels
 
         private void OnFilterChanged()
         {
-            NumberPartCollection.Refresh();
+            CvsNumberParts.View.Refresh();
         }
 
         private Numberpart _SelectedNumberPart;
@@ -157,17 +205,7 @@ namespace ECN.ViewModels
         {
             Numberpart np = (Numberpart)e.Item;
 
-            if (Filter != null)
-            {
-                e.Accepted = Revision == null
-                    ? string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower())
-                    : np.NumberPartId.ToLower().Contains(Filter.ToLower()) && np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Equals(Revision);
-
-            }
-            else if (Customer != null && Revision != null)
-            {
-                e.Accepted =  np.Customer.CustomerName.Contains(Customer) && np.NumberPartRev.Equals(Revision);
-            }
+            e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower());
         }
 
 

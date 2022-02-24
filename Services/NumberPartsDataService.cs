@@ -69,5 +69,16 @@ namespace ECN.Services
             await Task.CompletedTask;
             return GetNumberPartsEcn(ecn);
         }
+
+        public async Task<IEnumerable<Numberpart>> GetNumberPartsPerCustomerAsync(int customerid, string revision)
+        {
+            await Task.CompletedTask;
+            return GetNumberPartsPerCustomer(customerid, revision);
+        }
+
+        public IEnumerable<Numberpart> GetNumberPartsPerCustomer(int customerid, string revision)
+        {
+            return context.Numberparts.Where(data => data.CustomerId == customerid && data.NumberPartRev == revision);
+        }
     }
 }
