@@ -61,6 +61,9 @@ namespace ECN.ViewModels
         public ErrorViewModel ErrorViewModel
             => SimpleIoc.Default.GetInstance<ErrorViewModel>();
 
+        public ApprovedViewModel ApprovedViewModel
+            => SimpleIoc.Default.GetInstance<ApprovedViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -102,6 +105,7 @@ namespace ECN.ViewModels
             Register<EcnRegistrationViewModel, EcnRegistration>();
             Register<EcnSignedViewModel, EcnSigned>();
             Register<ErrorViewModel, Error>();
+            Register<ApprovedViewModel, Approved>();
         }
 
         private void Register<VM, V>()

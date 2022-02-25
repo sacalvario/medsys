@@ -40,7 +40,20 @@ namespace ECN.Models
         public string DocumentName { get; set; }
         public string DocumentLvl { get; set; }
         public string DrawingLvl { get; set; }
-        public string OldDrawingLvl { get; set; }
+
+        private string _OldDrawingLvl;
+        public string OldDrawingLvl
+        {
+            get => _OldDrawingLvl;
+            set
+            {
+                if (_OldDrawingLvl != value)
+                {
+                    _OldDrawingLvl = value;
+                    RaisePropertyChanged("OldDrawingLvl");
+                }
+            }
+        }
         public string OldDocumentLvl { get; set; }
         public int EmployeeId { get; set; }
         public sbyte IsEco { get; set; }

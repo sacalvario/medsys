@@ -316,6 +316,7 @@
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
                               Text="{Binding ECN.OldDocumentLvl}"
+                              CharacterCasing="Upper"
                               Grid.Column="1"
                               Grid.Row="2"
                               Grid.RowSpan="2"
@@ -334,6 +335,7 @@
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
                               Text="{Binding ECN.DocumentLvl}"
+                              CharacterCasing="Upper"
                               Grid.Column="1"
                               Grid.Row="3"
                               Grid.RowSpan="2"
@@ -371,6 +373,7 @@
                     <TextBox Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
                              Visibility="{Binding EcnRegisterTypeVisibility}"
                              Grid.Row="1"
+                             CharacterCasing="Upper"
                              Margin="0, 0, 100, 0"
                              Background="#FFFF0033"
                              BorderBrush="Transparent"
@@ -387,6 +390,7 @@
                              Grid.RowSpan="2"
                              Visibility="{Binding EcnRegisterTypeVisibility}"
                              Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
+                             CharacterCasing="Upper"
                              VerticalAlignment="Center"
                              Margin="0, 30, 50, 0"
                              Background="#FFFF0033"
@@ -401,6 +405,7 @@
                              ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Text="{Binding ECN.DocumentName, Mode=TwoWay}"
                              Visibility="{Binding EcnRegisterTypeVisibility}"
+                             CharacterCasing="Upper"
                              Grid.Row="2"
                              Grid.RowSpan="2"
                              Grid.Column="1"
@@ -487,6 +492,7 @@
                     </Button>
                     <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
                               Text="{Binding ECN.OldDrawingLvl}"
+                              CharacterCasing="Upper"
                               Grid.Column="1"
                               VerticalAlignment="Bottom"
                               Margin="80, 30, 50, 0"
@@ -503,6 +509,7 @@
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
                               Text="{Binding ECN.DrawingLvl}"
+                              CharacterCasing="Upper"
                               Grid.Column="1"
                               Grid.Row="1"
                               Margin="80, 0, 50, 0"

@@ -131,7 +131,6 @@ namespace ECN.ViewModels
                 EcnEco = new EcnEco()
             };
 
-            ECN.EcnNumberparts = null;
 
             NumberParts = new ObservableCollection<Numberpart>();
             Attacheds = new ObservableCollection<Attachment>();
@@ -150,7 +149,6 @@ namespace ECN.ViewModels
             OpenSignatureFlowDialogCommand = new RelayCommand(OpenSignatureFlowDialog);
             GoToNextTabItemCommand = new RelayCommand(GoToNexTabItem);
             GoToLastTabItemCommand = new RelayCommand(GoToLastTabItem);
-
 
             EcnEcoVisibility = Visibility.Collapsed;
             EcnRegisterTypeVisibility = Visibility.Collapsed;
@@ -176,23 +174,30 @@ namespace ECN.ViewModels
             if (NumberParts.Count == 0)
             {
                 ViewModelLocator.UnregisterNumberPartViewModel();
+                ECN.OldDrawingLvl = string.Empty;
+            }
+            else if (NumberParts.Count == 1)
+            {
+                ECN.OldDrawingLvl = NumberParts[0].NumberPartRev;
             }
             else if (NumberParts.Count == 11)
             {
-                //e.NewItems.Clear();
+                NumberParts.CollectionChanged -= NumberPartCollectionChanged;
+                RemoveNumberPart();
                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Solo se permiten 10 números de parte");
+                NumberParts.CollectionChanged += NumberPartCollectionChanged;
             }
             
         }
 
         private void RemoveNumberPart()
         {
-            //NumberParts.RemoveAt(10);
+            NumberParts.RemoveAt(10);
         }
 
         private void SaveECN()
         {
-            if (ECN != null)
+            if (ECN.ChangeDescription != null && ECN.ChangeJustification != null && ECN.ManufacturingAffectations != null)
             {
                 ECN.ChangeType = SelectedChangeType;
 
@@ -229,65 +234,61 @@ namespace ECN.ViewModels
                     ECN.EcnEco = null;
                 }
 
+                foreach (Documenttype dt in DocumentTypes)
+                {
+                    if (dt.IsSelected && dt != ECN.DocumentType)
+                    {
+                        ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
+                        {
+                            EcnId = ECN.Id,
+                            DocumentTypeId = dt.DocumentTypeId
+                        });
+                    }
+                }
+
+                if (Attacheds.Count > 0)
+                {
+                    foreach (Attachment ar in Attacheds)
+                    {
+                        ECN.EcnAttachments.Add(new EcnAttachment()
+                        {
+                            Attachment = ar,
+                            EcnId = ECN.Id
+                        });
+                    }
+                }
+
+                if (NumberParts.Count > 0)
+                {
+                    foreach (Numberpart np in NumberParts)
+                    {
+                        ECN.EcnNumberparts.Add(new EcnNumberpart()
+                        {
+                            Ecn = ECN,
+                            ProductId = np.NumberPartNo
+                        });
+                    }
+                }
+
+                if (SelectedForSign.Count > 0)
+                {
+                    foreach (Employee er in SelectedForSign)
+                    {
+                        EcnRevision revision = new EcnRevision
+                        {
+                            Ecn = ECN,
+                            Employee = er,
+                            RevisionSequence = er.Index,
+                            StatusId = SetStatus(er),
+                            Notes = ""
+                        };
+                        ECN.EcnRevisions.Add(revision);
+                    }
+                }
                 try
                 {
-
                     if (_ecnDataService.SaveEcn(ECN))
                     {
-                        foreach (Documenttype dt in DocumentTypes)
-                        {
-                            if (dt.IsSelected && dt != ECN.DocumentType)
-                            {
-                                ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
-                                {
-                                    EcnId = ECN.Id,
-                                    DocumentTypeId = dt.DocumentTypeId
-                                });
-                            }
-                        }
-
-                        if (Attacheds.Count > 0)
-                        {
-                            foreach (Attachment ar in Attacheds)
-                            {
-                                ECN.EcnAttachments.Add(new EcnAttachment()
-                                {
-                                    Attachment = ar,
-                                    EcnId = ECN.Id
-                                });
-                            }
-                        }
-
-                        if (NumberParts.Count > 0)
-                        {
-                            ECN.EcnNumberparts = new ObservableCollection<EcnNumberpart>();
-                            foreach (Numberpart np in NumberParts)
-                            {
-                                ECN.EcnNumberparts.Add(new EcnNumberpart()
-                                {
-                                    Ecn = ECN,
-                                    ProductId = np.NumberPartNo
-                                });
-                            }
-                        }
-
-                        if (SelectedForSign.Count > 0)
-                        {
-                            foreach (Employee er in SelectedForSign)
-                            {
-                                EcnRevision revision = new EcnRevision
-                                {
-                                    Ecn = ECN,
-                                    Employee = er,
-                                    RevisionSequence = er.Index,
-                                    StatusId = SetStatus(er),
-                                    Notes = ""
-                                };
-                                ECN.EcnRevisions.Add(revision);
-                            }
-                        }
-
-                        _ecnDataService.SaveChanges();
 
                         _mailService.SendSignEmail("scalvario@electri-cord.com.mx", ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
                         foreach (Employee er in SelectedForView)
@@ -305,8 +306,12 @@ namespace ECN.ViewModels
                 }
                 catch (Exception ex)
                 {
-                    _ = MessageBox.Show("Error occured while saving. " + ex.ToString());
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.Message);
                 }
+            }
+            else
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
             }
         }
 
@@ -375,7 +380,14 @@ namespace ECN.ViewModels
             NumberParts = new ObservableCollection<Numberpart>();
             SelectedForSign = new ObservableCollection<Employee>();
             SelectedForView = new ObservableCollection<Employee>();
-            GetDocumentTypes();
+
+            foreach (Documenttype dt in DocumentTypes)
+            {
+                if (dt.IsSelected)
+                {
+                    dt.IsSelected = false;
+                }
+            }
 
             SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
             NumberParts.CollectionChanged += NumberPartCollectionChanged;

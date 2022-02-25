@@ -23,6 +23,9 @@ namespace ModernWpf.Controls
                 case "Checklist":
                     return typeof(ChecklistViewModel);
 
+                case "Approved":
+                    return typeof(ApprovedViewModel);
+
                 default:
                     return null;
             }

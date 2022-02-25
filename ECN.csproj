@@ -9,6 +9,7 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\add.png" />
+    <None Remove="Assets\approvedfile.png" />
     <None Remove="Assets\attach.png" />
     <None Remove="Assets\attachment.png" />
     <None Remove="Assets\checkgreen.png" />
@@ -29,6 +30,7 @@
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\newred.png" />
+    <None Remove="Assets\panerecord.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug48.png" />
@@ -239,6 +241,18 @@
 
   <ItemGroup>
     <Content Include="Assets\completo.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\panerecord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\approvedfile.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

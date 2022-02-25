@@ -24,7 +24,6 @@ namespace ECN.Services
             return context.Ecns.Where(data => data.EmployeeId == UserRecord.Employee_ID).ToList();
         }
 
-
         public async Task<Changetype> GetChangeTypeAsync(int id)
         {
             await Task.CompletedTask;
@@ -95,7 +94,6 @@ namespace ECN.Services
             if (ecn != null)
             {
                 context.Ecns.Add(ecn);
-                ecn.EcnNumberparts = null;
 
                 var result = context.SaveChanges();
                 return result > 0;
@@ -301,7 +299,6 @@ namespace ECN.Services
                 ecn.StatusId = 4;
             }
 
-            ecn.EcnNumberparts = null;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -348,7 +345,6 @@ namespace ECN.Services
                     nextrevision.StatusId = 5;
                 }
             }
-            ecn.EcnNumberparts = null;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -381,6 +377,17 @@ namespace ECN.Services
         public int GetSignatureCount(int ecn)
         {
             return context.EcnRevisions.Count(i => i.EcnId == ecn);
+        }
+
+        public async Task<IEnumerable<Ecn>> GetApprovedAsync()
+        {
+            await Task.CompletedTask;
+            return GetApproved();
+        }
+
+        private IEnumerable<Ecn> GetApproved()
+        {
+            return context.Ecns.Where(data => data.StatusId == 4).ToList();
         }
     }
 }

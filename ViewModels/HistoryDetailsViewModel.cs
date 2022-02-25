@@ -338,6 +338,10 @@ namespace ECN.ViewModels
 
         public void OnNavigatedFrom()
         {
+            if (SelectedTabItem == 1)
+            {
+                SelectedTabItem = 0;
+            }
 
         }
 
@@ -447,9 +451,9 @@ namespace ECN.ViewModels
 
         private async void GetNumberParts()
         {
-            Ecn.EcnNumberparts = await _numberPartsDataService.GetNumberPartsEcnsAsync(Ecn.Id);
+            var ecnNumberparts = await _numberPartsDataService.GetNumberPartsEcnsAsync(Ecn.Id);
 
-            foreach(var item in Ecn.EcnNumberparts)
+            foreach(var item in ecnNumberparts)
             {
                 var np = await _numberPartsDataService.GetNumberPartAsync(item.ProductId);
                 np.NumberPartTypeNavigation = await _numberPartsDataService.GetNumberpartTypeAsync(np.NumberPartType);
