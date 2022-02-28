@@ -128,7 +128,8 @@ namespace ECN.ViewModels
 
             ECN = new Ecn
             {
-                EcnEco = new EcnEco()
+                EcnEco = new EcnEco(),
+                StartDate = DateTime.Today
             };
 
 
@@ -158,7 +159,6 @@ namespace ECN.ViewModels
             SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
             NumberParts.CollectionChanged += NumberPartCollectionChanged;
 
-            //SelectedTabItem = 1;
 
         }
         private void SelectedForSignCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
@@ -197,121 +197,224 @@ namespace ECN.ViewModels
 
         private void SaveECN()
         {
-            if (ECN.ChangeDescription != null && ECN.ChangeJustification != null && ECN.ManufacturingAffectations != null)
+            if (SelectedChangeType != null)
             {
                 ECN.ChangeType = SelectedChangeType;
 
                 if (ECN.ChangeType.ChangeTypeId != 3)
                 {
-                    ECN.DocumentName = "N/A";
-                    ECN.DocumentNo = "N/A";
-                    ECN.DocumentType = SelectedDocumentType;
-
-                    if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4)
+                    if (IsEco)
                     {
-                        ECN.OldDrawingLvl = "N/A";
-                        ECN.DrawingLvl = "N/A";
+                        if (!string.IsNullOrWhiteSpace(ECN.EcnEco.IdEco) && !string.IsNullOrWhiteSpace(ECN.EcnEco.EcoTypeId.ToString()))
+                        {
+                            SaveChangeRevisionECN();
+                        }
+                        else
+                        {
+                            _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
+                        }
+                    }
+                    else
+                    {
+                        SaveChangeRevisionECN();
                     }
                 }
 
                 else if (ECN.ChangeType.ChangeTypeId == 3)
                 {
-                    ECN.DocumentType = SelectedRegisterDocumentType;
-                    ECN.OldDocumentLvl = "N/A";
-                    ECN.OldDrawingLvl = "N/A";
-                    ECN.DrawingLvl = "N/A";
+                    if (IsEco)
+                    {
+                        if (!string.IsNullOrWhiteSpace(ECN.EcnEco.IdEco) && !string.IsNullOrWhiteSpace(ECN.EcnEco.EcoTypeId.ToString()))
+                        {
+                            SaveRegisterDocumentECN();
+                        }
+                        else
+                        {
+                            _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
+                        }
+                    }
+                    else
+                    {
+                        SaveRegisterDocumentECN();
+                    }
                 }
+            }
+            else
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "No has seleccionado un tipo de cambio");
+            }
+        }
 
-                ECN.EmployeeId = UserRecord.Employee_ID;
-                ECN.StatusId = 5;
 
-                if (IsEco)
+        private void SaveChangeRevisionECN()
+        {
+            if (SelectedDocumentType != null && !string.IsNullOrWhiteSpace(ECN.OldDocumentLvl) && !string.IsNullOrWhiteSpace(ECN.DocumentLvl) && !string.IsNullOrWhiteSpace(ECN.ChangeDescription) && !string.IsNullOrWhiteSpace(ECN.ChangeJustification) && !string.IsNullOrWhiteSpace(ECN.ManufacturingAffectations))
+            {
+                if (Attacheds.Count != 0)
                 {
-                    ECN.IsEco = Convert.ToSByte(IsEco);
+                    if (SelectedForSign.Count != 0)
+                    {
+                        ECN.DocumentName = "N/A";
+                        ECN.DocumentNo = "N/A";
+                        ECN.DocumentType = SelectedDocumentType;
+
+                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4)
+                        {
+                            ECN.OldDrawingLvl = "N/A";
+                            ECN.DrawingLvl = "N/A";
+                            RegisterECN();
+                        }
+                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4)
+                        {
+                            if (ECN.DrawingLvl != null && ECN.OldDrawingLvl != null)
+                            {
+                                RegisterECN();
+                            }
+                            else
+                            {
+                                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
+                            }
+                        }
+
+                    }
+                    else
+                    {
+                        _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "No has seleccionado un flujo de firmas");
+                    }
+
                 }
                 else
                 {
-                    ECN.EcnEco = null;
-                }
-
-                foreach (Documenttype dt in DocumentTypes)
-                {
-                    if (dt.IsSelected && dt != ECN.DocumentType)
-                    {
-                        ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
-                        {
-                            EcnId = ECN.Id,
-                            DocumentTypeId = dt.DocumentTypeId
-                        });
-                    }
-                }
-
-                if (Attacheds.Count > 0)
-                {
-                    foreach (Attachment ar in Attacheds)
-                    {
-                        ECN.EcnAttachments.Add(new EcnAttachment()
-                        {
-                            Attachment = ar,
-                            EcnId = ECN.Id
-                        });
-                    }
-                }
-
-                if (NumberParts.Count > 0)
-                {
-                    foreach (Numberpart np in NumberParts)
-                    {
-                        ECN.EcnNumberparts.Add(new EcnNumberpart()
-                        {
-                            Ecn = ECN,
-                            ProductId = np.NumberPartNo
-                        });
-                    }
-                }
-
-                if (SelectedForSign.Count > 0)
-                {
-                    foreach (Employee er in SelectedForSign)
-                    {
-                        EcnRevision revision = new EcnRevision
-                        {
-                            Ecn = ECN,
-                            Employee = er,
-                            RevisionSequence = er.Index,
-                            StatusId = SetStatus(er),
-                            Notes = ""
-                        };
-                        ECN.EcnRevisions.Add(revision);
-                    }
-                }
-                try
-                {
-                    if (_ecnDataService.SaveEcn(ECN))
-                    {
-
-                        _mailService.SendSignEmail("scalvario@electri-cord.com.mx", ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
-                        foreach (Employee er in SelectedForView)
-                        {
-                            _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
-                        }
-
-                        _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
-                        ResetData();
-                        SelectedTabItem = 0;
-                        ViewModelLocator.UnregisterNumberPartViewModel();
-                        ViewModelLocator.UnregisterEmployeestViewModel();
-                    }
-
-                }
-                catch (Exception ex)
-                {
-                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.Message);
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "No has adjuntando archivos");
                 }
             }
             else
             {
                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
+            }
+        }
+
+
+        private void SaveRegisterDocumentECN()
+        {
+            if (SelectedRegisterDocumentType != null && !string.IsNullOrWhiteSpace(ECN.DocumentLvl) && !string.IsNullOrWhiteSpace(ECN.DocumentName) && !string.IsNullOrWhiteSpace(ECN.DocumentNo) && !string.IsNullOrWhiteSpace(ECN.ChangeDescription) && !string.IsNullOrWhiteSpace(ECN.ChangeJustification) && !string.IsNullOrWhiteSpace(ECN.ManufacturingAffectations))
+            {
+                if (Attacheds.Count != 0)
+                {
+                    if (SelectedForSign.Count != 0)
+                    {
+                        ECN.DocumentType = SelectedRegisterDocumentType;
+                        ECN.OldDocumentLvl = "N/A";
+                        ECN.OldDrawingLvl = "N/A";
+                        ECN.DrawingLvl = "N/A";
+                        RegisterECN();
+
+                    }
+                    else
+                    {
+                        _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "No has seleccionado un flujo de firmas");
+                    }
+
+                }
+                else
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "No has adjuntando archivos");
+                }
+            }
+            else
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
+            }
+        }
+
+
+        private void RegisterECN()
+        {
+            ECN.EmployeeId = UserRecord.Employee_ID;
+            ECN.StatusId = 5;
+
+            if (IsEco)
+            {
+                ECN.IsEco = Convert.ToSByte(IsEco);
+            }
+            else
+            {
+                ECN.EcnEco = null;
+            }
+
+            foreach (Documenttype dt in DocumentTypes)
+            {
+                if (dt.IsSelected && dt != ECN.DocumentType)
+                {
+                    ECN.EcnDocumenttypes.Add(new EcnDocumenttype()
+                    {
+                        EcnId = ECN.Id,
+                        DocumentTypeId = dt.DocumentTypeId
+                    });
+                }
+            }
+
+            if (Attacheds.Count > 0)
+            {
+                foreach (Attachment ar in Attacheds)
+                {
+                    ECN.EcnAttachments.Add(new EcnAttachment()
+                    {
+                        Attachment = ar,
+                        EcnId = ECN.Id
+                    });
+                }
+            }
+
+            if (NumberParts.Count > 0)
+            {
+                foreach (Numberpart np in NumberParts)
+                {
+                    ECN.EcnNumberparts.Add(new EcnNumberpart()
+                    {
+                        Ecn = ECN,
+                        ProductId = np.NumberPartNo
+                    });
+                }
+            }
+
+            if (SelectedForSign.Count > 0)
+            {
+                foreach (Employee er in SelectedForSign)
+                {
+                    EcnRevision revision = new EcnRevision
+                    {
+                        Ecn = ECN,
+                        Employee = er,
+                        RevisionSequence = er.Index,
+                        StatusId = SetStatus(er),
+                        Notes = ""
+                    };
+                    ECN.EcnRevisions.Add(revision);
+                }
+            }
+            try
+            {
+                if (_ecnDataService.SaveEcn(ECN))
+                {
+
+                    _mailService.SendSignEmail("scalvario@electri-cord.com.mx", ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
+                    foreach (Employee er in SelectedForView)
+                    {
+                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                    }
+
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
+                    ResetData();
+                    SelectedTabItem = 0;
+                    ViewModelLocator.UnregisterNumberPartViewModel();
+                    ViewModelLocator.UnregisterEmployeestViewModel();
+                }
+
+            }
+            catch (Exception ex)
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.Message);
             }
         }
 
@@ -363,15 +466,18 @@ namespace ECN.ViewModels
         {
             ECN = new Ecn
             {
-                EcnEco = new EcnEco()
+                EcnEco = new EcnEco(),
+                StartDate = DateTime.Today
             };
-
-            ECN.EcnNumberparts = null;
 
             if (IsEco)
             {
                 IsEco = false;
             }
+
+            SelectedChangeType = null;
+            SelectedDocumentType = null;
+            SelectedRegisterDocumentType = null;
 
             SelectedChangeType = new Changetype();
             SelectedDocumentType = new Documenttype();
@@ -391,7 +497,6 @@ namespace ECN.ViewModels
 
             SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
             NumberParts.CollectionChanged += NumberPartCollectionChanged;
-
         }
 
         private void GoToNexTabItem()
@@ -485,17 +590,20 @@ namespace ECN.ViewModels
                     _SelectedChangeType = value;
                     RaisePropertyChanged("SelectedChangeType");
 
-                    if (_SelectedChangeType.ChangeTypeId == 3)
+                    if (SelectedChangeType != null)
                     {
-                        EcnRegisterTypeVisibility = Visibility.Visible;
-                        EcnIntExtTypeVisibility = Visibility.Collapsed;
-                    }
-                    else
-                    {
-                        if (EcnIntExtTypeVisibility == Visibility.Collapsed)
+                        if (_SelectedChangeType.ChangeTypeId == 3)
                         {
-                            EcnIntExtTypeVisibility = Visibility.Visible;
-                            EcnRegisterTypeVisibility = Visibility.Collapsed;
+                            EcnRegisterTypeVisibility = Visibility.Visible;
+                            EcnIntExtTypeVisibility = Visibility.Collapsed;
+                        }
+                        else
+                        {
+                            if (EcnIntExtTypeVisibility == Visibility.Collapsed)
+                            {
+                                EcnIntExtTypeVisibility = Visibility.Visible;
+                                EcnRegisterTypeVisibility = Visibility.Collapsed;
+                            }
                         }
                     }
                 }

@@ -340,7 +340,7 @@ namespace ECN.Services
                 {
                     ecn.StatusId = 1;
                 }
-                else if(revision.RevisionSequence < 3 && nextrevision != null)
+                else if (revision.RevisionSequence < 3 && nextrevision != null)
                 {
                     nextrevision.StatusId = 5;
                 }

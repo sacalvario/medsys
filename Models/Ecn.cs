@@ -18,7 +18,7 @@ namespace ECN.Models
         }
 
         public int Id { get; set; }
-        public DateTime StartDate { get => DateTime.Now; set { } }
+        public DateTime StartDate { get; set; }
 
         private DateTime _EndDate = DateTime.Now.AddDays(30);
         public DateTime EndDate

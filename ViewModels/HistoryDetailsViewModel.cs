@@ -540,7 +540,6 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.RefuseEcn(Ecn, Notes))
             {
-
                 if (Ecn.DocumentType.DocumentTypeId == 3 || Ecn.DocumentType.DocumentTypeId == 9 || Ecn.DocumentType.DocumentTypeId == 14)
                 {
                     Employee emp = _ecnDataService.NextToSignEcn(Ecn);
@@ -551,12 +550,18 @@ namespace ECN.ViewModels
                     }
                     else
                     {
-                        //correo de rechazo 
+                        foreach (var item in Ecn.EcnRevisions)
+                        {
+                            _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
+                        }
                     }
                 }
                 else
                 {
-                    // correo de rechazo
+                    foreach (var item in Ecn.EcnRevisions)
+                    {
+                        _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
+                    }
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
