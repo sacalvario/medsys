@@ -51,11 +51,12 @@ namespace ECN.Services
             msg.To.Add(email);
 
 
-            msg.Subject = "Nuevo ECN!";
-            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "!</span></strong></span></span></p>" +
+            msg.Subject = "ECN rechazado!";
+            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "! </span></strong></span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
-              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Un <span style = 'color:#ff0000'><strong> ECN </strong></span> en el que firmaste o estabas en lista de espera para firmar a sido rechazado. </span></span>&nbsp;<span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> folio: <span style= 'color:#ff0000'><strong> " + id + "&nbsp;</strong></span></span></span></p>" +
-              "<p><span style='font-size:16px'><span style='font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style='color:#0066cc'> " + generatorname + "</span></strong>.</span></span></p>";
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style= 'font-size:16px' > Un <span style= 'color:#ff0000'><strong> ECN </strong></span> en el que firmaste o estabas proximo a firmar, ha sido rechazado.</span></span></p>" +
+              "<p><span style= 'font-family:Verdana,Geneva,sans-serif' ><span style= 'font-size:16px' > Folio: <strong><span style= 'color:#ff0000'> " + id + " </span></strong></span></span></p>" +
+               "<p><span style= 'font-size:16px'><span style= 'font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style= 'color:#2980b9' > " + generatorname + "<span></strong>.</span></span></p>";
 
             msg.IsBodyHtml = true;
 
@@ -83,7 +84,7 @@ namespace ECN.Services
             msg.To.Add(email);
 
 
-            msg.Subject = "Nuevo ECN!";
+            msg.Subject = "ECN pendiente de firmar!";
             msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "!</span></strong></span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Tienes un <span style = 'color:#ff0000'><strong> ECN </strong></span> pendiente de firmar</span></span>&nbsp;<span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'>con el folio<span style= 'color:#ff0000'><strong> " + id + "&nbsp;</strong></span></span></span></p>" +
