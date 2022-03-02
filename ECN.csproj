@@ -4,8 +4,12 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <RootNamespace>ECN</RootNamespace>
     <UseWPF>true</UseWPF>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
     <SignAssembly>false</SignAssembly>
+    <AssemblyOriginatorKeyFile>serafin.pfx</AssemblyOriginatorKeyFile>
+    <Company>Electri-Cord</Company>
+    <Product>ECN System</Product>
+    <Authors>Calvario Reyes Simón Alejandro</Authors>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\add.png" />
@@ -63,9 +67,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
-    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
-    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.3" />
-    <PackageReference Include="SimpleWPFReporting" Version="1.1.0" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\add.png">

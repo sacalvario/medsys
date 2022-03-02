@@ -95,7 +95,6 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<EmployeesViewModel>();
 
             // Pages
-            Register<MainViewModel, MainPage>();
             Register<HistoryViewModel, History>();
             Register<EcnViewModel, Views.Ecn>();
             Register<HistoryDetailsViewModel, HistoryDetails>();

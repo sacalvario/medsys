@@ -554,6 +554,8 @@ namespace ECN.ViewModels
                         {
                             _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                         }
+
+                        _mailService.SendRefuseECNToGeneratorEmail("scalvario@electri-cord.com.mx", Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
                     }
                 }
                 else
@@ -562,6 +564,7 @@ namespace ECN.ViewModels
                     {
                         _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                     }
+                    _mailService.SendRefuseECNToGeneratorEmail("scalvario@electri-cord.com.mx", Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");

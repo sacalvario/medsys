@@ -1,6 +1,5 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Models;
-using System;
 using System.Net;
 using System.Net.Mail;
 
@@ -51,12 +50,45 @@ namespace ECN.Services
             msg.To.Add(email);
 
 
-            msg.Subject = "ECN rechazado!";
+            msg.Subject = "ECN firmado o pendiente de firmar rechazado!";
             msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + signedname + "! </span></strong></span></span></p>" +
               "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
-              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style= 'font-size:16px' > Un <span style= 'color:#ff0000'><strong> ECN </strong></span> en el que firmaste o estabas proximo a firmar, ha sido rechazado.</span></span></p>" +
-              "<p><span style= 'font-family:Verdana,Geneva,sans-serif' ><span style= 'font-size:16px' > Folio: <strong><span style= 'color:#ff0000'> " + id + " </span></strong></span></span></p>" +
-               "<p><span style= 'font-size:16px'><span style= 'font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style= 'color:#2980b9' > " + generatorname + "<span></strong>.</span></span></p>";
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Un <span style='color:#ff0000'><strong> ECN </strong></span> en el que firmaste o estabas proximo a firmar, ha sido rechazado.</span></span></p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Folio: <strong><span style='color:#ff0000'> " + id + " </span></strong></span></span></p>" +
+               "<p><span style='font-size:16px'><span style='font-family:Verdana,Geneva,sans-serif'> Generado por<strong><span style='color:#2980b9'> " + generatorname + "<span></strong>.</span></span></p>";
+
+            msg.IsBodyHtml = true;
+
+            client.Port = 587;
+            client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
+            client.EnableSsl = true;
+
+            try
+            {
+                client.Send(msg);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
+        public void SendRefuseECNToGeneratorEmail(string email, int id, string refusedname, string generatorname)
+        {
+            MailMessage msg = new MailMessage();
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+
+            msg.From = new MailAddress("ecnsystem@outlook.com");
+            msg.To.Add(email);
+
+
+            msg.Subject = "ECN rechazado!";
+            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> " + generatorname + "! </span></strong></span></span></p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'> &nbsp;</span></span></p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Un <span style='color:#ff0000'><strong> ECN </strong></span> generado por ti, ha sido rechazado.</span></span></p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> Folio: <strong><span style='color:#ff0000'> " + id + " </span></strong></span></span></p>" +
+              "<p><span style='font-size:16px'><span style='font-family:Verdana,Geneva,sans-serif'> Rechazado por<strong><span style='color:#2980b9'> " + refusedname + " </span></strong>.</span></span></p>";
 
             msg.IsBodyHtml = true;
 
