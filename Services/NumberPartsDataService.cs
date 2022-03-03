@@ -80,5 +80,16 @@ namespace ECN.Services
         {
             return context.Numberparts.Where(data => data.CustomerId == customerid && data.NumberPartRev == revision);
         }
+
+        public async Task<IEnumerable<EcnNumberpart>> GetNumberPartHistoryAsync()
+        {
+            await Task.CompletedTask;
+            return GetNumberPartHistory();
+        }
+
+        private IEnumerable<EcnNumberpart> GetNumberPartHistory()
+        {
+            return context.EcnNumberparts.Where(data => data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4).ToList();
+        }
     }
 }

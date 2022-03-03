@@ -64,6 +64,9 @@ namespace ECN.ViewModels
         public ApprovedViewModel ApprovedViewModel
             => SimpleIoc.Default.GetInstance<ApprovedViewModel>();
 
+        public NumberPartHistoryViewModel NumberPartHistoryViewModel
+            => SimpleIoc.Default.GetInstance<NumberPartHistoryViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -105,6 +108,7 @@ namespace ECN.ViewModels
             Register<EcnSignedViewModel, EcnSigned>();
             Register<ErrorViewModel, Error>();
             Register<ApprovedViewModel, Approved>();
+            Register<NumberPartHistoryViewModel, NumberPartHistory>();
         }
 
         private void Register<VM, V>()

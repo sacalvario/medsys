@@ -62,6 +62,12 @@
                         <Label Content="Historial" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnNumberPartsHistoryECNs" Tag="NumberPartHistory" Margin="0, 2, 0, 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/plugicon.png" Width="24" Height="24" VerticalAlignment="Center"  />
+                        <Label Content="Historial números de parte" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnRecordsECNs" Tag="Records" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/panerecord.png" Width="24" VerticalAlignment="Center" />

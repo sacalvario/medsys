@@ -26,6 +26,9 @@ namespace ModernWpf.Controls
                 case "Approved":
                     return typeof(ApprovedViewModel);
 
+                case "NumberPartHistory":
+                    return typeof(NumberPartHistoryViewModel);
+
                 default:
                     return null;
             }

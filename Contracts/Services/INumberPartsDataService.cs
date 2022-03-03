@@ -12,6 +12,6 @@ namespace ECN.Contracts.Services
         Task<Customer> GetCustomerAsync(int id);
         Task<NumberpartType> GetNumberpartTypeAsync(int id);
         Task<ICollection<EcnNumberpart>> GetNumberPartsEcnsAsync(int ecn);
-
+        Task<IEnumerable<EcnNumberpart>> GetNumberPartHistoryAsync();
     }
 }

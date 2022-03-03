@@ -7,7 +7,7 @@
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       DataContext="{Binding HistoryViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="1000"
+      d:DesignHeight="650" d:DesignWidth="1200"
       Title="History">
 
     <Page.Resources>
@@ -32,8 +32,6 @@
                     <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <ui:SimpleStackPanel Grid.Column="1" Orientation="Horizontal" Spacing="10">
-                </ui:SimpleStackPanel>
                 <TextBlock Grid.Column="2"
                            Grid.Row="2"
                            FontSize="14">
@@ -151,19 +149,17 @@
                 <TextBlock Text="Altas" FontStyle="Italic"/>
             </StackPanel>
         </Grid>
-        <ScrollViewer Grid.Row="1">
-            <TreeView x:Name="tvHistory" 
-                      ItemsSource="{Binding Path=CvsHistory.View.Groups}"
-                      ItemContainerStyle="{StaticResource ContainerStyle}" 
-                      ItemTemplate="{StaticResource YearTemplate}" 
-                      Margin="100, 10 , 40, 40"
-                      HorizontalAlignment="Stretch">
-                <i:Interaction.Triggers>
-                    <i:EventTrigger EventName="MouseDoubleClick" >
-                        <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem}" />
-                    </i:EventTrigger>
-                </i:Interaction.Triggers>
-            </TreeView>
-        </ScrollViewer>
+        <TreeView x:Name="tvHistory" 
+                  ItemsSource="{Binding Path=CvsHistory.View.Groups}"
+                  ItemContainerStyle="{StaticResource ContainerStyle}" 
+                  ItemTemplate="{StaticResource YearTemplate}" 
+                  Margin="100, 10 , 40, 40"
+                  Grid.Row="1">
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick" >
+                    <i:InvokeCommandAction Command="{Binding ElementName=tvHistory, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=tvHistory, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </TreeView>
     </Grid>
 </Page>

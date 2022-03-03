@@ -38,6 +38,7 @@
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug48.png" />
+    <None Remove="Assets\plugicon.png" />
     <None Remove="Assets\powerpoint.png" />
     <None Remove="Assets\records.png" />
     <None Remove="Assets\refresh.png" />
@@ -57,7 +58,6 @@
     <None Remove="Assets\view.png" />
     <None Remove="Assets\wire-white.png" />
     <None Remove="Assets\wire.png" />
-    <None Remove="Assets\wirered.png" />
     <None Remove="Assets\word.png" />
   </ItemGroup>
   <ItemGroup>
@@ -130,6 +130,9 @@
     <Content Include="Assets\plug48.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\plugicon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\powerpoint.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -182,9 +185,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\wire.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\wirered.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\word.png">

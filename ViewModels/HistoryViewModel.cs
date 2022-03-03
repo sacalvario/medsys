@@ -81,14 +81,8 @@ namespace ECN.ViewModels
             _navigationService = navigationService;
             _historyDataService = historyDataService;
 
-            History = new ObservableCollection<Ecn>();
-            GetHistory();
-
-            CvsHistory = new CollectionViewSource
-            {
-                Source = History
-            };
-
+            CvsHistory = new CollectionViewSource();
+            
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("Year"));
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
             CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
@@ -96,9 +90,6 @@ namespace ECN.ViewModels
             CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
 
             CvsHistory.Filter += ApplyFilter;
-
-
-           
         }
 
         private CollectionViewSource _CvsHistory;
@@ -131,6 +122,7 @@ namespace ECN.ViewModels
 
         private async void GetHistory()
         {
+            History = new ObservableCollection<Ecn>();
             var data = await _historyDataService.GetHistoryAsync();
 
             foreach (var item in data)
@@ -146,10 +138,10 @@ namespace ECN.ViewModels
                     item.EcnEco = await _historyDataService.GetEcnEcoAsync(item.Id);
                 }
 
-                if (!History.Contains(item))
-                {
+                //if (!History.Contains(item))
+                //{
                     History.Add(item);
-                }
+                //}
 
                 HistoryCount = History.Count;
                 InternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 1);
@@ -192,6 +184,21 @@ namespace ECN.ViewModels
         public void OnNavigatedTo(object parameter)
         {
             GetHistory();
+            CvsHistory.Source = History;
+            //History = new ObservableCollection<Ecn>();
+
+            //CvsHistory = new CollectionViewSource
+            //{
+            //    Source = History
+            //};
+
+            //CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("Year"));
+            //CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
+            //CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
+            //CvsHistory.SortDescriptions.Add(new SortDescription("Month", ListSortDirection.Descending));
+            //CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
+
+            //CvsHistory.Filter += ApplyFilter;
         }
 
         public void OnNavigatedFrom()
