@@ -20,6 +20,8 @@
     <None Remove="Assets\completo.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
+    <None Remove="Assets\docs.png" />
+    <None Remove="Assets\docs96.png" />
     <None Remove="Assets\document64.png" />
     <None Remove="Assets\download.png" />
     <None Remove="Assets\downloadblack.png" />
@@ -27,14 +29,13 @@
     <None Remove="Assets\employee.png" />
     <None Remove="Assets\excel2.png" />
     <None Remove="Assets\eye.png" />
-    <None Remove="Assets\file.png" />
-    <None Remove="Assets\file96.png" />
     <None Remove="Assets\historyred.png" />
     <None Remove="Assets\image.png" />
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\newred.png" />
     <None Remove="Assets\panerecord.png" />
+    <None Remove="Assets\paperclip.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug48.png" />
@@ -88,6 +89,12 @@
     <Content Include="Assets\delete.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\docs.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\docs96.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\download.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -101,12 +108,6 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\eye.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\file.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\file96.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\historyred.png">
@@ -255,6 +256,12 @@
 
   <ItemGroup>
     <Content Include="Assets\approvedfile.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Assets\paperclip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>

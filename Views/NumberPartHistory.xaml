@@ -22,33 +22,36 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.RowSpan="4" Margin="10, 12, 20, 12" >
-                    <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
-                    <TextBlock Text="{Binding Ecn.Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Grid.RowSpan="4" Margin="10, 12, 20, 12">
+                    <Image Source="/Assets/docs.png" Width="42" />
+                    <StackPanel Margin="10, 0, 0, 0">
+                        <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
+                        <TextBlock Text="{Binding Ecn.Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
                 </StackPanel>
-                <Image Source="/Assets/plug48.png" Width="42" Height="42" Grid.RowSpan="4" Grid.Column="1"/>
-                <StackPanel Grid.RowSpan="4" Grid.Column="2" Margin="10, 12, 20, 12" >
-                    <TextBlock Text="{Binding Product.NumberPartId}" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
-                    <TextBlock Text="{Binding Product.Customer.CustomerName}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <StackPanel Grid.Column="1" Grid.RowSpan="4" Orientation="Horizontal" Margin="20, 0, 0, 0" HorizontalAlignment="Left">
+                    <Image Source="/Assets/plug48.png" Width="42" Height="42" />
+                    <StackPanel Margin="10, 12, 20, 12" >
+                        <TextBlock Text="{Binding Product.NumberPartId}" FontWeight="Bold" Foreground="Black" FontSize="17"/>
+                        <TextBlock Text="{Binding Product.Customer.CustomerName}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" />
+                    </StackPanel>
                 </StackPanel>
-                <Grid Grid.Column="3" Grid.RowSpan="4" VerticalAlignment="Center">
+                <Grid Grid.Column="2" Grid.RowSpan="4" VerticalAlignment="Center">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="4*" />
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="4*" />
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="{Binding Ecn.OldDrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Ecn.OldDrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="22" HorizontalAlignment="Center"/>
                         <TextBlock Text="Nivel de revisión anterior" HorizontalAlignment="Center" Foreground="Black"/>
                     </StackPanel>
                     <Image Source="/Assets/rightred.png" Grid.Column="1" Width="28" HorizontalAlignment="Center"/>
                     <StackPanel Grid.Column="2">
-                        <TextBlock Text="{Binding Ecn.DrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                        <TextBlock Text="{Binding Ecn.DrawingLvl}" Foreground="Red" FontWeight="Black" FontSize="22" HorizontalAlignment="Center"/>
                         <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center" Foreground="Black"/>
                     </StackPanel>
                 </Grid>

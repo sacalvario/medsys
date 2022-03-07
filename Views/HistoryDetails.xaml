@@ -41,14 +41,14 @@
             <Image Source="/Assets/reply.png" Width="32" Height="32"/>
         </Button>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="550" Margin="50, 10, 0, 0" >
-            <Image Source="/Assets/file96.png" Margin="0, 15, 5, 15" />
+            <Image Source="/Assets/docs96.png" Margin="0, 15, 5, 15" />
             <StackPanel Margin="5, 10, 10, 10">
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
                     <TextBlock FontSize="26" FontWeight="Black" >
                         <Run Text="Folio" />
                         <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
                     </TextBlock>
-                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="95" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
                         <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="17" >
                             <Run Text="ECO:"/>
                             <Run Text="{Binding Ecn.EcnEco.IdEco}"/>

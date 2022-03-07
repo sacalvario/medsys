@@ -338,7 +338,13 @@ namespace ECN.Services
 
                 if (revision.RevisionSequence == 3)
                 {
-                    ecn.StatusId = 1;
+                    EcnRevision lastrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 1);
+                    EcnRevision firstrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 2);
+                    
+                    if (lastrevision.StatusId == 6 && firstrevision.StatusId == 6)
+                    {
+                        ecn.StatusId = 1;
+                    }
                 }
                 else if (revision.RevisionSequence < 3 && nextrevision != null)
                 {

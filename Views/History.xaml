@@ -27,7 +27,7 @@
                     <ColumnDefinition Width="100" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <Image Source="/Assets/file.png" Width="42" Height="42" Grid.RowSpan="4"/>
+                <Image Source="/Assets/docs.png" Width="42" Height="42" Grid.RowSpan="4"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12" >
                     <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>

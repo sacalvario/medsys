@@ -113,7 +113,7 @@
                                     <ColumnDefinition Width="2*" />
                                 </Grid.ColumnDefinitions>
                                 <TextBlock Text="{Binding Id}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0"/>
-                                <Image Source="/Assets/file.png" Width="32" Height="32" Grid.Column="1"/>
+                                <Image Source="/Assets/docs.png" Width="32" Height="32" Grid.Column="1"/>
                                 <Border Visibility="{Binding IsEcoVisibility}" Margin="12, 0" CornerRadius="10" Background="Red" Height="20" Width="45" VerticalAlignment="Center" Grid.Column="2">
                                     <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" VerticalAlignment="Center"/>
                                 </Border>

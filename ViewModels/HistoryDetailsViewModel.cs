@@ -564,6 +564,7 @@ namespace ECN.ViewModels
                     {
                         _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                     }
+
                     _mailService.SendRefuseECNToGeneratorEmail("scalvario@electri-cord.com.mx", Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
                 }
 

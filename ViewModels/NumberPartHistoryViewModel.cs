@@ -34,6 +34,7 @@ namespace ECN.ViewModels
             CvsNumberPartHistory.GroupDescriptions.Add(new PropertyGroupDescription("Ecn.MonthName"));
             CvsNumberPartHistory.SortDescriptions.Add(new SortDescription("Ecn.Year", ListSortDirection.Descending));
             CvsNumberPartHistory.SortDescriptions.Add(new SortDescription("Ecn.Month", ListSortDirection.Descending));
+            CvsNumberPartHistory.SortDescriptions.Add(new SortDescription("Ecn.Id", ListSortDirection.Descending));
 
             CvsNumberPartHistory.Filter += ApplyFilter;
 
