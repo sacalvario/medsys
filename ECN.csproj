@@ -35,7 +35,6 @@
     <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\newred.png" />
     <None Remove="Assets\panerecord.png" />
-    <None Remove="Assets\paperclip.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug48.png" />
@@ -256,12 +255,6 @@
 
   <ItemGroup>
     <Content Include="Assets\approvedfile.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Assets\paperclip.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
