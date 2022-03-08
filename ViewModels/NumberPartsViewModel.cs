@@ -4,7 +4,7 @@ using GalaSoft.MvvmLight;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
-using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 
 namespace ECN.ViewModels
@@ -12,6 +12,20 @@ namespace ECN.ViewModels
     public class NumberPartsViewModel : ViewModelBase
     {
         private readonly INumberPartsDataService _numberPartsDataService;
+
+        private Visibility _FilterDataVisibility = Visibility.Collapsed;
+        public Visibility FilterDataVisibility
+        {
+            get => _FilterDataVisibility;
+            set
+            {
+                if (_FilterDataVisibility != value)
+                {
+                    _FilterDataVisibility = value;
+                    RaisePropertyChanged("FilterDataVisibility");
+                }
+            }
+        }
 
         public NumberPartsViewModel(INumberPartsDataService numberPartsDataService)
         {
@@ -46,13 +60,14 @@ namespace ECN.ViewModels
                         Revision = SelectedNumberPart.NumberPartRev;
 
                         GetPerCustomer(SelectedNumberPart.Customer.CustomerId, SelectedNumberPart.NumberPartRev);
-                        NumberParts.Remove(SelectedNumberPart);
+                        _ = NumberParts.Remove(SelectedNumberPart);
                         CvsNumberParts = new CollectionViewSource
                         {
                             Source = NumberParts
                         };
 
                         NumberPartCollection = CvsNumberParts.View;
+                        FilterDataVisibility = Visibility.Visible;
                         CvsNumberParts.Filter += ApplyFilter;
 
                         CvsNumberParts.View.CollectionChanged -= NumberPartCollectionChanged;

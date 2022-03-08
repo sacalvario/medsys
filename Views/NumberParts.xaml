@@ -73,7 +73,7 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="300"  />
         </StackPanel>
-        <StackPanel Margin="320, 30, 0, 0" HorizontalAlignment="Center" >
+        <StackPanel Margin="320, 30, 0, 0" HorizontalAlignment="Center" Visibility="{Binding FilterDataVisibility}">
             <TextBlock Text="{Binding Customer}" Foreground="Red" FontWeight="Black" TextWrapping="Wrap" FontStyle="Italic" FontSize="15" HorizontalAlignment="Center"/>
             <TextBlock  HorizontalAlignment="Center" Margin="0, 5, 0, 0" >
                 <Run Text="Nivel de revisión"/>

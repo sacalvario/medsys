@@ -27,14 +27,13 @@
                 <Setter Property="VerticalAlignment" Value="Center" />
                 <Setter Property="FontStyle" Value="Italic" />
                 <Setter Property="Margin" Value="10" />
-                <Setter Property="Foreground" Value="GhostWhite" />
+                <Setter Property="Foreground" Value="White" />
                 <Setter Property="FontFamily" Value="Arial" />
             </Style.Setters>
         </Style>
 
-        <ui:UniformGridLayout x:Key="LayoutNumberParts" MinRowSpacing="5" MinColumnSpacing="20" Orientation="Vertical" />
-
     </Page.Resources>
+
 
     <Grid Background="#FFE0E0E0">
         <Button VerticalAlignment="Top" Margin="0, 30, 0, 0" Background="Transparent" Command="{Binding GoToBackCommand}">
@@ -109,7 +108,7 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <!--<TextBlock Text="Información de cambio" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" FontSize="15" Margin="0, 10, 0, 0"/>-->
-                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 100, 0">
+                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 100, 0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2.2*" />
@@ -133,66 +132,66 @@
                         <TextBlock Text="Descripción del cambio" Grid.Row="1" Style="{StaticResource TextStylePropertyName}" />
                         <TextBlock Text="Justificación del cambio" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
                         <TextBlock Text="Afectaciones de manufactura" Grid.Row="3" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Text="{Binding Ecn.ChangeType.ChangeTypeName}" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
+                        <TextBlock Text="{Binding Ecn.ChangeType.ChangeTypeName}" Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic"/>
                         <TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextStyleProperty}" />
                         <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
                         <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
                     </Grid>
-                    <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}"/>
-                        <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" >
-                            <Image Source="/Assets/document64.png" Width="64"/>
-                            <TextBlock HorizontalAlignment="Center">
-                                <Run Text="Tipo de documento: "/>
-                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}"/>
-                            </TextBlock>
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="4*" />
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="4*" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel>
-                                    <TextBlock Text="{Binding Ecn.OldDocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Nivel de revisión anterior" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                                <Image Source="/Assets/rightred.png" Grid.Column="1" Width="24" HorizontalAlignment="Center"/>
-                                <StackPanel Grid.Column="2">
-                                    <TextBlock Text="{Binding Ecn.DocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
-                                    <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
-                                </StackPanel>
-                            </Grid>
-                        </ui:SimpleStackPanel>
-                        <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnDocumentsVisibility}"/>
-                    <ui:ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnDocumentsVisibility}" Margin="0, 30, 20, 0" HorizontalAlignment="Center" IsSelectionEnabled="False">
-                            <ui:ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <Grid.ColumnDefinitions>
-                                            <ColumnDefinition Width="*" />
-                                            <ColumnDefinition Width="200" />
-                                        </Grid.ColumnDefinitions>
-                                        <Image Source="/Assets/registerdocument.png" Width="28" Margin="0, 0, 10, 0"/>
-                                        <TextBlock Text="{Binding DocumentType.DocumentTypeName}" Grid.Column="1" VerticalAlignment="Center"/>
-                                    </Grid>    
-                                </DataTemplate>
-                            </ui:ListView.ItemTemplate>
-                        </ui:ListView>
-                        <TextBlock Text="Documento de alta" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}" d:IsHidden="True"/>
-                        <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}" d:IsHidden="True">
-                            <Image Source="/Assets/document64.png" Width="64"/>
-                            <TextBlock HorizontalAlignment="Center">
-                                <Run Text="Número de documento: "/>
-                                <Run Text="{Binding Ecn.DocumentNo}"/>
-                            </TextBlock>
-                            <TextBlock HorizontalAlignment="Center">
-                                <Run Text="Nombre de documento: " />
-                                <Run Text="{Binding Ecn.DocumentName}" />
-                            </TextBlock>
-                            <TextBlock HorizontalAlignment="Center">
+                    <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True"/>
+                    <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True" >
+                        <Image Source="/Assets/document64.png" Width="64"/>
+                        <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Tipo de documento: " />
-                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" />
-                            </TextBlock>
-                        </ui:SimpleStackPanel>
+                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="4*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="4*" />
+                            </Grid.ColumnDefinitions>
+                            <StackPanel>
+                                <TextBlock Text="{Binding Ecn.OldDocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Nivel de revisión anterior" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                            <Image Source="/Assets/rightred.png" Grid.Column="1" Width="24" HorizontalAlignment="Center"/>
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="{Binding Ecn.DocumentLvl}" Foreground="Red" FontWeight="Black" FontSize="26" HorizontalAlignment="Center"/>
+                                <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </ui:SimpleStackPanel>
+                    <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnDocumentsVisibility}" d:IsHidden="True"/>
+                    <ui:ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnDocumentsVisibility}" Margin="0, 30, 20, 0" HorizontalAlignment="Center" IsSelectionEnabled="False" d:IsHidden="True">
+                        <ui:ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="200" />
+                                    </Grid.ColumnDefinitions>
+                                    <Image Source="/Assets/registerdocument.png" Width="28" Margin="0, 0, 10, 0"/>
+                                    <TextBlock Text="{Binding DocumentType.DocumentTypeName}" Grid.Column="1" VerticalAlignment="Center"/>
+                                </Grid>
+                            </DataTemplate>
+                        </ui:ListView.ItemTemplate>
+                    </ui:ListView>
+                    <TextBlock Text="Documento de alta" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}"/>
+                    <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}">
+                        <Image Source="/Assets/document64.png" Width="64"/>
+                        <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Número de documento: " />
+                                <Run Text="{Binding Ecn.DocumentNo}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Nombre de documento: "/>
+                                <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Tipo de documento: " />
+                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                    </ui:SimpleStackPanel>
                     <TextBlock Text="Números de parte" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnNumberPartsVisibility}" />
                     <TextBlock Text="{Binding Customer}" Foreground="Red" HorizontalAlignment="Center" FontWeight="Bold" Grid.Column="2" Margin="0, 20, 0, 0" Visibility="{Binding EcnNumberPartsVisibility}"/>
                     <Grid Grid.Column="2"  Margin="0, 40, 0, 40" Visibility="{Binding EcnNumberPartsVisibility}">

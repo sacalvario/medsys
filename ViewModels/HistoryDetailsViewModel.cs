@@ -8,6 +8,8 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
+using SimpleWPFReporting;
+using System.Windows.Media;
 
 namespace ECN.ViewModels
 {
@@ -271,6 +273,20 @@ namespace ECN.ViewModels
                 }
             }
         }
+
+        private ICommand _ExportPDFCommand;
+        public ICommand ExportPDFCommand
+        {
+            get
+            {
+                if (_ExportPDFCommand == null)
+                {
+                    _ExportPDFCommand = new RelayCommand(ExportECN);
+                }
+                return _ExportPDFCommand;
+            }
+        }
+
 
 
         private ICommand _DownloadAttachmentCommand;
@@ -572,6 +588,10 @@ namespace ECN.ViewModels
                 Notes = string.Empty;
                 _navigationService.GoBack();
             }
+        }
+
+        private void ExportECN()
+        {
         }
 
         private void GoBack()

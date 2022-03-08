@@ -61,6 +61,7 @@
     <None Remove="Assets\word.png" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="FilterDataGrid" Version="1.2.5" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci74" />
@@ -68,6 +69,7 @@
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
+    <PackageReference Include="SimpleWPFReporting" Version="1.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\add.png">

@@ -4,13 +4,33 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:fdg="http://filterdatagrid.control.com/2021"
       DataContext="{Binding EcnRecordsViewModel, Source={StaticResource Locator}}"
-      xmlns:local="clr-namespace:ECN.Views"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1350"
       Title="EcnRecords">
 
     <Page.Resources>
+
+        <Style
+            x:Key="FilterDatagridStyle"
+            BasedOn="{StaticResource {ComponentResourceKey TypeInTargetAssembly=fdg:FilterDataGrid,
+                                                           ResourceId=FilterDataGridStyle}}"
+            TargetType="{x:Type fdg:FilterDataGrid}">
+            <Setter Property="Margin" Value="10,10,0,2" />
+            <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
+            <Setter Property="AlternationCount" Value="2" />
+            <Setter Property="Background" Value="Transparent" />
+            <Setter Property="ColumnWidth" Value="*" />
+            <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
+            <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
+            <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
+            <Setter Property="VirtualizingStackPanel.IsVirtualizing" Value="True" />
+            <Setter Property="BorderBrush" Value="LightSlateGray" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="IsReadOnly" Value="True" />
+            <Setter Property="RowHeaderWidth" Value="40" />
+        </Style>
 
         <DataTemplate x:Key="RowDetailsTemplate">
             <StackPanel Background="#FFE0E0E0">
@@ -85,8 +105,12 @@
     </Page.Resources>
 
     <Grid Background="#FFE0E0E0">
-        <DataGrid ItemsSource="{Binding EcnRecords.View}" Margin="40" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserDeleteRows="False" GridLinesVisibility="Horizontal" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
-            <DataGrid.ColumnHeaderStyle>
+        <fdg:FilterDataGrid ItemsSource="{Binding EcnRecords.View}" Style="{StaticResource FilterDatagridStyle}" Margin="40" SelectionMode="Single" AutoGenerateColumns="False" CanUserAddRows="False" HeadersVisibility="Column" IsReadOnly="True" CanUserDeleteRows="False" GridLinesVisibility="Horizontal" RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected" ShowElapsedTime="True"
+            ShowRowsCount="True"
+            ShowStatusBar="True"
+            DateFormatString="d"
+            FilterLanguage="English">
+            <!--<fdg:FilterDataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader" >
                     <Setter Property="Background" Value="Crimson" />
                     <Setter Property="Foreground" Value="White" />
@@ -97,14 +121,14 @@
                     <Setter Property="SeparatorVisibility" Value="Visible" />
                     <Setter Property="HorizontalContentAlignment" Value="Center" />
                 </Style>
-            </DataGrid.ColumnHeaderStyle>
-            <DataGrid.Resources>
+            </fdg:FilterDataGrid.ColumnHeaderStyle>-->
+            <!--<fdg:FilterDataGrid.Resources>
                 <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Gray"/>
                 <SolidColorBrush x:Key="{x:Static SystemColors.ControlBrushKey}" Color="Gray" />
-            </DataGrid.Resources>
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Folio" Width="165" SortMemberPath="Id">
-                    <DataGridTemplateColumn.CellTemplate>
+            </fdg:FilterDataGrid.Resources>-->
+            <fdg:FilterDataGrid.Columns>
+                <fdg:DataGridTemplateColumn FieldName="Id" Header="Folio" IsColumnFiltered="True" SortMemberPath="Id">
+                    <fdg:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
                             <Grid Margin="5">
                                 <Grid.ColumnDefinitions>
@@ -119,8 +143,8 @@
                                 </Border>
                             </Grid>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
+                    </fdg:DataGridTemplateColumn.CellTemplate>
+                </fdg:DataGridTemplateColumn>
                 <DataGridTextColumn Header="Fecha de inicio" Binding="{Binding ShortDate}" SortMemberPath="StartDate" FontWeight="Bold" Width="140" />
                 <DataGridTextColumn Header="Tipo de cambio" Binding="{Binding ChangeType.ChangeTypeName}" SortMemberPath="ChangeType.ChangeTypeName" FontWeight="Bold" Width="130" />
                 <DataGridTextColumn Header="Tipo de documento" Binding="{Binding DocumentType.DocumentTypeName}" SortMemberPath="DocumentType.DocumentTypeName" FontWeight="Bold" Width="280" />
@@ -156,11 +180,11 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-            </DataGrid.Columns>
+            </fdg:FilterDataGrid.Columns>
             <DataGrid.GroupStyle>
                 <GroupStyle ContainerStyle="{StaticResource DataGridRowGroupContainerStyle}"
                             HeaderTemplate="{StaticResource RowGroupHeaderTemplate}"/>
             </DataGrid.GroupStyle>
-            </DataGrid>
+        </fdg:FilterDataGrid>
     </Grid>
 </Page>
