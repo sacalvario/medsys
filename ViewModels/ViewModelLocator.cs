@@ -22,9 +22,6 @@ namespace ECN.ViewModels
         public ShellViewModel ShellViewModel
             => SimpleIoc.Default.GetInstance<ShellViewModel>();
 
-        public MainViewModel MainViewModel
-            => SimpleIoc.Default.GetInstance<MainViewModel>();
-
         public HistoryViewModel HistoryViewModel
             => SimpleIoc.Default.GetInstance<HistoryViewModel>();
 
@@ -45,9 +42,6 @@ namespace ECN.ViewModels
 
         public ChecklistViewModel ChecklistViewModel
             => SimpleIoc.Default.GetInstance<ChecklistViewModel>();
-
-        public ChecklistCheckViewModel ChecklistCheckViewModel
-            => SimpleIoc.Default.GetInstance<ChecklistCheckViewModel>();
 
         public LoginViewModel LoginViewModel
             => SimpleIoc.Default.GetInstance<LoginViewModel>();
@@ -103,7 +97,6 @@ namespace ECN.ViewModels
             Register<HistoryDetailsViewModel, HistoryDetails>();
             Register<EcnRecordsViewModel, EcnRecords>();
             Register<ChecklistViewModel, Checklist>();
-            Register<ChecklistCheckViewModel, ChecklistCheck>();
             Register<EcnRegistrationViewModel, EcnRegistration>();
             Register<EcnSignedViewModel, EcnSigned>();
             Register<ErrorViewModel, Error>();

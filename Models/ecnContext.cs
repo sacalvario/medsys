@@ -587,6 +587,10 @@ namespace ECN.Models
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.LongEndDate);
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.CurrentSignature);
             _ = modelBuilder.Entity<Ecn>().Ignore(t => t.SignatureCount);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.EmployeeName);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.StatusName);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.ChangeTypeName);
+            _ = modelBuilder.Entity<Ecn>().Ignore(t => t.DocumentTypeName);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Name);
             _ = modelBuilder.Entity<Employee>().Ignore(t => t.Index);
             _ = modelBuilder.Entity<Attachment>().Ignore(t => t.ImageLocation);

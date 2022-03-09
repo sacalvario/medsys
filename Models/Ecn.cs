@@ -94,8 +94,12 @@ namespace ECN.Models
 
         public bool Is_Eco => Convert.ToBoolean(IsEco);
         public string IsEcoToString => Convert.ToBoolean(IsEco) ? "Sí" : "No";
-
         public int SignatureCount { get; set; }
+        public string EmployeeName { get; set; }
+        public string StatusName { get; set; }
+        public string ChangeTypeName { get; set; }
+        public string DocumentTypeName { get; set; }
+
 
         public virtual Changetype ChangeType { get; set; }
         public virtual Documenttype DocumentType { get; set; }

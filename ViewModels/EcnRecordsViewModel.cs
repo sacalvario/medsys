@@ -1,16 +1,14 @@
 ﻿using ECN.Contracts.Services;
+using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
-using System.Windows;
 using System.Windows.Data;
 
 namespace ECN.ViewModels
 {
-    public class EcnRecordsViewModel : ViewModelBase
+    public class EcnRecordsViewModel : ViewModelBase, INavigationAware
     {
         private IEcnDataService _ecnDataService;
         public EcnRecordsViewModel(IEcnDataService ecnDataService)
@@ -19,13 +17,6 @@ namespace ECN.ViewModels
 
             Records = new ObservableCollection<Ecn>();
             GetRecords();
-
-            EcnRecords = new CollectionViewSource
-            {
-                Source = Records
-            };
-
-
         }
 
         private ObservableCollection<Ecn> _Records;
@@ -67,6 +58,12 @@ namespace ECN.ViewModels
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
 
+
+                item.ChangeTypeName = item.ChangeType.ChangeTypeName;
+                item.DocumentTypeName = item.DocumentType.DocumentTypeName;
+                item.EmployeeName = item.Employee.Name;
+                item.StatusName = item.Status.StatusName;
+
                 if (Convert.ToBoolean(item.IsEco))
                 {
                     item.EcnEco = await _ecnDataService.GetEcnEcoAsync(item.Id);
@@ -76,5 +73,17 @@ namespace ECN.ViewModels
             }
         }
 
+        public void OnNavigatedTo(object parameter)
+        {
+            EcnRecords = new CollectionViewSource
+            {
+                Source = Records
+            };
+        }
+
+        public void OnNavigatedFrom()
+        {
+
+        }
     }
 }

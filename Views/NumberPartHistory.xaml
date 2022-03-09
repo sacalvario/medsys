@@ -105,9 +105,9 @@
                      BorderThickness="0"
                      FontFamily="Quicksand Medium" 
                      FontSize="15" 
-                     ui:ControlHelper.PlaceholderText="Ingresa un folio" 
+                     ui:ControlHelper.PlaceholderText="Ingresa un número de parte" 
                      ui:ControlHelper.PlaceholderForeground="White"
-                     Width="450"  />
+                     Width="450"/>
         </StackPanel>
         
         <TreeView x:Name="tvNumberPartsHistory" 
