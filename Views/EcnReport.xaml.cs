@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,11 @@ namespace ECN.Views
         public EcnReport()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SimpleWPFReporting.Report.ExportVisualAsPdf(print);
         }
     }
 }

@@ -63,6 +63,7 @@
                     <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
             </StackPanel>
+            <Button Content="Exportar" Command="{Binding ExportPDFCommand}"/>
         </StackPanel>
         <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" Visibility="{Binding EcnSignTypeVisibility}">
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>

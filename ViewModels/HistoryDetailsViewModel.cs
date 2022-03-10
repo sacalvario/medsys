@@ -8,7 +8,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
-using SimpleWPFReporting;
 using System.Windows.Media;
 
 namespace ECN.ViewModels
@@ -592,6 +591,7 @@ namespace ECN.ViewModels
 
         private void ExportECN()
         {
+            _navigationService.NavigateTo(typeof(EcnReportViewModel).FullName, Ecn);
         }
 
         private void GoBack()

@@ -68,8 +68,10 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
+    <PackageReference Include="PdfSharp.Xps.dotNet.Core" Version="1.0.2" />
+    <PackageReference Include="PdfSharpWPF.dotNet.Core" Version="1.0.2" />
     <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="5.0.4" />
-    <PackageReference Include="SimpleWPFReporting" Version="1.1.0" />
+    <PackageReference Include="SimpleWPFReportingNETCore" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\add.png">
