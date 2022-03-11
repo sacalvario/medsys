@@ -3,6 +3,7 @@ using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -466,9 +467,9 @@ namespace ECN.ViewModels
 
         private async void GetNumberParts()
         {
-            var ecnNumberparts = await _numberPartsDataService.GetNumberPartsEcnsAsync(Ecn.Id);
+            var numberparts = await _numberPartsDataService.GetNumberPartsEcnsAsync(Ecn.Id);
 
-            foreach(var item in ecnNumberparts)
+            foreach(var item in numberparts)
             {
                 var np = await _numberPartsDataService.GetNumberPartAsync(item.ProductId);
                 np.NumberPartTypeNavigation = await _numberPartsDataService.GetNumberpartTypeAsync(np.NumberPartType);
@@ -591,12 +592,12 @@ namespace ECN.ViewModels
 
         private void ExportECN()
         {
-            _navigationService.NavigateTo(typeof(EcnReportViewModel).FullName, Ecn);
+            Messenger.Default.Send(new NotificationMessage<Ecn>(Ecn, "ShowReport"));
         }
 
         private void GoBack()
         {
             _navigationService.GoBack();
         }
-    } 
+    }
 }

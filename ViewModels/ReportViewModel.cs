@@ -1,13 +1,15 @@
-﻿using ECN.Contracts.ViewModels;
+﻿
 using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using SimpleWPFReporting;
+using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows.Media;
 
 namespace ECN.ViewModels
 {
-    public class EcnReportViewModel : ViewModelBase, INavigationAware
+    public class ReportViewModel : ViewModelBase
     {
         private Ecn _ecn;
 
@@ -37,24 +39,28 @@ namespace ECN.ViewModels
             }
         }
 
-        public EcnReportViewModel()
+        private ObservableCollection<Numberpart> _NumberParts;
+        public ObservableCollection<Numberpart> NumberParts
         {
-
-        }
-        public void OnNavigatedFrom()
-        {
-        }
-
-        public void OnNavigatedTo(object parameter)
-        {
-            if (parameter is Ecn ecn)
+            get => _NumberParts;
+            set
             {
-                Ecn = ecn;
+                if (_NumberParts != value)
+                {
+                    _NumberParts = value;
+                    RaisePropertyChanged("NumberParts");
+                }
             }
+        }
+
+        public ReportViewModel(Ecn ecn)
+        {
+            Ecn = ecn;
         }
 
         private void ExportECN(Visual visual)
         {
+            Report.ExportVisualAsPdf(visual);
         }
     }
 }

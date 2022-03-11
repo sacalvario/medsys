@@ -1,15 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using ECN.ViewModels;
+using GalaSoft.MvvmLight.Messaging;
+using System;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ECN.Views
 {
@@ -21,6 +13,18 @@ namespace ECN.Views
         public HistoryDetails()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage<Models.Ecn>>(this, NotificationMessageReceived);
         }
+
+        private void NotificationMessageReceived(NotificationMessage<Models.Ecn> obj)
+        {
+            if (obj.Notification == "ShowReport")
+            {
+                var report = new Report();
+                report.DataContext = new ReportViewModel(obj.Content);
+                _ = report.ShowDialog();
+            }
+        }
+
     }
 }

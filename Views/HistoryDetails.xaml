@@ -59,7 +59,7 @@
                     <Run Text="{Binding Ecn.LongDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
                 <TextBlock FontSize="16"  >
-                    <Run Text="Fecha de cierre estimada"/>
+                    <Run Text="Fecha de cierre"/>
                     <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
             </StackPanel>
@@ -108,7 +108,6 @@
                         <RowDefinition Height="1.5*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <!--<TextBlock Text="Información de cambio" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" FontSize="15" Margin="0, 10, 0, 0"/>-->
                     <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 100, 0" >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />

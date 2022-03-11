@@ -61,8 +61,8 @@ namespace ECN.ViewModels
         public NumberPartHistoryViewModel NumberPartHistoryViewModel
             => SimpleIoc.Default.GetInstance<NumberPartHistoryViewModel>();
 
-        public EcnReportViewModel EcnReportViewModel
-            => SimpleIoc.Default.GetInstance<EcnReportViewModel>();
+        public ReportViewModel ReportViewModel
+            => SimpleIoc.Default.GetInstance<ReportViewModel>();
 
         public ViewModelLocator()
         {
@@ -93,7 +93,9 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<NumberPartsViewModel>();
             SimpleIoc.Default.Register<Employees>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
-
+            SimpleIoc.Default.Register<Report>();
+            SimpleIoc.Default.Register<ReportViewModel>();
+            SimpleIoc.Default.Register<Models.Ecn>();
             // Pages
             Register<HistoryViewModel, History>();
             Register<EcnViewModel, Views.Ecn>();
@@ -105,7 +107,6 @@ namespace ECN.ViewModels
             Register<ErrorViewModel, Error>();
             Register<ApprovedViewModel, Approved>();
             Register<NumberPartHistoryViewModel, NumberPartHistory>();
-            Register<EcnReportViewModel, EcnReport>();
         }
 
         private void Register<VM, V>()
