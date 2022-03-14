@@ -63,6 +63,7 @@
   <ItemGroup>
     <PackageReference Include="FilterDataGrid" Version="1.2.5" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci74" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />

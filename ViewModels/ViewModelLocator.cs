@@ -64,6 +64,9 @@ namespace ECN.ViewModels
         public ReportViewModel ReportViewModel
             => SimpleIoc.Default.GetInstance<ReportViewModel>();
 
+        public DashboardViewModel DashboardViewModel
+            => SimpleIoc.Default.GetInstance<DashboardViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -107,6 +110,7 @@ namespace ECN.ViewModels
             Register<ErrorViewModel, Error>();
             Register<ApprovedViewModel, Approved>();
             Register<NumberPartHistoryViewModel, NumberPartHistory>();
+            Register<DashboardViewModel, Dashboard>();
         }
 
         private void Register<VM, V>()

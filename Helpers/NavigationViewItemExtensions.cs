@@ -29,6 +29,9 @@ namespace ModernWpf.Controls
                 case "NumberPartHistory":
                     return typeof(NumberPartHistoryViewModel);
 
+                case "Dashboard":
+                    return typeof(DashboardViewModel);
+
                 default:
                     return null;
             }

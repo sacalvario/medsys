@@ -417,5 +417,20 @@ namespace ECN.Services
         {
             return context.Ecns.Find(id);
         }
+
+        public int GetClosedEcnCount()
+        {
+            return context.Ecns.Where(data => data.StatusId == 3 && data.EmployeeId == UserRecord.Employee_ID).Count();
+        }
+
+        public int GetOnHoldEcnCount()
+        {
+            return context.Ecns.Where(data => data.StatusId == 1 && data.EmployeeId == UserRecord.Employee_ID).Count();
+        }
+
+        public int GetApprovedEcnCount()
+        {
+            return context.Ecns.Where(data => data.StatusId == 4 && data.EmployeeId == UserRecord.Employee_ID).Count();
+        }
     }
 }

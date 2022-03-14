@@ -36,5 +36,8 @@ namespace ECN.Contracts.Services
         List<Employee> GetAMEF();
         List<Employee> GetAMEFAlta();
         List<Employee> GetManualdeCalidad();
+        int GetClosedEcnCount();
+        int GetOnHoldEcnCount();
+        int GetApprovedEcnCount();
     }
 }

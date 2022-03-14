@@ -28,7 +28,7 @@
 
         <ui:NavigationView Name="nv" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
             <ui:NavigationView.MenuItems>
-                <ui:NavigationViewItem x:Name="btnDashBoard" Tag="DataGrid" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/dashboardred.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
