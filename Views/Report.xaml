@@ -10,9 +10,36 @@
       Height="792" Width="612"
       Title="EcnReport">
 
+    <Window.Resources>
+
+        <Style x:Key="TextStyleProperty" TargetType="{x:Type TextBlock}">
+            <Style.Setters>
+                <Setter Property="Foreground" Value="Black" />
+                <Setter Property="VerticalAlignment" Value="Center"/>
+                <Setter Property="HorizontalAlignment" Value="Left"/>
+                <Setter Property="Margin" Value="5, 10, 5, 10"/>
+                <Setter Property="TextWrapping" Value="Wrap"/>
+                <Setter Property="FontSize" Value="11"/>
+            </Style.Setters>
+        </Style>
+
+        <Style x:Key="TextStylePropertyName" TargetType="{x:Type TextBlock}">
+            <Style.Setters>
+                <Setter Property="FontWeight" Value="SemiBold" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+                <Setter Property="FontStyle" Value="Italic" />
+                <Setter Property="Margin" Value="5, 10, 5, 10" />
+                <Setter Property="Foreground" Value="White" />
+                <Setter Property="FontFamily" Value="Arial" />
+                <Setter Property="FontSize" Value="11" />
+            </Style.Setters>
+        </Style>
+
+    </Window.Resources>
+
     <Grid x:Name="print" Background="White">
         <Button HorizontalAlignment="Right" Background="Red" Content="Guardar" Foreground="White" Margin="0, 40, 50, 0" VerticalAlignment="Top" Command="{Binding ExportPDFCommand}" CommandParameter="{Binding ElementName=print}"/>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="400" Margin="50, 10, 0, 0" >
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Left" Height="100" Width="450" Margin="10, 10, 0, 0" >
             <Image Source="/Assets/docs96.png" Margin="0, 15, 5, 15" />
             <StackPanel Margin="5, 10, 10, 10">
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
@@ -38,31 +65,132 @@
             </StackPanel>
         </StackPanel>
         <Grid Margin="0, 150, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <ListBox Height="250" Width="400" ItemsSource="{Binding NumberParts}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <Grid>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="40" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Image Source="/Assets/plug.png"
-                                   Grid.RowSpan="2"
-                                   Width="28"
-                                   Margin="0, 5, 5, 5"
-                                   VerticalAlignment="Center"
-                                   HorizontalAlignment="Center" />
-                            <TextBlock Grid.Column="1"
-                                       Text="{Binding NumberPartId, Mode=OneTime}"
-                                       VerticalAlignment="Center"/>
-                        </Grid>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
+            <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="20, 0, 20, 0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="2.4*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <Border Background="#FFE20000" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="0"/>
+                <Border Background="#FFE20000" Grid.Row="1" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="0"/>
+                <Border Background="#FFE20000" Grid.Row="2" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="0"/>
+                <Border Background="#FFE20000" Grid.Row="3" BorderBrush="Transparent" BorderThickness="0, 0, 0, 1" CornerRadius="0"/>
+                <Border Grid.Column="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent"  />
+                <Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                <Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                <Border Grid.Column="1" Grid.Row="3" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                <Border Grid.Column="1" Grid.Row="4" BorderBrush="LightGray" BorderThickness="0, 0, 0, 3" Background="Transparent" />
+                <TextBlock Text="Tipo de cambio" Style="{StaticResource TextStylePropertyName}" />
+                <TextBlock Text="Descripción del cambio" Grid.Row="1" Style="{StaticResource TextStylePropertyName}" />
+                <TextBlock Text="Justificación del cambio" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
+                <TextBlock Text="Afectaciones de manufactura" Grid.Row="3" Style="{StaticResource TextStylePropertyName}"/>
+                <TextBlock Text="{Binding Ecn.ChangeType.ChangeTypeName}" Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic"/>
+                <TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextStyleProperty}" />
+                <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
+                <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
+            </Grid>
+            <ListView ItemsSource="{Binding Revisions}" Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Top" Margin="10, 20, 10, 0" Width="600" HorizontalAlignment="Left" IsHitTestVisible="False">
+                <ListView.View >
+                    <GridView >
+                        <GridView.ColumnHeaderContainerStyle>
+                            <Style TargetType="GridViewColumnHeader" >
+                                <Setter Property="Background" Value="#FFE20000"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="Height" Value="30"/>
+                                <Setter Property="FontStyle" Value="Italic"/>
+                                <Setter Property="FontWeight" Value="Bold"/>
+                                <Setter Property="IsHitTestVisible" Value="False"/>
+                                <Setter Property="FontSize" Value="11"/>
+                            </Style>
+                        </GridView.ColumnHeaderContainerStyle>
+                        <GridViewColumn Header="Responsable" Width="250"  >
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Grid Margin="0, 10, 0, 0" >
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                            <TextBlock Text="{Binding RevisionSequence}" FontWeight="Bold" VerticalAlignment="Center" FontSize="18"/>
+                                            <Image Source="/Assets/signing.png"
+                                                       Width="20"
+                                                       Height="20"
+                                                       Margin="5"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Grid.Column="1">
+                                            <Image Source="/Assets/userblack.png" Width="24" Height="24"/>
+                                            <StackPanel Margin="5">
+                                                <TextBlock Text="{Binding Employee.Name}"
+                                                           FontWeight="Black"
+                                                           FontSize="11"/>
+                                                <TextBlock Text="{Binding Employee.Department.DepartmentName}"
+                                                           FontWeight="Bold"
+                                                           Foreground="Red"
+                                                           FontSize="11"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Estatus" Width="120">
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate >
+                                    <Border CornerRadius="10"
+                                            Background="{Binding Status.StatusColor}"
+                                            Height="20"
+                                            Width="95"
+                                            Margin="0, 20, 0, 20">
+                                        <TextBlock FontSize="11" Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black"/>
+                                    </Border>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Fecha de firma" Width="120">
+                            <GridViewColumn.CellTemplate >
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LongRevisionDate}"
+                                               FontStyle="Italic"
+                                               Margin="0, 20, 0, 20"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Hora de firma" Width="120">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding LongRevisionHour}"
+                                               FontStyle="Italic"
+                                               Margin="0, 20, 0, 20"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Notas" Width="100">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Notes}"
+                                                   TextWrapping="Wrap"
+                                                   Margin="20, 5"
+                                                   FontStyle="Italic"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                    </GridView>
+                </ListView.View>
+            </ListView>
         </Grid>
     </Grid>
 </Window>

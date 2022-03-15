@@ -1,6 +1,5 @@
 ﻿using ECN.ViewModels;
 using GalaSoft.MvvmLight.Messaging;
-using System;
 using System.Windows.Controls;
 
 namespace ECN.Views

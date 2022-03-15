@@ -245,19 +245,6 @@ namespace ECN.ViewModels
             }
         }
 
-        private Attachment _SelectedAttachment;
-        public Attachment SelectedAttachment
-        {
-            get => _SelectedAttachment;
-            set
-            {
-                if (_SelectedAttachment != value)
-                {
-                    _SelectedAttachment = value;
-                    RaisePropertyChanged();
-                }
-            }
-        }
          
         private int _SelectedTabItem;
         public int SelectedTabItem
@@ -342,7 +329,6 @@ namespace ECN.ViewModels
 
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
-            Ecn = new Ecn();
             _ecnDataService = ecnDataService;
             _numberPartsDataService = numberPartsDataService;
             _openFileService = openFileService;
@@ -364,6 +350,7 @@ namespace ECN.ViewModels
         {
             if (parameter is Ecn ecn)
             {
+                Ecn = new Ecn();
                 Ecn = ecn;
             }
 

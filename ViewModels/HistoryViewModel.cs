@@ -185,20 +185,6 @@ namespace ECN.ViewModels
         {
             GetHistory();
             CvsHistory.Source = History;
-            //History = new ObservableCollection<Ecn>();
-
-            //CvsHistory = new CollectionViewSource
-            //{
-            //    Source = History
-            //};
-
-            //CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("Year"));
-            //CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
-            //CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
-            //CvsHistory.SortDescriptions.Add(new SortDescription("Month", ListSortDirection.Descending));
-            //CvsHistory.SortDescriptions.Add(new SortDescription("Id", ListSortDirection.Descending));
-
-            //CvsHistory.Filter += ApplyFilter;
         }
 
         public void OnNavigatedFrom()
