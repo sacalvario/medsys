@@ -8,7 +8,7 @@ namespace ECN.Services
 {
     public class EcnDataService : IEcnDataService
     {
-        private readonly ecnContext context = null;
+         private readonly ecnContext context = null;
         public EcnDataService()
         {
             context = new ecnContext();
@@ -21,6 +21,7 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetHistory()
         {
+            using ecnContext context = new ecnContext();
             return context.Ecns.Where(data => data.EmployeeId == UserRecord.Employee_ID).ToList();
         }
 
@@ -179,6 +180,7 @@ namespace ECN.Services
 
         private ICollection<EcnRevision> GetRevisions(int ecn)
         {
+            using ecnContext context = new ecnContext();
             return context.EcnRevisions.Where(i => i.EcnId == ecn).ToList();
         }
 
@@ -190,6 +192,7 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetEcnRecords()
         {
+            using ecnContext context = new ecnContext();
             return context.Ecns.ToList();
         }
 

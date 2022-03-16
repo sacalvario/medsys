@@ -7,6 +7,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -82,7 +83,7 @@ namespace ECN.ViewModels
             _historyDataService = historyDataService;
 
             CvsHistory = new CollectionViewSource();
-            
+
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("Year"));
             CvsHistory.GroupDescriptions.Add(new PropertyGroupDescription("MonthName"));
             CvsHistory.SortDescriptions.Add(new SortDescription("Year", ListSortDirection.Descending));
@@ -132,16 +133,14 @@ namespace ECN.ViewModels
                 item.Status = await _historyDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _historyDataService.GetEmployeeAsync(item.EmployeeId);
 
+                MessageBox.Show(item.Status.StatusName);
 
                 if (Convert.ToBoolean(item.IsEco))
                 {
                     item.EcnEco = await _historyDataService.GetEcnEcoAsync(item.Id);
                 }
 
-                //if (!History.Contains(item))
-                //{
-                    History.Add(item);
-                //}
+                History.Add(item);
 
                 HistoryCount = History.Count;
                 InternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 1);
@@ -183,8 +182,11 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
+            CvsHistory.Source = null;
+
             GetHistory();
             CvsHistory.Source = History;
+
         }
 
         public void OnNavigatedFrom()

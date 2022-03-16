@@ -18,19 +18,7 @@ namespace ECN.Models
         public string LongRevisionHour => RevisionDate.HasValue ? RevisionDate.Value.ToLongTimeString() : string.Empty;
         public virtual Ecn Ecn { get; set; }
         public virtual Employee Employee { get; set; }
-
-        private Status _Status;
-        public virtual Status Status
-        {
-            get => _Status;
-            set
-            {
-                if (_Status != value)
-                {
-                    _Status = value;
-                    RaisePropertyChanged("Status");
-                }
-            }
-        }
+        public virtual Status Status { get; set; }
+        
     }
 }

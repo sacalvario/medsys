@@ -15,8 +15,8 @@ namespace ECN.ViewModels
         {
             _ecnDataService = ecnDataService;
 
-            Records = new ObservableCollection<Ecn>();
-            GetRecords();
+            EcnRecords = new CollectionViewSource();
+
         }
 
         private ObservableCollection<Ecn> _Records;
@@ -58,7 +58,6 @@ namespace ECN.ViewModels
                 item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
 
-
                 item.ChangeTypeName = item.ChangeType.ChangeTypeName;
                 item.DocumentTypeName = item.DocumentType.DocumentTypeName;
                 item.EmployeeName = item.Employee.Name;
@@ -75,10 +74,9 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            EcnRecords = new CollectionViewSource
-            {
-                Source = Records
-            };
+            Records = new ObservableCollection<Ecn>();
+            GetRecords();
+            EcnRecords.Source = Records;
         }
 
         public void OnNavigatedFrom()
