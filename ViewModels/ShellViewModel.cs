@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Windows.Input;
 
 using ECN.Contracts.Services;
@@ -36,10 +37,28 @@ namespace ECN.ViewModels
 
         public ICommand UnloadedCommand => _unloadedCommand ??= new RelayCommand(OnUnloaded);
 
+        private Visibility _ApprovedECNSVisibility = Visibility.Collapsed;
+        public Visibility ApprovedECNSVisibility
+        {
+            get => _ApprovedECNSVisibility;
+            set
+            {
+                if (_ApprovedECNSVisibility != value)
+                {
+                    _ApprovedECNSVisibility = value;
+                    RaisePropertyChanged("ApprovedECNSVisibility");
+                }
+            }
+        }
+
         public ShellViewModel(INavigationService navigationService)
         {
             _navigationService = navigationService;
-            //SelectedMenuItem = new NavigationViewItem();
+            
+            if (UserRecord.Employee_ID == 3806)
+            {
+                ApprovedECNSVisibility = Visibility.Visible;
+            }
         }
 
         private void OnLoaded()
@@ -68,7 +87,6 @@ namespace ECN.ViewModels
                 _navigationService.NavigateTo(targetViewModel.FullName);
             }
         }
-
 
         private void OnNavigated(object sender, string viewModelName)
         {

@@ -59,7 +59,6 @@
                     <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="24" Foreground="Red">
                         <Run Text="{Binding CurrentSignature.RevisionSequence}"/>
                         <Run Text="°" />
-                        <!--<Run Text="{Binding SignatureCount}" Foreground="Black"/>-->
                     </TextBlock>
                     <TextBlock Text="Persona en firmar" Foreground="Black"/>
                 </StackPanel>

@@ -133,8 +133,6 @@ namespace ECN.ViewModels
                 item.Status = await _historyDataService.GetStatusAsync(item.StatusId);
                 item.Employee = await _historyDataService.GetEmployeeAsync(item.EmployeeId);
 
-                MessageBox.Show(item.Status.StatusName);
-
                 if (Convert.ToBoolean(item.IsEco))
                 {
                     item.EcnEco = await _historyDataService.GetEcnEcoAsync(item.Id);

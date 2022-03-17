@@ -91,16 +91,16 @@ namespace ECN.ViewModels
             }
         }
 
-        private Visibility _EcnHistoryTypeVisibility = Visibility.Visible;
-        public Visibility EcnHistoryTypeVisibility
+        private Visibility _EcnCloseTypeVisibility = Visibility.Collapsed;
+        public Visibility EcnCloseTypeVisibility
         {
-            get => _EcnHistoryTypeVisibility;
+            get => _EcnCloseTypeVisibility;
             set
             {
-                if (_EcnHistoryTypeVisibility != value)
+                if (_EcnCloseTypeVisibility != value)
                 {
-                    _EcnHistoryTypeVisibility = value;
-                    RaisePropertyChanged("EcnHistoryTypeVisibility");
+                    _EcnCloseTypeVisibility = value;
+                    RaisePropertyChanged("EcnCloseTypeVisibility");
                 }
             }
         }
@@ -171,6 +171,20 @@ namespace ECN.ViewModels
                 {
                     _EcnNumberPartRevision = value;
                     RaisePropertyChanged("EcnNumberPartRevision");
+                }
+            }
+        }
+
+        private Visibility _EcnPropietaryVisibility = Visibility.Collapsed;
+        public Visibility EcnPropietaryVisibility
+        {
+            get => _EcnPropietaryVisibility;
+            set
+            {
+                if (_EcnPropietaryVisibility != value)
+                {
+                    _EcnPropietaryVisibility = value;
+                    RaisePropertyChanged("EcnPropietaryVisibility");
                 }
             }
         }
@@ -344,6 +358,20 @@ namespace ECN.ViewModels
                 SelectedTabItem = 0;
             }
 
+            if (EcnPropietaryVisibility == Visibility.Visible)
+            {
+                EcnPropietaryVisibility = Visibility.Collapsed;
+            }
+
+            if (EcnSignTypeVisibility == Visibility.Visible)
+            {
+                EcnSignTypeVisibility = Visibility.Collapsed;
+            }
+
+            if (EcnCloseTypeVisibility == Visibility.Visible)
+            {
+                EcnCloseTypeVisibility = Visibility.Collapsed;
+            }
         }
 
         public void OnNavigatedTo(object parameter)
@@ -354,20 +382,24 @@ namespace ECN.ViewModels
                 Ecn = ecn;
             }
 
-            if (Ecn.Employee != UserRecord.Employee)
+            if (Ecn.EmployeeId != UserRecord.Employee_ID)
+            {
+                EcnPropietaryVisibility = Visibility.Visible;
+            }
+
+            if (Ecn.CurrentSignature != null)
             {
                 EcnSignTypeVisibility = Visibility.Visible;
-                EcnHistoryTypeVisibility = Visibility.Collapsed;
+                EcnCloseTypeVisibility = Visibility.Collapsed;
             }
-            else
+            else if (UserRecord.Employee_ID == 3806)
             {
-                if (EcnHistoryTypeVisibility == Visibility.Collapsed)
+                if (EcnCloseTypeVisibility == Visibility.Collapsed)
                 {
-                    EcnHistoryTypeVisibility = Visibility.Visible;
+                    EcnCloseTypeVisibility = Visibility.Visible;
                     EcnSignTypeVisibility = Visibility.Collapsed;
                 }
             }
-
 
             NumberParts = new ObservableCollection<Numberpart>();
             Attachments = new ObservableCollection<Attachment>();
@@ -480,9 +512,9 @@ namespace ECN.ViewModels
 
         private async void GetRevisions()
         {
-            Ecn.EcnRevisions = await _ecnDataService.GetRevisionsAsync(Ecn.Id);
+            var revisions = await _ecnDataService.GetRevisionsAsync(Ecn.Id);
 
-            foreach (var item in Ecn.EcnRevisions)
+            foreach (var item in revisions)
             {
                 item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
                 item.Employee.Department = await _ecnDataService.GetDepartmentAsync(item.Employee.DepartmentId);
@@ -534,6 +566,7 @@ namespace ECN.ViewModels
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha validado el ECN.");
                 Notes = string.Empty;
+                Ecn.CurrentSignature = null;
                 _navigationService.GoBack();
             }
         }
@@ -572,6 +605,7 @@ namespace ECN.ViewModels
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
                 Notes = string.Empty;
+                Ecn.CurrentSignature = null;
                 _navigationService.GoBack();
             }
         }

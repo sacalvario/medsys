@@ -63,9 +63,9 @@
                     <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
             </StackPanel>
-            <Button Content="Exportar" Command="{Binding ExportPDFCommand}"/>
+            <Button Content="Exportar" Command="{Binding ExportPDFCommand}" />
         </StackPanel>
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" Visibility="{Binding EcnSignTypeVisibility}">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" Visibility="{Binding EcnPropietaryVisibility}">
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
             <TextBlock Text="{Binding Ecn.Employee.Name}" HorizontalAlignment="Center" FontWeight="Black"/>
             <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black"/>
@@ -76,7 +76,7 @@
             <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
             <Run Text="firmas" />
         </TextBlock>
-        <StackPanel  Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
             <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="15"/>
             <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
@@ -93,6 +93,20 @@
                 </Button>
             </ui:SimpleStackPanel>
         </StackPanel>
+        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnCloseTypeVisibility}">
+            <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
+                <StackPanel>
+                    <Image Source="/Assets/verified.png"/>
+                    <TextBlock Text="Cerrar ECN" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+            <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
+                <StackPanel>
+                    <Image Source="/Assets/refuse.png" />
+                    <TextBlock Text="Cancelar ECN" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </ui:SimpleStackPanel>
         <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}">
             <TabItem Height="40">
                 <TabItem.Header>
@@ -274,11 +288,11 @@
                     </ui:ListView>
                 </Grid>
             </TabItem>
-            <TabItem Height="40" Visibility="{Binding EcnHistoryTypeVisibility}">
+            <TabItem Height="40">
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" IsHitTestVisible="False">
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left">
                     <ListView.View >
                         <GridView >
                             <GridView.ColumnHeaderContainerStyle>

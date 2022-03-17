@@ -89,7 +89,7 @@ namespace ECN.Services
 
         private IEnumerable<EcnNumberpart> GetNumberPartHistory()
         {
-            return context.EcnNumberparts.Where(data => data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4).ToList();
+            return context.EcnNumberparts.Where(data => (data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4) && data.Ecn.StatusId == 4).ToList();
         }
     }
 }

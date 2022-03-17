@@ -414,7 +414,7 @@ namespace ECN.ViewModels
             }
             catch (Exception ex)
             {
-                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.Message);
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al registrar - " + ex.ToString());
             }
         }
 

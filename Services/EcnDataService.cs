@@ -399,17 +399,6 @@ namespace ECN.Services
             return context.Ecns.Where(data => data.StatusId == 4).ToList();
         }
 
-        public async Task<IEnumerable<Ecn>> GetNumberPartHistoryAsync()
-        {
-            await Task.CompletedTask;
-            return GetNumberPartHistory();
-        }
-
-        private IEnumerable<Ecn> GetNumberPartHistory()
-        {
-            return context.Ecns.Where(data => data.DocumentType.DocumentTypeId == 2 || data.DocumentType.DocumentTypeId == 4);
-        }
-
         public async Task<Ecn> GetEcnAsync(int id)
         {
             await Task.CompletedTask;

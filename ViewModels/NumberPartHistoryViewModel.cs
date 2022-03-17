@@ -24,11 +24,7 @@ namespace ECN.ViewModels
             _historyDataService = historyDataService;
             _numberPartsDataService = numberPartsDataService;
 
-            GetNumberPartHistory();
-            CvsNumberPartHistory = new CollectionViewSource()
-            {
-                Source = NumberPartHistory
-            };
+            CvsNumberPartHistory = new CollectionViewSource();
 
             CvsNumberPartHistory.GroupDescriptions.Add(new PropertyGroupDescription("Ecn.Year"));
             CvsNumberPartHistory.GroupDescriptions.Add(new PropertyGroupDescription("Ecn.MonthName"));
@@ -112,6 +108,7 @@ namespace ECN.ViewModels
                 item.Product = await _numberPartsDataService.GetNumberPartAsync(item.ProductId);
                 item.Product.Customer = await _numberPartsDataService.GetCustomerAsync(item.Product.CustomerId);
                 item.Ecn = await _historyDataService.GetEcnAsync(item.EcnId);
+                item.Ecn.Employee = await _historyDataService.GetEmployeeAsync(item.Ecn.EmployeeId);
 
                 NumberPartHistory.Add(item);
             }
@@ -124,7 +121,7 @@ namespace ECN.ViewModels
         public void OnNavigatedTo(object parameter)
         {
             GetNumberPartHistory();
-            //CvsNumberPartHistory.Source = NumberPartHistory;
+            CvsNumberPartHistory.Source = NumberPartHistory;
         }
     }
 

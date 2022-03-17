@@ -1,10 +1,13 @@
 ﻿
-using ECN.Contracts.Services;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+
 using SimpleWPFReporting;
+
 using System.Collections.ObjectModel;
+
 using System.Windows.Input;
 using System.Windows.Media;
 

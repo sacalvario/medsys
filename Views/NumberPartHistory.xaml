@@ -24,6 +24,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="400" />
+                    <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.RowSpan="4" Margin="10, 12, 20, 12">
                     <Image Source="/Assets/docs.png" Width="42" />
@@ -32,7 +33,7 @@
                         <TextBlock Text="{Binding Ecn.Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Grid.RowSpan="4" Orientation="Horizontal" Margin="20, 0, 0, 0" HorizontalAlignment="Left">
+                <StackPanel Grid.Column="1" Grid.RowSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Assets/plug48.png" Width="42" Height="42" />
                     <StackPanel Margin="10, 12, 20, 12" >
                         <TextBlock Text="{Binding Product.NumberPartId}" FontWeight="Bold" Foreground="Black" FontSize="17"/>
@@ -55,6 +56,13 @@
                         <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center" Foreground="Black"/>
                     </StackPanel>
                 </Grid>
+                <StackPanel Grid.Column="4" Grid.RowSpan="4" VerticalAlignment="Center" Margin="40, 0, 0, 0" Orientation="Horizontal">
+                    <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 5, 0"/>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Ecn.Employee.Name}" FontWeight="Black" Foreground="Black"/>
+                        <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" Foreground="Red" FontWeight="Black"/>
+                    </StackPanel>
+                </StackPanel>
             </Grid>
         </DataTemplate>
 
@@ -88,7 +96,7 @@
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Center"
                     HorizontalAlignment="Left"
-                    Margin="100, 0, 0, 0">
+                    Margin="40, 0, 0, 0">
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Left" 
                         Margin="0, 0, 0, 5">
@@ -114,7 +122,7 @@
                   ItemsSource="{Binding Path=CvsNumberPartHistory.View.Groups}"
                   ItemContainerStyle="{StaticResource ContainerStyle}" 
                   ItemTemplate="{StaticResource YearTemplate}" 
-                  Margin="100, 10 , 40, 40"
+                  Margin="40, 10, 20, 40"
                   Grid.Row="1">
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="MouseDoubleClick" >

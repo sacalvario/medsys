@@ -10,7 +10,6 @@ namespace ECN.Contracts.Services
         Task<IEnumerable<Ecn>> GetEcnRecordsAsync();
         Task<IEnumerable<Ecn>> GetChecklistAsync();
         Task<IEnumerable<Ecn>> GetApprovedAsync();
-        Task<IEnumerable<Ecn>> GetNumberPartHistoryAsync();
         Task<Changetype> GetChangeTypeAsync(int id);
         Task<Documenttype> GetDocumentTypeAsync(int id);
         Task<Status> GetStatusAsync(int id);
