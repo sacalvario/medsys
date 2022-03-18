@@ -1,5 +1,7 @@
-﻿using ECN.Contracts.Services;
+﻿
+using ECN.Contracts.Services;
 using ECN.Models;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -423,6 +425,24 @@ namespace ECN.Services
         public int GetApprovedEcnCount()
         {
             return context.Ecns.Where(data => data.StatusId == 4 && data.EmployeeId == UserRecord.Employee_ID).Count();
+        }
+
+        public bool CloseEcn(Ecn ecn)
+        {
+            ecn.StatusId = 3;
+            ecn.EndDate = System.DateTime.Today;
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool CancelEcn(Ecn ecn)
+        {
+            ecn.StatusId = 2;
+            ecn.EndDate = System.DateTime.Today;
+
+            var result = context.SaveChanges();
+            return result > 0;
         }
     }
 }

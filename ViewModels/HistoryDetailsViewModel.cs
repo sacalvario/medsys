@@ -1,9 +1,12 @@
-﻿using ECN.Contracts.Services;
+﻿
+using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
@@ -189,6 +192,34 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _EcnCloseDateVisibility = Visibility.Collapsed;
+        public Visibility EcnCloseDateVisibility
+        {
+            get => _EcnCloseDateVisibility;
+            set
+            {
+                if (_EcnCloseDateVisibility != value)
+                {
+                    _EcnCloseDateVisibility = value;
+                    RaisePropertyChanged("EcnCloseDateVisibility");
+                }
+            }
+        }
+
+        private Visibility _EcnEstimateCloseDateVisibility = Visibility.Visible;
+        public Visibility EcnEstimateCloseDateVisibility
+        {
+            get => _EcnEstimateCloseDateVisibility;
+            set
+            {
+                if (_EcnEstimateCloseDateVisibility != value)
+                {
+                    _EcnEstimateCloseDateVisibility = value;
+                    RaisePropertyChanged("EcnEstimateCloseDateVisibility");
+                }
+            }
+        }
+
         private string _Notes;
         public string Notes
         {
@@ -259,7 +290,6 @@ namespace ECN.ViewModels
             }
         }
 
-         
         private int _SelectedTabItem;
         public int SelectedTabItem
         {
@@ -286,7 +316,6 @@ namespace ECN.ViewModels
                 return _ExportPDFCommand;
             }
         }
-
 
 
         private ICommand _DownloadAttachmentCommand;
@@ -325,6 +354,32 @@ namespace ECN.ViewModels
                     _RefuseECNCommand = new RelayCommand(RefuseECN);
                 }
                 return _RefuseECNCommand;
+            }
+        }
+
+        private ICommand _CloseECNCommand;
+        public ICommand CloseECNCommand
+        {
+            get
+            {
+                if (_CloseECNCommand == null)
+                {
+                    _CloseECNCommand = new RelayCommand(CloseECN);
+                }
+                return _CloseECNCommand;
+            }
+        }
+
+        private ICommand _CancelECNCommand;
+        public ICommand CancelECNCommand
+        {
+            get
+            {
+                if (_CancelECNCommand == null)
+                {
+                    _CancelECNCommand = new RelayCommand(CancelECN);
+                }
+                return _CancelECNCommand;
             }
         }
 
@@ -380,6 +435,20 @@ namespace ECN.ViewModels
             {
                 Ecn = new Ecn();
                 Ecn = ecn;
+            }
+
+            if (Ecn.Status.StatusId == 3)
+            {
+                EcnCloseDateVisibility = Visibility.Visible;
+                EcnEstimateCloseDateVisibility = Visibility.Collapsed;
+            }
+            else
+            {
+                if (EcnEstimateCloseDateVisibility == Visibility.Collapsed)
+                {
+                    EcnEstimateCloseDateVisibility = Visibility.Visible;
+                    EcnCloseDateVisibility = Visibility.Collapsed;
+                }
             }
 
             if (Ecn.EmployeeId != UserRecord.Employee_ID)
@@ -606,6 +675,27 @@ namespace ECN.ViewModels
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
                 Notes = string.Empty;
                 Ecn.CurrentSignature = null;
+                _navigationService.GoBack();
+            }
+        }
+
+        private void CancelECN()
+        {
+            if (_ecnDataService.CancelEcn(Ecn))
+            {
+                _mailService.SendCancelECN("scalvario@electri-cord.com.mx", Ecn.Id, Ecn.Employee.Name);
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
+                _navigationService.GoBack();
+
+            }
+        }
+
+        private void CloseECN()
+        {
+            if (_ecnDataService.CloseEcn(Ecn))
+            {
+                _mailService.SendCloseECN("scalvario@electri-cord.com.mx", Ecn.Id, Ecn.Employee.Name);
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cerrado correctamente. Se le notificara al generador.");
                 _navigationService.GoBack();
             }
         }

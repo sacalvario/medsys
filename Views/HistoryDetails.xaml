@@ -47,19 +47,26 @@
                         <Run Text="Folio" />
                         <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
                     </TextBlock>
-                    <Border VerticalAlignment="Top" HorizontalAlignment="Left" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
-                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="17" >
+                    <Border VerticalAlignment="Top"  Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
                             <Run Text="ECO:"/>
                             <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
                         </TextBlock>
+                    </Border>
+                    <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Ecn.Status.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
+                        <TextBlock Foreground="White" Text="{Binding Ecn.Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
                     </Border>
                 </StackPanel>
                 <TextBlock FontSize="16" >
                     <Run Text="Fecha de inicio" />
                     <Run Text="{Binding Ecn.LongDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
-                <TextBlock FontSize="16"  >
-                    <Run Text="Fecha de cierre"/>
+                <TextBlock FontSize="16" Visibility="{Binding EcnEstimateCloseDateVisibility}">
+                    <Run Text="Fecha de cierre estimada"/>
+                    <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
+                </TextBlock>
+                <TextBlock FontSize="16" Visibility="{Binding EcnCloseDateVisibility}" >
+                    <Run Text="Cerrado el día"/>
                     <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
             </StackPanel>
@@ -78,7 +85,7 @@
         </TextBlock>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
             <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="15"/>
-            <ui:SimpleStackPanel  Orientation="Horizontal"  Margin="10, 0, 0, 0">
+            <ui:SimpleStackPanel Orientation="Horizontal" Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
                     <StackPanel>
                         <Image Source="/Assets/verified.png"/>
@@ -94,16 +101,16 @@
             </ui:SimpleStackPanel>
         </StackPanel>
         <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnCloseTypeVisibility}">
-            <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
+            <Button Background="Transparent" Command="{Binding CloseECNCommand}">
                 <StackPanel>
                     <Image Source="/Assets/verified.png"/>
-                    <TextBlock Text="Cerrar ECN" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Cerrar" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
-            <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
+            <Button Background="Transparent" Command="{Binding CancelECNCommand}">
                 <StackPanel>
                     <Image Source="/Assets/refuse.png" />
-                    <TextBlock Text="Cancelar ECN" HorizontalAlignment="Center"/>
+                    <TextBlock Text="Cancelar" HorizontalAlignment="Center"/>
                 </StackPanel>
             </Button>
         </ui:SimpleStackPanel>
@@ -233,7 +240,7 @@
                                 <TextBlock Text="Nivel de revisión nuevo" HorizontalAlignment="Center"/>
                             </StackPanel>
                         </Grid>
-                        <ui:ListView ItemsSource="{Binding NumberParts}" Visibility="{Binding EcnNumberPartsVisibility}" Width="250" HorizontalAlignment="Center" IsSelectionEnabled="False" Grid.Row="1" Margin="0, 10, 0 ,0" >
+                        <ui:ListView ItemsSource="{Binding NumberParts}" Visibility="{Binding EcnNumberPartsVisibility}" HorizontalAlignment="Center" IsSelectionEnabled="False" Grid.Row="1" Margin="0, 10, 0 ,0" >
                             <ui:ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid>
@@ -242,14 +249,14 @@
                                             <ColumnDefinition Width="*" />
                                         </Grid.ColumnDefinitions>
                                         <Image Source="/Assets/plug.png"
-                                                   Grid.RowSpan="2"
-                                                   Width="28"
-                                                   Margin="0, 5, 5, 5"
-                                                   VerticalAlignment="Center"
-                                                   HorizontalAlignment="Center" />
+                                               Grid.RowSpan="2"
+                                               Width="28"
+                                               Margin="0, 5, 5, 5"
+                                               VerticalAlignment="Center"
+                                               HorizontalAlignment="Center"/>
                                         <TextBlock Grid.Column="1"
-                                                       Text="{Binding NumberPartId, Mode=OneTime}"
-                                                       VerticalAlignment="Center"/>
+                                                   Text="{Binding NumberPartId, Mode=OneTime}"
+                                                   VerticalAlignment="Center" />
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>

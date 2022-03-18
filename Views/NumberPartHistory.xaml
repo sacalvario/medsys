@@ -24,7 +24,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="300" />
                     <ColumnDefinition Width="400" />
-                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="350" />
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" Grid.RowSpan="4" Margin="10, 12, 20, 12">
                     <Image Source="/Assets/docs.png" Width="42" />
@@ -33,7 +33,7 @@
                         <TextBlock Text="{Binding Ecn.Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </StackPanel>
-                <StackPanel Grid.Column="1" Grid.RowSpan="4" Orientation="Horizontal" HorizontalAlignment="Center">
+                <StackPanel Grid.Column="1" Grid.RowSpan="4" Orientation="Horizontal" Margin="10, 0, 0, 0">
                     <Image Source="/Assets/plug48.png" Width="42" Height="42" />
                     <StackPanel Margin="10, 12, 20, 12" >
                         <TextBlock Text="{Binding Product.NumberPartId}" FontWeight="Bold" Foreground="Black" FontSize="17"/>

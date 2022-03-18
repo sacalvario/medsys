@@ -64,8 +64,7 @@
                         <Label Content="Registros" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnApprovedECN" Tag="Approved" Margin="0, 2, 0, 0" >
-                    <!--Visibility="{Binding ApprovedECNSVisibility}"--> 
+                <ui:NavigationViewItem x:Name="btnApprovedECN" Tag="Approved" Margin="0, 2, 0, 0" Visibility="{Binding ApprovedECNSVisibility}">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/approvedfile.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Aprobados" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />

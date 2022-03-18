@@ -31,6 +31,8 @@ namespace ECN.Contracts.Services
         bool SignEcn(Ecn ecn, string notes);
         Employee NextToSignEcn(Ecn ecn);
         bool RefuseEcn(Ecn ecn, string notes);
+        bool CloseEcn(Ecn ecn);
+        bool CancelEcn(Ecn ecn);
         void SaveChanges();
         List<Employee> GetAMEF();
         List<Employee> GetAMEFAlta();

@@ -1,8 +1,10 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
