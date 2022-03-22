@@ -48,6 +48,11 @@ namespace ECN.ViewModels
         private ICommand _deleteNumberPartCommand;
         public ICommand DeleteNumberPartCommand => _deleteNumberPartCommand ??= new RelayCommand<Numberpart>(RemoveNumberPart);
 
+        private ICommand _deleteEmployeeCommand;
+        public ICommand DeleteEmployeeCommand => _deleteEmployeeCommand ??= new RelayCommand<Employee>(RemoveEmployee);
+
+        private ICommand _deleteEmployeeForViewCommand;
+        public ICommand DeleteEmployeeForViewCommand => _deleteEmployeeForViewCommand ??= new RelayCommand<Employee>(RemoveEmployeeForView);
 
         private Visibility _EcnEcoVisibility;
         public Visibility EcnEcoVisibility
@@ -456,6 +461,22 @@ namespace ECN.ViewModels
             if (attachment != null)
             {
                 _ = Attacheds.Remove(attachment);
+            }
+        }
+        
+        private void RemoveEmployee(Employee employee)
+        {
+            if (employee != null)
+            {
+                _ = SelectedForSign.Remove(employee);
+            }
+        }
+
+        private void RemoveEmployeeForView(Employee employee)
+        {
+            if (employee != null)
+            {
+                _ = SelectedForView.Remove(employee);
             }
         }
 
