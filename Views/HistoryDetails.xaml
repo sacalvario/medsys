@@ -32,6 +32,8 @@
             </Style.Setters>
         </Style>
 
+       
+
     </Page.Resources>
 
 
@@ -299,9 +301,9 @@
                 <TabItem.Header>
                     <TextBlock Text="Flujo de firmas" FontFamily="Quicksand Medium" FontSize="16" Foreground="Black"/>
                 </TabItem.Header>
-                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left">
-                    <ListView.View >
-                        <GridView >
+                <ListView ItemsSource="{Binding Revisions}" VerticalAlignment="Top" Margin="0, 20, 0, 0" Width="1115" HorizontalAlignment="Left" SelectionMode="Single">
+                    <ListView.View>
+                        <GridView>
                             <GridView.ColumnHeaderContainerStyle>
                                 <Style TargetType="GridViewColumnHeader" >
                                     <Setter Property="Background" Value="#FFE20000"/>
@@ -357,7 +359,7 @@
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
                             <GridViewColumn Header="Fecha de firma" Width="250">
-                                <GridViewColumn.CellTemplate >
+                                <GridViewColumn.CellTemplate  >
                                     <DataTemplate>
                                         <TextBlock Text="{Binding LongRevisionDate}"
                                                    FontStyle="Italic"
@@ -386,6 +388,20 @@
                             </GridViewColumn>
                         </GridView>
                     </ListView.View>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="ListViewItem" >
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="LightGray" />
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="LightGray"/>
+                                    <Setter Property="BorderThickness" Value="0"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </ListView.ItemContainerStyle>
                 </ListView>
             </TabItem>
         </TabControl>

@@ -486,8 +486,8 @@
                     </ScrollViewer>
                     <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding OpenNumberPartsDialogCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/add.png" Height="22" Margin="5"/>
-                            <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
+                            <Image Source="/Assets/wire.png" Height="28" Width="28" Margin="2"/>
+                            <Label Content="Numeros de parte"  FontSize="15" FontWeight="Black" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
                     <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
@@ -758,8 +758,8 @@
                     </ui:ListView>
                     <Button Grid.Column="1" Background="Transparent" VerticalAlignment="Top" HorizontalAlignment="Right" Command="{Binding OpenSignatureFlowDialogCommand}">
                         <StackPanel Orientation="Horizontal">
-                            <Image Source="/Assets/add.png" Height="22" Margin="5"/>
-                            <Label Content="Agregar"  FontSize="15" FontWeight="Black" VerticalAlignment="Center" Foreground="#FF189B24" />
+                            <Image Source="/Assets/userblack.png" Height="28" Width="28" Margin="5"/>
+                            <Label Content="Empleados" FontSize="15" FontWeight="Black" VerticalAlignment="Center" />
                         </StackPanel>
                     </Button>
                     <Button Background="Transparent"
@@ -773,7 +773,7 @@
                             <TextBlock Text="Anterior" VerticalAlignment="Center" Foreground="Black"/>
                         </StackPanel>
                     </Button>
-                    <Button Content="Terminar" Grid.Row="2" Grid.Column="1" Background="#FFE2000A" Foreground="Wheat" FontFamily="Quicksand Medium" HorizontalAlignment="Right" VerticalAlignment="Bottom" Command="{Binding SaveECNCommand}"/>
+                    <Button Content="Generar ECN" Width="150" Grid.Row="2" Grid.ColumnSpan="2" Background="#FFE2000A" Foreground="White" FontFamily="Quicksand Medium" HorizontalAlignment="Center" VerticalAlignment="Bottom" Command="{Binding SaveECNCommand}" ui:ControlHelper.CornerRadius="10"/>
                 </Grid>
             </TabItem>
         </TabControl>

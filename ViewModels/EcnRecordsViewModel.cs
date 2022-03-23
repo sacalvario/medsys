@@ -2,18 +2,26 @@
 using ECN.Contracts.ViewModels;
 using ECN.Models;
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
     public class EcnRecordsViewModel : ViewModelBase, INavigationAware
     {
         private IEcnDataService _ecnDataService;
-        public EcnRecordsViewModel(IEcnDataService ecnDataService)
+        private INavigationService _navigationService;
+
+        private ICommand _navigateToDetailCommand;
+        public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);
+        public EcnRecordsViewModel(IEcnDataService ecnDataService, INavigationService navigationService)
         {
             _ecnDataService = ecnDataService;
+            _navigationService = navigationService;
 
             EcnRecords = new CollectionViewSource();
 
@@ -82,6 +90,14 @@ namespace ECN.ViewModels
         public void OnNavigatedFrom()
         {
 
+        }
+
+        private void NavigateToDetail(Ecn ecn)
+        {
+            if (ecn != null)
+            {
+                _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, ecn);
+            }
         }
     }
 }

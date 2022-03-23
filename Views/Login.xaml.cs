@@ -36,6 +36,7 @@ namespace ECN.Views
                     _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
                     _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                     _shellWindow.ShowWindow();
+                    CloseWindow();
                     _navigationService.NavigateTo(typeof(EcnViewModel).FullName);
                 }
             }

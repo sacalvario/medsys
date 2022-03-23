@@ -3,7 +3,7 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-      xmlns:ui="http://schemas.modernwpf.com/2019"
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:fdg="http://filterdatagrid.control.com/2021"
       x:Class="ECN.Views.EcnRecords"
       mc:Ignorable="d" 
@@ -70,6 +70,7 @@
                             DateFormatString="d"
                             AutoGenerateColumns="False"
                             FilterLanguage="English"
+                            x:Name="dgRecords"
                             RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
             <fdg:FilterDataGrid.Columns>
                 <fdg:DataGridTemplateColumn FieldName="Id" Header="Folio" IsColumnFiltered="True" SortMemberPath="Id">
@@ -117,15 +118,20 @@
                         <DataTemplate>
                             <Border CornerRadius="10"
                                     Background="{Binding Status.StatusColor}"
-                                    Height="25"
+                                    Height="30"
                                     Width="105"
                                     Margin="30, 20" >
-                                <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="16"/>
+                                <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
                             </Border>
                         </DataTemplate>
                     </fdg:DataGridTemplateColumn.CellTemplate>
                 </fdg:DataGridTemplateColumn>
             </fdg:FilterDataGrid.Columns>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="MouseDoubleClick" >
+                    <i:InvokeCommandAction Command="{Binding ElementName=dgRecords, Path=DataContext.NavigateToDetailCommand}" CommandParameter="{Binding ElementName=dgRecords, Path=SelectedItem}" />
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
         </fdg:FilterDataGrid>
     </Grid>
 </Page>

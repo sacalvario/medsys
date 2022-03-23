@@ -21,7 +21,18 @@
                     <TextBlock Text="{Binding Name}" FontSize="16" Foreground="White" /> 
                     <TextBlock Text="{Binding Department}" Foreground="White" FontSize="15" HorizontalAlignment="Right" FontWeight="Bold" />
                 </StackPanel>
-                <Image Source="/Assets/user2white.png" Width="32" Margin="5, 0, 5, 0"/>
+                <ui:DropDownButton Background="Transparent" Foreground="White" FontWeight="Bold">
+                    <Image Source="/Assets/user2white.png" Width="32" Height="32"/>
+                    <ui:DropDownButton.Flyout>
+                        <ui:MenuFlyout Placement="BottomEdgeAlignedRight">
+                            <MenuItem Header="Cerrar sesión" >
+                                <MenuItem.Icon>
+                                    <Image Source="/Assets/delete.png" />
+                                </MenuItem.Icon>
+                            </MenuItem>
+                        </ui:MenuFlyout>
+                    </ui:DropDownButton.Flyout>
+                </ui:DropDownButton>
             </StackPanel>
         </DockPanel>
 

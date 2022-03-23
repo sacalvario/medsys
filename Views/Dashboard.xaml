@@ -19,9 +19,9 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <lvc:PieChart Series="{Binding SeriesCollection}" LegendLocation="Right" InnerRadius="0" Name="Hola" >
+            <lvc:PieChart Series="{Binding SeriesCollection}" LegendLocation="Right" >
                 <lvc:PieChart.ChartLegend>
-                    <lvc:DefaultLegend BulletSize="20"></lvc:DefaultLegend>
+                    <lvc:DefaultLegend BulletSize="15" InternalOrientation="Vertical" Margin="-70, 0, 0, 0"></lvc:DefaultLegend>
                 </lvc:PieChart.ChartLegend>
                 <lvc:PieChart.DataTooltip>
                     <lvc:DefaultTooltip BulletSize="30"></lvc:DefaultTooltip>

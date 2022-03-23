@@ -77,6 +77,20 @@ namespace ECN.ViewModels
             }
         }
 
+        private int _EcoChangesCount;
+        public int EcoChangesCount
+        {
+            get => _EcoChangesCount;
+            set
+            {
+                if (_EcoChangesCount != value)
+                {
+                    _EcoChangesCount = value;
+                    RaisePropertyChanged("EcoChangesCount");
+                }
+            }
+        }
+
         public HistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService)
         {
             _navigationService = navigationService;
@@ -144,6 +158,7 @@ namespace ECN.ViewModels
                 InternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 1);
                 ExternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 2);
                 RegisterChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 3);
+                EcoChangesCount = History.Count(data => Convert.ToBoolean(data.IsEco));
             }
         }
 

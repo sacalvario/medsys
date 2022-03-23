@@ -24,7 +24,7 @@ namespace ECN.Models
             {
                 if (StatusId == 1)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.OrangeRed);
+                    _StatusColor = new SolidColorBrush(Color.FromRgb(251, 100, 45));
                 }
                 else if (StatusId == 2)
                 {
@@ -32,15 +32,15 @@ namespace ECN.Models
                 }
                 else if (StatusId == 3)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.Green);
+                    _StatusColor = new SolidColorBrush(Color.FromRgb(0, 172, 0));
                 }
                 else if (StatusId == 4)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.Green);
+                    _StatusColor = new SolidColorBrush(Color.FromRgb(100, 184, 0));
                 }
                 else if (StatusId == 5)
                 {
-                    _StatusColor = new SolidColorBrush(Colors.Orange);
+                    _StatusColor = new SolidColorBrush(Colors.DarkOrange);
                 }
                 else if (StatusId == 6)
                 {

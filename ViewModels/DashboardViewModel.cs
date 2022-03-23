@@ -32,7 +32,7 @@ namespace ECN.ViewModels
                     StrokeThickness = 2,
                     Stroke = new SolidColorBrush(Colors.Transparent),
                     FontSize = 18,
-                    Fill = new SolidColorBrush(Colors.OrangeRed)
+                    Fill = new SolidColorBrush(Color.FromRgb(251, 100, 45))
                 },
                 new PieSeries
                 {
@@ -42,18 +42,7 @@ namespace ECN.ViewModels
                     StrokeThickness = 2,
                     Stroke = new SolidColorBrush(Colors.Transparent),
                     FontSize = 18,
-                    Fill = new SolidColorBrush(Colors.ForestGreen)
-                },
-                new PieSeries
-                {
-                    Title = "Aprobados",
-                    Values = new ChartValues<ObservableValue> { new ObservableValue(10) },
-                    DataLabels = true,
-                    StrokeThickness = 2,
-                    Stroke = new SolidColorBrush(Colors.Transparent),
-                    FontSize = 18,
-                    Fill = new SolidColorBrush(Colors.LimeGreen),
-                    Name = "Status"
+                    Fill = new SolidColorBrush(Color.FromRgb(0, 172, 0))
                 },
                 new PieSeries
                 {
@@ -63,7 +52,29 @@ namespace ECN.ViewModels
                     StrokeThickness = 2,
                     Stroke = new SolidColorBrush(Colors.Transparent),
                     FontSize = 18,
-                    Fill = new SolidColorBrush(Colors.Orange),
+                    Fill = new SolidColorBrush(Colors.DarkOrange),
+                    Name = "Status"
+                },
+                new PieSeries
+                {
+                    Title = "Cancelado",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(2) },
+                    DataLabels = true,
+                    StrokeThickness = 2,
+                    Stroke = new SolidColorBrush(Colors.Transparent),
+                    FontSize = 18,
+                    Fill = new SolidColorBrush(Colors.Red),
+                    Name = "Status"
+                },
+                new PieSeries
+                {
+                    Title = "Aprobados",
+                    Values = new ChartValues<ObservableValue> { new ObservableValue(5) },
+                    DataLabels = true,
+                    StrokeThickness = 2,
+                    Stroke = new SolidColorBrush(Colors.Transparent),
+                    FontSize = 18,
+                    Fill = new SolidColorBrush(Color.FromRgb(100, 184, 0)),
                     Name = "Status"
                 }
             };

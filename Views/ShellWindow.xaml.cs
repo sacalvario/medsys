@@ -5,7 +5,7 @@ using ECN.Contracts.Views;
 
 namespace ECN.Views
 {
-    public partial class ShellWindow :  IShellWindow
+    public partial class ShellWindow : IShellWindow
     {
         public ShellWindow()
         {
