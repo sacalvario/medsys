@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using System.Windows.Controls;
 
 using ECN.Contracts.Services;
@@ -67,6 +67,12 @@ namespace ECN.ViewModels
         public DashboardViewModel DashboardViewModel
             => SimpleIoc.Default.GetInstance<DashboardViewModel>();
 
+        public ShellLoginViewModel ShellLoginViewModel
+            => SimpleIoc.Default.GetInstance<ShellLoginViewModel>();
+
+        public SignUpViewModel SignUpViewModel
+            => SimpleIoc.Default.GetInstance<SignUpViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -86,12 +92,12 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IMailService, MailService>();
 
             // Window
-            SimpleIoc.Default.Register<ILoginWindow, Login>();
             SimpleIoc.Default.Register<IShellWindow, ShellWindow>();
+            SimpleIoc.Default.Register<ILoginWindow, ShellLogin>();
             SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
-            SimpleIoc.Default.Register<LoginViewModel>();
+            SimpleIoc.Default.Register<ShellLoginViewModel>();
             SimpleIoc.Default.Register<NumberParts>();
             SimpleIoc.Default.Register<NumberPartsViewModel>();
             SimpleIoc.Default.Register<Employees>();
@@ -111,6 +117,8 @@ namespace ECN.ViewModels
             Register<ApprovedViewModel, Approved>();
             Register<NumberPartHistoryViewModel, NumberPartHistory>();
             Register<DashboardViewModel, Dashboard>();
+            Register<LoginViewModel, Login>();
+            Register<SignUpViewModel, SignUp>();
         }
 
         private void Register<VM, V>()

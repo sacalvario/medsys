@@ -109,6 +109,9 @@ namespace ECN.ViewModels
                 item.Product.Customer = await _numberPartsDataService.GetCustomerAsync(item.Product.CustomerId);
                 item.Ecn = await _historyDataService.GetEcnAsync(item.EcnId);
                 item.Ecn.Employee = await _historyDataService.GetEmployeeAsync(item.Ecn.EmployeeId);
+                item.Ecn.Status = await _historyDataService.GetStatusAsync(item.Ecn.StatusId);
+                item.Ecn.ChangeType = await _historyDataService.GetChangeTypeAsync(item.Ecn.ChangeTypeId);
+                item.Ecn.DocumentType = await _historyDataService.GetDocumentTypeAsync(item.Ecn.DocumentTypeId);
 
                 NumberPartHistory.Add(item);
             }

@@ -1,7 +1,7 @@
 ﻿using System.Windows.Controls;
 
 using ECN.Contracts.Views;
-
+using GalaSoft.MvvmLight.Messaging;
 
 namespace ECN.Views
 {
@@ -10,6 +10,15 @@ namespace ECN.Views
         public ShellWindow()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
+        }
+
+        private void NotificationMessageReceived(NotificationMessage msg)
+        {
+            if (msg.Notification == "CloseWindow")
+            {
+                CloseWindow();
+            }
 
         }
 

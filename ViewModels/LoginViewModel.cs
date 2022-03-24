@@ -1,21 +1,32 @@
 ﻿using ECN.Contracts.Services;
+using ECN.Contracts.ViewModels;
+using ECN.Contracts.Views;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Messaging;
+using GalaSoft.MvvmLight.Ioc;
+
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 
 namespace ECN.ViewModels
 {
-    public class LoginViewModel : ViewModelBase
+    public class LoginViewModel : ViewModelBase, INavigationAware
     {
         private readonly ILoginDataService _loginService;
         private readonly IEcnDataService _ecnDataService;
+        private readonly INavigationService _navigationService;
+        private IShellWindow _shellWindow;
+        private ILoginWindow _loginWindow;
 
-        public LoginViewModel(ILoginDataService loginDataService, IEcnDataService ecnDataService)
+        public LoginViewModel(ILoginDataService loginDataService, IEcnDataService ecnDataService, INavigationService navigationService)
         {
             _loginService = loginDataService;
             _ecnDataService = ecnDataService;
+            _navigationService = navigationService;
         }
 
         private string _Username;
@@ -53,9 +64,24 @@ namespace ECN.ViewModels
             }
         }
 
+        private RelayCommand _NavigateToSignUpCommand;
+        public RelayCommand NavigateToSignUpCommand
+        {
+            get
+            {
+                if (_NavigateToSignUpCommand == null)
+                {
+                    _NavigateToSignUpCommand = new RelayCommand(NavigateToSignUp);
+                }
+                return _NavigateToSignUpCommand;
+            }
+        }
+
         private async void CheckLogin()
         {
             User user = _loginService.Login(Username, Password);
+
+            await Task.CompletedTask;
 
             if (user != null)
             {
@@ -66,7 +92,16 @@ namespace ECN.ViewModels
                 UserRecord.Username = user.Username;
                 UserRecord.Employee_ID = user.EmployeeId;
 
-                Messenger.Default.Send(new NotificationMessage("ValidLogin"));
+                if (Application.Current.Windows.OfType<IShellWindow>().Count() == 0)
+                {
+                    _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
+                    _loginWindow.CloseWindow();
+                    _navigationService.UnsubscribeNavigation();
+                    _navigationService.Initialize(_shellWindow.GetNavigationFrame());
+                    _shellWindow.ShowWindow();
+                    _navigationService.NavigateTo(typeof(DashboardViewModel).FullName);
+                    await Task.CompletedTask;
+                }
             }
             else
             {
@@ -76,5 +111,22 @@ namespace ECN.ViewModels
 
         }
 
+        private void NavigateToSignUp()
+        {
+            _navigationService.NavigateTo(typeof(SignUpViewModel).FullName);
+        }
+
+        public void OnNavigatedTo(object parameter)
+        {
+            if (parameter is ILoginWindow loginWindow)
+            {
+                _loginWindow = loginWindow;
+            }
+
+        }
+
+        public void OnNavigatedFrom()
+        {
+        }
     }
 }

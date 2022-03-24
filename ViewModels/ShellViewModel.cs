@@ -1,11 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
 using ECN.Contracts.Services;
+using ECN.Contracts.Views;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 
 using ModernWpf.Controls;
 
@@ -14,28 +19,23 @@ namespace ECN.ViewModels
     public class ShellViewModel : ViewModelBase
     {
         private readonly INavigationService _navigationService;
+        private ILoginWindow _loginWindow;
         private NavigationViewItem _selectedMenuItem;
-        private RelayCommand _goBackCommand;
         private ICommand _menuItemInvokedCommand;
-        private ICommand _loadedCommand;
-        private ICommand _unloadedCommand;
+        private ICommand _signOutCommand;
 
         public string Name => UserRecord.Employee.EmployeeFirstName + " " + UserRecord.Employee.EmployeeLastName;
         public string Department => UserRecord.Employee.Department.DepartmentName;
 
         public NavigationViewItem SelectedMenuItem
         {
-            get { return _selectedMenuItem; }
-            set { Set(ref _selectedMenuItem, value); }
+            get => _selectedMenuItem;
+            set => Set(ref _selectedMenuItem, value);
         }
 
-        public RelayCommand GoBackCommand => _goBackCommand ??= new RelayCommand(OnGoBack, CanGoBack);
-
         public ICommand MenuItemInvokedCommand => _menuItemInvokedCommand ??= new RelayCommand(OnMenuItemInvoked);
+        public ICommand SignOutCommand => _signOutCommand ??= new RelayCommand(SignOut);
 
-        public ICommand LoadedCommand => _loadedCommand ??= new RelayCommand(OnLoaded);
-
-        public ICommand UnloadedCommand => _unloadedCommand ??= new RelayCommand(OnUnloaded);
 
         private Visibility _ApprovedECNSVisibility = Visibility.Collapsed;
         public Visibility ApprovedECNSVisibility
@@ -61,24 +61,10 @@ namespace ECN.ViewModels
             }
         }
 
-        private void OnLoaded()
-        {
-            _navigationService.Navigated += OnNavigated;
-        }
-
-        private void OnUnloaded()
-        {
-            _navigationService.Navigated -= OnNavigated;
-        }
-
-        private bool CanGoBack()
-            => _navigationService.CanGoBack;
-
-        private void OnGoBack()
-            => _navigationService.GoBack();
-
         private void OnMenuItemInvoked()
-            => NavigateTo(SelectedMenuItem.SetTargetPageType());
+        {
+            NavigateTo(SelectedMenuItem.SetTargetPageType());
+        }
 
         private void NavigateTo(Type targetViewModel)
         {
@@ -87,18 +73,21 @@ namespace ECN.ViewModels
                 _navigationService.NavigateTo(targetViewModel.FullName);
             }
         }
-
-        private void OnNavigated(object sender, string viewModelName)
+        
+        private async void SignOut()
         {
-            //    var item = MenuItems
-            //                .OfType<NavigationViewItem>()
-            //                .FirstOrDefault(i => viewModelName == i.SetTargetPageType().FullName);
-            //    if (item != null)
-            //    {
-            //        SelectedMenuItem = item;
-            //    }
+            if (Application.Current.Windows.OfType<ILoginWindow>().Count() == 0)
+            {
+                _navigationService.UnsubscribeNavigation();
+                _loginWindow = SimpleIoc.Default.GetInstance<ILoginWindow>(Guid.NewGuid().ToString());
+                _navigationService.Initialize(_loginWindow.GetNavigationFrame());
+                Messenger.Default.Send(new NotificationMessage("CloseWindow"));
+                _loginWindow.ShowWindow();
+                _navigationService.NavigateTo(typeof(LoginViewModel).FullName, _loginWindow);
 
-            //    GoBackCommand.RaiseCanExecuteChanged();
+                await System.Threading.Tasks.Task.CompletedTask;
+            }
         }
+
     }
 }

@@ -1,4 +1,5 @@
-﻿using ECN.Models;
+﻿
+using System.Windows.Controls;
 
 namespace ECN.Contracts.Views
 {
@@ -7,5 +8,7 @@ namespace ECN.Contracts.Views
         void ShowWindow();
 
         void CloseWindow();
+
+        Frame GetNavigationFrame();
     }
 }

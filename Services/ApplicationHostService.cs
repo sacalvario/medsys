@@ -8,14 +8,12 @@ using ECN.Contracts.Views;
 using ECN.ViewModels;
 
 using GalaSoft.MvvmLight.Ioc;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ECN.Services
 {
     public class ApplicationHostService : IApplicationHostService
     {
         private readonly INavigationService _navigationService;
-        private IShellWindow _shellWindow;
         private ILoginWindow _loginWindow;
         private bool _isInitialized;
 
@@ -69,11 +67,12 @@ namespace ECN.Services
 
             await Task.CompletedTask;
 
-            if (App.Current.Windows.OfType<ILoginWindow>().Count() == 0)
+            if (System.Windows.Application.Current.Windows.OfType<ILoginWindow>().Count() == 0)
             {
-                // Default activation that navigates to the apps default page
                 _loginWindow = SimpleIoc.Default.GetInstance<ILoginWindow>(Guid.NewGuid().ToString());
+                _navigationService.Initialize(_loginWindow.GetNavigationFrame());
                 _loginWindow.ShowWindow();
+                _navigationService.NavigateTo(typeof(LoginViewModel).FullName, _loginWindow);
 
                 await Task.CompletedTask;
             }

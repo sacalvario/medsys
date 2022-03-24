@@ -14,7 +14,15 @@ namespace ECN.Services
         }
         public User Login(string username, string password)
         {
-            return context.Users.FirstOrDefault(i => i.Username == username && i.Password == password);
+            if (username.All(char.IsDigit))
+            {
+                int employeenumber = int.Parse(username);
+                return context.Users.FirstOrDefault(i => i.EmployeeId == employeenumber && i.Password == password);
+            }
+            else
+            {
+                return context.Users.FirstOrDefault(i => i.Username == username && i.Password == password);
+            }
         }
     }
 }

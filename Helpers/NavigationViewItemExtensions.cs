@@ -9,32 +9,19 @@ namespace ModernWpf.Controls
 
         public static Type SetTargetPageType(this NavigationViewItem navigationViewItem)
         {
-            switch (navigationViewItem.Tag.ToString())
-            {
-                case "History":
-                    return typeof(HistoryViewModel);
-
-                case "Ecn":
-                    return typeof(EcnViewModel);
-
-                case "Records":
-                    return typeof(EcnRecordsViewModel);
-
-                case "Checklist":
-                    return typeof(ChecklistViewModel);
-
-                case "Approved":
-                    return typeof(ApprovedViewModel);
-
-                case "NumberPartHistory":
-                    return typeof(NumberPartHistoryViewModel);
-
-                case "Dashboard":
-                    return typeof(DashboardViewModel);
-
-                default:
-                    return null;
-            }
+            return navigationViewItem != null
+                ? navigationViewItem.Tag.ToString() switch
+                {
+                    "History" => typeof(HistoryViewModel),
+                    "Ecn" => typeof(EcnViewModel),
+                    "Records" => typeof(EcnRecordsViewModel),
+                    "Checklist" => typeof(ChecklistViewModel),
+                    "Approved" => typeof(ApprovedViewModel),
+                    "NumberPartHistory" => typeof(NumberPartHistoryViewModel),
+                    "Dashboard" => typeof(DashboardViewModel),
+                    _ => null,
+                }
+                : null;
         }
     }
 }
