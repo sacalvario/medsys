@@ -5,19 +5,22 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-    ShowTitleBar="True"
+    ShowTitleBar="False"
     ShowCloseButton="False"
     ShowMinButton="False"
     ShowMaxRestoreButton="False"
-    BorderThickness="0"
-    WindowTitleBrush="Red"
+    BorderBrush="Black"
+    ShowActivated="True"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
-    Width="400"
-    Height="220"
+    Width="350"
+    Height="170"
+    AllowsTransparency="True"
+    Background="Transparent"
     Style="{StaticResource CustomMetroWindow}">
+
     <controls:MetroWindow.Content>
-        <Grid>
+        <Grid Background="White">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="Auto" />
@@ -31,9 +34,10 @@
                 Content="Cerrar"
                 HorizontalAlignment="Center"
                 Command="{Binding CloseCommand}"
-                Width="200"
+                Width="120"
+                Height="28"
                 Style="{StaticResource MaterialDesignRaisedButton}"
-                Margin="{StaticResource SmallLeftTopRightBottomMargin}" />
+                Margin="{StaticResource SmallLeftTopRightBottomMargin}" Cursor="Hand" />
         </Grid>
     </controls:MetroWindow.Content>
 </controls:MetroWindow>

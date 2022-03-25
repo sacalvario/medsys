@@ -54,6 +54,7 @@
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\userw.png" />
+    <None Remove="Assets\usuario.png" />
     <None Remove="Assets\verified.png" />
     <None Remove="Assets\view.png" />
     <None Remove="Assets\wire-white.png" />
@@ -178,6 +179,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\userw.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\usuario.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\verified.png">

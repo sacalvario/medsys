@@ -19,14 +19,16 @@ namespace ECN.ViewModels
         private readonly ILoginDataService _loginService;
         private readonly IEcnDataService _ecnDataService;
         private readonly INavigationService _navigationService;
+        private readonly IWindowManagerService _windowManagerService;
         private IShellWindow _shellWindow;
         private ILoginWindow _loginWindow;
 
-        public LoginViewModel(ILoginDataService loginDataService, IEcnDataService ecnDataService, INavigationService navigationService)
+        public LoginViewModel(ILoginDataService loginDataService, IEcnDataService ecnDataService, INavigationService navigationService, IWindowManagerService windowManagerService)
         {
             _loginService = loginDataService;
             _ecnDataService = ecnDataService;
             _navigationService = navigationService;
+            _windowManagerService = windowManagerService;
         }
 
         private string _Username;
@@ -79,34 +81,43 @@ namespace ECN.ViewModels
 
         private async void CheckLogin()
         {
-            User user = _loginService.Login(Username, Password);
-
-            await Task.CompletedTask;
-
-            if (user != null)
+            if (Username != null && Password != null)
             {
-                Employee emp = await _ecnDataService.GetEmployeeAsync(user.EmployeeId);
-                user.Employee = emp;
+                User user = _loginService.Login(Username, Password);
 
-                UserRecord.Employee = user.Employee;
-                UserRecord.Username = user.Username;
-                UserRecord.Employee_ID = user.EmployeeId;
+                await Task.CompletedTask;
 
-                if (Application.Current.Windows.OfType<IShellWindow>().Count() == 0)
+                if (user != null)
                 {
-                    _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
-                    _loginWindow.CloseWindow();
-                    _navigationService.UnsubscribeNavigation();
-                    _navigationService.Initialize(_shellWindow.GetNavigationFrame());
-                    _shellWindow.ShowWindow();
-                    _navigationService.NavigateTo(typeof(DashboardViewModel).FullName);
-                    await Task.CompletedTask;
+                    Employee emp = await _ecnDataService.GetEmployeeAsync(user.EmployeeId);
+                    user.Employee = emp;
+
+                    UserRecord.Employee = user.Employee;
+                    UserRecord.Username = user.Username;
+                    UserRecord.Employee_ID = user.EmployeeId;
+
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "¡Bienvenido!");
+
+                    if (Application.Current.Windows.OfType<IShellWindow>().Count() == 0)
+                    {
+                        _shellWindow = SimpleIoc.Default.GetInstance<IShellWindow>(Guid.NewGuid().ToString());
+                        _loginWindow.CloseWindow();
+                        _navigationService.UnsubscribeNavigation();
+                        _navigationService.Initialize(_shellWindow.GetNavigationFrame());
+                        _shellWindow.ShowWindow();
+                        _navigationService.NavigateTo(typeof(DashboardViewModel).FullName);
+                        await Task.CompletedTask;
+                    }
+                }
+                else
+                {
+
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Nombre de usuario o contraseña incorrecto/a");
                 }
             }
             else
             {
-
-                _ = MessageBox.Show("Incorrect username or password entered. Please try again.");
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Ingresa el nombre de usuario y la contraseña");
             }
 
         }

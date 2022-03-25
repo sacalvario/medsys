@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 using ECN.Contracts.Activation;
 using ECN.Contracts.Services;
@@ -16,10 +17,12 @@ namespace ECN.Services
         private readonly INavigationService _navigationService;
         private ILoginWindow _loginWindow;
         private bool _isInitialized;
+        private const string AutoHideScrollBarsKey = "AutoHideScrollBars";
 
         public ApplicationHostService(INavigationService navigationService)
         {
             _navigationService = navigationService;
+            Application.Current.Resources[AutoHideScrollBarsKey] = true;
         }
 
         public async Task StartAsync()
@@ -67,7 +70,7 @@ namespace ECN.Services
 
             await Task.CompletedTask;
 
-            if (System.Windows.Application.Current.Windows.OfType<ILoginWindow>().Count() == 0)
+            if (Application.Current.Windows.OfType<ILoginWindow>().Count() == 0)
             {
                 _loginWindow = SimpleIoc.Default.GetInstance<ILoginWindow>(Guid.NewGuid().ToString());
                 _navigationService.Initialize(_loginWindow.GetNavigationFrame());

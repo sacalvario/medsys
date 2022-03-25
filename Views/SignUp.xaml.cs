@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ECN.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,22 @@ namespace ECN.Views
         public SignUp()
         {
             InitializeComponent();
+        }
+
+        private void txtPassword_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                { ((SignUpViewModel)DataContext).Password = ((PasswordBox)sender).Password; }
+            }
+        }
+
+        private void txtPassword_PasswordChanged1(object sender, RoutedEventArgs e)
+        {
+            if (DataContext != null)
+            {
+                { ((SignUpViewModel)DataContext).PasswordConfimartion = ((PasswordBox)sender).Password; }
+            }
         }
     }
 }

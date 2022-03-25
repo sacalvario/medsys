@@ -10,9 +10,13 @@
       Title="Login">
 
     <StackPanel Margin="25" Background="White">
-        <TextBox Text="{Binding Username}" Margin="15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
-        <PasswordBox Margin="15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True"/>
-        <TextBlock HorizontalAlignment="Center" Margin="0, 20, 0, 0">
+        <StackPanel Margin="0, 5, 0, 0" HorizontalAlignment="Center" Orientation="Horizontal">
+            <TextBlock Text="Inicio de sesión" FontWeight="Bold" Foreground="Red" FontSize="15"/>
+            <Image Source="/Assets/usuario.png" Width="20" Height="20" Margin="10, 0, 0, 0"/>
+        </StackPanel>
+        <TextBox Text="{Binding Username}" Margin="15, 20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
+        <PasswordBox Margin="15, 20" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0">
             <Run Text="¿No tienes una cuenta?"/>
             <Run Text="Registrate ahora" Foreground="Red" Cursor="Hand" >
                 <Run.InputBindings>
@@ -20,6 +24,6 @@
                 </Run.InputBindings>
             </Run>
         </TextBlock>
-        <Button Margin="15, 50" Content="Iniciar sesión" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding LoginCommand}"/>
+        <Button Margin="15, 70" Content="Iniciar sesión" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding LoginCommand}"/>
     </StackPanel>
 </Page>

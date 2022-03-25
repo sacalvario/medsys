@@ -121,6 +121,7 @@ namespace ECN.ViewModels
             Register<SignUpViewModel, SignUp>();
         }
 
+
         private void Register<VM, V>()
             where VM : ViewModelBase
             where V : Page

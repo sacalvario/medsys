@@ -6,10 +6,10 @@
       DataContext="{Binding EcnRegistrationViewModel, Source={StaticResource Locator}}"
       xmlns:local="clr-namespace:ECN.Views"
       mc:Ignorable="d"
-      Title="EcnRegistration" Height="150" Width="400">
+      Title="EcnRegistration" Height="140" Width="350">
     <Grid Background="White">
-        <Image Source="/Assets/checkgreen.png" Width="28" Height="28" VerticalAlignment="Top" Margin="0, 20, 0, 0" />
-        <TextBlock Text="Se ha registrado correctamente el ECN con el folio:" Margin="0, 60, 0, 0" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Quicksand Medium" FontSize="16"/>
-        <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Red" FontWeight="Black" FontSize="24"/>
+        <Image Source="/Assets/checkgreen.png" Width="24" Height="24" VerticalAlignment="Top" Margin="0, 30, 0, 0" />
+        <TextBlock Text="Se ha registrado correctamente el ECN con el folio:" Margin="10, 60, 0, 10" VerticalAlignment="Top" HorizontalAlignment="Center" FontFamily="Quicksand Medium" FontSize="13" TextWrapping="Wrap"/>
+        <TextBlock Text="{Binding ID}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0, 50, 0, 0" Foreground="Red" FontWeight="Black" FontSize="22"/>
     </Grid>
 </Page>
