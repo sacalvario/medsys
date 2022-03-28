@@ -9,6 +9,8 @@ using GalaSoft.MvvmLight.Ioc;
 
 using System;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 
@@ -79,11 +81,23 @@ namespace ECN.ViewModels
             }
         }
 
+        private string EncodePassword(string originalPassword)
+        {
+            SHA1 sha1 = new SHA1CryptoServiceProvider();
+
+            byte[] inputBytes = new UnicodeEncoding().GetBytes(originalPassword);
+            byte[] hash = sha1.ComputeHash(inputBytes);
+
+            return Convert.ToBase64String(hash);
+        }
+
         private async void CheckLogin()
         {
             if (Username != null && Password != null)
             {
-                User user = _loginService.Login(Username, Password);
+                string pass = EncodePassword(Password);
+
+                User user = _loginService.Login(Username, pass);
 
                 await Task.CompletedTask;
 

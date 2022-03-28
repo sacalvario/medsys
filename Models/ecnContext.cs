@@ -553,9 +553,8 @@ namespace ECN.Models
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.HasKey(e => new { e.Username, e.EmployeeId })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                entity.HasKey(e => e.EmployeeId)
+                   .HasName("PRIMARY");
 
                 entity.ToTable("user");
 
@@ -573,7 +572,7 @@ namespace ECN.Models
 
                 entity.Property(e => e.Password)
                     .IsRequired()
-                    .HasMaxLength(45);
+                    .HasMaxLength(256);
 
                 entity.HasOne(d => d.Employee)
                     .WithOne(p => p.User)

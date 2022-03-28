@@ -11,7 +11,7 @@
 
     <StackPanel Margin="25" Background="White">
         <StackPanel Margin="0, 5, 0, 0" HorizontalAlignment="Center" Orientation="Horizontal">
-            <TextBlock Text="Registrarse" FontWeight="Bold" Foreground="Red" FontSize="15"/>
+            <TextBlock Text="Registro" FontWeight="Bold" Foreground="Red" FontSize="15"/>
         </StackPanel>
         <TextBox Text="{Binding EmployeeID}" Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
         <TextBox Text="{Binding Username}" Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
@@ -25,6 +25,6 @@
                 </Run.InputBindings>
             </Run>
         </TextBlock>
-        <Button Margin="15, 50" Content="Registrarse" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand"/>
+        <Button Margin="50, 50" Content="Registrarse" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand"/>
     </StackPanel>
 </Page>
