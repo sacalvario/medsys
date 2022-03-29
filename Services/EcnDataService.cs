@@ -288,12 +288,12 @@ namespace ECN.Services
 
         public bool SignEcn(Ecn ecn, string notes)
         {
-            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+            EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID && data.EcnId == ecn.Id);
             revision.StatusId = 4;
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
 
-            EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+            EcnRevision nextrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1 && data.EcnId == ecn.Id);
 
             if (nextrevision != null)
             {

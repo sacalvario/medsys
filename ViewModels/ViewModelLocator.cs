@@ -152,5 +152,11 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Unregister<EmployeesViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
         }
+
+        public static void UnregisterShellViewModel()
+        {
+            SimpleIoc.Default.Unregister<ShellViewModel>();
+            SimpleIoc.Default.Register<ShellViewModel>();
+        }
     }
 }

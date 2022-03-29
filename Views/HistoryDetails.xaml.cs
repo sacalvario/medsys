@@ -1,5 +1,7 @@
 ﻿using ECN.ViewModels;
+
 using GalaSoft.MvvmLight.Messaging;
+
 using System.Windows.Controls;
 
 namespace ECN.Views
@@ -20,7 +22,8 @@ namespace ECN.Views
             if (obj.Notification == "ShowReport")
             {
                 var report = new Report();
-                report.DataContext = new ReportViewModel(obj.Content);
+                
+                report.DataContext = new ReportViewModel(obj.Content, ((HistoryDetailsViewModel)DataContext)._ecnDataService, ((HistoryDetailsViewModel)DataContext)._numberPartsDataService);
                 _ = report.ShowDialog();
             }
         }

@@ -5,6 +5,7 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -111,6 +112,11 @@ namespace ECN.ViewModels
                 item.Ecn.Status = await _historyDataService.GetStatusAsync(item.Ecn.StatusId);
                 item.Ecn.ChangeType = await _historyDataService.GetChangeTypeAsync(item.Ecn.ChangeTypeId);
                 item.Ecn.DocumentType = await _historyDataService.GetDocumentTypeAsync(item.Ecn.DocumentTypeId);
+
+                if (Convert.ToBoolean(item.Ecn.IsEco))
+                {
+                    item.Ecn.EcnEco = await _historyDataService.GetEcnEcoAsync(item.EcnId);
+                }
 
                 NumberPartHistory.Add(item);
             }

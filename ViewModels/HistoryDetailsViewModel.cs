@@ -17,8 +17,8 @@ namespace ECN.ViewModels
 {
     public class HistoryDetailsViewModel : ViewModelBase, INavigationAware
     {
-        private IEcnDataService _ecnDataService;
-        private INumberPartsDataService _numberPartsDataService;
+        public IEcnDataService _ecnDataService;
+        public INumberPartsDataService _numberPartsDataService;
         private IOpenFileService _openFileService;
         private IWindowManagerService _windowManagerService;
         private IMailService _mailService;
@@ -219,6 +219,21 @@ namespace ECN.ViewModels
                 }
             }
         }
+
+        private Visibility _ModifyAttachmentVisibility = Visibility.Collapsed;
+        public Visibility ModifyAttachmentVisibility
+        {
+            get => _ModifyAttachmentVisibility;
+            set
+            {
+                if (_ModifyAttachmentVisibility != value)
+                {
+                    _ModifyAttachmentVisibility = value;
+                    RaisePropertyChanged("ModifyAttachmentVisibility");
+                }
+            }
+        }
+
 
         private string _Notes;
         public string Notes
@@ -427,6 +442,11 @@ namespace ECN.ViewModels
             {
                 EcnCloseTypeVisibility = Visibility.Collapsed;
             }
+
+            if (ModifyAttachmentVisibility == Visibility.Visible)
+            {
+                ModifyAttachmentVisibility = Visibility.Collapsed;
+            }
         }
 
         public void OnNavigatedTo(object parameter)
@@ -441,6 +461,10 @@ namespace ECN.ViewModels
             {
                 EcnCloseDateVisibility = Visibility.Visible;
                 EcnEstimateCloseDateVisibility = Visibility.Collapsed;
+            }
+            else if (Ecn.Status.StatusId == 1)
+            {
+                ModifyAttachmentVisibility = Visibility.Visible;
             }
             else
             {

@@ -7,11 +7,11 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding ShellLoginViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="Login" Height="650" Width="480" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
+        Title="Login" Height="600" Width="430" ResizeMode="NoResize" WindowStartupLocation="CenterScreen">
 
-    <Grid Background="#FFE00A0A">
-        <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" HorizontalAlignment="Center" Margin="0, 0, 0, 15" VerticalAlignment="Bottom"/>
-        <Border Background="White" Margin="50, 60" CornerRadius="10">
+    <Grid Background="#FFEA2525">
+        <TextBlock Text="ELECTRI-CORD" FontFamily="Arial" FontWeight="Black" Foreground="White" FontSize="20" FontStyle="Oblique" HorizontalAlignment="Center" Margin="0, 20, 0, 0" VerticalAlignment="Top"/>
+        <Border Background="White" Margin="30, 60" CornerRadius="5">
             <ui:Frame x:Name="loginFrame"/>
         </Border>
     </Grid>

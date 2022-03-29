@@ -82,6 +82,7 @@ namespace ECN.ViewModels
                 _loginWindow = SimpleIoc.Default.GetInstance<ILoginWindow>(Guid.NewGuid().ToString());
                 _navigationService.Initialize(_loginWindow.GetNavigationFrame());
                 Messenger.Default.Send(new NotificationMessage("CloseWindow"));
+                ViewModelLocator.UnregisterShellViewModel();
                 _loginWindow.ShowWindow();
                 _navigationService.NavigateTo(typeof(LoginViewModel).FullName, _loginWindow);
 

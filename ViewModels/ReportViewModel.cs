@@ -1,4 +1,5 @@
 ﻿
+using ECN.Contracts.Services;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
@@ -7,7 +8,6 @@ using GalaSoft.MvvmLight.Command;
 using SimpleWPFReporting;
 
 using System.Collections.ObjectModel;
-
 using System.Windows.Input;
 using System.Windows.Media;
 
@@ -15,8 +15,10 @@ namespace ECN.ViewModels
 {
     public class ReportViewModel : ViewModelBase
     {
-        private Ecn _ecn;
 
+        private IEcnDataService _ecnDataService;
+        private INumberPartsDataService _numberPartsDataService;
+        private Ecn _ecn;
         public Ecn Ecn
         {
             get => _ecn;
@@ -99,9 +101,11 @@ namespace ECN.ViewModels
             }
         }
 
-        public ReportViewModel(Ecn ecn)
+        public ReportViewModel(Ecn ecn, IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService)
         {
             Ecn = ecn;
+            _ecnDataService = ecnDataService;
+            _numberPartsDataService = numberPartsDataService;
 
             Attachments = new ObservableCollection<Attachment>();
 

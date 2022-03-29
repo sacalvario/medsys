@@ -10,14 +10,14 @@
       Title="Sign Up">
 
     <StackPanel Margin="25" Background="White">
-        <StackPanel Margin="0, 5, 0, 0" HorizontalAlignment="Center" Orientation="Horizontal">
+        <StackPanel Margin="0, 0, 0, 0" HorizontalAlignment="Center" Orientation="Horizontal">
             <TextBlock Text="Registro" FontWeight="Bold" Foreground="Red" FontSize="15"/>
         </StackPanel>
-        <TextBox Text="{Binding EmployeeID}" Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
+        <TextBox Text="{Binding EmployeeID}" Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <TextBox Text="{Binding Username}" Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <PasswordBox Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" />
         <PasswordBox Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Repite la contraseña" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
-        <TextBlock HorizontalAlignment="Center" Margin="0, 40, 0, 0">
+        <TextBlock HorizontalAlignment="Center" Margin="0, 20, 0, 0">
             <Run Text="¿Ya tienes una cuenta?"/>
             <Run Text="Inicia sesión" Foreground="Red" Cursor="Hand" >
                 <Run.InputBindings>
@@ -25,6 +25,6 @@
                 </Run.InputBindings>
             </Run>
         </TextBlock>
-        <Button Margin="50, 50" Content="Registrarse" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand"/>
+        <Button Margin="50, 25, 50, 0" Content="Registrarse" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding SignUpCommand}" Cursor="Hand"/>
     </StackPanel>
 </Page>

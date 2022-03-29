@@ -2,6 +2,7 @@
 using ECN.Contracts.ViewModels;
 using ECN.Services;
 using GalaSoft.MvvmLight;
+
 using LiveCharts;
 using LiveCharts.Defaults;
 using LiveCharts.Wpf;
@@ -16,7 +17,9 @@ namespace ECN.ViewModels
     {
         private readonly IEcnDataService _ecnDataService;
         public SeriesCollection SeriesCollection { get; set; }
+        public SeriesCollection SeriesCollectionLineChart { get; set; }
         public string[] Labels { get; set; }
+
 
         public DashboardViewModel(IEcnDataService ecnDataService)
         {
@@ -79,7 +82,38 @@ namespace ECN.ViewModels
                 }
             };
 
-            Labels = new[] { "En espera", "Aprobado", "Cerrado" };
+            SeriesCollectionLineChart = new SeriesCollection
+            {
+                new LineSeries
+                {
+                    Title = "Series 1",
+                    Values = new ChartValues<double> { 4, 6, 5, 2 ,4 },
+                    PointGeometry = DefaultGeometries.Diamond,
+                    PointGeometrySize = 15,
+                    Fill = new SolidColorBrush(Colors.Transparent),
+                    StrokeThickness = 3
+                },
+                new LineSeries
+                {
+                    Title = "Series 2",
+                    Values = new ChartValues<double> { 6, 7, 3, 4 ,6 },
+                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometrySize = 15,
+                    Fill = new SolidColorBrush(Colors.Transparent),
+                    StrokeThickness = 3 
+                },
+                new LineSeries
+                {
+                    Title = "Series 3",
+                    Values = new ChartValues<double> { 4,2,7,2,7 },
+                    PointGeometry = DefaultGeometries.Circle,
+                    PointGeometrySize = 15,
+                    Fill = new SolidColorBrush(Colors.Transparent),
+                    StrokeThickness = 3
+                }
+            };
+
+            Labels = new[] { "Enero", "Febrero", "Marzo", "Abril", "Mayo" };
         }
 
         public void OnNavigatedFrom()
