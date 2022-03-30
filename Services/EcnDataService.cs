@@ -328,7 +328,7 @@ namespace ECN.Services
 
         public bool RefuseEcn(Ecn ecn, string notes)
         {
-            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+            EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID && data.EcnId == ecn.Id);
             revision.StatusId = 6;
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
@@ -339,12 +339,12 @@ namespace ECN.Services
             }
             else
             {
-                EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+                EcnRevision nextrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1 && data.EcnId == ecn.Id);
 
                 if (revision.RevisionSequence == 3)
                 {
-                    EcnRevision lastrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 1);
-                    EcnRevision firstrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 2);
+                    EcnRevision lastrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 1 && data.EcnId == ecn.Id);
+                    EcnRevision firstrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 2 && data.EcnId == ecn.Id);
                     
                     if (lastrevision.StatusId == 6 && firstrevision.StatusId == 6)
                     {
@@ -363,9 +363,9 @@ namespace ECN.Services
 
         public Employee NextToSignEcn(Ecn ecn)
         {
-            EcnRevision revision = ecn.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID);
+            EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID && data.EcnId == ecn.Id);
 
-            EcnRevision nextrevision = ecn.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1);
+            EcnRevision nextrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1 && data.EcnId == ecn.Id);
 
             if (nextrevision != null && nextrevision.StatusId == 5)
             {
@@ -440,6 +440,18 @@ namespace ECN.Services
         {
             ecn.StatusId = 2;
             ecn.EndDate = System.DateTime.Today;
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool RemoveAttachment(int ecn, int attach)
+        {
+            EcnAttachment deleted = context.EcnAttachments.FirstOrDefault(data => data.EcnId == ecn && data.AttachmentId == attach);
+            _ = context.EcnAttachments.Remove(deleted);
+
+            Attachment removed = context.Attachments.Find(attach);
+            _ = context.Attachments.Remove(removed);
 
             var result = context.SaveChanges();
             return result > 0;

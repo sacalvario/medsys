@@ -298,9 +298,9 @@
                                             HorizontalAlignment="Right"
                                             Background="Transparent"
                                             Visibility="{Binding ElementName=lvattachs, Path=DataContext.ModifyAttachmentVisibility}"
-                                            Command="{Binding ElementName=lvattachs, Path=DataContext.DownloadAttachmentCommand}"
+                                            Command="{Binding ElementName=lvattachs, Path=DataContext.ChangeAttachmentCommand}"
                                             CommandParameter="{Binding}">
-                                        <Image Source="/Assets/delete.png" Width="20"/>
+                                        <Image Source="/Assets/return.png" Width="20"/>
                                     </Button>
                                 </Grid>
                             </DataTemplate>

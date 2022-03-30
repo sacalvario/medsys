@@ -33,6 +33,7 @@ namespace ECN.Contracts.Services
         bool RefuseEcn(Ecn ecn, string notes);
         bool CloseEcn(Ecn ecn);
         bool CancelEcn(Ecn ecn);
+        bool RemoveAttachment(int ecn, int attach);
         void SaveChanges();
         List<Employee> GetAMEF();
         List<Employee> GetAMEFAlta();

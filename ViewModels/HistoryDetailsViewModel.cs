@@ -23,8 +23,8 @@ namespace ECN.ViewModels
         private IWindowManagerService _windowManagerService;
         private IMailService _mailService;
         private INavigationService _navigationService;
-        private Ecn _ecn;
 
+        private Ecn _ecn;
         public Ecn Ecn
         {
             get => _ecn;
@@ -411,6 +411,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _ChangeAttachmentCommand;
+        public ICommand ChangeAttachmentCommand
+        {
+            get
+            {
+                if (_ChangeAttachmentCommand == null)
+                {
+                    _ChangeAttachmentCommand = new RelayCommand<Attachment>(ChangeAttachment);
+                }
+                return _ChangeAttachmentCommand;
+            }
+        }
+
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             _ecnDataService = ecnDataService;
@@ -462,7 +475,7 @@ namespace ECN.ViewModels
                 EcnCloseDateVisibility = Visibility.Visible;
                 EcnEstimateCloseDateVisibility = Visibility.Collapsed;
             }
-            else if (Ecn.Status.StatusId == 1)
+            else if (Ecn.Status.StatusId == 1 && Ecn.EmployeeId == UserRecord.Employee_ID)
             {
                 ModifyAttachmentVisibility = Visibility.Visible;
             }
@@ -643,6 +656,22 @@ namespace ECN.ViewModels
                 };
                 _ = process.Start();
 
+            }
+        }
+
+        private void ChangeAttachment(Attachment attachment)
+        {
+            _ = Attachments.Remove(attachment);
+            if (_ecnDataService.RemoveAttachment(Ecn.Id, attachment.AttachmentId))
+            {
+                if (_openFileService.OpenFileDialog())
+                {
+                    Attachments.Add(new Attachment(Path.GetExtension(_openFileService.Path))
+                    {
+                        AttachmentFilename = _openFileService.FileName,
+                        AttachmentFile = File.ReadAllBytes(_openFileService.Path)
+                    });
+                }
             }
         }
 
