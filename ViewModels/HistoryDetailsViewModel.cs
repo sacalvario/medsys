@@ -661,16 +661,17 @@ namespace ECN.ViewModels
 
         private void ChangeAttachment(Attachment attachment)
         {
-            _ = Attachments.Remove(attachment);
-            if (_ecnDataService.RemoveAttachment(Ecn.Id, attachment.AttachmentId))
+            if (_openFileService.OpenFileDialog())
             {
-                if (_openFileService.OpenFileDialog())
+                Attachments.Add(new Attachment(Path.GetExtension(_openFileService.Path))
                 {
-                    Attachments.Add(new Attachment(Path.GetExtension(_openFileService.Path))
-                    {
-                        AttachmentFilename = _openFileService.FileName,
-                        AttachmentFile = File.ReadAllBytes(_openFileService.Path)
-                    });
+                    AttachmentFilename = _openFileService.FileName,
+                    AttachmentFile = File.ReadAllBytes(_openFileService.Path)
+                });
+
+                if (_ecnDataService.RemoveAttachment(Ecn.Id, attachment.AttachmentId))
+                {
+                    _ = Attachments.Remove(attachment);
                 }
             }
         }
@@ -707,7 +708,7 @@ namespace ECN.ViewModels
                     }
                     else
                     {
-                        foreach (var item in Ecn.EcnRevisions)
+                        foreach (var item in Revisions)
                         {
                             _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                         }
@@ -717,7 +718,7 @@ namespace ECN.ViewModels
                 }
                 else
                 {
-                    foreach (var item in Ecn.EcnRevisions)
+                    foreach (var item in Revisions)
                     {
                         _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                     }

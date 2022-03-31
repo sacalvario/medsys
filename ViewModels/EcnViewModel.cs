@@ -193,8 +193,7 @@ namespace ECN.ViewModels
                 RemoveNumberPart();
                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Solo se permiten 10 números de parte");
                 NumberParts.CollectionChanged += NumberPartCollectionChanged;
-            }
-            
+            }           
         }
 
         private void RemoveNumberPart()
