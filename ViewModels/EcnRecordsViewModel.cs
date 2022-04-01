@@ -1,11 +1,12 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+
 using System;
 using System.Collections.ObjectModel;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -25,6 +26,20 @@ namespace ECN.ViewModels
 
             EcnRecords = new CollectionViewSource();
 
+        }
+
+        private Ecn _SelectedItem;
+        public Ecn SelectedItem
+        {
+            get => _SelectedItem;
+            set
+            {
+                if (_SelectedItem != value)
+                {
+                    _SelectedItem = value;
+                    RaisePropertyChanged("SelectedItem");
+                }
+            }
         }
 
         private ObservableCollection<Ecn> _Records;
@@ -85,6 +100,8 @@ namespace ECN.ViewModels
             Records = new ObservableCollection<Ecn>();
             GetRecords();
             EcnRecords.Source = Records;
+
+            SelectedItem = null;
         }
 
         public void OnNavigatedFrom()

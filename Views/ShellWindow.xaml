@@ -37,7 +37,7 @@
         </DockPanel>
 
 
-        <ui:NavigationView Name="nv" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+        <ui:NavigationView Name="nv" IsSettingsVisible="False" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
             <ui:NavigationView.MenuItems>
                 <ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">

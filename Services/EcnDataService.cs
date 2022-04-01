@@ -350,10 +350,18 @@ namespace ECN.Services
                     {
                         ecn.StatusId = 1;
                     }
+                    else
+                    {
+                        nextrevision.StatusId = 5;
+                    }
                 }
                 else if (revision.RevisionSequence < 3 && nextrevision != null)
                 {
                     nextrevision.StatusId = 5;
+                }
+                else if (revision.RevisionSequence > 3)
+                {
+                    ecn.StatusId = 1;
                 }
             }
 

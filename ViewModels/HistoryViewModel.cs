@@ -1,13 +1,14 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -91,6 +92,33 @@ namespace ECN.ViewModels
             }
         }
 
+        private int _EcoRollingChangesCount;
+        public int EcoRollingChangesCount
+        {
+            get => _EcoRollingChangesCount;
+            set
+            {
+                if (_EcoRollingChangesCount != value)
+                {
+                    _EcoRollingChangesCount = value;
+                    RaisePropertyChanged("EcoRollingChangesCount");
+                }
+            }
+        }
+
+        private int _EcoHardStopsCount;
+        public int EcoHardStopsCount
+        {
+            get => _EcoHardStopsCount;
+            set
+            {
+                if (_EcoHardStopsCount != value)
+                {
+                    _EcoHardStopsCount = value;
+                    RaisePropertyChanged("EcoHardStopsCount");
+                }
+            }
+        }
         public HistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService)
         {
             _navigationService = navigationService;
@@ -159,6 +187,13 @@ namespace ECN.ViewModels
                 ExternalChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 2);
                 RegisterChangesCount = History.Count(data => data.ChangeType.ChangeTypeId == 3);
                 EcoChangesCount = History.Count(data => Convert.ToBoolean(data.IsEco));
+
+                //if (Convert.ToBoolean(item.IsEco))
+                //{
+                //    EcoHardStopsCount = History.Count(data => data.EcnEco.EcoType.EcoTypeId == 1);
+                //    EcoRollingChangesCount = History.Count(data => data.EcnEco.EcoType.EcoTypeId == 2);
+                //}
+
             }
         }
 

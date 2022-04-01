@@ -15,7 +15,7 @@
         <PasswordBox Margin="15, 20" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0">
             <Run Text="¿No tienes una cuenta?"/>
-            <Run Text="Registrate ahora" Foreground="Red" Cursor="Hand" >
+            <Run Text="Registrate ahora" Foreground="Red" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>
                     <MouseBinding Command="{Binding NavigateToSignUpCommand}" MouseAction="LeftClick"/>
                 </Run.InputBindings>

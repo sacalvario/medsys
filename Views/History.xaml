@@ -127,7 +127,6 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <StackPanel Margin="10, 0">
                 <TextBlock Text="{Binding HistoryCount}" FontSize="38" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
@@ -145,11 +144,26 @@
                 <TextBlock Text="{Binding RegisterChangesCount}" FontSize="20" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
                 <TextBlock Text="Altas" FontStyle="Italic"/>
             </StackPanel>
-            <StackPanel Grid.Column="5" Margin="10">
-                <TextBlock Text="{Binding EcoChangesCount}" FontSize="20" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+        </Grid>
+        <!--<Grid HorizontalAlignment="Center" VerticalAlignment="Center" Margin="900, 0, 0, 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Margin="10, 0">
+                <TextBlock Text="{Binding EcoChangesCount}" FontSize="38" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
                 <TextBlock Text="Ecos" FontStyle="Italic"/>
             </StackPanel>
-        </Grid>
+            <StackPanel Grid.Column="1" Margin="10">
+                <TextBlock Text="{Binding InternalChangesCount}" FontSize="20" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Hard Stops" FontStyle="Italic"/>
+            </StackPanel>
+            <StackPanel Grid.Column="2" Margin="10">
+                <TextBlock Text="{Binding ExternalChangesCount}" FontSize="20" Foreground="Red" FontWeight="Black" HorizontalAlignment="Center"/>
+                <TextBlock Text="Rolling Changes" FontStyle="Italic"/>
+            </StackPanel>
+        </Grid>-->
         <TreeView x:Name="tvHistory" 
                   ItemsSource="{Binding Path=CvsHistory.View.Groups}"
                   ItemContainerStyle="{StaticResource ContainerStyle}" 

@@ -19,7 +19,7 @@
         <PasswordBox Margin="15, 10" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Repite la contraseña" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
         <TextBlock HorizontalAlignment="Center" Margin="0, 20, 0, 0">
             <Run Text="¿Ya tienes una cuenta?"/>
-            <Run Text="Inicia sesión" Foreground="Red" Cursor="Hand" >
+            <Run Text="Inicia sesión" Foreground="Red" Cursor="Hand" Focusable="True">
                 <Run.InputBindings>
                     <MouseBinding Command="{Binding NavigateToLoginCommand}" MouseAction="LeftClick"/>
                 </Run.InputBindings>

@@ -20,13 +20,11 @@
             <Setter Property="AlternatingRowBackground" Value="WhiteSmoke" />
             <Setter Property="AlternationCount" Value="2" />
             <Setter Property="Background" Value="Transparent" />
-            <!--<Setter Property="ColumnWidth" Value="*" />-->
             <Setter Property="HorizontalGridLinesBrush" Value="LightGray" />
             <Setter Property="VerticalGridLinesBrush" Value="LightGray" />
             <Setter Property="VerticalScrollBarVisibility" Value="Visible" />
             <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
             <Setter Property="VirtualizingPanel.IsVirtualizing" Value="True" />
-            <Setter Property="BorderBrush" Value="LightSlateGray" />
             <Setter Property="BorderThickness" Value="0" />
             <Setter Property="IsReadOnly" Value="True" />
         </Style>
@@ -46,10 +44,10 @@
                     <StackPanel>
                         <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}"><Run Text="Número de ECO:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding EcnEco.IdEco}" Foreground="Red" FontWeight="Bold"/></TextBlock>
                         <TextBlock FontSize="15" Visibility="{Binding IsEcoVisibility}"><Run Text="Tipo de ECO:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding EcnEco.EcoType.EcoTypeName}" Foreground="Red" FontWeight="Bold"/></TextBlock>
-                        <TextBlock FontSize="15" ><Run Text="Nivel de revisión actual del documento:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding DocumentLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
-                        <TextBlock FontSize="15" ><Run Text="Nivel de revisión actual del dibujo:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding DrawingLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
                         <TextBlock FontSize="15" ><Run Text="Nivel de revisión anterior del documento:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding OldDocumentLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
+                        <TextBlock FontSize="15" ><Run Text="Nivel de revisión actual del documento:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding DocumentLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
                         <TextBlock FontSize="15" ><Run Text="Nivel de revisión anterior del dibujo:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding OldDrawingLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
+                        <TextBlock FontSize="15" ><Run Text="Nivel de revisión actual del dibujo:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding DrawingLvl}" Foreground="Red" FontWeight="Bold"/></TextBlock>
                     </StackPanel>
                     <StackPanel Grid.Column="1">
                         <TextBlock FontSize="15"><Run Text="Descripción del cambio:" FontWeight="SemiBold" /><Run Text=" "/><Run Text="{Binding ChangeDescription}" Foreground="Red" FontWeight="Bold"/></TextBlock>
@@ -69,8 +67,10 @@
         <fdg:FilterDataGrid ItemsSource="{Binding EcnRecords.View, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterDatagridStyle}" Margin="40"
                             DateFormatString="d"
                             AutoGenerateColumns="False"
+                            SelectedItem="{Binding SelectedItem}"
                             FilterLanguage="English"
                             x:Name="dgRecords"
+                            SelectionMode="Single"
                             RowDetailsTemplate="{StaticResource RowDetailsTemplate}" RowDetailsVisibilityMode="VisibleWhenSelected">
             <fdg:FilterDataGrid.Columns>
                 <fdg:DataGridTemplateColumn FieldName="Id" Header="Folio" IsColumnFiltered="True" SortMemberPath="Id">

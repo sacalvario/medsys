@@ -498,7 +498,7 @@ namespace ECN.ViewModels
                 EcnSignTypeVisibility = Visibility.Visible;
                 EcnCloseTypeVisibility = Visibility.Collapsed;
             }
-            else if (UserRecord.Employee_ID == 3806)
+            else if (UserRecord.Employee_ID == 3806 && Ecn.Status.StatusId == 4)
             {
                 if (EcnCloseTypeVisibility == Visibility.Collapsed)
                 {
