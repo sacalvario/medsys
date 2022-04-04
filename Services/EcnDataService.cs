@@ -56,6 +56,7 @@ namespace ECN.Services
 
         private Status GetStatus(int id)
         {
+            //using ecnContext context = new ecnContext();
             return context.Statuses.Find(id);
         }
 
@@ -435,10 +436,25 @@ namespace ECN.Services
             return context.Ecns.Where(data => data.StatusId == 4 && data.EmployeeId == UserRecord.Employee_ID).Count();
         }
 
+        private Numberpart GetProduct(int id)
+        {
+            return context.Numberparts.Find(id);
+        }
+
         public bool CloseEcn(Ecn ecn)
         {
             ecn.StatusId = 3;
             ecn.EndDate = System.DateTime.Today;
+
+            if (ecn.DocumentTypeId == 3 || ecn.DocumentTypeId == 9 || ecn.DocumentTypeId == 14)
+            {
+                var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
+                foreach (var item in data)
+                {
+                    item.Product = GetProduct(item.ProductId);
+                    item.Product.NumberPartRev = ecn.DrawingLvl;
+                }
+            }
 
             var result = context.SaveChanges();
             return result > 0;
@@ -453,16 +469,37 @@ namespace ECN.Services
             return result > 0;
         }
 
-        public bool RemoveAttachment(int ecn, int attach)
+        public void UpgradeAttachment(int attach, string filename, byte[] file)
         {
-            EcnAttachment deleted = context.EcnAttachments.FirstOrDefault(data => data.EcnId == ecn && data.AttachmentId == attach);
-            _ = context.EcnAttachments.Remove(deleted);
+            Attachment upgraded = context.Attachments.Find(attach);
+            upgraded.AttachmentFilename = filename;
+            upgraded.AttachmentFile = file;
 
-            Attachment removed = context.Attachments.Find(attach);
-            _ = context.Attachments.Remove(removed);
+            //var result = context.SaveChanges();
+            //return result > 0;
+        }
+
+        public bool UpgradeEcn(Ecn ecn)
+        {
+            EcnRevision refusedrevision = context.EcnRevisions.OrderBy(data => data.RevisionSequence).Last(data => data.StatusId == 6);
+            refusedrevision.StatusId = 5;
+
+            Ecn upgradedecn = context.Ecns.Find(ecn.Id);
+            upgradedecn.StatusId = 5;
 
             var result = context.SaveChanges();
             return result > 0;
+        }
+
+        public Employee FindSigned(Ecn ecn)
+        {
+            EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.StatusId == 5 && data.EcnId == ecn.Id);
+
+            if (revision != null)
+            {
+                return GetEmployee(revision.EmployeeId);
+            }
+            return null;
         }
     }
 }

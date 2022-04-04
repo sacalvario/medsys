@@ -29,11 +29,13 @@ namespace ECN.Contracts.Services
         int GetSignatureCount(int ecn);
         bool SaveEcn(Ecn ecn);
         bool SignEcn(Ecn ecn, string notes);
+        bool UpgradeEcn(Ecn ecn);
         Employee NextToSignEcn(Ecn ecn);
+        Employee FindSigned(Ecn ecn);
         bool RefuseEcn(Ecn ecn, string notes);
         bool CloseEcn(Ecn ecn);
         bool CancelEcn(Ecn ecn);
-        bool RemoveAttachment(int ecn, int attach);
+        void UpgradeAttachment(int attach, string filename, byte[] file);
         void SaveChanges();
         List<Employee> GetAMEF();
         List<Employee> GetAMEFAlta();

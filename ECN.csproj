@@ -10,6 +10,8 @@
     <Product>ECN System</Product>
     <Authors>Calvario Reyes Simón Alejandro</Authors>
     <NoWin32Manifest>true</NoWin32Manifest>
+    <ApplicationIcon></ApplicationIcon>
+    <AssemblyName>ECN</AssemblyName>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\add.png" />

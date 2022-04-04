@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 
 using System.Collections.ObjectModel;
+using System.Collections.Specialized;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
@@ -234,6 +235,20 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _UpgradeECNVisibility = Visibility.Collapsed;
+        public Visibility UpgradeECNVisibility
+        {
+            get => _UpgradeECNVisibility;
+            set
+            {
+                if (_UpgradeECNVisibility != value)
+                {
+                    _UpgradeECNVisibility = value;
+                    RaisePropertyChanged("UpgradeECNVisibility");
+                }
+            }
+        }
+
 
         private string _Notes;
         public string Notes
@@ -301,7 +316,7 @@ namespace ECN.ViewModels
                 {
                     _Documents = value;
                     RaisePropertyChanged("Documents");
-                } 
+                }
             }
         }
 
@@ -424,6 +439,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _UpgradeECNCommand;
+        public ICommand UpgradeECNCommand
+        {
+            get
+            {
+                if (_UpgradeECNCommand == null)
+                {
+                    _UpgradeECNCommand = new RelayCommand(UpgradeECN);
+                }
+                return _UpgradeECNCommand;
+            }
+        }
+
         public HistoryDetailsViewModel(IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService, IOpenFileService openFileService, IWindowManagerService windowManagerService, IMailService mailService, INavigationService navigationService)
         {
             _ecnDataService = ecnDataService;
@@ -459,6 +487,11 @@ namespace ECN.ViewModels
             if (ModifyAttachmentVisibility == Visibility.Visible)
             {
                 ModifyAttachmentVisibility = Visibility.Collapsed;
+            }
+
+            if (UpgradeECNVisibility == Visibility.Visible)
+            {
+                UpgradeECNVisibility = Visibility.Collapsed;
             }
         }
 
@@ -515,6 +548,8 @@ namespace ECN.ViewModels
             GetAttachments();
             GetRevisions();
             GetDocuments();
+
+            Attachments.CollectionChanged += AttachmentsCollectionChanged;
 
             if (NumberParts.Count != 0)
             {
@@ -588,6 +623,16 @@ namespace ECN.ViewModels
                 CustomerRevision = NumberParts[0].NumberPartRev;
             }
         }
+        private void AttachmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
+        {
+            if (e.NewItems != null)
+            {
+                if (_UpgradeECNVisibility != Visibility.Visible)
+                {
+                    UpgradeECNVisibility = Visibility.Visible;
+                }
+            }
+        }
 
         private async void GetNumberParts()
         {
@@ -610,7 +655,6 @@ namespace ECN.ViewModels
             foreach (var item in Ecn.EcnAttachments)
             {
                 var attached = await _ecnDataService.GetAttachmentAsync(item.AttachmentId);
-                attached.Extension = Path.GetExtension(attached.AttachmentFilename);
                 Attachments.Add(attached);
             }
 
@@ -663,16 +707,15 @@ namespace ECN.ViewModels
         {
             if (_openFileService.OpenFileDialog())
             {
-                Attachments.Add(new Attachment(Path.GetExtension(_openFileService.Path))
+                Attachment newattachment = new Attachment()
                 {
                     AttachmentFilename = _openFileService.FileName,
                     AttachmentFile = File.ReadAllBytes(_openFileService.Path)
-                });
+                };
 
-                if (_ecnDataService.RemoveAttachment(Ecn.Id, attachment.AttachmentId))
-                {
-                    _ = Attachments.Remove(attachment);
-                }
+                _ecnDataService.UpgradeAttachment( attachment.AttachmentId, newattachment.AttachmentFilename, newattachment.AttachmentFile);
+                Attachments.Remove(attachment);
+                Attachments.Add(newattachment);
             }
         }
 
@@ -684,7 +727,7 @@ namespace ECN.ViewModels
 
                 if (emp != null)
                 {
-                    _mailService.SendSignEmail("scalvario@electri-cord.com.mx", Ecn.Id, emp.Name, Ecn.Employee.Name);
+                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha validado el ECN.");
@@ -704,26 +747,26 @@ namespace ECN.ViewModels
 
                     if (emp != null)
                     {
-                        _mailService.SendSignEmail("scalvario@electri-cord.com.mx", Ecn.Id, emp.Name, Ecn.Employee.Name);
+                        _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
                     }
                     else
                     {
                         foreach (var item in Revisions)
                         {
-                            _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
+                            _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                         }
 
-                        _mailService.SendRefuseECNToGeneratorEmail("scalvario@electri-cord.com.mx", Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
+                        _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
                     }
                 }
                 else
                 {
                     foreach (var item in Revisions)
                     {
-                        _mailService.SendRefuseECNEmail("scalvario@electri-cord.com.mx", Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
+                        _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                     }
 
-                    _mailService.SendRefuseECNToGeneratorEmail("scalvario@electri-cord.com.mx", Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
+                    _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
@@ -737,7 +780,7 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.CancelEcn(Ecn))
             {
-                _mailService.SendCancelECN("scalvario@electri-cord.com.mx", Ecn.Id, Ecn.Employee.Name);
+                _mailService.SendCancelECN(Ecn.Employee.EmployeeEmail, Ecn.Id, Ecn.Employee.Name);
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
                 _navigationService.GoBack();
 
@@ -748,8 +791,24 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.CloseEcn(Ecn))
             {
-                _mailService.SendCloseECN("scalvario@electri-cord.com.mx", Ecn.Id, Ecn.Employee.Name);
+                _mailService.SendCloseECN(Ecn.Employee.EmployeeEmail, Ecn.Id, Ecn.Employee.Name);
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cerrado correctamente. Se le notificara al generador.");
+                _navigationService.GoBack();
+            }
+        }
+
+        private void UpgradeECN()
+        {
+            if (_ecnDataService.UpgradeEcn(Ecn))
+            {
+                Employee emp = _ecnDataService.FindSigned(Ecn);
+
+                if (emp != null)
+                {
+                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
+                }
+
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha modificado el ECN. La persona que rechazo volvera a revisarlo.");
                 _navigationService.GoBack();
             }
         }

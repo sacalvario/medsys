@@ -404,7 +404,7 @@ namespace ECN.ViewModels
                 if (_ecnDataService.SaveEcn(ECN))
                 {
 
-                    _mailService.SendSignEmail("scalvario@electri-cord.com.mx", ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
+                    _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
                     foreach (Employee er in SelectedForView)
                     {
                         _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
@@ -434,7 +434,7 @@ namespace ECN.ViewModels
         {
             if (_openFileService.OpenFileDialog())
             {
-                Attacheds.Add(new Attachment(Path.GetExtension(_openFileService.Path))
+                Attacheds.Add(new Attachment()
                 {
                     AttachmentFilename = _openFileService.FileName,
                     AttachmentFile = File.ReadAllBytes(_openFileService.Path)

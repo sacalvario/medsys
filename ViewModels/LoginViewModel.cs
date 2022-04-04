@@ -119,7 +119,7 @@ namespace ECN.ViewModels
                         _navigationService.UnsubscribeNavigation();
                         _navigationService.Initialize(_shellWindow.GetNavigationFrame());
                         _shellWindow.ShowWindow();
-                        _navigationService.NavigateTo(typeof(DashboardViewModel).FullName);
+                        _navigationService.NavigateTo(typeof(EcnViewModel).FullName);
                         await Task.CompletedTask;
                     }
                 }
