@@ -436,22 +436,19 @@ namespace ECN.Services
             return context.Ecns.Where(data => data.StatusId == 4 && data.EmployeeId == UserRecord.Employee_ID).Count();
         }
 
-        private Numberpart GetProduct(int id)
-        {
-            return context.Numberparts.Find(id);
-        }
 
         public bool CloseEcn(Ecn ecn)
         {
             ecn.StatusId = 3;
             ecn.EndDate = System.DateTime.Today;
 
-            if (ecn.DocumentTypeId == 3 || ecn.DocumentTypeId == 9 || ecn.DocumentTypeId == 14)
+            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4)
             {
                 var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
                 foreach (var item in data)
                 {
-                    item.Product = GetProduct(item.ProductId);
+                    var context = new ecnContext();
+                    item.Product =  context.Numberparts.FirstOrDefault(data => data.NumberPartNo == item.ProductId);
                     item.Product.NumberPartRev = ecn.DrawingLvl;
                 }
             }
