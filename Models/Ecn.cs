@@ -60,6 +60,7 @@ namespace ECN.Models
         public string ChangeDescription { get; set; }
         public string ChangeJustification { get; set; }
         public string ManufacturingAffectations { get; set; }
+        public string Notes { get; set; }
         public int StatusId { get; set; }
         public int Year => StartDate.Year;
         public int Month => StartDate.Month;

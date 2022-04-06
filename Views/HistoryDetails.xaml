@@ -84,8 +84,12 @@
             <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
             <Run Text="firmas" />
         </TextBlock>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="350, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
+            <TextBlock Text="Notas: " Foreground="Red" FontWeight="Black" FontStyle="Italic" FontSize="15"/>
+            <TextBlock Text="{Binding Ecn.Notes}" FontStyle="Italic" FontSize="15"/>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="15"/>
+            <TextBox Text="{Binding RevisionNotes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas (opcional)" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
             <ui:SimpleStackPanel Orientation="Horizontal" Margin="10, 0, 0, 0">
                 <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
                     <StackPanel>
@@ -102,7 +106,8 @@
             </ui:SimpleStackPanel>
         </StackPanel>
         <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnCloseTypeVisibility}">
-            <Button Background="Transparent" Command="{Binding CloseECNCommand}">
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas (opcional)" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
+            <Button Background="Transparent" Command="{Binding CloseECNCommand}" Margin="5, 0, 0, 0">
                 <StackPanel>
                     <Image Source="/Assets/verified.png"/>
                     <TextBlock Text="Cerrar" HorizontalAlignment="Center"/>

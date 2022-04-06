@@ -1,5 +1,6 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Models;
+
 using System.Net;
 using System.Net.Mail;
 
@@ -7,6 +8,35 @@ namespace ECN.Services
 {
     public class MailService : IMailService
     {
+        public void SendApprovedECN(int id, string generatorname)
+        {
+            MailMessage msg = new MailMessage();
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+            msg.From = new MailAddress("ecnsystem@outlook.com");
+            msg.To.Add("controldedocumentos@electri-cord.com.mx");
+
+            msg.Subject = "ECN Aprobado!";
+            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> Control de documentos!</span></strong></span></span></p>" +
+              "<p> &nbsp;</p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El<span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + id + " </strong></span>generado por <span style= 'color:#0066cc'><strong>" + generatorname + " </strong></span> ha sido <span style ='color:#339933'><strong> aprobado </strong></span> y se encuentra pendiente de cerrar.</span></span></p> ";
+
+            msg.IsBodyHtml = true;
+
+            client.Port = 587;
+            client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
+            client.EnableSsl = true;
+
+            try
+            {
+                client.Send(msg);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
         public void SendCancelECN(string email, int id, string generatorname)
         {
             MailMessage msg = new MailMessage();

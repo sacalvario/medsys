@@ -204,6 +204,10 @@ namespace ECN.Models
                     .HasMaxLength(1000)
                     .HasColumnName("Manufacturing_Affectations");
 
+                entity.Property(e => e.Notes)
+                   .HasMaxLength(1000)
+                   .HasColumnName("Notes");
+
                 entity.Property(e => e.OldDocumentLvl)
                     .IsRequired()
                     .HasMaxLength(45)

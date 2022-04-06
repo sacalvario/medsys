@@ -437,10 +437,11 @@ namespace ECN.Services
         }
 
 
-        public bool CloseEcn(Ecn ecn)
+        public bool CloseEcn(Ecn ecn, string notes)
         {
             ecn.StatusId = 3;
             ecn.EndDate = System.DateTime.Today;
+            ecn.Notes = notes;
 
             if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4)
             {
@@ -457,10 +458,11 @@ namespace ECN.Services
             return result > 0;
         }
 
-        public bool CancelEcn(Ecn ecn)
+        public bool CancelEcn(Ecn ecn, string notes)
         {
             ecn.StatusId = 2;
             ecn.EndDate = System.DateTime.Today;
+            ecn.Notes = notes;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -471,9 +473,6 @@ namespace ECN.Services
             Attachment upgraded = context.Attachments.Find(attach);
             upgraded.AttachmentFilename = filename;
             upgraded.AttachmentFile = file;
-
-            //var result = context.SaveChanges();
-            //return result > 0;
         }
 
         public bool UpgradeEcn(Ecn ecn)

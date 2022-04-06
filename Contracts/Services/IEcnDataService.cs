@@ -33,8 +33,8 @@ namespace ECN.Contracts.Services
         Employee NextToSignEcn(Ecn ecn);
         Employee FindSigned(Ecn ecn);
         bool RefuseEcn(Ecn ecn, string notes);
-        bool CloseEcn(Ecn ecn);
-        bool CancelEcn(Ecn ecn);
+        bool CloseEcn(Ecn ecn, string notes);
+        bool CancelEcn(Ecn ecn, string notes);
         void UpgradeAttachment(int attach, string filename, byte[] file);
         void SaveChanges();
         List<Employee> GetAMEF();
