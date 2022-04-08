@@ -10,10 +10,10 @@ namespace ECN.Services
 {
     public class EcnDataService : IEcnDataService
     {
-         private readonly ecnContext context = null;
+        private readonly EcnContext context = null;
         public EcnDataService()
         {
-            context = new ecnContext();
+            context = new EcnContext();
         }
         public async Task<IEnumerable<Ecn>> GetHistoryAsync()
         {
@@ -23,7 +23,7 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetHistory()
         {
-            using ecnContext context = new ecnContext();
+            using EcnContext context = new EcnContext();
             return context.Ecns.Where(data => data.EmployeeId == UserRecord.Employee_ID).ToList();
         }
 
@@ -183,7 +183,7 @@ namespace ECN.Services
 
         private ICollection<EcnRevision> GetRevisions(int ecn)
         {
-            using ecnContext context = new ecnContext();
+            using EcnContext context = new EcnContext();
             return context.EcnRevisions.Where(i => i.EcnId == ecn).ToList();
         }
 
@@ -195,7 +195,7 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetEcnRecords()
         {
-            using ecnContext context = new ecnContext();
+            using EcnContext context = new EcnContext();
             return context.Ecns.ToList();
         }
 
@@ -208,83 +208,6 @@ namespace ECN.Services
         private IEnumerable<Ecn> GetChecklist()
         {
             return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5 && j.EmployeeId == UserRecord.Employee_ID)).ToList();
-        }
-
-        private List<Employee> AMEF()
-        {
-            List<Employee> AMEF = new List<Employee>
-            {
-                context.Employees.Find(126),
-                context.Employees.Find(137),
-                context.Employees.Find(92),
-                context.Employees.Find(8),
-                context.Employees.Find(108),
-                context.Employees.Find(39),
-                context.Employees.Find(2246),
-                context.Employees.Find(198),
-                context.Employees.Find(119)
-            };
-
-            var data = AMEF;
-
-            foreach (var item in data)
-            {
-                item.Department = context.Departments.Find(item.DepartmentId);
-            }
-
-            return AMEF;
-        }
-
-        private List<Employee> AMEFAlta()
-        {
-            List<Employee> AMEF = new List<Employee>
-            {
-                context.Employees.Find(117),
-                context.Employees.Find(2246),
-                context.Employees.Find(119)
-            };
-
-            var data = AMEF;
-
-            foreach (var item in data)
-            {
-                item.Department = context.Departments.Find(item.DepartmentId);
-            }
-
-            return AMEF;
-        }
-
-        private List<Employee> ManualdeCalidad()
-        {
-            List<Employee> QualityManual = new List<Employee>
-            {
-                context.Employees.Find(119),
-                context.Employees.Find(31)
-            };
-
-            var data = QualityManual;
-
-            foreach (var item in data)
-            {
-                item.Department = context.Departments.Find(item.DepartmentId);
-            }
-
-            return QualityManual;
-        }
-
-        public List<Employee> GetAMEF()
-        {
-            return AMEF();
-        }
-
-        public List<Employee> GetAMEFAlta()
-        {
-            return AMEFAlta();
-        }
-
-        public List<Employee> GetManualdeCalidad()
-        {
-            return ManualdeCalidad();
         }
 
         public bool SignEcn(Ecn ecn, string notes)
@@ -320,11 +243,6 @@ namespace ECN.Services
         private ICollection<EcnDocumenttype> GetDocuments(int ecn)
         {
             return context.EcnDocumenttypes.Where(i => i.EcnId == ecn).ToList();
-        }
-
-        public void SaveChanges()
-        {
-            context.SaveChanges();
         }
 
         public bool RefuseEcn(Ecn ecn, string notes)
@@ -448,7 +366,7 @@ namespace ECN.Services
                 var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
                 foreach (var item in data)
                 {
-                    var context = new ecnContext();
+                    var context = new EcnContext();
                     item.Product =  context.Numberparts.FirstOrDefault(data => data.NumberPartNo == item.ProductId);
                     item.Product.NumberPartRev = ecn.DrawingLvl;
                 }

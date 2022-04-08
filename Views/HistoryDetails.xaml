@@ -84,8 +84,8 @@
             <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
             <Run Text="firmas" />
         </TextBlock>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="350, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
-            <TextBlock Text="Notas: " Foreground="Red" FontWeight="Black" FontStyle="Italic" FontSize="15"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="550, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
+            <TextBlock Text="Notas de control de documentos: " Foreground="Red" FontWeight="Black" FontStyle="Italic" FontSize="15"/>
             <TextBlock Text="{Binding Ecn.Notes}" FontStyle="Italic" FontSize="15"/>
         </StackPanel>
         <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
@@ -99,7 +99,7 @@
                 </Button>
                 <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
                     <StackPanel>
-                        <Image Source="/Assets/refuse.png" />
+                        <Image Source="/Assets/refuse.png"  />
                         <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>

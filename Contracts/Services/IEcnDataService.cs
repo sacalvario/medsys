@@ -1,4 +1,5 @@
 ﻿using ECN.Models;
+
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -36,10 +37,6 @@ namespace ECN.Contracts.Services
         bool CloseEcn(Ecn ecn, string notes);
         bool CancelEcn(Ecn ecn, string notes);
         void UpgradeAttachment(int attach, string filename, byte[] file);
-        void SaveChanges();
-        List<Employee> GetAMEF();
-        List<Employee> GetAMEFAlta();
-        List<Employee> GetManualdeCalidad();
         int GetClosedEcnCount();
         int GetOnHoldEcnCount();
         int GetApprovedEcnCount();

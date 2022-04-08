@@ -8,10 +8,10 @@ namespace ECN.Services
 {
     public class LoginDataService : ILoginDataService
     {
-        private readonly ecnContext context = null;
+        private readonly EcnContext context = null;
         public LoginDataService()
         {
-            context = new ecnContext();
+            context = new EcnContext();
         }
 
         public bool Exist(string employeeid)

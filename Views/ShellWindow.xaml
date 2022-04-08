@@ -27,7 +27,7 @@
                         <ui:MenuFlyout Placement="BottomEdgeAlignedRight">
                             <MenuItem Header="Cerrar sesión" Command="{Binding SignOutCommand}">
                                 <MenuItem.Icon>
-                                    <Image Source="/Assets/delete.png" />
+                                    <Image Source="/Assets/logout.png" />
                                 </MenuItem.Icon>
                             </MenuItem>
                         </ui:MenuFlyout>

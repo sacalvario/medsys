@@ -20,10 +20,10 @@ namespace ECN.ViewModels
     {
         public IEcnDataService _ecnDataService;
         public INumberPartsDataService _numberPartsDataService;
-        private IOpenFileService _openFileService;
-        private IWindowManagerService _windowManagerService;
-        private IMailService _mailService;
-        private INavigationService _navigationService;
+        private readonly IOpenFileService _openFileService;
+        private readonly IWindowManagerService _windowManagerService;
+        private readonly IMailService _mailService;
+        private readonly INavigationService _navigationService;
 
         private Ecn _ecn;
         public Ecn Ecn
@@ -554,7 +554,7 @@ namespace ECN.ViewModels
                 }
             }
 
-            if ((Ecn.Status.StatusId == 3 || Ecn.Status.StatusId == 2) && Ecn.Notes != string.Empty)
+            if ((Ecn.Status.StatusId == 3 || Ecn.Status.StatusId == 2) && Ecn.Notes != string.Empty && Ecn.Notes != null)
             {
                 ECNNotesVisibility = Visibility.Visible;
             }
@@ -752,8 +752,8 @@ namespace ECN.ViewModels
                     AttachmentFile = File.ReadAllBytes(_openFileService.Path)
                 };
 
-                _ecnDataService.UpgradeAttachment( attachment.AttachmentId, newattachment.AttachmentFilename, newattachment.AttachmentFile);
-                Attachments.Remove(attachment);
+                _ecnDataService.UpgradeAttachment(attachment.AttachmentId, newattachment.AttachmentFilename, newattachment.AttachmentFile);
+                _ = Attachments.Remove(attachment);
                 Attachments.Add(newattachment);
             }
         }
