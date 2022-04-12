@@ -23,6 +23,7 @@ namespace ECN.Services
 
         public IEnumerable<Numberpart> GetNumberParts()
         {
+            using EcnContext context = new EcnContext();
             return context.Numberparts.ToList();
         }
 

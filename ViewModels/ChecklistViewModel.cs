@@ -1,8 +1,10 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;

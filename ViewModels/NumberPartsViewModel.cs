@@ -1,6 +1,8 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
+
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.ComponentModel;
@@ -153,7 +155,6 @@ namespace ECN.ViewModels
             }
         }
 
-
         private string revision;
         public string Revision
         {
@@ -165,7 +166,6 @@ namespace ECN.ViewModels
                 
             }
         }
-
 
         private void OnFilterChanged()
         {
@@ -185,7 +185,6 @@ namespace ECN.ViewModels
                 }
             }
         }
-
 
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
@@ -214,7 +213,6 @@ namespace ECN.ViewModels
                 }
             }
         }
-
 
         private void ApplyFilter(object sender, FilterEventArgs e)
         {

@@ -207,12 +207,13 @@ namespace ECN.Services
 
         private IEnumerable<Ecn> GetChecklist()
         {
+            using EcnContext context = new EcnContext();
             return context.Ecns.Where(i => i.EcnRevisions.Any(j => j.StatusId == 5 && j.EmployeeId == UserRecord.Employee_ID)).ToList();
         }
 
         public bool SignEcn(Ecn ecn, string notes)
         {
-            EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.EmployeeId == UserRecord.Employee_ID && data.EcnId == ecn.Id);
+            EcnRevision revision = context.EcnRevisions.First(data => data.EmployeeId == UserRecord.Employee_ID && data.EcnId == ecn.Id);
             revision.StatusId = 4;
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
@@ -223,15 +224,10 @@ namespace ECN.Services
             {
                 nextrevision.StatusId = 5;
             }
-            else
-            {
-                ecn.StatusId = 4;
-            }
-
 
             var result = context.SaveChanges();
             return result > 0;
-            
+           
         }
 
         public async Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn)
@@ -252,37 +248,7 @@ namespace ECN.Services
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
 
-            if (ecn.DocumentType.DocumentTypeId != 3 && ecn.DocumentType.DocumentTypeId != 9 && ecn.DocumentType.DocumentTypeId != 14)
-            {
-                ecn.StatusId = 1;
-            }
-            else
-            {
-                EcnRevision nextrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence + 1 && data.EcnId == ecn.Id);
-
-                if (revision.RevisionSequence == 3)
-                {
-                    EcnRevision lastrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 1 && data.EcnId == ecn.Id);
-                    EcnRevision firstrevision = context.EcnRevisions.FirstOrDefault(data => data.RevisionSequence == revision.RevisionSequence - 2 && data.EcnId == ecn.Id);
-                    
-                    if (lastrevision.StatusId == 6 && firstrevision.StatusId == 6)
-                    {
-                        ecn.StatusId = 1;
-                    }
-                    else
-                    {
-                        nextrevision.StatusId = 5;
-                    }
-                }
-                else if (revision.RevisionSequence < 3 && nextrevision != null)
-                {
-                    nextrevision.StatusId = 5;
-                }
-                else if (revision.RevisionSequence > 3)
-                {
-                    ecn.StatusId = 1;
-                }
-            }
+            ecn.StatusId = 1;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -361,13 +327,13 @@ namespace ECN.Services
             ecn.EndDate = System.DateTime.Today;
             ecn.Notes = notes;
 
-            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4)
+            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4 || ecn.DocumentTypeId == 15 || ecn.DocumentTypeId == 16)
             {
                 var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
                 foreach (var item in data)
                 {
                     var context = new EcnContext();
-                    item.Product =  context.Numberparts.FirstOrDefault(data => data.NumberPartNo == item.ProductId);
+                    item.Product = context.Numberparts.FirstOrDefault(data => data.NumberPartNo == item.ProductId);
                     item.Product.NumberPartRev = ecn.DrawingLvl;
                 }
             }
@@ -414,6 +380,14 @@ namespace ECN.Services
                 return GetEmployee(revision.EmployeeId);
             }
             return null;
+        }
+
+        public bool ApproveEcn(Ecn ecn)
+        {
+            ecn.StatusId = 4;
+
+            var result = context.SaveChanges();
+            return result > 0;
         }
     }
 }

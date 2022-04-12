@@ -14,8 +14,8 @@ namespace ECN.ViewModels
 {
     public class EcnRecordsViewModel : ViewModelBase, INavigationAware
     {
-        private IEcnDataService _ecnDataService;
-        private INavigationService _navigationService;
+        private readonly IEcnDataService _ecnDataService;
+        private readonly INavigationService _navigationService;
 
         private ICommand _navigateToDetailCommand;
         public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);

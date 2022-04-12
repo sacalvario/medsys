@@ -634,7 +634,7 @@ namespace ECN.ViewModels
                     EcnNumberPartsVisibility = Visibility.Visible;
                 }
 
-                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4)
+                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4 || Ecn.DocumentType.DocumentTypeId == 15 || Ecn.DocumentType.DocumentTypeId == 16)
                 {
                     if (Ecn.ChangeType.ChangeTypeId != 3)
                     {
@@ -770,7 +770,10 @@ namespace ECN.ViewModels
                 }
                 else
                 {
-                    _mailService.SendApprovedECN(Ecn.Id, Ecn.Employee.Name);
+                    if (_ecnDataService.ApproveEcn(Ecn))
+                    {
+                        _mailService.SendApprovedECN(Ecn.Id, Ecn.Employee.Name);
+                    }
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha validado el ECN.");
@@ -784,33 +787,12 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.RefuseEcn(Ecn, RevisionNotes))
             {
-                if (Ecn.DocumentType.DocumentTypeId == 3 || Ecn.DocumentType.DocumentTypeId == 9 || Ecn.DocumentType.DocumentTypeId == 14)
+                foreach (var item in Revisions)
                 {
-                    Employee emp = _ecnDataService.NextToSignEcn(Ecn);
-
-                    if (emp != null)
-                    {
-                        _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
-                    }
-                    else
-                    {
-                        foreach (var item in Revisions)
-                        {
-                            _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
-                        }
-
-                        _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
-                    }
+                    _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
                 }
-                else
-                {
-                    foreach (var item in Revisions)
-                    {
-                        _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
-                    }
 
-                    _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
-                }
+                _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
                 RevisionNotes = string.Empty;

@@ -7,7 +7,6 @@
         xmlns:dd="urn:gong-wpf-dragdrop"
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding EmployeesViewModel, Source={StaticResource Locator}}"
-        xmlns:local="clr-namespace:ECN.Views"
         mc:Ignorable="d"
         Title="Employees" Height="555" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 

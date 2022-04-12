@@ -95,12 +95,12 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IShellWindow, ShellWindow>();
             SimpleIoc.Default.Register<ILoginWindow, ShellLogin>();
             SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
+            SimpleIoc.Default.Register<INumberPartsWindow, NumberParts>();
+            SimpleIoc.Default.Register<IEmployeesWindow, Employees>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<ShellLoginViewModel>();
-            SimpleIoc.Default.Register<NumberParts>();
             SimpleIoc.Default.Register<NumberPartsViewModel>();
-            SimpleIoc.Default.Register<Employees>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<Report>();
             SimpleIoc.Default.Register<ReportViewModel>();
@@ -147,7 +147,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<NumberPartsViewModel>();
         }
 
-        public static void UnregisterEmployeestViewModel()
+        public static void UnregisterEmployeesViewModel()
         {
             SimpleIoc.Default.Unregister<EmployeesViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();

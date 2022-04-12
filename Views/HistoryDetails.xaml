@@ -84,7 +84,7 @@
             <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
             <Run Text="firmas" />
         </TextBlock>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="550, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="650, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
             <TextBlock Text="Notas de control de documentos: " Foreground="Red" FontWeight="Black" FontStyle="Italic" FontSize="15"/>
             <TextBlock Text="{Binding Ecn.Notes}" FontStyle="Italic" FontSize="15"/>
         </StackPanel>

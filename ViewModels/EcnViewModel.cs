@@ -1,14 +1,17 @@
 ﻿using ECN.Contracts.Services;
+using ECN.Contracts.Views;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
 
 using System;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
+using System.Linq;
 using System.Windows;
 using System.Windows.Input;
 
@@ -21,6 +24,8 @@ namespace ECN.ViewModels
         private readonly IOpenFileService _openFileService;
         private readonly IWindowManagerService _windowManagerService;
         private readonly IMailService _mailService;
+        private INumberPartsWindow _numberPartsWindow;
+        private IEmployeesWindow _employeesWindow;
 
         private Ecn _ECN;
         public Ecn ECN
@@ -264,13 +269,13 @@ namespace ECN.ViewModels
                         ECN.DocumentNo = "N/A";
                         ECN.DocumentType = SelectedDocumentType;
 
-                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4)
+                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4 && ECN.DocumentType.DocumentTypeId == 15 && ECN.DocumentType.DocumentTypeId == 16)
                         {
                             ECN.OldDrawingLvl = "N/A";
                             ECN.DrawingLvl = "N/A";
                             RegisterECN();
                         }
-                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4)
+                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4 || ECN.DocumentType.DocumentTypeId == 15 || ECN.DocumentType.DocumentTypeId == 16)
                         {
                             if (ECN.DrawingLvl != null && ECN.OldDrawingLvl != null)
                             {
@@ -414,7 +419,7 @@ namespace ECN.ViewModels
                     ResetData();
                     SelectedTabItem = 0;
                     ViewModelLocator.UnregisterNumberPartViewModel();
-                    ViewModelLocator.UnregisterEmployeestViewModel();
+                    ViewModelLocator.UnregisterEmployeesViewModel();
                 }
 
             }
@@ -444,7 +449,11 @@ namespace ECN.ViewModels
 
         private void OpenNumberPartsDialog()
         {
-            Messenger.Default.Send(new NotificationMessage("ShowNumberParts"));
+            if (Application.Current.Windows.OfType<INumberPartsWindow>().Count() == 0)
+            {
+                _numberPartsWindow = SimpleIoc.Default.GetInstance<INumberPartsWindow>(Guid.NewGuid().ToString());
+                _numberPartsWindow.ShowWindow();
+            }
         }
 
         private void RemoveNumberPart(Numberpart numberpart)
@@ -481,7 +490,11 @@ namespace ECN.ViewModels
 
         private void OpenSignatureFlowDialog()
         {
-            Messenger.Default.Send(new NotificationMessage("ShowEmployees"));
+            if (Application.Current.Windows.OfType<IEmployeesWindow>().Count() == 0)
+            {
+                _employeesWindow = SimpleIoc.Default.GetInstance<IEmployeesWindow>(Guid.NewGuid().ToString());
+                _employeesWindow.ShowWindow();
+            }
         }
 
         private void ResetData()
@@ -645,7 +658,7 @@ namespace ECN.ViewModels
 
                     if (_SelectedDocumentType != null)
                     {
-                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4)
+                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4 || _SelectedDocumentType.DocumentTypeId == 15 || _SelectedDocumentType.DocumentTypeId == 16)
                         {
                             EcnChangeCustomerRevision = Visibility.Visible;
                         }

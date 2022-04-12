@@ -1,5 +1,5 @@
 ﻿
-using GalaSoft.MvvmLight.Messaging;
+
 using System.Windows.Controls;
 
 namespace ECN.Views
@@ -12,23 +12,8 @@ namespace ECN.Views
         public Ecn()
         {
             InitializeComponent();
-            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived);
         }
 
-        private void NotificationMessageReceived(NotificationMessage msg)
-        {
-            if (msg.Notification == "ShowNumberParts")
-            {
-                var numberparts = new NumberParts();
-                _ = numberparts.ShowDialog();
-            }
-
-            else if (msg.Notification == "ShowEmployees")
-            {
-                var employees = new Employees();
-                _ = employees.ShowDialog();
-            }
-        }
 
     }
 }

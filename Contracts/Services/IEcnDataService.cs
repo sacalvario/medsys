@@ -31,6 +31,7 @@ namespace ECN.Contracts.Services
         bool SaveEcn(Ecn ecn);
         bool SignEcn(Ecn ecn, string notes);
         bool UpgradeEcn(Ecn ecn);
+        bool ApproveEcn(Ecn ecn);
         Employee NextToSignEcn(Ecn ecn);
         Employee FindSigned(Ecn ecn);
         bool RefuseEcn(Ecn ecn, string notes);
