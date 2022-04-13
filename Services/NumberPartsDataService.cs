@@ -1,5 +1,6 @@
 ﻿using ECN.Contracts.Services;
 using ECN.Models;
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -90,7 +91,7 @@ namespace ECN.Services
 
         private IEnumerable<EcnNumberpart> GetNumberPartHistory()
         {
-            return context.EcnNumberparts.Where(data => (data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4) && data.Ecn.StatusId == 3).ToList();
+            return context.EcnNumberparts.Where(data => (data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4 || data.Ecn.DocumentTypeId == 15 || data.Ecn.DocumentTypeId == 16 || data.Ecn.DocumentTypeId == 17) && data.Ecn.StatusId == 3).ToList();
         }
     }
 }

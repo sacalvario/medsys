@@ -634,7 +634,7 @@ namespace ECN.ViewModels
                     EcnNumberPartsVisibility = Visibility.Visible;
                 }
 
-                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4 || Ecn.DocumentType.DocumentTypeId == 15 || Ecn.DocumentType.DocumentTypeId == 16)
+                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4 || Ecn.DocumentType.DocumentTypeId == 15 || Ecn.DocumentType.DocumentTypeId == 16 || Ecn.DocumentType.DocumentTypeId == 17)
                 {
                     if (Ecn.ChangeType.ChangeTypeId != 3)
                     {
@@ -738,7 +738,6 @@ namespace ECN.ViewModels
                     }
                 };
                 _ = process.Start();
-
             }
         }
 

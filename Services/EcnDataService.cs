@@ -56,7 +56,6 @@ namespace ECN.Services
 
         private Status GetStatus(int id)
         {
-            //using ecnContext context = new ecnContext();
             return context.Statuses.Find(id);
         }
 
@@ -248,7 +247,8 @@ namespace ECN.Services
             revision.RevisionDate = System.DateTime.Now;
             revision.Notes = notes;
 
-            ecn.StatusId = 1;
+            Ecn EcnUpgraded = context.Ecns.Find(ecn.Id);
+            EcnUpgraded.StatusId = 1;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -327,7 +327,7 @@ namespace ECN.Services
             ecn.EndDate = System.DateTime.Today;
             ecn.Notes = notes;
 
-            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4 || ecn.DocumentTypeId == 15 || ecn.DocumentTypeId == 16)
+            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4 || ecn.DocumentTypeId == 15 || ecn.DocumentTypeId == 16 || ecn.DocumentTypeId == 17)
             {
                 var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
                 foreach (var item in data)
@@ -384,8 +384,9 @@ namespace ECN.Services
 
         public bool ApproveEcn(Ecn ecn)
         {
-            ecn.StatusId = 4;
-
+            Ecn EcnUpgraded = context.Ecns.Find(ecn.Id);
+            EcnUpgraded.StatusId = 4;
+                 
             var result = context.SaveChanges();
             return result > 0;
         }

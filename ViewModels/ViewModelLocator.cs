@@ -78,7 +78,6 @@ namespace ECN.ViewModels
             // App Host
             SimpleIoc.Default.Register<IApplicationHostService, ApplicationHostService>();
 
-
             // Data Services
             SimpleIoc.Default.Register<IEcnDataService, EcnDataService>();
             SimpleIoc.Default.Register<INumberPartsDataService, NumberPartsDataService>();
@@ -105,6 +104,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<Report>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<Models.Ecn>();
+
             // Pages
             Register<HistoryViewModel, History>();
             Register<EcnViewModel, Views.Ecn>();

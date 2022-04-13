@@ -5,7 +5,6 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Messaging;
 
 using System;
 using System.Collections.ObjectModel;
@@ -269,13 +268,13 @@ namespace ECN.ViewModels
                         ECN.DocumentNo = "N/A";
                         ECN.DocumentType = SelectedDocumentType;
 
-                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4 && ECN.DocumentType.DocumentTypeId == 15 && ECN.DocumentType.DocumentTypeId == 16)
+                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4 && ECN.DocumentType.DocumentTypeId == 15 && ECN.DocumentType.DocumentTypeId == 16 && ECN.DocumentType.DocumentTypeId == 17)
                         {
                             ECN.OldDrawingLvl = "N/A";
                             ECN.DrawingLvl = "N/A";
                             RegisterECN();
                         }
-                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4 || ECN.DocumentType.DocumentTypeId == 15 || ECN.DocumentType.DocumentTypeId == 16)
+                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4 || ECN.DocumentType.DocumentTypeId == 15 || ECN.DocumentType.DocumentTypeId == 16 || ECN.DocumentType.DocumentTypeId == 17)
                         {
                             if (ECN.DrawingLvl != null && ECN.OldDrawingLvl != null)
                             {
@@ -658,7 +657,7 @@ namespace ECN.ViewModels
 
                     if (_SelectedDocumentType != null)
                     {
-                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4 || _SelectedDocumentType.DocumentTypeId == 15 || _SelectedDocumentType.DocumentTypeId == 16)
+                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4 || _SelectedDocumentType.DocumentTypeId == 15 || _SelectedDocumentType.DocumentTypeId == 16 || _SelectedDocumentType.DocumentTypeId == 17)
                         {
                             EcnChangeCustomerRevision = Visibility.Visible;
                         }
