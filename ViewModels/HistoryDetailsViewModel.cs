@@ -738,8 +738,8 @@ namespace ECN.ViewModels
                     }
                 };
                 _ = process.Start();
-            }
         }
+    }
 
         private void ChangeAttachment(Attachment attachment)
         {

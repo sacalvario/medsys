@@ -5,6 +5,7 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
       xmlns:fdg="http://filterdatagrid.control.com/2021"
+      xmlns:ui="http://schemas.modernwpf.com/2019"
       x:Class="ECN.Views.EcnRecords"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1350"
@@ -64,7 +65,31 @@
     </Page.DataContext>
 
     <Grid Background="#FFE0E0E0">
-        <fdg:FilterDataGrid ItemsSource="{Binding EcnRecords.View, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterDatagridStyle}" Margin="40"
+        <StackPanel VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Margin="40, 10, 0, 0">
+            <StackPanel Orientation="Horizontal" 
+                        HorizontalAlignment="Left" 
+                        Margin="0, 0, 0, 5">
+                <Label Content="Buscar" 
+                       FontFamily="Quicksand Medium" 
+                       FontSize="16" />
+                <Image Source="/Assets/search.png"
+                       Width="22" 
+                       Margin="2, 0, 0, 0"/>
+            </StackPanel>
+            <TextBox Text="{Binding Path=Filter, UpdateSourceTrigger=PropertyChanged}"
+                     Background="#FFFF0033"
+                     Foreground="White"
+                     BorderThickness="0"
+                     FontFamily="Quicksand Medium" 
+                     FontSize="15" 
+                     ui:ControlHelper.PlaceholderText="Ingresa un folio" 
+                     ui:ControlHelper.PlaceholderForeground="White"
+                     Width="450"  />
+        </StackPanel>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Center" Content="Exportar" Margin="0, 35" Command="{Binding ExportCommand}"/>
+        <fdg:FilterDataGrid ItemsSource="{Binding FilteredList, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterDatagridStyle}" Margin="40, 100, 40, 0"
                             DateFormatString="d"
                             AutoGenerateColumns="False"
                             SelectedItem="{Binding SelectedItem}"
@@ -91,11 +116,11 @@
                         </DataTemplate>
                     </fdg:DataGridTemplateColumn.CellTemplate>
                 </fdg:DataGridTemplateColumn>
-                <fdg:DataGridTextColumn Binding="{Binding StartDate}" Header="Fecha de inicio" IsColumnFiltered="True"/>
-                <fdg:DataGridTextColumn Header="Tipo de cambio" Binding="{Binding ChangeTypeName}" IsColumnFiltered="True" SortMemberPath="ChangeType.ChangeTypeName" FontWeight="Bold" Width="130" />
-                <fdg:DataGridTextColumn Header="Tipo de documento" Binding="{Binding DocumentTypeName}" IsColumnFiltered="True" SortMemberPath="DocumentType.DocumentTypeName" FontWeight="Bold" Width="280" />
-                <fdg:DataGridTextColumn Header="Número de documento" Binding="{Binding DocumentNo}" IsColumnFiltered="True" SortMemberPath="DocumentNo" FontWeight="DemiBold" Width="200" />
-                <fdg:DataGridTextColumn Header="Nombre de documento" Binding="{Binding DocumentName}" IsColumnFiltered="True" SortMemberPath="DocumentName" FontWeight="DemiBold" Width="200" />
+                <fdg:DataGridTextColumn Binding="{Binding StartDate}" Header="Fecha de inicio" IsColumnFiltered="True" Width="170"/>
+                <fdg:DataGridTextColumn Header="Tipo de cambio" Binding="{Binding ChangeTypeName}" IsColumnFiltered="True" SortMemberPath="ChangeType.ChangeTypeName" FontWeight="Bold" Width="200" />
+                <fdg:DataGridTextColumn Header="Tipo de documento" Binding="{Binding DocumentTypeName}" IsColumnFiltered="True" SortMemberPath="DocumentType.DocumentTypeName" FontWeight="Bold" Width="290" />
+                <fdg:DataGridTextColumn Header="Número de documento" Binding="{Binding DocumentNo}" IsColumnFiltered="True" SortMemberPath="DocumentNo" FontWeight="DemiBold" Width="210" />
+                <fdg:DataGridTextColumn Header="Nombre de documento" Binding="{Binding DocumentName}" IsColumnFiltered="True" SortMemberPath="DocumentName" FontWeight="DemiBold" Width="210" />
                 <fdg:DataGridTemplateColumn Header="Generado por" SortMemberPath="Employee.Name" Width="300" IsColumnFiltered="True" FieldName="EmployeeName">
                     <fdg:DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
