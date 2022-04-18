@@ -9,31 +9,24 @@
     <Company>Electri-Cord</Company>
     <Product>ECN System</Product>
     <Authors>Calvario Reyes Simón Alejandro</Authors>
-    <NoWin32Manifest>true</NoWin32Manifest>
-    <ApplicationIcon></ApplicationIcon>
+    <ApplicationIcon>ecnicon.ico</ApplicationIcon>
     <AssemblyName>ECN</AssemblyName>
+    <Win32Resource />
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="Assets\add.png" />
     <None Remove="Assets\approvedfile.png" />
     <None Remove="Assets\attach.png" />
     <None Remove="Assets\attachment.png" />
     <None Remove="Assets\change.png" />
     <None Remove="Assets\checkgreen.png" />
-    <None Remove="Assets\completo.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\docs.png" />
     <None Remove="Assets\docs96.png" />
     <None Remove="Assets\document64.png" />
-    <None Remove="Assets\download.png" />
     <None Remove="Assets\downloadblack.png" />
-    <None Remove="Assets\electric.png" />
-    <None Remove="Assets\employee.png" />
-    <None Remove="Assets\excel2.png" />
-    <None Remove="Assets\eye.png" />
     <None Remove="Assets\historyred.png" />
-    <None Remove="Assets\image.png" />
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\logorecortado.png" />
     <None Remove="Assets\logout.png" />
@@ -43,8 +36,6 @@
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug48.png" />
     <None Remove="Assets\plugicon.png" />
-    <None Remove="Assets\powerpoint.png" />
-    <None Remove="Assets\records.png" />
     <None Remove="Assets\refresh.png" />
     <None Remove="Assets\refuse.png" />
     <None Remove="Assets\registerdocument.png" />
@@ -52,28 +43,33 @@
     <None Remove="Assets\return.png" />
     <None Remove="Assets\rightred.png" />
     <None Remove="Assets\search.png" />
-    <None Remove="Assets\signed.png" />
-    <None Remove="Assets\signed_.png" />
     <None Remove="Assets\signing.png" />
     <None Remove="Assets\task2.png" />
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\userw.png" />
-    <None Remove="Assets\usuario.png" />
     <None Remove="Assets\verified.png" />
-    <None Remove="Assets\view.png" />
-    <None Remove="Assets\wire-white.png" />
     <None Remove="Assets\wire.png" />
-    <None Remove="Assets\word.png" />
   </ItemGroup>
   <ItemGroup>
+    <COMReference Include="Microsoft.Office.Interop.Excel">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>8</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>00020813-0000-0000-c000-000000000046</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="FilterDataGrid" Version="1.2.5" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
     <PackageReference Include="MahApps.Metro" Version="2.4.9" />
     <PackageReference Include="MaterialDesignThemes" Version="4.4.0-ci74" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="6.0.1" />
-    <PackageReference Include="Microsoft.Office.Interop.Excel" Version="15.0.4795.1000" />
     <PackageReference Include="ModernWpfUI" Version="0.9.4" />
     <PackageReference Include="MvvmLightLibsStd10" Version="5.4.1.1" />
     <PackageReference Include="PdfSharp.Xps.dotNet.Core" Version="1.0.2" />
@@ -82,9 +78,6 @@
     <PackageReference Include="SimpleWPFReportingNETCore" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\add.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\attach.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -109,25 +102,7 @@
     <Content Include="Assets\docs96.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\download.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\electric.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\employee.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\excel2.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\eye.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\historyred.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\image.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\logorecortado.png">
@@ -151,12 +126,6 @@
     <Content Include="Assets\plugicon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\powerpoint.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\records.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\refresh.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -178,12 +147,6 @@
     <Content Include="Assets\search.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\signed.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\signed_.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\signing.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -196,22 +159,10 @@
     <Content Include="Assets\userw.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\usuario.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\verified.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\view.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\wire-white.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="Assets\wire.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\word.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -262,12 +213,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Assets\completo.png">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Include="Assets\panerecord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -278,4 +223,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+
+  <!--<ItemGroup>
+    <Reference Include="Microsoft.Office.Interop.Excel">
+      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
+    </Reference>
+  </ItemGroup>-->
 </Project>
