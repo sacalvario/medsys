@@ -8,6 +8,7 @@
         DataContext="{Binding NumberPartsViewModel, Source={StaticResource Locator}}"
         ui:WindowHelper.UseModernWindowStyle="True"
         mc:Ignorable="d"
+        Icon="/plug.ico"
         Title="NumberParts" Height="470" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>

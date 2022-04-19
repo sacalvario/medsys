@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:dd="urn:gong-wpf-dragdrop"
+        Icon="/plug.ico"
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding EmployeesViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"

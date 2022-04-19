@@ -11,6 +11,7 @@
     mc:Ignorable="d"
     Width="1366"
     Height="768"
+    Icon="/plug.ico"
     WindowStartupLocation="CenterScreen">
 
     <DockPanel>
@@ -38,6 +39,15 @@
 
 
         <ui:NavigationView Name="nv" IsSettingsVisible="False" PaneDisplayMode="LeftCompact" IsBackButtonVisible="Collapsed" CompactPaneLength="50" SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}">
+            <ui:NavigationView.PaneHeader>
+                <StackPanel Orientation="Horizontal" Margin="12, 5">
+                    <Image Source="/Assets/plug.png" Width="38"/>
+                    <StackPanel Margin="10, 0, 0, 0">
+                        <TextBlock Text="ECN System" FontWeight="Black" FontSize="16"/>
+                        <TextBlock Text="Electri-Cord" FontWeight="Black" FontSize="16"/>
+                    </StackPanel>
+                </StackPanel>
+            </ui:NavigationView.PaneHeader>
             <ui:NavigationView.MenuItems>
                 <!--<ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">

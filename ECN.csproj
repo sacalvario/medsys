@@ -9,7 +9,7 @@
     <Company>Electri-Cord</Company>
     <Product>ECN System</Product>
     <Authors>Calvario Reyes Simón Alejandro</Authors>
-    <ApplicationIcon>ecnicon.ico</ApplicationIcon>
+    <ApplicationIcon></ApplicationIcon>
     <AssemblyName>ECN</AssemblyName>
     <Win32Resource />
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -50,6 +50,8 @@
     <None Remove="Assets\userw.png" />
     <None Remove="Assets\verified.png" />
     <None Remove="Assets\wire.png" />
+    <None Remove="Assets\xls.png" />
+    <None Remove="plug.ico" />
   </ItemGroup>
   <ItemGroup>
     <COMReference Include="Microsoft.Office.Interop.Excel">
@@ -63,7 +65,6 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="ClosedXML" Version="0.95.4" />
     <PackageReference Include="FilterDataGrid" Version="1.2.5" />
     <PackageReference Include="gong-wpf-dragdrop" Version="3.1.1" />
     <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
@@ -165,6 +166,9 @@
     <Content Include="Assets\wire.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\xls.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
   <ItemGroup>
@@ -224,9 +228,10 @@
     </Content>
   </ItemGroup>
 
-  <!--<ItemGroup>
-    <Reference Include="Microsoft.Office.Interop.Excel">
-      <HintPath>..\..\..\Windows\assembly\GAC_MSIL\Microsoft.Office.Interop.Excel\15.0.0.0__71e9bce111e9429c\Microsoft.Office.Interop.Excel.dll</HintPath>
-    </Reference>
-  </ItemGroup>-->
+  <ItemGroup>
+    <Resource Include="plug.ico">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
 </Project>

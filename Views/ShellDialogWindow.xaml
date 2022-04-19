@@ -11,6 +11,7 @@
     ShowMaxRestoreButton="False"
     BorderBrush="Black"
     ShowActivated="True"
+    Icon="/plug.ico"
     WindowStartupLocation="CenterScreen"
     mc:Ignorable="d"
     Width="350"

@@ -6,13 +6,19 @@
       xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding LoginViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="400"
+      d:DesignHeight="600" d:DesignWidth="430"
       Title="Login">
 
     <StackPanel Margin="25" Background="White">
-        <TextBlock Text="Inicio de sesión" FontWeight="Bold" Foreground="Red" FontSize="15" HorizontalAlignment="Center" Margin="0, 10, 0, 0"/>
-        <TextBox Text="{Binding Username}" Margin="15, 20" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
-        <PasswordBox Margin="15, 20" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
+            <Image Source="/Assets/plug.png" Width="46"/>
+            <StackPanel Margin="10, 0" VerticalAlignment="Center">
+                <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
+                <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
+            </StackPanel>
+        </StackPanel>
+        <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
+        <PasswordBox Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0">
             <Run Text="¿No tienes una cuenta?"/>
             <Run Text="Registrate ahora" Foreground="Red" Cursor="Hand" Focusable="True">
@@ -21,6 +27,6 @@
                 </Run.InputBindings>
             </Run>
         </TextBlock>
-        <Button Margin="50, 70" Content="Iniciar sesión" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding LoginCommand}" Cursor="Hand"/>
+        <Button Margin="50, 70" Content="Iniciar sesión" Style="{StaticResource MaterialDesignRaisedDarkButton}" Command="{Binding LoginCommand}" Cursor="Hand" Background="#FFF10303"/>
     </StackPanel>
 </Page>

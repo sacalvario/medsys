@@ -10,5 +10,6 @@ namespace ECN.Contracts.Services
         string Path { get; set; }
         bool OpenFileDialog();
         bool SaveFileDialog(string filename);
+        bool SaveFileExportDialog();
     }
 }

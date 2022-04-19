@@ -1,4 +1,5 @@
-﻿using ClosedXML.Excel;
+﻿//using ClosedXML.Excel;
+
 using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
 using ECN.Models;
@@ -6,17 +7,12 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
-using Microsoft.Win32;
-
 using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
-
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ECN.ViewModels
 {
@@ -25,6 +21,7 @@ namespace ECN.ViewModels
         private readonly IEcnDataService _ecnDataService;
         private readonly INavigationService _navigationService;
         private readonly IOpenFileService _openFileService;
+        private readonly IWindowManagerService _windowManagerService;
 
         private ICollectionView collView;
 
@@ -43,11 +40,12 @@ namespace ECN.ViewModels
 
         private ICommand _navigateToDetailCommand;
         public ICommand NavigateToDetailCommand => _navigateToDetailCommand ??= new RelayCommand<Ecn>(NavigateToDetail);
-        public EcnRecordsViewModel(IEcnDataService ecnDataService, INavigationService navigationService, IOpenFileService openFileService)
+        public EcnRecordsViewModel(IEcnDataService ecnDataService, INavigationService navigationService, IOpenFileService openFileService, IWindowManagerService windowManagerService)
         {
             _ecnDataService = ecnDataService;
             _navigationService = navigationService;
             _openFileService = openFileService;
+            _windowManagerService = windowManagerService;
 
             FilteredList = new ObservableCollection<Ecn>();
         }
@@ -167,149 +165,89 @@ namespace ECN.ViewModels
 
         private void ExportToExcel()
         {
-            if (_openFileService.SaveFileDialog("ECN'S.xlsx"))
-            {
-                var workbook = new XLWorkbook();
-                var worksheet = workbook.Worksheets.Add("Datos");
+            //if (_openFileService.SaveFileExportDialog())
+            //{
+            //    var workbook = new XLWorkbook();
+            //    var worksheet = workbook.Worksheets.Add("Datos");
 
-                worksheet.Cell(1, 1).Value = "Folio";
-                worksheet.Cell(1, 2).Value = "Fecha de inicio";
-                worksheet.Cell(1, 3).Value = "Tipo de cambio";
-                worksheet.Cell(1, 4).Value = "Tipo de documento";
-                worksheet.Cell(1, 5).Value = "Nombre de documento";
-                worksheet.Cell(1, 6).Value = "Número de documento";
-                worksheet.Cell(1, 7).Value = "Generado por";
-                worksheet.Cell(1, 8).Value = "Estatus";
+            //    worksheet.Cell(1, 1).Value = "Folio";
+            //    worksheet.Cell(1, 2).Value = "Fecha de inicio";
+            //    worksheet.Cell(1, 3).Value = "Fecha de cierre";
+            //    worksheet.Cell(1, 4).Value = "Tipo de cambio";
+            //    worksheet.Cell(1, 5).Value = "Tipo de documento";
+            //    worksheet.Cell(1, 6).Value = "Nombre de documento";
+            //    worksheet.Cell(1, 7).Value = "Número de documento";
+            //    worksheet.Cell(1, 8).Value = "Nivel de revisión anterior de documento";
+            //    worksheet.Cell(1, 9).Value = "Nivel de revisión actual de documento";
+            //    worksheet.Cell(1, 10).Value = "Nivel de revisión anterior de dibujo";
+            //    worksheet.Cell(1, 11).Value = "Nivel de revisión actual de dibujo";
+            //    worksheet.Cell(1, 12).Value = "Generado por";
+            //    worksheet.Cell(1, 13).Value = "Descripción del cambio";
+            //    worksheet.Cell(1, 14).Value = "Justificación del cambio";
+            //    worksheet.Cell(1, 15).Value = "Afectaciones de manufactura";
+            //    worksheet.Cell(1, 16).Value = "Estatus";
 
-                for (int i = 0; i < 8; i++)
-                {
-                    worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.Red;
-                    worksheet.Cell(1, i + 1).Style.Font.FontColor = XLColor.White;
-                    worksheet.Cell(1, i + 1).Style.Font.Bold = true;
-                    worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-                }
+            //    for (int i = 0; i < 16; i++)
+            //    {
+            //        worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.Red;
+            //        worksheet.Cell(1, i + 1).Style.Font.FontColor = XLColor.White;
+            //        worksheet.Cell(1, i + 1).Style.Font.Bold = true;
+            //        worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
+            //    }
 
-                int rowCount = 2;
+            //    int rowCount = 2;
 
-                foreach (var item in Records)
-                {
-                    worksheet.Cell(rowCount, 1).Value = item.Id;
-                    worksheet.Cell(rowCount, 2).Value = item.StartDate;
-                    worksheet.Cell(rowCount, 3).Value = item.ChangeTypeName;
-                    worksheet.Cell(rowCount, 4).Value = item.DocumentTypeName;
-                    worksheet.Cell(rowCount, 5).Value = item.DocumentName;
-                    worksheet.Cell(rowCount, 6).Value = item.DocumentNo;
-                    worksheet.Cell(rowCount, 7).Value = item.EmployeeName;
-                    worksheet.Cell(rowCount, 8).Value = item.StatusName;
+            //    foreach (var item in Records)
+            //    {
+            //        XLAlignmentHorizontalValues align = XLAlignmentHorizontalValues.Center;
 
-                    rowCount++;
-                }
+            //        worksheet.Cell(rowCount, 1).Value = item.Id;
+            //        worksheet.Cell(rowCount, 1).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 2).Value = item.StartDate;
+            //        worksheet.Cell(rowCount, 2).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 3).Value = item.EndDate;
+            //        worksheet.Cell(rowCount, 3).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 4).Value = item.ChangeTypeName;
+            //        worksheet.Cell(rowCount, 4).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 5).Value = item.DocumentTypeName;
+            //        worksheet.Cell(rowCount, 5).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 6).Value = item.DocumentName;
+            //        worksheet.Cell(rowCount, 6).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 7).Value = item.DocumentNo;
+            //        worksheet.Cell(rowCount, 7).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 8).Value = item.OldDocumentLvl;
+            //        worksheet.Cell(rowCount, 8).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 9).Value = item.DocumentLvl;
+            //        worksheet.Cell(rowCount, 9).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 10).Value = item.OldDrawingLvl;
+            //        worksheet.Cell(rowCount, 10).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 11).Value = item.DrawingLvl;
+            //        worksheet.Cell(rowCount, 11).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 12).Value = item.EmployeeName;
+            //        worksheet.Cell(rowCount, 12).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 13).Value = item.ChangeDescription;
+            //        worksheet.Cell(rowCount, 13).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 14).Value = item.ChangeJustification;
+            //        worksheet.Cell(rowCount, 14).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 15).Value = item.ManufacturingAffectations;
+            //        worksheet.Cell(rowCount, 15).Style.Alignment.Horizontal = align;
+            //        worksheet.Cell(rowCount, 16).Value = item.StatusName;
+            //        worksheet.Cell(rowCount, 16).Style.Alignment.Horizontal = align;
 
-                var rango = worksheet.Range(1, 1, Records.Count + 1, 8);
-                var table = rango.CreateTable();
-                table.Theme = XLTableTheme.None;
 
-                worksheet.RowsUsed().Style.Alignment.SetWrapText(true);
-                worksheet.Columns().AdjustToContents();
-                workbook.SaveAs(_openFileService.Path);
-            }
+            //        rowCount++;
+            //    }
+
+            //    var rango = worksheet.Range(1, 1, Records.Count + 1, 16);
+            //    var table = rango.CreateTable();
+            //    table.Theme = XLTableTheme.None;
+
+            //    _ = worksheet.RowsUsed().Style.Alignment.SetWrapText(true);
+            //    _ = worksheet.Columns().AdjustToContents();
+            //    workbook.SaveAs(_openFileService.Path);
+            //    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Datos exportados correctamente.");
+            //}
         }
 
-        //public void ExportToExcel()
-        //{
-        //    if (Records.Count > 0)
-        //    {
-        //        // Displays a SaveFileDialog so the user can save the Image
-        //        SaveFileDialog saveFileDialog1 = new SaveFileDialog();
-        //        saveFileDialog1.Filter = "Excel File|*.xlsx";
-        //        saveFileDialog1.Title = "Save an Excel File";
-        //        saveFileDialog1.FileName = "Mobile List";
-
-        //        // If the User Clicks the Save Button then the Module gets executed otherwise it skips the scope
-        //        if ((bool)saveFileDialog1.ShowDialog())
-        //        {
-
-        //            Excel.Application xlApp = new Excel.Application();
-        //            if (xlApp != null)
-        //            {
-        //                Excel.Workbook xlWorkBook;
-        //                Excel.Worksheet xlWorkSheet;
-        //                object misValue = System.Reflection.Missing.Value;
-
-        //                xlWorkBook = xlApp.Workbooks.Add(misValue);
-        //                xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
-        //                xlWorkSheet.Cells[1, 1] = "";
-
-
-        //                Excel.Range formatRange;
-
-        //                int rowCount = 1;
-
-        //                xlWorkSheet.Cells[rowCount, 1] = "Folio";
-        //                xlWorkSheet.Cells[rowCount, 2] = "Fecha de inicio";
-        //                xlWorkSheet.Cells[rowCount, 3] = "Tipo de cambio";
-        //                xlWorkSheet.Cells[rowCount, 4] = "Tipo de documento";
-
-        //                rowCount++;
-
-        //                formatRange = xlWorkSheet.get_Range("a1"); formatRange.EntireRow.Font.Bold = true;
-        //                formatRange = xlWorkSheet.Range["a1"]; formatRange.Cells.HorizontalAlignment = HorizontalAlignment.Center;
-        //                formatRange = xlWorkSheet.get_Range("b1"); formatRange.EntireRow.Font.Bold = true;
-
-        //                foreach (var item in Records)
-        //                {
-        //                    xlWorkSheet.Cells[rowCount, 1] = item.Id;
-        //                    xlWorkSheet.Cells[rowCount, 2] = item.StartDate;
-        //                    xlWorkSheet.Cells[rowCount, 3] = item.ChangeTypeName;
-        //                    xlWorkSheet.Cells[rowCount, 4] = item.DocumentTypeName;
-
-        //                    rowCount++;
-        //                }
-
-        //                //formatRange = xlWorkSheet.Range[xlWorkSheet.Cells[1, 1], xlWorkSheet.Cells[1, rowCount - 1]]; formatRange.AutoFilter(1, Type.Missing, Excel.XlAutoFilterOperator.xlAnd, Type.Missing, true);
-
-        //                xlWorkSheet.Columns.AutoFit();
-
-        //                // If the file name is not an empty string open it for saving.
-        //                if (!String.IsNullOrEmpty(saveFileDialog1.FileName.ToString()) && !string.IsNullOrWhiteSpace(saveFileDialog1.FileName.ToString()))
-        //                {
-        //                    xlWorkBook.SaveAs(saveFileDialog1.FileName, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
-        //                    xlWorkBook.Close(true, misValue, misValue);
-        //                    xlApp.Quit();
-
-        //                    releaseObject(xlWorkSheet);
-        //                    releaseObject(xlWorkBook);
-        //                    releaseObject(xlApp);
-
-        //                    MessageBox.Show("Excel File Exported Successfully", "Export Engine");
-        //                }
-
-        //            }
-
-        //        }
-        //    }
-        //    else
-        //    {
-        //        MessageBox.Show("Nothing to Export", "Export Engine");
-        //    }
-        //}
-
-        //private void releaseObject(object obj)
-        //{
-        //    try
-        //    {
-        //        System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
-        //        obj = null;
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        obj = null;
-        //        MessageBox.Show("Exception Occured while releasing object " + ex.ToString());
-        //    }
-        //    finally
-        //    {
-        //        GC.Collect();
-        //    }
-        //}
     }
 }

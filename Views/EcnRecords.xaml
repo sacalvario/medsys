@@ -88,7 +88,12 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="450"  />
         </StackPanel>
-        <Button VerticalAlignment="Top" HorizontalAlignment="Center" Content="Exportar" Margin="0, 35" Command="{Binding ExportCommand}"/>
+        <Button VerticalAlignment="Top" HorizontalAlignment="Right" Background="Transparent"  Margin="0, 15, 100, 0" Command="{Binding ExportCommand}" Visibility="Hidden">
+            <StackPanel >
+                <Image Source="/Assets/xls.png" Width="34" />
+                <TextBlock Text="Exportar en excel" FontSize="16" Foreground="Green" FontWeight="Bold" />
+            </StackPanel>
+        </Button>
         <fdg:FilterDataGrid ItemsSource="{Binding FilteredList, UpdateSourceTrigger=PropertyChanged}" Style="{StaticResource FilterDatagridStyle}" Margin="40, 100, 40, 0"
                             DateFormatString="d"
                             AutoGenerateColumns="False"

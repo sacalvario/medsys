@@ -38,5 +38,21 @@ namespace ECN.Services
             }
             return false;
         }
+
+        public bool SaveFileExportDialog()
+        {
+            SaveFileDialog file = new SaveFileDialog
+            {
+                Title = "Exportar datos",
+                Filter = "Excel Files (*.xlsx)|*.xlsx"
+            };
+
+            if (file.ShowDialog() == true)
+            {
+                Path = file.FileName;
+                return true;
+            }
+            return false;
+        }
     }
 }
