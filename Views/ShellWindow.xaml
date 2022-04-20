@@ -44,17 +44,17 @@
                     <Image Source="/Assets/plug.png" Width="38"/>
                     <StackPanel Margin="10, 0, 0, 0">
                         <TextBlock Text="ECN System" FontWeight="Black" FontSize="16"/>
-                        <TextBlock Text="Electri-Cord" FontWeight="Black" FontSize="16"/>
+                        <TextBlock Text="Electri-Cord" FontSize="16"/>
                     </StackPanel>
                 </StackPanel>
             </ui:NavigationView.PaneHeader>
             <ui:NavigationView.MenuItems>
-                <!--<ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnDashBoard" Tag="Dashboard" Margin="0, 2, 0, 0" Visibility="Collapsed">
                     <StackPanel Orientation="Horizontal">
                         <Image Source="/Assets/dashboardred.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Dashboard" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
                     </StackPanel>
-                </ui:NavigationViewItem>-->
+                </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnNewECN" Tag="Ecn" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal" >
                         <Image Source="/Assets/newred.png" Width="24" VerticalAlignment="Center"/>

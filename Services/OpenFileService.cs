@@ -1,7 +1,6 @@
 ﻿using ECN.Contracts.Services;
 using Microsoft.Win32;
 
-
 namespace ECN.Services
 {
     public class OpenFileService : IOpenFileService

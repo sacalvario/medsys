@@ -1,4 +1,4 @@
-﻿//using ClosedXML.Excel;
+﻿
 
 using ECN.Contracts.Services;
 using ECN.Contracts.ViewModels;
@@ -13,6 +13,8 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
+
+using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ECN.ViewModels
 {
@@ -61,7 +63,7 @@ namespace ECN.ViewModels
                 collView.Filter = e =>
                 {
                     var item = (Ecn)e;
-                    return item != null && item.Id.ToString().Contains(value) || string.IsNullOrWhiteSpace(value) || value.Length == 0;
+                    return item != null && (item.Id.ToString().Contains(value) || string.IsNullOrWhiteSpace(value) || value.Length == 0);
                 };
 
                 collView.Refresh();
@@ -163,90 +165,107 @@ namespace ECN.ViewModels
             }
         }
 
-        private void ExportToExcel()
+        public void ExportToExcel()
         {
-            //if (_openFileService.SaveFileExportDialog())
-            //{
-            //    var workbook = new XLWorkbook();
-            //    var worksheet = workbook.Worksheets.Add("Datos");
+            if (_openFileService.SaveFileExportDialog())
+            {
+                Excel.Application xlApp = new Excel.Application();
+                if (xlApp != null)
+                {
+                    Excel.Workbook xlWorkBook;
+                    Excel.Worksheet xlWorkSheet;
+                    object misValue = System.Reflection.Missing.Value;
 
-            //    worksheet.Cell(1, 1).Value = "Folio";
-            //    worksheet.Cell(1, 2).Value = "Fecha de inicio";
-            //    worksheet.Cell(1, 3).Value = "Fecha de cierre";
-            //    worksheet.Cell(1, 4).Value = "Tipo de cambio";
-            //    worksheet.Cell(1, 5).Value = "Tipo de documento";
-            //    worksheet.Cell(1, 6).Value = "Nombre de documento";
-            //    worksheet.Cell(1, 7).Value = "Número de documento";
-            //    worksheet.Cell(1, 8).Value = "Nivel de revisión anterior de documento";
-            //    worksheet.Cell(1, 9).Value = "Nivel de revisión actual de documento";
-            //    worksheet.Cell(1, 10).Value = "Nivel de revisión anterior de dibujo";
-            //    worksheet.Cell(1, 11).Value = "Nivel de revisión actual de dibujo";
-            //    worksheet.Cell(1, 12).Value = "Generado por";
-            //    worksheet.Cell(1, 13).Value = "Descripción del cambio";
-            //    worksheet.Cell(1, 14).Value = "Justificación del cambio";
-            //    worksheet.Cell(1, 15).Value = "Afectaciones de manufactura";
-            //    worksheet.Cell(1, 16).Value = "Estatus";
-
-            //    for (int i = 0; i < 16; i++)
-            //    {
-            //        worksheet.Cell(1, i + 1).Style.Fill.BackgroundColor = XLColor.Red;
-            //        worksheet.Cell(1, i + 1).Style.Font.FontColor = XLColor.White;
-            //        worksheet.Cell(1, i + 1).Style.Font.Bold = true;
-            //        worksheet.Cell(1, i + 1).Style.Alignment.Horizontal = XLAlignmentHorizontalValues.Center;
-            //    }
-
-            //    int rowCount = 2;
-
-            //    foreach (var item in Records)
-            //    {
-            //        XLAlignmentHorizontalValues align = XLAlignmentHorizontalValues.Center;
-
-            //        worksheet.Cell(rowCount, 1).Value = item.Id;
-            //        worksheet.Cell(rowCount, 1).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 2).Value = item.StartDate;
-            //        worksheet.Cell(rowCount, 2).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 3).Value = item.EndDate;
-            //        worksheet.Cell(rowCount, 3).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 4).Value = item.ChangeTypeName;
-            //        worksheet.Cell(rowCount, 4).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 5).Value = item.DocumentTypeName;
-            //        worksheet.Cell(rowCount, 5).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 6).Value = item.DocumentName;
-            //        worksheet.Cell(rowCount, 6).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 7).Value = item.DocumentNo;
-            //        worksheet.Cell(rowCount, 7).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 8).Value = item.OldDocumentLvl;
-            //        worksheet.Cell(rowCount, 8).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 9).Value = item.DocumentLvl;
-            //        worksheet.Cell(rowCount, 9).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 10).Value = item.OldDrawingLvl;
-            //        worksheet.Cell(rowCount, 10).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 11).Value = item.DrawingLvl;
-            //        worksheet.Cell(rowCount, 11).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 12).Value = item.EmployeeName;
-            //        worksheet.Cell(rowCount, 12).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 13).Value = item.ChangeDescription;
-            //        worksheet.Cell(rowCount, 13).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 14).Value = item.ChangeJustification;
-            //        worksheet.Cell(rowCount, 14).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 15).Value = item.ManufacturingAffectations;
-            //        worksheet.Cell(rowCount, 15).Style.Alignment.Horizontal = align;
-            //        worksheet.Cell(rowCount, 16).Value = item.StatusName;
-            //        worksheet.Cell(rowCount, 16).Style.Alignment.Horizontal = align;
+                    xlWorkBook = xlApp.Workbooks.Add(misValue);
+                    xlWorkSheet = (Excel.Worksheet)xlWorkBook.Worksheets.get_Item(1);
+                    xlWorkSheet.Cells[1, 1] = "";
 
 
-            //        rowCount++;
-            //    }
+                    Excel.Range formatRange;
 
-            //    var rango = worksheet.Range(1, 1, Records.Count + 1, 16);
-            //    var table = rango.CreateTable();
-            //    table.Theme = XLTableTheme.None;
+                    int rowCount = 1;
 
-            //    _ = worksheet.RowsUsed().Style.Alignment.SetWrapText(true);
-            //    _ = worksheet.Columns().AdjustToContents();
-            //    workbook.SaveAs(_openFileService.Path);
-            //    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Datos exportados correctamente.");
-            //}
+                    xlWorkSheet.Cells[rowCount, 1] = "Folio";
+                    xlWorkSheet.Cells[rowCount, 2] = "Fecha de inicio";
+                    xlWorkSheet.Cells[rowCount, 3] = "Fecha de cierre";
+                    xlWorkSheet.Cells[rowCount, 4] = "Tipo de cambio";
+                    xlWorkSheet.Cells[rowCount, 5] = "Tipo de documento";
+                    xlWorkSheet.Cells[rowCount, 6] = "Nombre de documento";
+                    xlWorkSheet.Cells[rowCount, 7] = "Número de documento";
+                    xlWorkSheet.Cells[rowCount, 8] = "Nivel de revisión anterior del documento";
+                    xlWorkSheet.Cells[rowCount, 9] = "Nivel de revisión actual del documento";
+                    xlWorkSheet.Cells[rowCount, 10] = "Nivel de revisión anterior del dibujo";
+                    xlWorkSheet.Cells[rowCount, 11] = "Nivel de revisión actual del dibujo";
+                    xlWorkSheet.Cells[rowCount, 12] = "Generado por";
+                    xlWorkSheet.Cells[rowCount, 13] = "Descripción del cambio";
+                    xlWorkSheet.Cells[rowCount, 14] = "Justificación del cambio";
+                    xlWorkSheet.Cells[rowCount, 15] = "Afectaciones de manufactura";
+                    xlWorkSheet.Cells[rowCount, 16] = "Estatus";
+
+                    rowCount++;
+
+                    formatRange = xlWorkSheet.get_Range("A1", "P1");
+                    formatRange.Font.Bold = true;
+                    formatRange.Font.Color = Excel.XlRgbColor.rgbWhite;
+                    formatRange.Interior.Color = Excel.XlRgbColor.rgbRed;
+
+                    foreach (var item in Records)
+                    {
+                        xlWorkSheet.Cells[rowCount, 1] = item.Id;
+                        xlWorkSheet.Cells[rowCount, 2] = item.StartDate;
+                        xlWorkSheet.Cells[rowCount, 3] = item.EndDate;
+                        xlWorkSheet.Cells[rowCount, 4] = item.ChangeTypeName;
+                        xlWorkSheet.Cells[rowCount, 5] = item.DocumentTypeName;
+                        xlWorkSheet.Cells[rowCount, 6] = item.DocumentName;
+                        xlWorkSheet.Cells[rowCount, 7] = item.DocumentNo;
+                        xlWorkSheet.Cells[rowCount, 8] = item.OldDocumentLvl;
+                        xlWorkSheet.Cells[rowCount, 9] = item.DocumentLvl;
+                        xlWorkSheet.Cells[rowCount, 10] = item.OldDrawingLvl;
+                        xlWorkSheet.Cells[rowCount, 11] = item.DrawingLvl;
+                        xlWorkSheet.Cells[rowCount, 12] = item.EmployeeName;
+                        xlWorkSheet.Cells[rowCount, 13] = item.ChangeDescription;
+                        xlWorkSheet.Cells[rowCount, 14] = item.ChangeJustification;
+                        xlWorkSheet.Cells[rowCount, 15] = item.ManufacturingAffectations;
+                        xlWorkSheet.Cells[rowCount, 16] = item.StatusName;
+
+                        rowCount++;
+                    }
+
+                    formatRange = xlWorkSheet.get_Range("A1", "P" + Records.Count + 1);
+                    formatRange.Cells.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter;
+                    formatRange = xlWorkSheet.get_Range("A1", "P" + Records.Count);
+                    formatRange.AutoFilter(1, Type.Missing, Excel.XlAutoFilterOperator.xlAnd, Type.Missing, true);
+
+                    xlWorkSheet.Columns.AutoFit();
+
+                    if (!string.IsNullOrEmpty(_openFileService.Path.ToString()))
+                    {
+                        xlWorkBook.SaveAs(_openFileService.Path, Excel.XlFileFormat.xlWorkbookDefault, misValue, misValue, misValue, misValue, Excel.XlSaveAsAccessMode.xlExclusive, misValue, misValue, misValue, misValue, misValue);
+                        xlWorkBook.Close(true, misValue, misValue);
+                        xlApp.Quit();
+
+                        ReleaseObject(xlWorkSheet);
+                        ReleaseObject(xlWorkBook);
+                        ReleaseObject(xlApp);
+
+                        _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Datos exportados correctamente");
+                    }
+                }
+
+            }
+        }
+
+        private void ReleaseObject(object obj)
+        {
+            try
+            {
+                _ = System.Runtime.InteropServices.Marshal.ReleaseComObject(obj);
+                obj = null;
+            }
+            finally
+            {
+                GC.Collect();
+            }
         }
 
     }
