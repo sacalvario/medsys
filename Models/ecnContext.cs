@@ -175,12 +175,12 @@ namespace ECN.Models
 
                 entity.Property(e => e.DocumentName)
                     .IsRequired()
-                    .HasMaxLength(45)
+                    .HasMaxLength(500)
                     .HasColumnName("Document_Name");
 
                 entity.Property(e => e.DocumentNo)
                     .IsRequired()
-                    .HasMaxLength(45)
+                    .HasMaxLength(100)
                     .HasColumnName("Document_No");
 
                 entity.Property(e => e.DocumentTypeId).HasColumnName("DocumentType_ID");
