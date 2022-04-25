@@ -268,13 +268,7 @@ namespace ECN.ViewModels
                         ECN.DocumentNo = "N/A";
                         ECN.DocumentType = SelectedDocumentType;
 
-                        if (ECN.DocumentType.DocumentTypeId != 2 && ECN.DocumentType.DocumentTypeId != 4 && ECN.DocumentType.DocumentTypeId == 15 && ECN.DocumentType.DocumentTypeId == 16 && ECN.DocumentType.DocumentTypeId == 17)
-                        {
-                            ECN.OldDrawingLvl = "N/A";
-                            ECN.DrawingLvl = "N/A";
-                            RegisterECN();
-                        }
-                        else if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4 || ECN.DocumentType.DocumentTypeId == 15 || ECN.DocumentType.DocumentTypeId == 16 || ECN.DocumentType.DocumentTypeId == 17)
+                        if (ECN.DocumentType.DocumentTypeId == 2 || ECN.DocumentType.DocumentTypeId == 4 || ECN.DocumentType.DocumentTypeId == 15 || ECN.DocumentType.DocumentTypeId == 16 || ECN.DocumentType.DocumentTypeId == 17)
                         {
                             if (ECN.DrawingLvl != null && ECN.OldDrawingLvl != null)
                             {
@@ -285,7 +279,12 @@ namespace ECN.ViewModels
                                 _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Faltan campos por llenar");
                             }
                         }
-
+                        else
+                        {
+                            ECN.OldDrawingLvl = "N/A";
+                            ECN.DrawingLvl = "N/A";
+                            RegisterECN();
+                        }
                     }
                     else
                     {
