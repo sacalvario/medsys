@@ -7,6 +7,7 @@ using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Ioc;
 
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.IO;
@@ -407,11 +408,14 @@ namespace ECN.ViewModels
                 if (_ecnDataService.SaveEcn(ECN))
                 {
 
-                    _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
-                    foreach (Employee er in SelectedForView)
+                    _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Employee.EmployeeEmail, ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
+                    
+                    List<string> emails = new List<string>();
+                    foreach(var item in SelectedForView)
                     {
-                        _mailService.SendEmail(er.EmployeeEmail, ECN.Id, er.Name);
+                        emails.Add(item.EmployeeEmail);
                     }
+                        _mailService.SendEmail(emails, ECN.Id);
 
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
                     ResetData();

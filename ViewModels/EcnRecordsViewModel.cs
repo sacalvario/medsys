@@ -13,7 +13,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Windows.Data;
 using System.Windows.Input;
-
+using System.Windows.Threading;
 using Excel = Microsoft.Office.Interop.Excel;
 
 namespace ECN.ViewModels
@@ -142,6 +142,23 @@ namespace ECN.ViewModels
         }
 
         public void OnNavigatedTo(object parameter)
+        {
+            Records = new ObservableCollection<Ecn>();
+            GetRecords();
+
+            FilteredList = new ObservableCollection<Ecn>(Records);
+            collView = CollectionViewSource.GetDefaultView(FilteredList);
+
+            SelectedItem = null;
+
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(15)
+            };
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
+        }
+        private void Timer_Tick(object sender, EventArgs e)
         {
             Records = new ObservableCollection<Ecn>();
             GetRecords();

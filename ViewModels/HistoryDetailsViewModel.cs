@@ -6,7 +6,7 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
 using System.Diagnostics;
@@ -263,6 +263,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _CloseEcnVisibility = Visibility.Collapsed;
+        public Visibility CloseEcnVisibility
+        {
+            get => _CloseEcnVisibility;
+            set
+            {
+                if (_CloseEcnVisibility != value)
+                {
+                    _CloseEcnVisibility = value;
+                    RaisePropertyChanged("CloseEcnVisibility");
+                }
+            }
+        }
 
         private string _RevisionNotes;
         public string RevisionNotes
@@ -526,6 +539,11 @@ namespace ECN.ViewModels
             {
                 ECNNotesVisibility = Visibility.Collapsed;
             }
+
+            if (CloseEcnVisibility == Visibility.Visible)
+            {
+                CloseEcnVisibility = Visibility.Collapsed;
+            }
         }
 
         public void OnNavigatedTo(object parameter)
@@ -559,10 +577,15 @@ namespace ECN.ViewModels
                 ECNNotesVisibility = Visibility.Visible;
             }
 
+            if (Ecn.Status.StatusId == 5 || Ecn.Status.StatusId == 1 && Ecn.EmployeeId == UserRecord.Employee_ID)
+            {
+                CloseEcnVisibility = Visibility.Visible;
+            }
             if (Ecn.EmployeeId != UserRecord.Employee_ID)
             {
                 EcnPropietaryVisibility = Visibility.Visible;
             }
+
 
             if (Ecn.CurrentSignature != null)
             {
@@ -765,13 +788,13 @@ namespace ECN.ViewModels
 
                 if (emp != null)
                 {
-                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
+                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Employee.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
                 }
                 else
                 {
                     if (_ecnDataService.ApproveEcn(Ecn))
                     {
-                        _mailService.SendApprovedECN(Ecn.Id, Ecn.Employee.Name);
+                        _mailService.SendApprovedECN(Ecn.Id, Ecn.Employee.Name, Ecn.Employee.EmployeeEmail);
                     }
                 }
 
@@ -786,12 +809,13 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.RefuseEcn(Ecn, RevisionNotes))
             {
+                List<string> email_list = new List<string>();
                 foreach (var item in Revisions)
                 {
-                    _mailService.SendRefuseECNEmail(item.Employee.EmployeeEmail, Ecn.Id, item.Employee.Name, Ecn.Employee.Name);
+                    email_list.Add(item.Employee.EmployeeEmail);
                 }
 
-                _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name);
+                _mailService.SendRefuseECNToGeneratorEmail(Ecn.Employee.EmployeeEmail, Ecn.Id, UserRecord.Employee.Name, Ecn.Employee.Name, email_list);
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha rechazado el ECN. Se le notificara al generador.");
                 RevisionNotes = string.Empty;
@@ -804,8 +828,16 @@ namespace ECN.ViewModels
         {
             if (_ecnDataService.CancelEcn(Ecn, Notes))
             {
-                _mailService.SendCancelECN(Ecn.Employee.EmployeeEmail, Ecn.Id, Ecn.Employee.Name);
-                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
+                _mailService.SendCancelECN(Ecn.Employee.EmployeeEmail, Ecn, Ecn.Employee.Name);
+
+                if (Ecn.Employee.EmployeeId == UserRecord.Employee_ID)
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara a control de documentos.");
+                }
+                else
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
+                }
                 Notes = string.Empty;
                 _navigationService.GoBack();
 
@@ -831,7 +863,7 @@ namespace ECN.ViewModels
 
                 if (emp != null)
                 {
-                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
+                    _mailService.SendSignEmail(emp.EmployeeEmail, Ecn.Employee.EmployeeEmail, Ecn.Id, emp.Name, Ecn.Employee.Name);
                 }
 
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se ha modificado el ECN. La persona que rechazo volvera a revisarlo.");

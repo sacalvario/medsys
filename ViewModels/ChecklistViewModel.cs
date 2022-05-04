@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Command;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace ECN.ViewModels
 {
@@ -83,6 +84,21 @@ namespace ECN.ViewModels
         }
 
         public void OnNavigatedTo(object parameter)
+        {
+            Checklist = new ObservableCollection<Ecn>();
+            GetChecklist();
+
+            ChecklistCount = Checklist.Count;
+
+            DispatcherTimer timer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromSeconds(15)
+            };
+            timer.Tick += new EventHandler(Timer_Tick);
+            timer.Start();
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
         {
             Checklist = new ObservableCollection<Ecn>();
             GetChecklist();

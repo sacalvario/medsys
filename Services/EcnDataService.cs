@@ -344,9 +344,16 @@ namespace ECN.Services
 
         public bool CancelEcn(Ecn ecn, string notes)
         {
-            ecn.StatusId = 2;
-            ecn.EndDate = System.DateTime.Today;
-            ecn.Notes = notes;
+            if (ecn.StatusId == 5 || ecn.StatusId == 1)
+            {
+                EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.StatusId == 5 && data.EcnId == ecn.Id);
+                revision.StatusId = 1;
+            }
+
+            Ecn upgradedecn = context.Ecns.Find(ecn.Id);
+            upgradedecn.StatusId = 2;
+            upgradedecn.EndDate = System.DateTime.Today;
+            upgradedecn.Notes = notes;
 
             var result = context.SaveChanges();
             return result > 0;

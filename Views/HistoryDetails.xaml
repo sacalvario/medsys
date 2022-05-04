@@ -120,7 +120,16 @@
                 </StackPanel>
             </Button>
         </ui:SimpleStackPanel>
-        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding UpgradeECNVisibility}">
+        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding CloseEcnVisibility}">
+            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa el motivo de cancelación " Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
+            <Button Background="Transparent" Command="{Binding CancelECNCommand}">
+                <StackPanel>
+                    <Image Source="/Assets/refuse.png" />
+                    <TextBlock Text="Cancelar" HorizontalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </ui:SimpleStackPanel>
+        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="250, 50, 0, 0"  Visibility="{Binding UpgradeECNVisibility}">
             <Button Background="Transparent" Command="{Binding UpgradeECNCommand}">
                 <StackPanel>
                     <Image Source="/Assets/return.png" Width="28"/>
