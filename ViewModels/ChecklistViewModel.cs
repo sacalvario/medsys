@@ -14,8 +14,8 @@ namespace ECN.ViewModels
 {
     public class ChecklistViewModel : ViewModelBase, INavigationAware
     {
-        private IEcnDataService _ecnDataService;
-        private INavigationService _navigationService;
+        private readonly IEcnDataService _ecnDataService;
+        private readonly INavigationService _navigationService;
         private ICommand _navigateToCheckCommand;
 
         public ICommand NavigateToCheckCommand => _navigateToCheckCommand ??= new RelayCommand<Ecn>(NavigateToCheck);

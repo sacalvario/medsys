@@ -415,7 +415,7 @@ namespace ECN.ViewModels
                     {
                         emails.Add(item.EmployeeEmail);
                     }
-                        _mailService.SendEmail(emails, ECN.Id);
+                    _mailService.SendEmail(emails, ECN.Id);
 
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
                     ResetData();

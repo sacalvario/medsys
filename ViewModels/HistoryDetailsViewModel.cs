@@ -577,10 +577,11 @@ namespace ECN.ViewModels
                 ECNNotesVisibility = Visibility.Visible;
             }
 
-            if (Ecn.Status.StatusId == 5 || Ecn.Status.StatusId == 1 && Ecn.EmployeeId == UserRecord.Employee_ID)
+            if ((Ecn.Status.StatusId == 5 || Ecn.Status.StatusId == 1) && Ecn.Employee.EmployeeId == UserRecord.Employee_ID)
             {
                 CloseEcnVisibility = Visibility.Visible;
             }
+
             if (Ecn.EmployeeId != UserRecord.Employee_ID)
             {
                 EcnPropietaryVisibility = Visibility.Visible;
@@ -830,14 +831,9 @@ namespace ECN.ViewModels
             {
                 _mailService.SendCancelECN(Ecn.Employee.EmployeeEmail, Ecn, Ecn.Employee.Name);
 
-                if (Ecn.Employee.EmployeeId == UserRecord.Employee_ID)
-                {
-                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara a control de documentos.");
-                }
-                else
-                {
-                    _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
-                }
+                _ = Ecn.Employee.EmployeeId == UserRecord.Employee_ID
+                    ? _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara a control de documentos.")
+                    : _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
                 Notes = string.Empty;
                 _navigationService.GoBack();
 

@@ -45,7 +45,7 @@ namespace ECN.Services
 
             msg.From = new MailAddress("ecnsystem@outlook.com");
 
-            if (ecn.EmployeeId == UserRecord.Employee.EmployeeId)
+            if (ecn.Employee.EmployeeId == UserRecord.Employee_ID)
             {
                 msg.To.Add("controldedocumentos@electri-cord.com.mx");
                 msg.CC.Add(email);
@@ -113,7 +113,7 @@ namespace ECN.Services
 
             msg.From = new MailAddress("ecnsystem@outlook.com");
 
-            foreach(var item in emails)
+            foreach (var item in emails)
             {
                 msg.To.Add(item);
             }
@@ -122,7 +122,6 @@ namespace ECN.Services
 
             msg.Subject = "Nuevo ECN!";
             msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola</span></span></p>" +
-              "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'>&nbsp;</span></span></p>" +
               "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Se ha generado un nuevo<strong><span style = 'color:red'> ECN </span ></strong> con el folio<strong><span style = 'color:red'> " + id + " </span></strong></span></span></p>" +
               "<p><span style = 'font-family:Verdana,Geneva,sans-serif'><span style = 'font-size:12pt'> Generado por<strong><span style = 'color:#0066cc'> " + UserRecord.Employee.Name + "</span></strong><span style = 'color:black'>.</span ></strong></span></span></p> ";
 
