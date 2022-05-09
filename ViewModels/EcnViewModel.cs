@@ -409,14 +409,16 @@ namespace ECN.ViewModels
                 {
 
                     _mailService.SendSignEmail(SelectedForSign[0].EmployeeEmail, ECN.Employee.EmployeeEmail, ECN.Id, SelectedForSign[0].Name, ECN.Employee.Name);
-                    
-                    List<string> emails = new List<string>();
-                    foreach(var item in SelectedForView)
-                    {
-                        emails.Add(item.EmployeeEmail);
-                    }
-                    _mailService.SendEmail(emails, ECN.Id);
 
+                    if (SelectedForView.Count > 0)
+                    {
+                        List<string> emails = new List<string>();
+                        foreach (var item in SelectedForView)
+                        {
+                            emails.Add(item.EmployeeEmail);
+                        }
+                        _mailService.SendEmail(emails, ECN.Id);
+                    }
                     _ = _windowManagerService.OpenInDialog(typeof(EcnRegistrationViewModel).FullName, ECN.Id);
                     ResetData();
                     SelectedTabItem = 0;
@@ -494,6 +496,7 @@ namespace ECN.ViewModels
         {
             if (Application.Current.Windows.OfType<IEmployeesWindow>().Count() == 0)
             {
+                ViewModelLocator.UnregisterEmployeesViewModel();
                 _employeesWindow = SimpleIoc.Default.GetInstance<IEmployeesWindow>(Guid.NewGuid().ToString());
                 _employeesWindow.ShowWindow();
             }

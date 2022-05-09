@@ -312,9 +312,6 @@ namespace ECN.Models
                 entity.HasIndex(e => e.IdEcn, "ID_Ecn_UNIQUE")
                     .IsUnique();
 
-                entity.HasIndex(e => e.IdEco, "ID_Eco_UNIQUE")
-                    .IsUnique();
-
                 entity.HasIndex(e => e.EcoTypeId, "fk_ecotype_id_idx");
 
                 entity.Property(e => e.IdEcn)

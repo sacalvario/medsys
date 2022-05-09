@@ -1,7 +1,9 @@
 ﻿
 using ECN.Contracts.Services;
 using ECN.Models;
+
 using GalaSoft.MvvmLight;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
