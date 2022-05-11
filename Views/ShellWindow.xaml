@@ -26,9 +26,13 @@
                     <Image Source="/Assets/user2white.png" Width="32" Height="32"/>
                     <ui:DropDownButton.Flyout>
                         <ui:MenuFlyout Placement="BottomEdgeAlignedRight">
+                            <StackPanel Orientation="Horizontal">
+                                <ui:ToggleSwitch Height="30" Width="50" Margin="-30 , 0, 0, 0" OffContent="" OnContent="" IsOn="{Binding Holidays}"/>
+                                <TextBlock Text="Vacaciones" Margin="5, 0, 0, 0" VerticalAlignment="Center" Foreground="Black"/>
+                            </StackPanel>
                             <MenuItem Header="Cerrar sesión" Command="{Binding SignOutCommand}">
                                 <MenuItem.Icon>
-                                    <Image Source="/Assets/logout.png" />
+                                    <Image Source="/Assets/logout.png"/>
                                 </MenuItem.Icon>
                             </MenuItem>
                         </ui:MenuFlyout>

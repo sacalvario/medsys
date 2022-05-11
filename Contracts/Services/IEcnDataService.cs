@@ -38,6 +38,8 @@ namespace ECN.Contracts.Services
         bool CloseEcn(Ecn ecn, string notes);
         bool CancelEcn(Ecn ecn, string notes);
         void UpgradeAttachment(int attach, string filename, byte[] file);
+        bool SetHolidays(Employee employee);
+        bool RemoveHolidays(Employee employee);
         int GetClosedEcnCount();
         int GetOnHoldEcnCount();
         int GetApprovedEcnCount();

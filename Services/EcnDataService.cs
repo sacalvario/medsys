@@ -368,7 +368,7 @@ namespace ECN.Services
 
         public bool UpgradeEcn(Ecn ecn)
         {
-            EcnRevision refusedrevision = context.EcnRevisions.OrderBy(data => data.RevisionSequence).Last(data => data.StatusId == 6);
+            EcnRevision refusedrevision = context.EcnRevisions.OrderBy(data => data.RevisionSequence).Last(data => data.StatusId == 6 && data.EcnId == ecn.Id);
             refusedrevision.StatusId = 5;
 
             Ecn upgradedecn = context.Ecns.Find(ecn.Id);
@@ -394,6 +394,32 @@ namespace ECN.Services
             Ecn EcnUpgraded = context.Ecns.Find(ecn.Id);
             EcnUpgraded.StatusId = 4;
                  
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool SetHolidays(Employee employee)
+        {
+            Employee EmployeeUpgraded = context.Employees.Find(employee.EmployeeId);
+
+            if (EmployeeUpgraded.EmployeeHolidays == 0)
+            {
+                EmployeeUpgraded.EmployeeHolidays = 1;
+            }
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool RemoveHolidays(Employee employee)
+        {
+            Employee EmployeeUpgraded = context.Employees.Find(employee.EmployeeId);
+
+            if (EmployeeUpgraded.EmployeeHolidays == 1)
+            {
+                EmployeeUpgraded.EmployeeHolidays = 0;
+            }
+
             var result = context.SaveChanges();
             return result > 0;
         }

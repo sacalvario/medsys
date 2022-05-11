@@ -462,6 +462,8 @@ namespace ECN.Models
                     .HasMaxLength(45)
                     .HasColumnName("Employee_LastName");
 
+                entity.Property(e => e.EmployeeHolidays).HasColumnName("Employee_Holidays");
+
                 entity.HasOne(d => d.Department)
                     .WithMany(p => p.Employees)
                     .HasForeignKey(d => d.DepartmentId)

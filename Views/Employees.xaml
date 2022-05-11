@@ -18,6 +18,7 @@
                     <ColumnDefinition Width="55" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -30,6 +31,7 @@
                 <Image Source="/Assets/userblack.png" Grid.Column="1" Grid.RowSpan="2" Width="46" Height="46" Margin="0, 0, 10, 0"/>
                 <TextBlock Grid.Column="2" FontWeight="Bold" FontSize="16" Foreground="Black" Text="{Binding Name}"/>
                 <TextBlock Text="{Binding Department.DepartmentName}" Grid.Column="2" Grid.Row="1" FontSize="15" Foreground="Red" FontWeight="Bold"/>
+                <TextBlock Grid.Column="3" Grid.RowSpan="2" VerticalAlignment="Center" Margin="50, 0, 0, 0" Text=" En Vacaciones" Foreground="Red" FontStyle="Italic" FontWeight="Black" Visibility="{Binding IsInHolidaysVisibility}"/>
             </Grid>
         </DataTemplate>
 

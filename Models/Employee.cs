@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight;
 using System;
 using System.Collections.Generic;
+using System.Windows;
 
 #nullable disable
 
@@ -19,7 +20,26 @@ namespace ECN.Models
         public string EmployeeFirstName { get; set; }
         public string EmployeeEmail { get; set; }
         public int DepartmentId { get; set; }
+        public sbyte EmployeeHolidays { get; set; }
         public string Name => EmployeeFirstName + " " + EmployeeLastName;
+
+        private Visibility _IsInHolidaysVisibility = Visibility.Collapsed;
+        public Visibility IsInHolidaysVisibility
+        {
+            get
+            {
+                if (Convert.ToBoolean(EmployeeHolidays))
+                {
+                    _IsInHolidaysVisibility = Visibility.Visible;
+                }
+                else
+                {
+                    _IsInHolidaysVisibility = Visibility.Collapsed;
+                }
+
+                return _IsInHolidaysVisibility;
+            }
+        }
 
         private int _Index;
         public int Index
