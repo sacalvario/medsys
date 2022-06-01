@@ -346,8 +346,12 @@ namespace ECN.Services
         {
             if (ecn.StatusId == 5 || ecn.StatusId == 1)
             {
-                EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.StatusId == 5 && data.EcnId == ecn.Id);
-                revision.StatusId = 1;
+                EcnRevision revision = context.EcnRevisions.First(data => data.StatusId == 5 && data.EcnId == ecn.Id);
+
+                if (revision != null)
+                {
+                    revision.StatusId = 1;
+                }
             }
 
             Ecn upgradedecn = context.Ecns.Find(ecn.Id);

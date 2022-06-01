@@ -96,6 +96,20 @@
                     </StackPanel>
                 </ui:NavigationViewItem>
             </ui:NavigationView.MenuItems>
+            <ui:NavigationView.FooterMenuItems>
+                <ui:NavigationViewItem x:Name="btnNumberParts" Tag="NumberParts" Margin="0, 2, 0 , 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/wire.png" Width="24" VerticalAlignment="Center" />
+                        <Label Content="Números de parte" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
+                <ui:NavigationViewItem x:Name="btnEmployees" Tag="Employees" Margin="0, 2, 0 , 0">
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/userblack.png" Width="24" VerticalAlignment="Center" />
+                        <Label Content="Empleados" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
+                    </StackPanel>
+                </ui:NavigationViewItem>
+            </ui:NavigationView.FooterMenuItems>
             <i:Interaction.Triggers>
                 <i:EventTrigger EventName="ItemInvoked" >
                     <i:InvokeCommandAction Command="{Binding MenuItemInvokedCommand}" />
