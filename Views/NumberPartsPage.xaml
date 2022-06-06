@@ -12,23 +12,26 @@
     <Page.Resources>
 
         <DataTemplate x:Key="ItemTemplate">
-            <Grid Margin="0, 10, 10, 10" >
+            <Grid Margin="0, 6, 0, 6" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="50" />
-                    <ColumnDefinition Width="480" />
+                    <ColumnDefinition Width="70" />
+                    <ColumnDefinition Width="550" />
+                    <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Image Source="/Assets/wire.png" Width="42" Height="42" Grid.RowSpan="3" HorizontalAlignment="Center"  />
-                <TextBlock Text="{Binding NumberPartId}" FontSize="16" Grid.Column="1" FontWeight="Bold" Foreground="Black" />
-                <TextBlock Text="{Binding Customer.CustomerName}"  Grid.Row="1" Grid.Column="1" FontSize="15" FontWeight="Bold" Foreground="#FFE20000"/>
-                <TextBlock  Grid.Row="2" Grid.Column="1" FontSize="14" Margin="0, 2, 0, 0">
-                            <Run Text="Nível de revisión: " Foreground="Black" FontWeight="Normal"/>
-                            <Run Text="{Binding NumberPartRev}" Foreground="#FFE20000" FontWeight="Black"/>
-                </TextBlock>
+                <Image Source="/Assets/plug48.png" Width="50" Height="52" Grid.RowSpan="3" HorizontalAlignment="Center" Margin="5" />
+                <TextBlock Text="{Binding NumberPartId}" FontSize="19" Grid.Column="1" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding Customer.CustomerName}"  Grid.Row="1" Grid.Column="1" FontSize="18" FontWeight="Bold" Foreground="#FFE20000" VerticalAlignment="Top"/>
+                <StackPanel Grid.RowSpan="2" Grid.Column="1" HorizontalAlignment="Right">
+                    <TextBlock Text="Revisión" FontSize="15" FontWeight="SemiBold"  Foreground="Black"/>
+                    <TextBlock Text="{Binding NumberPartRev}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black" FontSize="20"/>
+                </StackPanel>
+                <Button Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent">
+                    <Image Source="/Assets/edit.png" Width="32" HorizontalAlignment="Left"/>
+                </Button>
             </Grid>
         </DataTemplate>
 
@@ -45,11 +48,11 @@
     <Grid Background="#FFE8E8E8">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="4*"/>
+            <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Margin="40, 30, 0, 0">
+                    Margin="60, 20, 0, 0">
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Left" 
                         Margin="0, 0, 0, 5">
@@ -76,7 +79,7 @@
                   Grid.Row="1" 
                   HorizontalAlignment="Stretch" 
                   VerticalAlignment="Stretch" 
-                  Margin="40, 0, 0, 20"
+                  Margin="60, 0, 300, 30"
                   SelectionMode="Single"
                   ItemsSource="{Binding NumberPartCollection}"
                   ItemContainerStyle="{StaticResource ContainerStyle}"
