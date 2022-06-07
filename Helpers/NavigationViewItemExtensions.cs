@@ -20,6 +20,7 @@ namespace ModernWpf.Controls
                     "NumberPartHistory" => typeof(NumberPartHistoryViewModel),
                     "Dashboard" => typeof(DashboardViewModel),
                     "NumberParts" => typeof(NumberPartsPageViewModel),
+                    "Employees" => typeof(EmployeesPageViewModel),
                     _ => null,
                 }
                 : null;

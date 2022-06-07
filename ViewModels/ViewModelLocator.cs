@@ -75,6 +75,9 @@ namespace ECN.ViewModels
 
         public NumberPartsPageViewModel NumberPartsPageViewModel
             => SimpleIoc.Default.GetInstance<NumberPartsPageViewModel>();
+
+        public EmployeesPageViewModel EmployeesPageViewModel
+            => SimpleIoc.Default.GetInstance<EmployeesPageViewModel>();
         public ViewModelLocator()
         {
             // App Host
@@ -122,6 +125,7 @@ namespace ECN.ViewModels
             Register<LoginViewModel, Login>();
             Register<SignUpViewModel, SignUp>();
             Register<NumberPartsPageViewModel, NumberPartsPage>();
+            Register<EmployeesPageViewModel, EmployeesPage>();
         }
 
 
