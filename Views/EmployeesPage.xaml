@@ -14,17 +14,19 @@
         <DataTemplate x:Key="ItemTemplate">
             <Grid Margin="0, 6, 0, 6" >
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="110" />
+                    <ColumnDefinition Width="90" />
                     <ColumnDefinition Width="70" />
                     <ColumnDefinition Width="550" />
                     <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="25" />
-                    <RowDefinition Height="30" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <TextBlock Text="No. De Empleado" HorizontalAlignment="Center" FontSize="11"/>
-                <TextBlock Text="{Binding EmployeeId}" Grid.Row="1"  FontWeight="Black" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                <StackPanel Grid.RowSpan="2" Margin="0, 5, 0, 0">
+                    <TextBlock Text="No. De Empleado" HorizontalAlignment="Center" FontSize="11" Foreground="Black"/>
+                    <TextBlock Text="{Binding EmployeeId}" FontWeight="Black" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 3, 0, 0" Foreground="Black"/>
+                </StackPanel>
                 <Image Source="/Assets/userblack.png" Grid.Column="1" Width="50" Height="52" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="5" />
                 <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="2" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Department.DepartmentName}"  Grid.Row="1" Grid.Column="2" FontSize="17" FontWeight="Bold" Foreground="#FFE20000" VerticalAlignment="Top"/>
@@ -51,7 +53,7 @@
         </Grid.RowDefinitions>
         <StackPanel VerticalAlignment="Top"
                     HorizontalAlignment="Left"
-                    Margin="60, 20, 0, 0">
+                    Margin="60, 10, 0, 0">
             <StackPanel Orientation="Horizontal" 
                         HorizontalAlignment="Left" 
                         Margin="0, 0, 0, 5">
@@ -74,6 +76,12 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="400"  />
         </StackPanel>
+        <Button HorizontalAlignment="Center" Background="Transparent" Command="{Binding OpenEmployeeManageWindowCommand}">
+            <StackPanel>
+                <Image Source="/Assets/userblack.png" Width="32"/>
+                <TextBlock Text="Agregar empleado" Foreground="Black"/>
+            </StackPanel>
+        </Button>
         <ListView x:Name="lvNumberParts" 
                   Grid.Row="1" 
                   HorizontalAlignment="Stretch" 

@@ -78,6 +78,13 @@ namespace ECN.ViewModels
 
         public EmployeesPageViewModel EmployeesPageViewModel
             => SimpleIoc.Default.GetInstance<EmployeesPageViewModel>();
+
+        public AddNumberPartViewModel AddNumberPartViewModel
+            => SimpleIoc.Default.GetInstance<AddNumberPartViewModel>();
+
+        public AddEmployeeViewModel AddEmployeeViewModel
+            => SimpleIoc.Default.GetInstance<AddEmployeeViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -101,11 +108,15 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
             SimpleIoc.Default.Register<INumberPartsWindow, NumberParts>();
             SimpleIoc.Default.Register<IEmployeesWindow, Employees>();
+            SimpleIoc.Default.Register<IAddEmployeeWindow, AddEmployee>();
+            SimpleIoc.Default.Register<IAddNumberPartWindow, AddNumberPart>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<ShellLoginViewModel>();
             SimpleIoc.Default.Register<NumberPartsViewModel>();
             SimpleIoc.Default.Register<EmployeesViewModel>();
+            SimpleIoc.Default.Register<AddNumberPartViewModel>();
+            SimpleIoc.Default.Register<AddEmployeeViewModel>();
             SimpleIoc.Default.Register<Report>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<Models.Ecn>();

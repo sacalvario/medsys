@@ -1,17 +1,25 @@
 ﻿using ECN.Contracts.Services;
+using ECN.Contracts.Views;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
+using System.Windows;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
     public class EmployeesPageViewModel : ViewModelBase
     {
         private IEcnDataService _ecnDataService;
+        private IAddEmployeeWindow _employeesWindow;
         public EmployeesPageViewModel(IEcnDataService ecnDataService)
         {
             _ecnDataService = ecnDataService;
@@ -27,6 +35,19 @@ namespace ECN.ViewModels
 
 
             CvsEmployees.Filter += ApplyFilter;
+        }
+
+        private ICommand _OpenEmployeeManageWindowCommand;
+        public ICommand OpenEmployeeManageWindowCommand
+        {
+            get
+            {
+                if (_OpenEmployeeManageWindowCommand == null)
+                {
+                    _OpenEmployeeManageWindowCommand = new RelayCommand(OpenEmployeeManageWindow);
+                }
+                return _OpenEmployeeManageWindowCommand;
+            }
         }
 
 
@@ -78,6 +99,15 @@ namespace ECN.ViewModels
             {
                 item.Department = await _ecnDataService.GetDepartmentAsync(item.DepartmentId);
                 Employees.Add(item);
+            }
+        }
+
+        private void OpenEmployeeManageWindow()
+        {
+            if (Application.Current.Windows.OfType<IAddEmployeeWindow>().Count() == 0)
+            {
+                _employeesWindow = SimpleIoc.Default.GetInstance<IAddEmployeeWindow>(Guid.NewGuid().ToString());
+                _employeesWindow.ShowWindow();
             }
         }
     }
