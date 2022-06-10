@@ -46,7 +46,10 @@
     <None Remove="Assets\search.png" />
     <None Remove="Assets\signing.png" />
     <None Remove="Assets\task2.png" />
+    <None Remove="Assets\user128.png" />
     <None Remove="Assets\user2white.png" />
+    <None Remove="Assets\user64.png" />
+    <None Remove="Assets\user96.png" />
     <None Remove="Assets\userblack.png" />
     <None Remove="Assets\userw.png" />
     <None Remove="Assets\verified.png" />
@@ -158,7 +161,16 @@
     <Content Include="Assets\task2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\user128.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\user2white.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\user64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\user96.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\userw.png">

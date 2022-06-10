@@ -8,19 +8,19 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding AddEmployeeViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="AddEmployee" Height="450" Width="800">
+        Title="AddEmployee" Height="300" Width="600">
     <Grid>
         <Grid Margin="40">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="1.7*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            
+            <Image Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Assets/user128.png" Width="128" Height="128"/>
         </Grid>
     </Grid>
 </Window>

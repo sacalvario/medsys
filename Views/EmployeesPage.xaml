@@ -27,7 +27,7 @@
                     <TextBlock Text="No. De Empleado" HorizontalAlignment="Center" FontSize="11" Foreground="Black"/>
                     <TextBlock Text="{Binding EmployeeId}" FontWeight="Black" FontSize="19" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0, 3, 0, 0" Foreground="Black"/>
                 </StackPanel>
-                <Image Source="/Assets/userblack.png" Grid.Column="1" Width="50" Height="52" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="5" />
+                <Image Source="/Assets/user64.png" Grid.Column="1" Width="54" Height="54" Grid.RowSpan="2" HorizontalAlignment="Center" Margin="5" />
                 <TextBlock Text="{Binding Name}" FontSize="18" Grid.Column="2" FontWeight="Bold" Foreground="Black" VerticalAlignment="Center"/>
                 <TextBlock Text="{Binding Department.DepartmentName}"  Grid.Row="1" Grid.Column="2" FontSize="17" FontWeight="Bold" Foreground="#FFE20000" VerticalAlignment="Top"/>
                 <Button Grid.RowSpan="2" Grid.Column="3" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent">
