@@ -4,23 +4,28 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.modernwpf.com/2019"
-        
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding AddEmployeeViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="AddEmployee" Height="300" Width="600">
+        Title="AddEmployee" Height="380" Width="600">
     <Grid>
-        <Grid Margin="40">
+        <Grid Margin="40, 20">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="1.7*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Image Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Center" Source="/Assets/user128.png" Width="128" Height="128"/>
+            <Image Grid.RowSpan="3" Grid.Column="1" Margin="20, 20, 0 ,0" VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Assets/user128.png" Width="136" Height="136"/>
+            <TextBox  VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" />
+            <TextBox Grid.Row="1" Grid.RowSpan="2" Margin="0, 15, 0, 0" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Apellidos del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16"/>
+            <TextBox Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Correo electronico" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16" />
         </Grid>
     </Grid>
 </Window>
