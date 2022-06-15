@@ -21,9 +21,10 @@ namespace ECN.Views
         {
             if (obj.Notification == "ShowReport")
             {
-                var report = new Report();
-                
-                report.DataContext = new ReportViewModel(obj.Content, ((HistoryDetailsViewModel)DataContext)._ecnDataService, ((HistoryDetailsViewModel)DataContext)._numberPartsDataService);
+                var report = new Report
+                {
+                    DataContext = new ReportViewModel(obj.Content, ((HistoryDetailsViewModel)DataContext)._ecnDataService, ((HistoryDetailsViewModel)DataContext)._numberPartsDataService)
+                };
                 _ = report.ShowDialog();
             }
         }

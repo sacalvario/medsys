@@ -18,7 +18,7 @@ namespace ECN.ViewModels
 {
     public class EmployeesPageViewModel : ViewModelBase
     {
-        private IEcnDataService _ecnDataService;
+        private readonly IEcnDataService _ecnDataService;
         private IAddEmployeeWindow _employeesWindow;
         public EmployeesPageViewModel(IEcnDataService ecnDataService)
         {

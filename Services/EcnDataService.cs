@@ -427,5 +427,15 @@ namespace ECN.Services
             var result = context.SaveChanges();
             return result > 0;
         }
+
+        public async Task<IEnumerable<Department>> GetDepartmentsAsync()
+        {
+            await Task.CompletedTask;
+            return GetDepartmens();
+        }
+        private IEnumerable<Department> GetDepartmens()
+        {
+            return context.Departments.ToList();
+        }
     }
 }

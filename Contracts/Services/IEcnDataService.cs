@@ -21,6 +21,7 @@ namespace ECN.Contracts.Services
         Task<IEnumerable<Changetype>> GetChangeTypesAsync();
         Task<IEnumerable<Documenttype>> GetDocumentTypesAsync();
         Task<IEnumerable<EcoType>> GetEcoTypesAsync();
+        Task<IEnumerable<Department>> GetDepartmentsAsync();
         Task<Department> GetDepartmentAsync(int id);
         Task<ICollection<EcnAttachment>> GetAttachmentsAsync(int ecn);
         Task<Attachment> GetAttachmentAsync(int id);
