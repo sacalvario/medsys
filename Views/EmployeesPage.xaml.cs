@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Windows;
+﻿using ECN.Models;
+using ECN.ViewModels;
+
+using GalaSoft.MvvmLight.Messaging;
+
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ECN.Views
 {
@@ -21,6 +15,20 @@ namespace ECN.Views
         public EmployeesPage()
         {
             InitializeComponent();
+            Messenger.Default.Register<NotificationMessage<Employee>>(this, NotificationMessageReceived);
         }
+
+        private void NotificationMessageReceived(NotificationMessage<Employee> obj)
+        {
+            if (obj.Notification == "ShowManageEmployeeWindow")
+            {
+                var addemploye = new AddEmployee
+                {
+                    DataContext = new AddEmployeeViewModel(obj.Content, ((EmployeesPageViewModel)DataContext)._ecnDataService)
+                };
+                _ = addemploye.ShowDialog();
+            }
+        }
+
     }
 }

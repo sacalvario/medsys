@@ -1,16 +1,12 @@
 ﻿using ECN.Contracts.Services;
-using ECN.Contracts.Views;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Messaging;
 
-using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
-using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -18,8 +14,7 @@ namespace ECN.ViewModels
 {
     public class EmployeesPageViewModel : ViewModelBase
     {
-        private readonly IEcnDataService _ecnDataService;
-        private IAddEmployeeWindow _employeesWindow;
+        public readonly IEcnDataService _ecnDataService;
         public EmployeesPageViewModel(IEcnDataService ecnDataService)
         {
             _ecnDataService = ecnDataService;
@@ -44,7 +39,7 @@ namespace ECN.ViewModels
             {
                 if (_OpenEmployeeManageWindowCommand == null)
                 {
-                    _OpenEmployeeManageWindowCommand = new RelayCommand(OpenEmployeeManageWindow);
+                    _OpenEmployeeManageWindowCommand = new RelayCommand<Employee>(OpenEmployeeManageWindow);
                 }
                 return _OpenEmployeeManageWindowCommand;
             }
@@ -102,13 +97,9 @@ namespace ECN.ViewModels
             }
         }
 
-        private void OpenEmployeeManageWindow()
+        private void OpenEmployeeManageWindow(Employee Employee)
         {
-            if (Application.Current.Windows.OfType<IAddEmployeeWindow>().Count() == 0)
-            {
-                _employeesWindow = SimpleIoc.Default.GetInstance<IAddEmployeeWindow>(Guid.NewGuid().ToString());
-                _employeesWindow.ShowWindow();
-            }
+            Messenger.Default.Send(new NotificationMessage<Employee>(Employee, "ShowManageEmployeeWindow"));
         }
     }
 }

@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Windows;
 
 namespace ECN.ViewModels
 {
@@ -24,19 +25,63 @@ namespace ECN.ViewModels
                 if (_Departments != value)
                 {
                     _Departments = value;
-                    RaisePropertyChanged();
+                    RaisePropertyChanged("Departments");
                 }
             }
         }
 
-        public AddEmployeeViewModel(Employee employee, IEcnDataService ecnDataService)
+        private Employee _Employee;
+        public Employee Employee
         {
-
+            get => _Employee;
+            set
+            {
+                if (_Employee != value)
+                {
+                    _Employee = value;
+                    RaisePropertyChanged("Employee");
+                }
+            }
         }
 
-        public AddEmployeeViewModel(IEcnDataService ecnDataService)
+        private Visibility _UpdateEmployeeVisibility;
+        public Visibility UpdateEmployeeVisibility
+        {
+            get => _UpdateEmployeeVisibility;
+            set
+            {
+                if (_UpdateEmployeeVisibility != value)
+                {
+                    _UpdateEmployeeVisibility = value;
+                    RaisePropertyChanged("UpdateEmployeeVisibility");
+                }
+            }
+        }
+
+        private Visibility _AddEmployeeVisibility;
+        public Visibility AddEmployeeVisibility
+        {
+            get => _AddEmployeeVisibility;
+            set
+            {
+                if (_AddEmployeeVisibility != value)
+                {
+                    _AddEmployeeVisibility = value;
+                    RaisePropertyChanged("AddEmployeeVisibility");
+                }
+            }
+        }
+
+        public AddEmployeeViewModel(Employee employee, IEcnDataService ecnDataService) 
         {
             _ecnDataService = ecnDataService;
+            Employee = employee;
+
+            if (Employee.EmployeeId.ToString() != null)
+            {
+                UpdateEmployeeVisibility = Visibility.Visible;
+                AddEmployeeVisibility = Visibility.Collapsed;
+            }
 
             GetDepartments();
         }
