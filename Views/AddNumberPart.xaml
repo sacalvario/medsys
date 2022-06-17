@@ -3,10 +3,36 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
         DataContext="{Binding AddNumberPartViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="AddNumberPart" Height="450" Width="800">
+        Title="AddNumberPart" Height="450" Width="650">
     <Grid>
-        
+        <Grid Margin="40, 20, 40, 20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.7*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30, 0, 0, 70" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
+                <Image Source="/Assets/plug48.png" Width="42"/>
+                <StackPanel Margin="10, 0" VerticalAlignment="Center">
+                    <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
+                    <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
+                </StackPanel>
+            </StackPanel>
+            <Image Grid.RowSpan="3" Grid.Column="1" Margin="35, 140, 0 ,0" VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Assets/wire.png" Width="62" Height="62"/>
+            <TextBox Text="{Binding Employee.EmployeeId}" VerticalAlignment="Center" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 50, 0"/>
+            <TextBox Text="{Binding Employee.EmployeeFirstName}" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Revisión del número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 30, 0"/>
+            <ComboBox SelectedItem="{Binding Employee.Department}" Grid.Row="2" VerticalAlignment="Top" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignComboBox}" Background="White" md:HintAssist.Hint="Cliente" FontSize="16" />
+            <Button Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding AddEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Añadir" Cursor="Hand" />
+            <Button Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding UpdateEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Editar" Cursor="Hand" />
+
+        </Grid>
     </Grid>
 </Window>

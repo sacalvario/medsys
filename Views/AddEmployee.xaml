@@ -10,8 +10,8 @@
         ResizeMode="NoResize"
         DataContext="{Binding AddEmployeeViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        
-        Title="AddEmployee" Height="470" Width="600">
+        Title="AddEmployee" Height="480" Width="650">
+    
     <Grid>
         <Grid Margin="40, 20, 40, 20">
             <Grid.ColumnDefinitions>
@@ -26,20 +26,21 @@
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30, 0, 0, 30" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="30, 0, 0, 70" Grid.Column="1" Grid.RowSpan="2" VerticalAlignment="Center">
                 <Image Source="/Assets/plug48.png" Width="42"/>
                 <StackPanel Margin="10, 0" VerticalAlignment="Center">
                     <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
                     <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
                 </StackPanel>
             </StackPanel>
-            <Image Grid.RowSpan="3" Grid.Column="1" Margin="35, 100, 0 ,0" VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Assets/user128.png" Width="64" Height="64"/>
-            <TextBox Text="{Binding Employee.EmployeeFirstName}" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 5, 30, 0"/>
-            <TextBox Text="{Binding Employee.EmployeeLastName}" Grid.Row="1" Grid.RowSpan="2" Margin="0, 20, 30, 0" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Apellidos del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16"/>
-            <TextBox Text="{Binding Employee.EmployeeEmail}" Grid.Row="2" Grid.ColumnSpan="2" Grid.RowSpan="2" Margin="0, 0, 120, 0" VerticalAlignment="Center" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Correo electronico" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16" />
-            <ComboBox SelectedItem="{Binding Employee.Department}" Grid.Row="4" Grid.RowSpan="2" VerticalAlignment="Top" Margin="0, 8, 10, 0" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignComboBox}" Background="White" md:HintAssist.Hint="Departamento" FontSize="16" />
-            <Button Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="30, 00, 0, 0" Visibility="{Binding AddEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Añadir" Cursor="Hand" />
-            <Button Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="30, 00, 0, 0" Visibility="{Binding UpdateEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Editar" Cursor="Hand" />
+            <Image Grid.RowSpan="3" Grid.Column="1" Margin="35, 140, 0 ,0" VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Assets/user128.png" Width="62" Height="62"/>
+            <TextBox Text="{Binding Employee.EmployeeId}" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 50, 0"/>
+            <TextBox Text="{Binding Employee.EmployeeFirstName}" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 30, 0"/>
+            <TextBox Text="{Binding Employee.EmployeeLastName}" Grid.Row="2" Grid.RowSpan="2" Margin="0, 0, 30, 0" VerticalAlignment="Top" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Apellidos del empleado" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16"/>
+            <TextBox Text="{Binding Employee.EmployeeEmail}" Grid.Row="3" Grid.ColumnSpan="2" Margin="0, 0, 120, 0" VerticalAlignment="Top"  Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Correo electronico" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" FontSize="16" />
+            <ComboBox SelectedItem="{Binding Employee.Department}" Grid.Row="4"  VerticalAlignment="Center" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignComboBox}" Background="White" md:HintAssist.Hint="Departamento" FontSize="16" />
+            <Button Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding AddEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Añadir" Cursor="Hand" />
+            <Button Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding UpdateEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Editar" Cursor="Hand" />
             <StackPanel Grid.Row="6" Orientation="Horizontal" Margin="30, 0, 0, 0">
                 <ui:ToggleSwitch Height="30" Width="50" Margin="-30 , 0, 0, 0" OffContent="" OnContent="" IsOn="{Binding Employee.EmployeeHolidays}"/>
                 <TextBlock Text="Vacaciones" Margin="5, 0, 0, 0" VerticalAlignment="Center" Foreground="Gray" FontFamily="Arial" FontSize="16" FontWeight="Thin"/>

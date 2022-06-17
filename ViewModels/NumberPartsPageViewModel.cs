@@ -111,7 +111,7 @@ namespace ECN.ViewModels
             set
             {
                 if (_NumberParts != value)
-                {
+                {   
                     _NumberParts = value;
                     RaisePropertyChanged("NumberParts");
                 }

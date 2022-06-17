@@ -77,11 +77,11 @@ namespace ECN.ViewModels
             _ecnDataService = ecnDataService;
             Employee = employee;
 
-            if (Employee.EmployeeId.ToString() != null)
-            {
-                UpdateEmployeeVisibility = Visibility.Visible;
-                AddEmployeeVisibility = Visibility.Collapsed;
-            }
+            //if (Employee.EmployeeId.ToString() != null)
+            //{
+            //    UpdateEmployeeVisibility = Visibility.Visible;
+            //    AddEmployeeVisibility = Visibility.Collapsed;
+            //}
 
             GetDepartments();
         }
