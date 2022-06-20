@@ -93,5 +93,16 @@ namespace ECN.Services
         {
             return context.EcnNumberparts.Where(data => (data.Ecn.DocumentTypeId == 2 || data.Ecn.DocumentTypeId == 4 || data.Ecn.DocumentTypeId == 15 || data.Ecn.DocumentTypeId == 16 || data.Ecn.DocumentTypeId == 17) && data.Ecn.StatusId == 3 && data.Ecn.ChangeTypeId != 3).ToList();
         }
+
+        public async Task<IEnumerable<Customer>> GetCustomersAsync()
+        {
+            await Task.CompletedTask;
+            return GetCustomers();
+        }
+
+        private IEnumerable<Customer> GetCustomers()
+        {
+            return context.Customers.ToList();
+        }
     }
 }

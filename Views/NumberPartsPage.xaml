@@ -29,7 +29,7 @@
                     <TextBlock Text="Revisión" FontSize="15" FontWeight="SemiBold"  Foreground="Black"/>
                     <TextBlock Text="{Binding NumberPartRev}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black" FontSize="20"/>
                 </StackPanel>
-                <Button Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent">
+                <Button Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent" Command="{Binding ElementName=lvNumberParts, Path=DataContext.OpenNumberPartManageWindowCommand}" CommandParameter="{Binding}">
                     <Image Source="/Assets/edit.png" Width="32" HorizontalAlignment="Left"/>
                 </Button>
             </Grid>
@@ -75,6 +75,12 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="400"  />
         </StackPanel>
+        <Button HorizontalAlignment="Center" Background="Transparent" Command="{Binding OpenNumberPartManageWindowCommand}">
+            <StackPanel>
+                <Image Source="/Assets/wire.png" Width="32"/>
+                <TextBlock Text="Agregar número de parte" Foreground="Black"/>
+            </StackPanel>
+        </Button>
         <ListView x:Name="lvNumberParts" 
                   Grid.Row="1" 
                   HorizontalAlignment="Stretch" 

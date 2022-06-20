@@ -5,6 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        ui:PressHelper.IsEnabled="True"
+        ResizeMode="NoResize"
         DataContext="{Binding AddNumberPartViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
         Title="AddNumberPart" Height="450" Width="650">
@@ -27,12 +30,12 @@
                 </StackPanel>
             </StackPanel>
             <Image Grid.RowSpan="3" Grid.Column="1" Margin="35, 140, 0 ,0" VerticalAlignment="Top" HorizontalAlignment="Center" Source="/Assets/wire.png" Width="62" Height="62"/>
-            <TextBox Text="{Binding Employee.EmployeeId}" VerticalAlignment="Center" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 50, 0"/>
-            <TextBox Text="{Binding Employee.EmployeeFirstName}" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Revisión del número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 30, 0"/>
-            <ComboBox SelectedItem="{Binding Employee.Department}" Grid.Row="2" VerticalAlignment="Top" DisplayMemberPath="DepartmentName" SelectedValuePath="DepartmentId" ItemsSource="{Binding Departments}" Style="{StaticResource MaterialDesignComboBox}" Background="White" md:HintAssist.Hint="Cliente" FontSize="16" />
+            <TextBox Text="{Binding NumberPart.NumberPartId}" VerticalAlignment="Center" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 50, 0"/>
+            <TextBox Text="{Binding NumberPart.NumberPartRev}" Grid.Row="1" VerticalAlignment="Top" FontSize="16" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Revisión del número de parte" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow" Margin="0, 0, 30, 0"/>
+            <ComboBox SelectedItem="{Binding Employee.Department}" Grid.Row="2" VerticalAlignment="Top" DisplayMemberPath="CustomerName" SelectedValuePath="CustomerId" ItemsSource="{Binding Customers}" Style="{StaticResource MaterialDesignComboBox}" Background="White" md:HintAssist.Hint="Cliente" FontSize="16" />
             <Button Grid.Row="5" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding AddEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Añadir" Cursor="Hand" />
             <Button Grid.Row="4" Grid.RowSpan="2" Grid.Column="1" Margin="30, 0, 0, 0" Visibility="{Binding UpdateEmployeeVisibility}" Width="100" HorizontalAlignment="Center" Style="{StaticResource MaterialDesignRaisedDarkButton}" Content="Editar" Cursor="Hand" />
-
+            <TextBlock Text="Y baby perdoname, si de tu vida me fui, y aunque mas que a nadie te ame hoy ya no estoy para ti"/>
         </Grid>
     </Grid>
 </Window>

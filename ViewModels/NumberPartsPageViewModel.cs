@@ -3,16 +3,19 @@ using ECN.Contracts.Services;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Messaging;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
     public class NumberPartsPageViewModel : ViewModelBase 
     {
-        private readonly INumberPartsDataService _numberPartsDataService;
+        public readonly INumberPartsDataService _numberPartsDataService;
         public NumberPartsPageViewModel(INumberPartsDataService numberPartsDataService)
         {
             _numberPartsDataService = numberPartsDataService;
@@ -30,6 +33,24 @@ namespace ECN.ViewModels
 
             CvsNumberParts.Filter += ApplyFilter;
 
+        }
+
+        private ICommand _OpenNumberPartManageWindowCommand;
+        public ICommand OpenNumberPartManageWindowCommand
+        {
+            get
+            {
+                if (_OpenNumberPartManageWindowCommand == null)
+                {
+                    _OpenNumberPartManageWindowCommand = new RelayCommand<Numberpart>(OpenEmployeeManageWindow);
+                }
+                return _OpenNumberPartManageWindowCommand;
+            }
+        }
+
+        private void OpenEmployeeManageWindow(Numberpart numberpart)
+        {
+            Messenger.Default.Send(new NotificationMessage<Numberpart>(numberpart, "ShowManageNumberPartWindow"));
         }
 
         public async void GetAll()

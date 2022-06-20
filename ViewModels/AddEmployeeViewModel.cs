@@ -56,7 +56,7 @@ namespace ECN.ViewModels
                     RaisePropertyChanged("UpdateEmployeeVisibility");
                 }
             }
-        }
+        }   
 
         private Visibility _AddEmployeeVisibility;
         public Visibility AddEmployeeVisibility

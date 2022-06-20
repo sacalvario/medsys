@@ -108,7 +108,6 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
             SimpleIoc.Default.Register<INumberPartsWindow, NumberParts>();
             SimpleIoc.Default.Register<IEmployeesWindow, Employees>();
-            SimpleIoc.Default.Register<IAddNumberPartWindow, AddNumberPart>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<ShellLoginViewModel>();
@@ -120,6 +119,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<Models.Ecn>();
             SimpleIoc.Default.Register<Employee>();
+            SimpleIoc.Default.Register<Numberpart>();
 
             // Ya el nombre dije y no vuelvo a decirlo
             // De la tierra del cerro de la memoria
