@@ -15,6 +15,7 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Assets\add.png" />
     <None Remove="Assets\approvedfile.png" />
     <None Remove="Assets\attach.png" />
     <None Remove="Assets\attachment.png" />
@@ -35,7 +36,9 @@
     <None Remove="Assets\panerecord.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
+    <None Remove="Assets\plug128.png" />
     <None Remove="Assets\plug48.png" />
+    <None Remove="Assets\plug64.png" />
     <None Remove="Assets\plugicon.png" />
     <None Remove="Assets\refresh.png" />
     <None Remove="Assets\refuse.png" />
@@ -83,6 +86,9 @@
     <PackageReference Include="SimpleWPFReportingNETCore" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\add.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\attach.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -128,7 +134,13 @@
     <Content Include="Assets\plug.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\plug128.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\plug48.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\plug64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\plugicon.png">

@@ -15,9 +15,11 @@ namespace ECN.ViewModels
     public class EmployeesPageViewModel : ViewModelBase
     {
         public readonly IEcnDataService _ecnDataService;
-        public EmployeesPageViewModel(IEcnDataService ecnDataService)
+        public readonly IWindowManagerService _windowManagerService;
+        public EmployeesPageViewModel(IEcnDataService ecnDataService, IWindowManagerService windowManagerService)
         {
             _ecnDataService = ecnDataService;
+            _windowManagerService = windowManagerService;
             Employees = new ObservableCollection<Employee>();
             GetEmployees();
 
@@ -95,6 +97,11 @@ namespace ECN.ViewModels
                 item.Department = await _ecnDataService.GetDepartmentAsync(item.DepartmentId);
                 Employees.Add(item);
             }
+        }
+
+        public void UpdateEmployees()
+        {
+            
         }
 
         private void OpenEmployeeManageWindow(Employee Employee)

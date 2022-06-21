@@ -24,7 +24,7 @@ namespace ECN.Views
             {
                 var addemploye = new AddEmployee
                 {
-                    DataContext = new AddEmployeeViewModel(obj.Content, ((EmployeesPageViewModel)DataContext)._ecnDataService)
+                    DataContext = new AddEmployeeViewModel(obj.Content, ((EmployeesPageViewModel)DataContext)._ecnDataService, ((EmployeesPageViewModel)DataContext)._windowManagerService)
                 };
                 _ = addemploye.ShowDialog();
             }

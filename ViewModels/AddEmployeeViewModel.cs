@@ -4,18 +4,19 @@ using ECN.Contracts.Services;
 using ECN.Models;
 
 using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
 
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Text;
 using System.Windows;
+using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
     public class AddEmployeeViewModel : ViewModelBase
     {
         private readonly IEcnDataService _ecnDataService;
+        private readonly IWindowManagerService _windowManagerService;
+
         private ObservableCollection<Department> _Departments;
         public ObservableCollection<Department> Departments
         {
@@ -72,21 +73,54 @@ namespace ECN.ViewModels
             }
         }
 
-        public AddEmployeeViewModel(Employee employee, IEcnDataService ecnDataService) 
+        private ICommand _UpgradeEmployeeCommand;
+        public ICommand UpgradeEmployeeCommand
+        {
+            get
+            {
+                if (_UpgradeEmployeeCommand == null)
+                {
+                    _UpgradeEmployeeCommand = new RelayCommand(UpgradeEmployee);
+                }
+                return _UpgradeEmployeeCommand;
+            }
+        }
+
+        private ICommand _AddEmployeeCommand;
+        public ICommand AddEmployeeCommand
+        {
+            get
+            {
+                if (_AddEmployeeCommand == null)
+                {
+                    _AddEmployeeCommand = new RelayCommand(AddEmployee);
+                }
+                return _AddEmployeeCommand;
+            }
+        }
+
+        public AddEmployeeViewModel(Employee employee, IEcnDataService ecnDataService, IWindowManagerService windowManagerService) 
         {
             _ecnDataService = ecnDataService;
+            _windowManagerService = windowManagerService;
             Employee = employee;
 
-            //if (Employee.EmployeeId.ToString() != null)
-            //{
-            //    UpdateEmployeeVisibility = Visibility.Visible;
-            //    AddEmployeeVisibility = Visibility.Collapsed;
-            //}
+            if (Employee == null)
+            {
+                UpdateEmployeeVisibility = Visibility.Collapsed;
+                AddEmployeeVisibility = Visibility.Visible;
+                Employee = new Employee();
+            }
+            else
+            {
+                UpdateEmployeeVisibility = Visibility.Visible;
+                AddEmployeeVisibility = Visibility.Collapsed;
+            }
 
             GetDepartments();
         }
 
-        public async void GetDepartments()
+        private async void GetDepartments()
         {
             Departments = new ObservableCollection<Department>();
 
@@ -96,6 +130,22 @@ namespace ECN.ViewModels
                 Departments.Add(item);
             }
 
+        }
+
+        private void UpgradeEmployee()
+        {
+            if (_ecnDataService.UpgradeEmployee(Employee))
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se actualizo la información del empleado correctamente.");
+            }
+        }
+
+        private void AddEmployee()
+        {
+            if (_ecnDataService.AddEmployee(Employee))
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se añadio el empleado correctamente.");
+            }
         }
     }
 }

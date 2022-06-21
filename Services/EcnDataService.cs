@@ -320,7 +320,6 @@ namespace ECN.Services
             return context.Ecns.Where(data => data.StatusId == 4 && data.EmployeeId == UserRecord.Employee_ID).Count();
         }
 
-
         public bool CloseEcn(Ecn ecn, string notes)
         {
             ecn.StatusId = 3;
@@ -436,6 +435,26 @@ namespace ECN.Services
         private IEnumerable<Department> GetDepartmens()
         {
             return context.Departments.ToList();
+        }
+
+        public bool UpgradeEmployee(Employee employee)
+        {
+            _ = context.Update(employee);
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
+
+        public bool AddEmployee(Employee employee)
+        {
+            if (employee != null)
+            {
+                context.Employees.Add(employee);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
         }
     }
 }

@@ -83,50 +83,6 @@ namespace ECN.ViewModels
                 {
                     _Revisions = value;
                     RaisePropertyChanged("Revisions");
-
-                    // Se te olvido que tenias novio y hoy vienes a hablar
-                    // Como si nada a rogarme pero yo ya
-                    // Hoy tengo lo que quiero
-                    // Mujeres y dinero
-                    // No quiero nada en serio
-
-                    // Siento por dentro que mi corazon dañado esta
-                    // Me siento grave al pensar que estas con alguien mas
-                    // Pero le haras los mismo
-                    // Por que el no es tu tipo
-                    // Lo engañaras conmigo
-
-                    // Arriba del mercedez benz
-                    // Impregnada dior quedo
-                    // Cuando lo haciamos en el
-                    // Asiento de atras y yo
-                    // Haciendote venir
-                    // Mojados los pantys
-                    // Moncler que yo te di
-                    // Para irnos a madrid
-
-                    // Llevo dos dias bien enfiestado y no voy a parar
-                    // Y estoy seguro que tu tambien vas hacerlo igual
-                    // Pero me da lo mismo
-                    // Que andes con esos tipos
-                    // Ellos no son tu tipo
-
-                    // Cierra los ojos y en tu mente mi cara veras
-                    // Recordaras aquellos tiempos cuando te daba
-                    // Fumabas a escondidas
-                    // Conmigo te perdias
-                    // Con nadie mas querias
-
-                    // Arriba del mercedez benz
-                    // Impregnada dior quedo
-                    // Cuando lo haciamos en el
-                    // Asiento de atras y yo
-                    // Haciendote venir
-                    // Mojados los pantys
-                    // Moncler que yo te di
-                    // Para irnos a madrid
-
-
                 }
             }
         }
