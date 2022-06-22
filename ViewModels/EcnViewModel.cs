@@ -101,6 +101,21 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _EcnUnsubscribeTypeVisibility;
+        public Visibility EcnUnsubscribeTypeVisibility
+        {
+            get => _EcnUnsubscribeTypeVisibility;
+            set
+            {
+                if (_EcnUnsubscribeTypeVisibility != value)
+                {
+                    _EcnUnsubscribeTypeVisibility = value;
+                    RaisePropertyChanged("EcnUnsubscribeTypeVisibility");
+                }
+            }
+        }
+
+
         private Visibility _EcnChangeCustomerRevision;
         public Visibility EcnChangeCustomerRevision
         {
@@ -167,6 +182,7 @@ namespace ECN.ViewModels
             EcnRegisterTypeVisibility = Visibility.Collapsed;
             EcnIntExtTypeVisibility = Visibility.Visible;
             EcnChangeCustomerRevision = Visibility.Collapsed;
+            EcnUnsubscribeTypeVisibility = Visibility.Collapsed;
 
             SelectedForSign.CollectionChanged += SelectedForSignCollectionChanged;
             NumberParts.CollectionChanged += NumberPartCollectionChanged;
@@ -636,12 +652,23 @@ namespace ECN.ViewModels
                         {
                             EcnRegisterTypeVisibility = Visibility.Visible;
                             EcnIntExtTypeVisibility = Visibility.Collapsed;
+                            EcnUnsubscribeTypeVisibility = Visibility.Collapsed;
                         }
-                        else
+                        else if (_SelectedChangeType.ChangeTypeId < 3)
                         {
                             if (EcnIntExtTypeVisibility == Visibility.Collapsed)
                             {
                                 EcnIntExtTypeVisibility = Visibility.Visible;
+                                EcnRegisterTypeVisibility = Visibility.Collapsed;
+                                EcnUnsubscribeTypeVisibility = Visibility.Collapsed;
+                            }
+                        }
+                        else
+                        {
+                            if (EcnUnsubscribeTypeVisibility == Visibility.Collapsed)
+                            {
+                                EcnUnsubscribeTypeVisibility = Visibility.Visible;
+                                EcnIntExtTypeVisibility = Visibility.Collapsed;
                                 EcnRegisterTypeVisibility = Visibility.Collapsed;
                             }
                         }

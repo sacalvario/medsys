@@ -6,6 +6,7 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
+using System;
 using System.Collections.ObjectModel;
 using System.Windows;
 using System.Windows.Input;
@@ -99,6 +100,20 @@ namespace ECN.ViewModels
             }
         }
 
+        private bool _IsEdition;
+        public bool IsEdition
+        {
+            get => _IsEdition;
+            set
+            {
+                if (_IsEdition != value)
+                {
+                    _IsEdition = value;
+                    RaisePropertyChanged("IsEdition");
+                }
+            }
+        }
+
         public AddEmployeeViewModel(Employee employee, IEcnDataService ecnDataService, IWindowManagerService windowManagerService) 
         {
             _ecnDataService = ecnDataService;
@@ -115,6 +130,7 @@ namespace ECN.ViewModels
             {
                 UpdateEmployeeVisibility = Visibility.Visible;
                 AddEmployeeVisibility = Visibility.Collapsed;
+                IsEdition = true;
             }
 
             GetDepartments();
@@ -129,22 +145,56 @@ namespace ECN.ViewModels
             {
                 Departments.Add(item);
             }
+        }
 
+        private void ResetData()
+        {
+            Employee = new Employee();
         }
 
         private void UpgradeEmployee()
         {
-            if (_ecnDataService.UpgradeEmployee(Employee))
+            if (Employee.EmployeeFirstName != null && Employee.EmployeeLastName != null && Employee.EmployeeEmail != null)
             {
-                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se actualizo la información del empleado correctamente.");
+                try
+                {
+                    if (_ecnDataService.UpgradeEmployee(Employee))
+                    {
+                        _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se actualizo la información del empleado correctamente.");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al editar empleado - " + ex.ToString());
+                }
+            }
+            else
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Llena todo los campos.");
             }
         }
 
         private void AddEmployee()
         {
-            if (_ecnDataService.AddEmployee(Employee))
+            if (Employee.EmployeeId != 0 && Employee.EmployeeFirstName != null && Employee.EmployeeLastName != null && Employee.EmployeeEmail != null && Employee.Department != null)
             {
-                _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se añadio el empleado correctamente.");
+                try
+                {
+                    if (_ecnDataService.AddEmployee(Employee))
+                    {
+                        _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se añadio el empleado correctamente.");
+                        ResetData();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Error al añadir empleado - " + ex.ToString());
+                }
+            }
+            else
+            {
+                _ = _windowManagerService.OpenInDialog(typeof(ErrorViewModel).FullName, "Llena todo los campos.");
             }
         }
     }

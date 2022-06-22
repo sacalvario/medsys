@@ -314,8 +314,7 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
-                              Text="{Binding ECN.OldDocumentLvl}"
+                    <TextBox  Text="{Binding ECN.OldDocumentLvl}"
                               CharacterCasing="Upper"
                               Grid.Column="1"
                               Grid.Row="2"
@@ -332,7 +331,8 @@
                               ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del documento"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.CornerRadius="5"/>
+                              ui:ControlHelper.CornerRadius="5">
+                    </TextBox>
                     <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
                               Text="{Binding ECN.DocumentLvl}"
                               CharacterCasing="Upper"
