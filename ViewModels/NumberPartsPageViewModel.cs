@@ -16,9 +16,12 @@ namespace ECN.ViewModels
     public class NumberPartsPageViewModel : ViewModelBase 
     {
         public readonly INumberPartsDataService _numberPartsDataService;
-        public NumberPartsPageViewModel(INumberPartsDataService numberPartsDataService)
+        public readonly IWindowManagerService _windowManagerService;
+        public NumberPartsPageViewModel(INumberPartsDataService numberPartsDataService, IWindowManagerService windowManagerService)
         {
             _numberPartsDataService = numberPartsDataService;
+            _windowManagerService = windowManagerService;
+
             GetAll();
 
             CvsNumberParts = new CollectionViewSource

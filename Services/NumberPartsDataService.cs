@@ -104,5 +104,25 @@ namespace ECN.Services
         {
             return context.Customers.ToList();
         }
+
+        public bool AddNumberPart(Numberpart numberpart)
+        {
+            if (numberpart != null)
+            {
+                context.Numberparts.Add(numberpart);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
+        }
+
+        public bool UpdateNumberPart(Numberpart numberpart)
+        {
+            _ = context.Update(numberpart);
+
+            var result = context.SaveChanges();
+            return result > 0;
+        }
     }
 }

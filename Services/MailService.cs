@@ -107,6 +107,35 @@ namespace ECN.Services
             }
         }
 
+        public void SendCloseECO(int id, string generatorname, string generatoremail)
+        {
+            MailMessage msg = new MailMessage();
+            SmtpClient client = new SmtpClient("smtp-mail.outlook.com");
+
+            msg.From = new MailAddress("ecnsystem@outlook.com");
+            msg.To.Add("alvarado@electri-cord.com.mx");
+            msg.CC.Add(generatoremail);
+
+            msg.Subject = "ECO Cerrado!";
+            msg.Body = "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:12pt'>Hola<strong><span style='color:black'> Erika Alvarado Flores! </span></strong></span></span></p>" +
+              "<p><span style='font-family:Verdana,Geneva,sans-serif'><span style='font-size:16px'> El <span style='color:#ff0000'><strong> ECN </strong></span> con folio <span style='color:#ff0000'><strong> " + id + " </strong></span> generado por <span ><strong>" + generatorname + "</strong></span> ha sido <span style='color:#339933'><strong> cerrado </strong></span> por control de documentos. </span></span></p>";
+
+            msg.IsBodyHtml = true;
+
+            client.Port = 587;
+            client.Credentials = new NetworkCredential("ecnsystem@outlook.com", "ecmx-ecn");
+            client.EnableSsl = true;
+
+            try
+            {
+                client.Send(msg);
+            }
+            catch
+            {
+                return;
+            }
+        }
+
         public void SendEmail(List<string> emails, int id)
         {
             MailMessage msg = new MailMessage();

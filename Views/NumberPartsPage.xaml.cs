@@ -23,7 +23,7 @@ namespace ECN.Views
             {
                 var addnumberpart = new AddNumberPart
                 {
-                    DataContext = new AddNumberPartViewModel(obj.Content, ((NumberPartsPageViewModel)DataContext)._numberPartsDataService)
+                    DataContext = new AddNumberPartViewModel(obj.Content, ((NumberPartsPageViewModel)DataContext)._numberPartsDataService, ((NumberPartsPageViewModel)DataContext)._windowManagerService)
                 };
                 _ = addnumberpart.ShowDialog();
             }

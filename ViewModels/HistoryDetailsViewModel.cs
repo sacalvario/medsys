@@ -6,7 +6,7 @@ using ECN.Models;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
-
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Collections.Specialized;
@@ -837,7 +837,7 @@ namespace ECN.ViewModels
                     : _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cancelado. Se le notificara al generador.");
                 Notes = string.Empty;
                 _navigationService.GoBack();
-
+                        
             }
         }
 
@@ -846,6 +846,12 @@ namespace ECN.ViewModels
             if (_ecnDataService.CloseEcn(Ecn, Notes))
             {
                 _mailService.SendCloseECN(Ecn.Employee.EmployeeEmail, Ecn.Id, Ecn.Employee.Name);
+
+                if (Convert.ToBoolean(Ecn.IsEco))
+                {
+                    _mailService.SendCloseECO(Ecn.Id, Ecn.Employee.Name, Ecn.Employee.EmployeeEmail);
+                }
+
                 _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "ECN cerrado correctamente. Se le notificara al generador.");
                 Notes = string.Empty;
                 _navigationService.GoBack();
