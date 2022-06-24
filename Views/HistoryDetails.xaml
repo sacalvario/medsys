@@ -49,11 +49,12 @@
                         <Run Text="Folio" />
                         <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
                     </TextBlock>
-                    <Border VerticalAlignment="Top"  Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
-                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
+                    <Border VerticalAlignment="Top" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
+                        <!--<TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
                             <Run Text="ECO:"/>
                             <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
-                        </TextBlock>
+                        </TextBlock>-->
+                        <TextBox Text="{Binding Path=Ecn.EcnEco.IdEco, StringFormat=ECO: {0}}" Background="Transparent" BorderThickness="0" IsReadOnly="True" Foreground="White" FontWeight="Black" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </Border>
                     <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Ecn.Status.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
                         <TextBlock Foreground="White" Text="{Binding Ecn.Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
@@ -176,14 +177,18 @@
                         <TextBlock Text="Descripción del cambio" Grid.Row="1" Style="{StaticResource TextStylePropertyName}" />
                         <TextBlock Text="Justificación del cambio" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
                         <TextBlock Text="Afectaciones de manufactura" Grid.Row="3" Style="{StaticResource TextStylePropertyName}"/>
-                        <TextBlock Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic">
+                        <!--<TextBlock Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic">
                             <Run Text="{Binding Ecn.ChangeType.ChangeTypeName}"/>
                             <Run Text="/" />
                             <Run Text="{Binding Ecn.EcnEco.EcoType.EcoTypeName}" />
-                        </TextBlock>
-                        <TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextStyleProperty}" />
+                        </TextBlock>-->
+                        <TextBox Grid.Column="1" Background="Transparent" Text="{Binding Ecn.ChangeType.ChangeTypeName}" BorderThickness="0" IsReadOnly="True"/>
+                        <TextBox Grid.Column="1" Grid.Row="1" Background="Transparent" Text="{Binding Ecn.ChangeDescription}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <TextBox Grid.Column="1" Grid.Row="2" Background="Transparent" Text="{Binding Ecn.ChangeJustification}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <TextBox Grid.Column="1" Grid.Row="3" Background="Transparent" Text="{Binding Ecn.ManufacturingAffectations}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True"/>
+                        <!--<TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextStyleProperty}" />
                         <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
-                        <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />
+                        <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />-->
                     </Grid>
                     <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True"/>
                     <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True" >
