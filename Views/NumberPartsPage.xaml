@@ -75,7 +75,7 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="400"  />
         </StackPanel>
-        <Button HorizontalAlignment="Center" Background="Transparent" Command="{Binding OpenNumberPartManageWindowCommand}">
+        <Button HorizontalAlignment="Center" Margin="0, 10, 0, 0" Background="Transparent" Command="{Binding OpenNumberPartManageWindowCommand}">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Assets/add.png" Width="24" Height="24" />

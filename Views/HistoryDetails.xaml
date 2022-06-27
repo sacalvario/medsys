@@ -50,11 +50,11 @@
                         <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
                     </TextBlock>
                     <Border VerticalAlignment="Top" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
-                        <!--<TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
+                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
                             <Run Text="ECO:"/>
                             <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
-                        </TextBlock>-->
-                        <TextBox Text="{Binding Path=Ecn.EcnEco.IdEco, StringFormat=ECO: {0}}" Background="Transparent" BorderThickness="0" IsReadOnly="True" Foreground="White" FontWeight="Black" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        </TextBlock>
+                        <!--<TextBox Text="{Binding Path=Ecn.EcnEco.IdEco, StringFormat=ECO: {0}}" Background="Transparent" BorderThickness="0" IsReadOnly="True" Foreground="White" FontWeight="Black" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>-->
                     </Border>
                     <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Ecn.Status.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
                         <TextBlock Foreground="White" Text="{Binding Ecn.Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
@@ -286,9 +286,12 @@
                                                Margin="0, 5, 5, 5"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
-                                        <TextBlock Grid.Column="1"
-                                                   Text="{Binding NumberPartId, Mode=OneTime}"
-                                                   VerticalAlignment="Center" />
+                                        <TextBox Grid.Column="1"
+                                                 Text="{Binding NumberPartId, Mode=OneTime}"
+                                                 BorderThickness="0"
+                                                 IsReadOnly="True"
+                                                 Background="Transparent"
+                                                 VerticalAlignment="Center" />
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>

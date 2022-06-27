@@ -711,7 +711,7 @@ namespace ECN.ViewModels
             }
 
         }
-
+    
         private async void GetAttachments()
         {
             Ecn.EcnAttachments = await _ecnDataService.GetAttachmentsAsync(Ecn.Id);
