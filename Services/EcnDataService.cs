@@ -345,7 +345,7 @@ namespace ECN.Services
         {
             if (ecn.StatusId == 5 || ecn.StatusId == 1)
             {
-                EcnRevision revision = context.EcnRevisions.First(data => data.StatusId == 5 && data.EcnId == ecn.Id);
+                EcnRevision revision = context.EcnRevisions.FirstOrDefault(data => data.StatusId == 5 && data.EcnId == ecn.Id);
 
                 if (revision != null)
                 {
@@ -353,10 +353,11 @@ namespace ECN.Services
                 }
             }
 
-            Ecn upgradedecn = context.Ecns.Find(ecn.Id);
-            upgradedecn.StatusId = 2;
-            upgradedecn.EndDate = System.DateTime.Today;
-            upgradedecn.Notes = notes;
+            context.Ecns.Update(ecn);
+
+            ecn.StatusId = 2;
+            ecn.EndDate = System.DateTime.Today;
+            ecn.Notes = notes;
 
             var result = context.SaveChanges();
             return result > 0;
@@ -374,8 +375,8 @@ namespace ECN.Services
             EcnRevision refusedrevision = context.EcnRevisions.OrderBy(data => data.RevisionSequence).Last(data => data.StatusId == 6 && data.EcnId == ecn.Id);
             refusedrevision.StatusId = 5;
 
-            Ecn upgradedecn = context.Ecns.Find(ecn.Id);
-            upgradedecn.StatusId = 5;
+            context.Ecns.Update(ecn);
+            ecn.StatusId = 5;
 
             var result = context.SaveChanges();
             return result > 0;

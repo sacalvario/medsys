@@ -62,8 +62,8 @@ namespace ECN.ViewModels
             }
         }
 
-        internal CollectionViewSource CvsEmployees { get; set; }
-        public ICollectionView EmployeeCollection => CvsEmployees.View;
+        internal static CollectionViewSource CvsEmployees { get; set; }
+        public static ICollectionView EmployeeCollection => CvsEmployees.View;
 
         private string filter;
         public string Filter
@@ -99,10 +99,6 @@ namespace ECN.ViewModels
             }
         }
 
-        public void UpdateEmployees()
-        {
-            
-        }
 
         private void OpenEmployeeManageWindow(Employee Employee)
         {

@@ -1,4 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
+
 using System;
 using System.Collections.Generic;
 using System.Windows;
@@ -57,11 +58,62 @@ namespace ECN.Models
         public string OldDocumentLvl { get; set; }
         public int EmployeeId { get; set; }
         public sbyte IsEco { get; set; }
-        public string ChangeDescription { get; set; }
-        public string ChangeJustification { get; set; }
-        public string ManufacturingAffectations { get; set; }
+
+        private string _ChangeDescription;
+        public string ChangeDescription
+        {
+            get => _ChangeDescription;
+            set
+            {
+                if (_ChangeDescription != value)
+                {
+                    _ChangeDescription = value;
+                    RaisePropertyChanged("ChangeDescription");
+                }
+            }
+        }
+        private string _ChangeJustification;
+        public string ChangeJustification
+        {
+            get => _ChangeJustification;
+            set
+            {
+                if (_ChangeJustification != value)
+                {
+                    _ChangeJustification = value;
+                    RaisePropertyChanged("ChangeJustification");
+                }
+            }
+        }
+        private string _ManufacturingAffectations;
+        public string ManufacturingAffectations
+        {
+            get => _ManufacturingAffectations;
+            set
+            {
+                if (_ManufacturingAffectations != value)
+                {
+                    _ManufacturingAffectations = value;
+                    RaisePropertyChanged("ManufacturingAffectations");
+                }
+            }
+        }
+
         public string Notes { get; set; }
-        public int StatusId { get; set; }
+
+        private int _StatusId;
+        public int StatusId
+        {
+            get => _StatusId;
+            set
+            {
+                if (_StatusId != value)
+                {
+                    _StatusId = value;
+                    RaisePropertyChanged("StatusId");
+                }
+            }
+        }
         public int Year => StartDate.Year;
         public int Month => StartDate.Month;
         public string MonthName => System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(StartDate.Month);

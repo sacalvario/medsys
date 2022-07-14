@@ -306,6 +306,21 @@ namespace ECN.ViewModels
             }
         }
 
+        private bool _IsReadOnly = true;
+        public bool IsReadOnly
+        {
+            get => _IsReadOnly;
+            set
+            {
+                if (_IsReadOnly != value)
+                {
+                    _IsReadOnly = value;
+                    RaisePropertyChanged("IsReadOnly");
+                }
+            }
+        }
+
+
         private ObservableCollection<Numberpart> _NumberParts;
         public ObservableCollection<Numberpart> NumberParts
         {
@@ -511,6 +526,11 @@ namespace ECN.ViewModels
                 SelectedTabItem = 0;
             }
 
+            if (!IsReadOnly)
+            {
+                IsReadOnly = true;
+            }
+
             if (EcnPropietaryVisibility == Visibility.Visible)
             {
                 EcnPropietaryVisibility = Visibility.Collapsed;
@@ -563,6 +583,8 @@ namespace ECN.ViewModels
             else if (Ecn.Status.StatusId == 1 && Ecn.EmployeeId == UserRecord.Employee_ID)
             {
                 ModifyAttachmentVisibility = Visibility.Visible;
+                UpgradeECNVisibility = Visibility.Visible;
+                IsReadOnly = false;
             }
             else
             {
@@ -612,8 +634,6 @@ namespace ECN.ViewModels
             GetAttachments();
             GetRevisions();
             GetDocuments();
-
-            Attachments.CollectionChanged += AttachmentsCollectionChanged;
 
             if (NumberParts.Count != 0)
             {
@@ -687,17 +707,6 @@ namespace ECN.ViewModels
                 CustomerRevision = NumberParts[0].NumberPartRev;
             }
         }
-        private void AttachmentsCollectionChanged(object sender, NotifyCollectionChangedEventArgs e)
-        {
-            if (e.NewItems != null)
-            {
-                if (_UpgradeECNVisibility != Visibility.Visible)
-                {
-                    UpgradeECNVisibility = Visibility.Visible;
-                }
-            }
-        }
-
         private async void GetNumberParts()
         {
             var numberparts = await _numberPartsDataService.GetNumberPartsEcnsAsync(Ecn.Id);
