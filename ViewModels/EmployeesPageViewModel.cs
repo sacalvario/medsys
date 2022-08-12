@@ -3,8 +3,9 @@ using ECN.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-
+using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Windows.Data;
@@ -29,7 +30,6 @@ namespace ECN.ViewModels
             };
 
             CvsEmployees.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
-
 
             CvsEmployees.Filter += ApplyFilter;
         }
@@ -99,10 +99,14 @@ namespace ECN.ViewModels
             }
         }
 
-
         private void OpenEmployeeManageWindow(Employee Employee)
         {
             Messenger.Default.Send(new NotificationMessage<Employee>(Employee, "ShowManageEmployeeWindow"));
+        }
+
+        public void RefreshList()
+        {
+            //this = SimpleIoc.Default.GetInstance<EmployeesPageViewModel>(Guid.NewGuid().ToString());
         }
     }
 }

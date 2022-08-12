@@ -152,7 +152,8 @@
                         <RowDefinition Height="1.5*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Grid HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 100, 0" >
+                    <ScrollViewer HorizontalAlignment="Stretch" Grid.ColumnSpan="2" Margin="0, 40, 80, 30" >
+                        <Grid >
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="2.2*" />
@@ -189,6 +190,7 @@
                         <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
                         <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />-->
                     </Grid>
+                    </ScrollViewer>
                     <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True"/>
                     <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True" >
                         <Image Source="/Assets/document64.png" Width="64"/>
@@ -282,7 +284,7 @@
                                         <Image Source="/Assets/plug.png"
                                                Grid.RowSpan="2"
                                                Width="28"
-                                               Margin="0, 5, 5, 5"
+                                               Margin="0, 5, 0, 5"
                                                VerticalAlignment="Center"
                                                HorizontalAlignment="Center"/>
                                         <TextBox Grid.Column="1"
@@ -290,7 +292,8 @@
                                                  BorderThickness="0"
                                                  IsReadOnly="True"
                                                  Background="Transparent"
-                                                 VerticalAlignment="Center" />
+                                                 VerticalAlignment="Center"
+                                                 Margin="-5, 0, 0, 0"/>
                                     </Grid>
                                 </DataTemplate>
                             </ui:ListView.ItemTemplate>

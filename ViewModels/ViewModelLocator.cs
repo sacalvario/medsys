@@ -121,17 +121,6 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<Employee>();
             SimpleIoc.Default.Register<Numberpart>();
 
-            // Ya el nombre dije y no vuelvo a decirlo
-            // De la tierra del cerro de la memoria
-            // Me ven seguido con atuendo sport
-            // Y en la talacha siempre persiguiendo la marmarja
-            // Nos ponemos fresones todo el team
-            // Un cristo tengo rayado en mi piel
-            // Y mi no nombre en el corrido lo deje
-
-
-
-
             // Pages
             Register<HistoryViewModel, History>();
             Register<EcnViewModel, Views.Ecn>();
@@ -149,7 +138,6 @@ namespace ECN.ViewModels
             Register<NumberPartsPageViewModel, NumberPartsPage>();
             Register<EmployeesPageViewModel, EmployeesPage>();
         }
-
 
         private void Register<VM, V>()
             where VM : ViewModelBase
@@ -183,6 +171,12 @@ namespace ECN.ViewModels
         }
 
         public static void UnregisterShellViewModel()
+        {
+            SimpleIoc.Default.Unregister<ShellViewModel>();
+            SimpleIoc.Default.Register<ShellViewModel>();
+        }
+
+        public static void UnregisterEmployeesPageViewModel()
         {
             SimpleIoc.Default.Unregister<ShellViewModel>();
             SimpleIoc.Default.Register<ShellViewModel>();

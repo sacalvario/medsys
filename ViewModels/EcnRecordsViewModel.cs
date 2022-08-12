@@ -171,7 +171,7 @@ namespace ECN.ViewModels
 
         public void OnNavigatedFrom()
         {
-
+            
         }
 
         private void NavigateToDetail(Ecn ecn)

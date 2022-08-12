@@ -115,7 +115,6 @@ namespace ECN.ViewModels
             }
         }
 
-
         private Visibility _EcnChangeCustomerRevision;
         public Visibility EcnChangeCustomerRevision
         {
@@ -126,6 +125,176 @@ namespace ECN.ViewModels
                 {
                     _EcnChangeCustomerRevision = value;
                     RaisePropertyChanged("EcnChangeCustomerRevision");
+                }
+            }
+        }
+
+
+        private Visibility _DocumentTypeVisibility = Visibility.Collapsed;
+        public Visibility DocumentTypeVisibility
+        {
+            get => _DocumentTypeVisibility;
+            set
+            {
+                if (_DocumentTypeVisibility != value)
+                {
+                    _DocumentTypeVisibility = value;
+                    RaisePropertyChanged("DocumentTypeVisibility");
+                }
+            }
+        }
+
+
+        private Visibility _MainDocumentVisibility = Visibility.Visible;
+        public Visibility MainDocumentVisibility
+        {
+            get => _MainDocumentVisibility;
+            set
+            {
+                if (_MainDocumentVisibility != value)
+                {
+                    _MainDocumentVisibility = value;
+                    RaisePropertyChanged("MainDocumentVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentsAffectedVisibility = Visibility.Visible;
+        public Visibility DocumentsAffectedVisibility
+        {
+            get => _DocumentsAffectedVisibility;
+            set
+            {
+                if (_DocumentsAffectedVisibility != value)
+                {
+                    _DocumentsAffectedVisibility = value;
+                    RaisePropertyChanged("DocumentsAffectedVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentRevisionsVisibility = Visibility.Visible;
+        public Visibility DocumentRevisionsVisibility
+        {
+            get => _DocumentRevisionsVisibility;
+            set
+            {
+                if (_DocumentRevisionsVisibility != value)
+                {
+                    _DocumentRevisionsVisibility = value;
+                    RaisePropertyChanged("DocumentRevisionsVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentRevisionVisibility = Visibility.Collapsed;
+        public Visibility DocumentRevisionVisibility
+        {
+            get => _DocumentRevisionVisibility;
+            set
+            {
+                if (_DocumentRevisionVisibility != value)
+                {
+                    _DocumentRevisionVisibility = value;
+                    RaisePropertyChanged("DocumentRevisionVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentNumberVisibility = Visibility.Collapsed;
+        public Visibility DocumentNumberVisibility
+        {
+            get => _DocumentNumberVisibility;
+            set
+            {
+                if (_DocumentNumberVisibility != value)
+                {
+                    _DocumentNumberVisibility = value;
+                    RaisePropertyChanged("DocumentNumberVisibility");
+                }
+            }
+        }
+
+        private Visibility _NewDocumentNumberVisibility = Visibility.Collapsed;
+        public Visibility NewDocumentNumberVisibility
+        {
+            get => _NewDocumentNumberVisibility;
+            set
+            {
+                if (_NewDocumentNumberVisibility != value)
+                {
+                    _NewDocumentNumberVisibility = value;
+                    RaisePropertyChanged("NewDocumentNumberVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentNameVisibility = Visibility.Collapsed;
+        public Visibility DocumentNameVisibility
+        {
+            get => _DocumentNameVisibility;
+            set
+            {
+                if (_DocumentNameVisibility != value)
+                {
+                    _DocumentNameVisibility = value;
+                    RaisePropertyChanged("DocumentNameVisibility");
+                }
+            }
+        }
+
+        private Visibility _NewDocumentNameVisibility = Visibility.Collapsed;
+        public Visibility NewDocumentNameVisibility
+        {
+            get => _NewDocumentNameVisibility;
+            set
+            {
+                if (_NewDocumentNameVisibility != value)
+                {
+                    _NewDocumentNameVisibility = value;
+                    RaisePropertyChanged("NewDocumentNameVisibility");
+                }
+            }
+        }
+
+        private Visibility _NumberPartsVisibility = Visibility.Visible;
+        public Visibility NumberPartVisibility
+        {
+            get => _NumberPartsVisibility;
+            set
+            {
+                if (_NumberPartsVisibility != value)
+                {
+                    _NumberPartsVisibility = value;
+                    RaisePropertyChanged("NumberPartsVisibility");
+                }
+            }
+        }
+
+        private Visibility _NumberPartsChangeRevisionVisibility = Visibility.Collapsed;
+        public Visibility NumberPartsChangeRevisionVisibility
+        {
+            get => _NumberPartsChangeRevisionVisibility;
+            set
+            {
+                if (_NumberPartsChangeRevisionVisibility != value)
+                {
+                    _NumberPartsChangeRevisionVisibility = value;
+                    RaisePropertyChanged("NumberPartsChangeRevisionVisibility");
+                }
+            }
+        }
+
+        private Visibility _ChangeRevisionVisibility = Visibility.Collapsed;
+        public Visibility ChangeRevisionVisibility
+        {
+            get => _ChangeRevisionVisibility;
+            set
+            {
+                if (_ChangeRevisionVisibility != value)
+                {
+                    _ChangeRevisionVisibility = value;
+                    RaisePropertyChanged("ChangeRevisionVisibility");
                 }
             }
         }
@@ -142,6 +311,35 @@ namespace ECN.ViewModels
                     RaisePropertyChanged("IsEco");
                     EcnEcoVisibility = IsEco ? Visibility.Visible : Visibility.Hidden;
                     ECN.EndDate = IsEco ? DateTime.Now.AddDays(45) : DateTime.Now.AddDays(30);
+                }
+            }
+        }
+
+        private bool _IsNewNumberPartRevision;
+        public bool IsNewNumberPartRevision
+        {
+            get => _IsNewNumberPartRevision;
+            set
+            {
+                if (_IsNewNumberPartRevision != value)
+                {
+                    _IsNewNumberPartRevision = value;
+                    RaisePropertyChanged("IsNewNumberPartRevision");
+                    NumberPartsChangeRevisionVisibility = IsNewNumberPartRevision ? Visibility.Visible : Visibility.Collapsed;
+                }
+            }
+        }
+
+        private int _RowPosition = 2;
+        public int RowPosition
+        {
+            get => _RowPosition;
+            set
+            {
+                if (_RowPosition != value)
+                {
+                    _RowPosition = value;
+                    RaisePropertyChanged("RowPosition");
                 }
             }
         }
@@ -203,10 +401,23 @@ namespace ECN.ViewModels
             {
                 ViewModelLocator.UnregisterNumberPartViewModel();
                 ECN.OldDrawingLvl = string.Empty;
+
+                if (ChangeRevisionVisibility == Visibility.Visible)
+                {
+                    ChangeRevisionVisibility = Visibility.Collapsed;
+                }
             }
             else if (NumberParts.Count == 1)
             {
                 ECN.OldDrawingLvl = NumberParts[0].NumberPartRev;
+
+                if (SelectedChangeType != null)
+                {
+                    if (SelectedChangeType.ChangeTypeId < 3)
+                    {
+                        ChangeRevisionVisibility = Visibility.Visible;
+                    }
+                }
             }
             else if (NumberParts.Count == 11)
             {
@@ -555,6 +766,43 @@ namespace ECN.ViewModels
             NumberParts.CollectionChanged += NumberPartCollectionChanged;
         }
 
+        private void MakeVisibleIntExtData()
+        {
+            DocumentsAffectedVisibility = Visibility.Visible;
+            MainDocumentVisibility = Visibility.Visible;
+            DocumentRevisionsVisibility = Visibility.Visible;
+
+            if (NumberPartVisibility == Visibility.Collapsed)
+            {
+                NumberPartVisibility = Visibility.Visible;
+            }
+
+        }
+
+        private void MakeVisibleDeleteData()
+        {
+            if (DocumentRevisionsVisibility == Visibility.Visible)
+            {
+                DocumentRevisionsVisibility = Visibility.Collapsed;
+            }
+        }
+
+        private void MakeVisibleRegisterData()
+        {
+            DocumentTypeVisibility = Visibility.Visible;
+            NewDocumentNumberVisibility = Visibility.Visible;
+            NewDocumentNameVisibility = Visibility.Visible;
+            DocumentRevisionVisibility = Visibility.Visible;
+
+            if (NumberPartVisibility == Visibility.Collapsed)
+            {
+                NumberPartVisibility = Visibility.Visible;
+            }
+
+            DocumentsAffectedVisibility = Visibility.Collapsed;
+            MainDocumentVisibility = Visibility.Collapsed;
+            DocumentRevisionsVisibility = Visibility.Collapsed;
+        }
         private void GoToNexTabItem()
         {
             SelectedTabItem++;
@@ -650,9 +898,11 @@ namespace ECN.ViewModels
                     {
                         if (_SelectedChangeType.ChangeTypeId == 3)
                         {
-                            EcnRegisterTypeVisibility = Visibility.Visible;
-                            EcnIntExtTypeVisibility = Visibility.Collapsed;
-                            EcnUnsubscribeTypeVisibility = Visibility.Collapsed;
+                            MakeVisibleRegisterData();
+                        }
+                        else if (_SelectedChangeType.ChangeTypeId == 4)
+                        {
+                            MakeVisibleDeleteData();
                         }
                         else if (_SelectedChangeType.ChangeTypeId < 3)
                         {
@@ -665,9 +915,9 @@ namespace ECN.ViewModels
                         }
                         else
                         {
-                            if (EcnUnsubscribeTypeVisibility == Visibility.Collapsed)
+                            if (DocumentRevisionVisibility == Visibility.Visible)
                             {
-                                EcnUnsubscribeTypeVisibility = Visibility.Visible;
+                                DocumentRevisionVisibility = Visibility.Collapsed;
                                 EcnIntExtTypeVisibility = Visibility.Collapsed;
                                 EcnRegisterTypeVisibility = Visibility.Collapsed;
                             }
@@ -690,15 +940,19 @@ namespace ECN.ViewModels
 
                     if (_SelectedDocumentType != null)
                     {
-                        if (_SelectedDocumentType.DocumentTypeId == 2 || _SelectedDocumentType.DocumentTypeId == 4 || _SelectedDocumentType.DocumentTypeId == 15 || _SelectedDocumentType.DocumentTypeId == 16 || _SelectedDocumentType.DocumentTypeId == 17)
+                        if (SelectedDocumentType.DocumentTypeId == 1 || SelectedDocumentType.DocumentTypeId == 5 || SelectedDocumentType.DocumentTypeId == 6 || SelectedDocumentType.DocumentTypeId == 7 || SelectedDocumentType.DocumentTypeId == 10 || SelectedDocumentType.DocumentTypeId == 11 || SelectedDocumentType.DocumentTypeId == 12 || SelectedDocumentType.DocumentTypeId == 13 || SelectedDocumentType.DocumentTypeId == 19)
                         {
-                            EcnChangeCustomerRevision = Visibility.Visible;
+                            DocumentNameVisibility = Visibility.Visible;
+                            DocumentNumberVisibility = Visibility.Visible;
+                            RowPosition = 1;
                         }
                         else
                         {
-                            if (EcnChangeCustomerRevision == Visibility.Visible)
+                            if (DocumentNameVisibility == Visibility.Visible)
                             {
-                                EcnChangeCustomerRevision = Visibility.Collapsed;
+                                DocumentNameVisibility = Visibility.Collapsed;
+                                DocumentNumberVisibility = Visibility.Collapsed;
+                                RowPosition = 2;
                             }
                         }
                     }

@@ -249,7 +249,7 @@
                                FontFamily="Quicksand"
                                FontWeight="Medium"
                                Margin="0, 10, 0, 0"
-                               Visibility="{Binding EcnIntExtTypeVisibility}"/>
+                               Visibility="{Binding DocumentsAffectedVisibility}"/>
                     <TextBlock Text="Adjunta los documentos que apliquen para el cambio"
                                FontSize="16"
                                Grid.Column="1"
@@ -265,7 +265,7 @@
                                  Grid.Column="1"
                                  Grid.RowSpan="2"
                                  Name="lvAttachs"
-                                 Margin="45, 40, 45, 50">
+                                 Margin="45, 40, 45, 120">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" Margin="0, 5, 0, 5">
@@ -279,7 +279,7 @@
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
                     <ui:ListView ItemsSource="{Binding DocumentTypes}"
-                                 Visibility="{Binding EcnIntExtTypeVisibility}"
+                                 Visibility="{Binding DocumentsAffectedVisibility}"
                                  IsItemClickEnabled="False" 
                                  IsSelectionEnabled="False"
                                  Grid.RowSpan="4" 
@@ -288,18 +288,20 @@
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
                                 <CheckBox Content="{Binding DocumentTypeName}"
-                                          FontSize="15"
+                                          FontSize="15" 
                                           IsChecked="{Binding IsSelected}"/>
                             </DataTemplate>
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
-                    <ComboBox Grid.Column="1"
-                              Grid.Row="1"
-                              Grid.RowSpan="2"
-                              Visibility="{Binding EcnIntExtTypeVisibility}"
+                    <Grid Grid.Column="1" Grid.Row="{Binding RowPosition}" Grid.RowSpan="2">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                    <ComboBox Visibility="{Binding MainDocumentVisibility}"
                               HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
-                              Margin="50, 5, 30, 0"
+                              VerticalAlignment="Top"
+                              Margin="50, 0, 30, 0"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
@@ -314,33 +316,69 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                    <ui:SimpleStackPanel Grid.Row="1"
+                                         Margin="50, 0, 0, 0"
+                                         VerticalAlignment="Top"
+                                         Orientation="Horizontal"> 
+                    <TextBox  Visibility="{Binding DocumentRevisionsVisibility}"
                               Text="{Binding ECN.OldDocumentLvl}"
                               CharacterCasing="Upper"
-                              Grid.Column="1"
-                              Grid.Row="2"
-                              Grid.RowSpan="2"
-                              Margin="50, 0, 100, 20"
-                              HorizontalAlignment="Stretch"
-                              VerticalAlignment="Center"
+                              Width="220"
+                              Height="60"
+                              Margin="0, 0, 10, 0"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
                               FontSize="15"
                               Foreground="White"
                               BorderBrush="Transparent"
                               ui:ControlHelper.Header="Nivel de revisión actual"
-                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual del documento"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión actual"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                              ui:ControlHelper.CornerRadius="5">
-                    </TextBox>
-                    <TextBox  Visibility="{Binding EcnIntExtTypeVisibility}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                        <Image Source="/Assets/right-arrow.png" Width="24" Margin="10, 20, 15, 0" VerticalAlignment="Center" />
+                        <TextBox  Visibility="{Binding DocumentRevisionsVisibility}"
                               Text="{Binding ECN.DocumentLvl}"
                               CharacterCasing="Upper"
-                              Grid.Column="1"
-                              Grid.Row="3"
+                              Width="220"
+                              Height="60"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Nivel de revisión nuevo"
+                              ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    </ui:SimpleStackPanel>
+                    </Grid>
+                    <TextBox  Visibility="{Binding DocumentNumberVisibility}"
+                              Text="{Binding ECN.DocumentNo}"
+                              CharacterCasing="Upper"
+                              Grid.Row="2"
                               Grid.RowSpan="2"
-                              Margin="50, 0, 100, 40"
+                              Grid.Column="1"  
+                              Margin="50, 10, 100, 0"
+                              VerticalAlignment="Center"
+                              FontFamily="Quicksand Medium"
+                              Background="#FFFF0033"
+                              FontSize="15"
+                              Foreground="White"
+                              BorderBrush="Transparent"
+                              ui:ControlHelper.Header="Número de documento"
+                              ui:ControlHelper.PlaceholderText="Ingresa el número de documento"
+                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
+                              ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
+                              ui:ControlHelper.CornerRadius="5"/>
+                    <TextBox  Visibility="{Binding DocumentNameVisibility}"
+                              Text="{Binding ECN.DocumentName}"
+                              CharacterCasing="Upper"
+                              Grid.Row="3"
+                              Grid.Column="1"
+                              Grid.RowSpan="2"
+                              Margin="50, 0, 100, 50"
                               VerticalAlignment="Center"
                               HorizontalAlignment="Stretch"
                               FontFamily="Quicksand Medium"
@@ -348,12 +386,12 @@
                               FontSize="15"
                               Foreground="White"
                               BorderBrush="Transparent"
-                              ui:ControlHelper.Header="Nivel de revisión nuevo"
+                              ui:ControlHelper.Header="Nombre del documento"
                               ui:ControlHelper.PlaceholderText="Ingresa la revisión nueva del documento"
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <ComboBox Visibility="{Binding EcnRegisterTypeVisibility}"
+                    <ComboBox Visibility="{Binding DocumentTypeVisibility}"
                               HorizontalAlignment="Stretch"
                               VerticalAlignment="Center"
                               Margin="0, 0, 50, 0"
@@ -372,7 +410,7 @@
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Text="{Binding ECN.DocumentLvl, Mode=TwoWay}"
-                             Visibility="{Binding EcnRegisterTypeVisibility}"
+                             Visibility="{Binding DocumentRevisionVisibility}"
                              Grid.Row="1"
                              CharacterCasing="Upper"
                              Margin="0, 0, 100, 0"
@@ -389,7 +427,7 @@
                              ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Grid.Row="2"
                              Grid.RowSpan="2"
-                             Visibility="{Binding EcnRegisterTypeVisibility}"
+                             Visibility="{Binding NewDocumentNumberVisibility}"
                              Text="{Binding ECN.DocumentNo, Mode=TwoWay}"
                              CharacterCasing="Upper"
                              VerticalAlignment="Center"
@@ -405,7 +443,7 @@
                              ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                              ui:ControlHelper.CornerRadius="5"/>
                     <TextBox Text="{Binding ECN.DocumentName, Mode=TwoWay}"
-                             Visibility="{Binding EcnRegisterTypeVisibility}"
+                             Visibility="{Binding NewDocumentNameVisibility}"
                              CharacterCasing="Upper"
                              Grid.Row="2"
                              Grid.RowSpan="2"
@@ -470,8 +508,8 @@
                         <RowDefinition Height="*" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <Label Content="Arrastre los números de parte que apliquen para el cambio" FontFamily="Quicksand Medium" FontSize="16" Margin="0, 0, 0, 10"/>
-                    <ScrollViewer Grid.RowSpan="3" Margin="0, 25, 0, 0" >
+                    <Label Content="Arrastre los números de parte que apliquen para el cambio" FontFamily="Quicksand Medium" FontSize="16" Margin="0, 0, 0, 10" Visibility="{Binding NumberPartVisibility}"/>
+                    <ScrollViewer Grid.RowSpan="3" Margin="0, 25, 0, 0" Visibility="{Binding NumberPartVisibility}" >
                         <Grid >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -485,18 +523,31 @@
                             <ui:ListView x:Name="lvNumberParts" Grid.Row="1" Background="#FFDCDADA" ItemTemplate="{StaticResource NumberPartListViewTemplate}" ItemsSource="{Binding NumberParts}" IsSelectionEnabled="False" dd:DragDrop.IsDropTarget="True" />
                         </Grid>
                     </ScrollViewer>
-                    <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding OpenNumberPartsDialogCommand}">
+                    <Button Background="Transparent" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Top" Command="{Binding OpenNumberPartsDialogCommand}" Visibility="{Binding NumberPartVisibility}">
                         <StackPanel Orientation="Horizontal">
                             <Image Source="/Assets/wire.png" Height="28" Width="28" Margin="2"/>
                             <Label Content="Numeros de parte"  FontSize="15" FontWeight="Black" VerticalAlignment="Center"/>
                         </StackPanel>
                     </Button>
-                    <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
+                    <ui:ToggleSwitch Header="¿Cambio de revisión de número/s de parte?"
+                                     Visibility="{Binding ChangeRevisionVisibility}"
+                                     IsOn="{Binding IsNewNumberPartRevision}"
+                                     OffContent="No"
+                                     OnContent="Si" 
+                                     Grid.Column="1"
+                                     FontFamily="Quicksand Medium"
+                                     FontSize="17"
+                                     Foreground="Black"
+                                     HorizontalAlignment="Center"
+                                     VerticalAlignment="Top"
+                                     HeaderTemplate="{StaticResource ToggleSwitchHeaderTemplate}"/>
+                    <TextBox  Visibility="{Binding NumberPartsChangeRevisionVisibility}"
                               Text="{Binding ECN.OldDrawingLvl}"
                               CharacterCasing="Upper"
                               Grid.Column="1"
-                              VerticalAlignment="Bottom"
-                              Margin="80, 30, 50, 0"
+                              Grid.RowSpan="2"
+                              VerticalAlignment="Center"
+                              Margin="80, 20, 50, 0"
                               HorizontalAlignment="Stretch"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
@@ -508,13 +559,14 @@
                               ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
                               ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                               ui:ControlHelper.CornerRadius="5"/>
-                    <TextBox  Visibility="{Binding EcnChangeCustomerRevision}"
+                    <TextBox  Visibility="{Binding NumberPartsChangeRevisionVisibility}"
                               Text="{Binding ECN.DrawingLvl}"
                               CharacterCasing="Upper"
                               Grid.Column="1"
                               Grid.Row="1"
+                              Grid.RowSpan="2"
                               Margin="80, 0, 50, 0"
-                              VerticalAlignment="Bottom"
+                              VerticalAlignment="Center"
                               HorizontalAlignment="Stretch"
                               FontFamily="Quicksand Medium"
                               Background="#FFFF0033"
@@ -690,7 +742,7 @@
                                            Grid.RowSpan="2"
                                            Margin="2, 0"
                                            VerticalAlignment="Center"
-                                           HorizontalAlignment="Center" />
+                                           HorizontalAlignment="Center" />  
                                     <TextBlock Grid.Column="3"
                                                Text="{Binding Name}"
                                                FontWeight="Black"

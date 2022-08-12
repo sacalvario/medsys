@@ -40,12 +40,12 @@ namespace ECN.Models
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
 
-                _ = optionsBuilder.UseMySql("Server=localhost;Database=ecn;Uid=root;Pwd=user;SSL Mode=None;", ServerVersion.Parse("8.0.27-mysql")
+                _ = optionsBuilder.UseMySql("Server=192.168.36.4;Database=ecn;Uid=usermysql;Pwd=user;SSL Mode=None;", ServerVersion.Parse("8.0.27-mysql")
                     ,
                     mySqlOptionsAction: SqlOptions =>
                     {
                         _ = SqlOptions.EnableRetryOnFailure(
-                                maxRetryCount:  2    ,
+                                maxRetryCount: 2,
                                 maxRetryDelay: System.TimeSpan.FromSeconds(10),
                                 errorNumbersToAdd: null
                             );
@@ -480,11 +480,11 @@ namespace ECN.Models
                     .HasForeignKey(d => d.DepartmentId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_department_id");
-            });
+                });
 
             modelBuilder.Entity<Numberpart>(entity =>
             {
-                entity.HasKey(e => e.NumberPartNo)
+                entity.HasKey(e => e.NumberPartNo)  
                     .HasName("PRIMARY");
 
                 entity.ToTable("numberpart");

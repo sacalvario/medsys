@@ -1,4 +1,4 @@
-﻿
+﻿ 
 using ECN.Models;
 
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace ECN.Contracts.Services
         void SendRefuseECNToGeneratorEmail(string email, int id, string refusedname, string generatorname, List<string> emails);
         void SendCloseECN(string email, int id, string generatorname);
         void SendCancelECN(string email, Ecn ecn, string generatorname);
-        void SendApprovedECN(int id, string generatorname, string generatoemail);
+        void SendApprovedECN(int id, string generatorname, string generatoremail);
         void SendCloseECO(int id, string generatorname, string generatoremail);
     }
 }

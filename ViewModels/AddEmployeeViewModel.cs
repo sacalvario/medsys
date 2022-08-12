@@ -5,7 +5,7 @@ using ECN.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
+using GalaSoft.MvvmLight.Ioc;
 using System;
 using System.Collections.ObjectModel;
 using System.Windows;
@@ -17,6 +17,7 @@ namespace ECN.ViewModels
     {
         private readonly IEcnDataService _ecnDataService;
         private readonly IWindowManagerService _windowManagerService;
+        private readonly EmployeesPageViewModel _employeesPageVM;
 
         private ObservableCollection<Department> _Departments;
         public ObservableCollection<Department> Departments
@@ -118,6 +119,7 @@ namespace ECN.ViewModels
         {
             _ecnDataService = ecnDataService;
             _windowManagerService = windowManagerService;
+            //_employeesPageVM = SimpleIoc.Default.GetInstance<EmployeesPageViewModel>(Guid.NewGuid().ToString());
             Employee = employee;
 
             if (Employee == null)
@@ -183,6 +185,9 @@ namespace ECN.ViewModels
                     if (_ecnDataService.AddEmployee(Employee))
                     {
                         _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "Se añadio el empleado correctamente.");
+                        //_employeesPageVM.RefreshList();
+                        //_employeesPageVM.Cleanup();
+                        ViewModelLocator.UnregisterEmployeesPageViewModel();
                         ResetData();
                     }
 
