@@ -777,14 +777,35 @@ namespace ECN.ViewModels
                 NumberPartVisibility = Visibility.Visible;
             }
 
+            DocumentTypeVisibility = Visibility.Collapsed;
+            NewDocumentNameVisibility = Visibility.Collapsed;
+            NewDocumentNumberVisibility = Visibility.Collapsed;
+            NewDocumentNameVisibility = Visibility.Collapsed;
+            NewDocumentNumberVisibility = Visibility.Collapsed;
+            DocumentRevisionVisibility = Visibility.Collapsed;
         }
 
         private void MakeVisibleDeleteData()
         {
+            DocumentsAffectedVisibility = Visibility.Visible;
+            MainDocumentVisibility = Visibility.Visible;
+
+            if (NumberPartVisibility == Visibility.Collapsed)
+            {
+                NumberPartVisibility = Visibility.Visible;
+            }
             if (DocumentRevisionsVisibility == Visibility.Visible)
             {
                 DocumentRevisionsVisibility = Visibility.Collapsed;
             }
+
+            DocumentTypeVisibility = Visibility.Collapsed;
+            NewDocumentNameVisibility = Visibility.Collapsed;
+            NewDocumentNumberVisibility = Visibility.Collapsed;
+            NewDocumentNameVisibility = Visibility.Collapsed;
+            NewDocumentNumberVisibility = Visibility.Collapsed;
+            DocumentRevisionVisibility = Visibility.Collapsed;
+
         }
 
         private void MakeVisibleRegisterData()
@@ -802,6 +823,12 @@ namespace ECN.ViewModels
             DocumentsAffectedVisibility = Visibility.Collapsed;
             MainDocumentVisibility = Visibility.Collapsed;
             DocumentRevisionsVisibility = Visibility.Collapsed;
+
+            if (DocumentNameVisibility == Visibility.Visible)
+            {
+                DocumentNameVisibility = Visibility.Collapsed;
+                DocumentNumberVisibility = Visibility.Collapsed;
+            }
         }
         private void GoToNexTabItem()
         {
@@ -906,21 +933,7 @@ namespace ECN.ViewModels
                         }
                         else if (_SelectedChangeType.ChangeTypeId < 3)
                         {
-                            if (EcnIntExtTypeVisibility == Visibility.Collapsed)
-                            {
-                                EcnIntExtTypeVisibility = Visibility.Visible;
-                                EcnRegisterTypeVisibility = Visibility.Collapsed;
-                                EcnUnsubscribeTypeVisibility = Visibility.Collapsed;
-                            }
-                        }
-                        else
-                        {
-                            if (DocumentRevisionVisibility == Visibility.Visible)
-                            {
-                                DocumentRevisionVisibility = Visibility.Collapsed;
-                                EcnIntExtTypeVisibility = Visibility.Collapsed;
-                                EcnRegisterTypeVisibility = Visibility.Collapsed;
-                            }
+                            MakeVisibleIntExtData();
                         }
                     }
                 }
