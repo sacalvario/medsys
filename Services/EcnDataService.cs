@@ -326,7 +326,7 @@ namespace ECN.Services
             ecn.EndDate = System.DateTime.Today;
             ecn.Notes = notes;
 
-            if (ecn.DocumentTypeId == 2 || ecn.DocumentTypeId == 4 || ecn.DocumentTypeId == 15 || ecn.DocumentTypeId == 16 || ecn.DocumentTypeId == 17 && ecn.ChangeTypeId != 3)
+            if (ecn.DrawingLvl != ecn.OldDrawingLvl)
             {
                 var data = context.EcnNumberparts.Where(data => data.EcnId == ecn.Id);
                 foreach (var item in data)

@@ -278,6 +278,63 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _DocumentNameNumberVisibility = Visibility.Collapsed;
+        public Visibility DocumentNameNumberVisibility
+        {
+            get => _DocumentNameNumberVisibility;
+            set
+            {
+                if (_DocumentNameNumberVisibility != value)
+                {
+                    _DocumentNameNumberVisibility = value;
+                    RaisePropertyChanged("DocumentNameNumberVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentChangeRevisionVisibility = Visibility.Visible;
+        public Visibility DocumentChangeRevisionVisibility
+        {
+            get => _DocumentChangeRevisionVisibility;
+            set
+            {
+                if (_DocumentChangeRevisionVisibility != value)
+                {
+                    _DocumentChangeRevisionVisibility = value;
+                    RaisePropertyChanged("DocumentChangeRevisionVisibility");
+                }
+            }
+        }
+
+        private Visibility _DocumentRevisionVisibility = Visibility.Collapsed;
+        public Visibility DocumentRevisionVisibility
+        {
+            get => _DocumentRevisionVisibility;
+            set
+            {
+                if (_DocumentRevisionVisibility != value)
+                {
+                    _DocumentRevisionVisibility = value;
+                    RaisePropertyChanged("DocumentRevisionVisibility");
+                }
+                
+            }
+        }
+
+        private int _DocumentImageWidth = 64;
+        public int DocumentImageWidth
+        {
+            get => _DocumentImageWidth;
+            set
+            {
+                if (_DocumentImageWidth != value)
+                {
+                    _DocumentImageWidth = value;
+                    RaisePropertyChanged("DocumentImageWidth");
+                }
+            }
+        }
+
         private string _RevisionNotes;
         public string RevisionNotes
         {
@@ -646,13 +703,43 @@ namespace ECN.ViewModels
                 EcnIntExtTypeVisibility = Visibility.Collapsed;
                 EcnDocumentsVisibility = Visibility.Collapsed;
             }
+            else if (Ecn.ChangeType.ChangeTypeId == 4)
+            {
+                DocumentChangeRevisionVisibility = Visibility.Collapsed;
+                DocumentRevisionVisibility = Visibility.Visible;
+                if (EcnRegisterTypeVisibility == Visibility.Visible)
+                {
+                    EcnIntExtTypeVisibility = Visibility.Visible;
+                    EcnDocumentsVisibility = Visibility.Visible;
+                    EcnRegisterTypeVisibility = Visibility.Collapsed;
+                }
+            }
             else
             {
+                DocumentChangeRevisionVisibility = Visibility.Visible;
+                DocumentRevisionVisibility = Visibility.Collapsed;
                 if (EcnIntExtTypeVisibility == Visibility.Collapsed)
                 {
                     EcnIntExtTypeVisibility = Visibility.Visible;
                     EcnDocumentsVisibility = Visibility.Visible;
                     EcnRegisterTypeVisibility = Visibility.Collapsed;
+                }
+            }
+
+            if (Ecn.DocumentType.DocumentTypeId == 1 || Ecn.DocumentType.DocumentTypeId == 5 || Ecn.DocumentType.DocumentTypeId == 6 || Ecn.DocumentType.DocumentTypeId == 7 || Ecn.DocumentType.DocumentTypeId == 10 || Ecn.DocumentType.DocumentTypeId == 11 || Ecn.DocumentType.DocumentTypeId == 12 || Ecn.DocumentType.DocumentTypeId == 13 || Ecn.DocumentType.DocumentTypeId == 19)
+            {
+                if (DocumentNameNumberVisibility == Visibility.Collapsed)
+                {
+                    DocumentNameNumberVisibility = Visibility.Visible;
+                    DocumentImageWidth = 32;
+                }
+            }
+            else
+            {
+                if (DocumentNameNumberVisibility == Visibility.Visible)
+                {
+                    DocumentNameNumberVisibility = Visibility.Collapsed;
+                    DocumentImageWidth = 64;
                 }
             }
 
@@ -679,9 +766,9 @@ namespace ECN.ViewModels
                     EcnNumberPartsVisibility = Visibility.Visible;
                 }
 
-                if (Ecn.DocumentType.DocumentTypeId == 2 || Ecn.DocumentType.DocumentTypeId == 4 || Ecn.DocumentType.DocumentTypeId == 15 || Ecn.DocumentType.DocumentTypeId == 16 || Ecn.DocumentType.DocumentTypeId == 17)
+                if (Ecn.DrawingLvl != Ecn.OldDrawingLvl)
                 {
-                    if (Ecn.ChangeType.ChangeTypeId != 3)
+                    if (Ecn.ChangeType.ChangeTypeId < 3)
                     {
                         EcnNumberPartChangeRevision = Visibility.Visible;
                         EcnNumberPartRevision = Visibility.Collapsed;

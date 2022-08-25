@@ -192,13 +192,25 @@
                     </Grid>
                     </ScrollViewer>
                     <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True"/>
-                    <ui:SimpleStackPanel Spacing="10" Grid.Row="1" Margin="0, 30, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True" >
-                        <Image Source="/Assets/document64.png" Width="64"/>
+                    <ui:SimpleStackPanel Spacing="5" Grid.Row="1" Margin="0, 25, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}">
+                        <Image Source="/Assets/document64.png" Width="{Binding DocumentImageWidth}" />
                         <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Tipo de documento: " />
                                 <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
-                        <Grid>
+                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentNameNumberVisibility}">
+                                <Run Text="Número de documento: " />
+                                <Run Text="{Binding Ecn.DocumentNo}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentNameNumberVisibility}">
+                                <Run Text="Nombre de documento: " />
+                                <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentRevisionVisibility}">
+                                <Run Text="Revisión del documento: " />
+                                <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <Grid Visibility="{Binding DocumentChangeRevisionVisibility}">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="4*" />
                                 <ColumnDefinition Width="*" />
@@ -215,7 +227,7 @@
                             </StackPanel>
                         </Grid>
                     </ui:SimpleStackPanel>
-                    <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnDocumentsVisibility}" d:IsHidden="True"/>
+                    <TextBlock Text="Otros documentos afectados" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnDocumentsVisibility}" d:IsHidden="True" d:IsLocked="True"/>
                     <ui:ListView Grid.Column="1" Grid.Row="1" ItemsSource="{Binding Documents}" Visibility="{Binding EcnDocumentsVisibility}" Margin="0, 30, 20, 0" HorizontalAlignment="Center" IsSelectionEnabled="False" d:IsHidden="True">
                         <ui:ListView.ItemTemplate>
                             <DataTemplate>
@@ -231,8 +243,8 @@
                         </ui:ListView.ItemTemplate>
                     </ui:ListView>
                     <TextBlock Text="Documento de alta" Grid.Row="1" FontSize="15" HorizontalAlignment="Center" Grid.ColumnSpan="2" FontWeight="Black" Visibility="{Binding EcnRegisterTypeVisibility}"/>
-                    <ui:SimpleStackPanel Margin="0, 40, 0, 0" Spacing="10" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Visibility="{Binding EcnRegisterTypeVisibility}">
-                        <Image Source="/Assets/document64.png" Width="64"/>
+                    <ui:SimpleStackPanel Spacing="5" Grid.Row="1" Grid.ColumnSpan="2" HorizontalAlignment="Center" Margin="0, 30, 0, 0" Visibility="{Binding EcnRegisterTypeVisibility}">
+                        <Image Source="/Assets/document64.png" Width="64" Margin="0, 0, 0, 5"/>
                         <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Número de documento: " />
                                 <Run Text="{Binding Ecn.DocumentNo}" FontWeight="Black" Foreground="Red"/>
@@ -244,6 +256,10 @@
                         <TextBlock HorizontalAlignment="Center">
                                 <Run Text="Tipo de documento: " />
                                 <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center">
+                                <Run Text="Revisión del documento: " />
+                                <Run Text="{Binding Ecn.DocumentLvl}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
                     </ui:SimpleStackPanel>
                     <TextBlock Text="Números de parte" Grid.Column="2" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" Visibility="{Binding EcnNumberPartsVisibility}" />

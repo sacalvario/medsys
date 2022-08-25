@@ -85,6 +85,9 @@ namespace ECN.ViewModels
         public AddEmployeeViewModel AddEmployeeViewModel
             => SimpleIoc.Default.GetInstance<AddEmployeeViewModel>();
 
+        public ConfirmationWindowViewModel ConfirmationWindowViewModel
+            => SimpleIoc.Default.GetInstance<ConfirmationWindowViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -108,6 +111,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<IShellDialogWindow, ShellDialogWindow>();
             SimpleIoc.Default.Register<INumberPartsWindow, NumberParts>();
             SimpleIoc.Default.Register<IEmployeesWindow, Employees>();
+            SimpleIoc.Default.Register<IConfirmationWindow, ConfirmationWindow>();
             SimpleIoc.Default.Register<ShellViewModel>();
             SimpleIoc.Default.Register<ShellDialogViewModel>();
             SimpleIoc.Default.Register<ShellLoginViewModel>();
@@ -115,6 +119,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<AddNumberPartViewModel>();
             SimpleIoc.Default.Register<AddEmployeeViewModel>();
+            SimpleIoc.Default.Register<ConfirmationWindowViewModel>();
             SimpleIoc.Default.Register<Report>();
             SimpleIoc.Default.Register<ReportViewModel>();
             SimpleIoc.Default.Register<Models.Ecn>();
