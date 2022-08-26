@@ -3,11 +3,11 @@ using ECN.Models;
 
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Messaging;
-using System;
+
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -32,6 +32,12 @@ namespace ECN.ViewModels
             CvsEmployees.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
             CvsEmployees.Filter += ApplyFilter;
+
+            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 5295)
+            {
+                AdminEmployeeBtnsVisibility = Visibility.Visible;
+            }
+
         }
 
         private ICommand _OpenEmployeeManageWindowCommand;
@@ -47,6 +53,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private Visibility _AdminEmployeeBtnsVisibility = Visibility.Collapsed;
+        public Visibility AdminEmployeeBtnsVisibility
+        {
+            get => _AdminEmployeeBtnsVisibility;
+            set
+            {
+                if (_AdminEmployeeBtnsVisibility != value)
+                {
+                    _AdminEmployeeBtnsVisibility = value;
+                    RaisePropertyChanged("AdminEmployeeBtnsVisibility");
+                }
+            }
+        }
 
         private ObservableCollection<Employee> _Employees;
         public ObservableCollection<Employee> Employees

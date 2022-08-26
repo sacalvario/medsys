@@ -8,6 +8,7 @@ using GalaSoft.MvvmLight.Messaging;
 
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Windows;
 using System.Windows.Data;
 using System.Windows.Input;
 
@@ -36,6 +37,11 @@ namespace ECN.ViewModels
 
             CvsNumberParts.Filter += ApplyFilter;
 
+            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 5295)
+            {
+                AdminNumberPartsBtnsVisibility = Visibility.Visible;
+            }
+
         }
 
         private ICommand _OpenNumberPartManageWindowCommand;
@@ -50,6 +56,21 @@ namespace ECN.ViewModels
                 return _OpenNumberPartManageWindowCommand;
             }
         }
+
+        private Visibility _AdminNumberPartsBtnsVisibility = Visibility.Collapsed;
+        public Visibility AdminNumberPartsBtnsVisibility
+        {
+            get => _AdminNumberPartsBtnsVisibility;
+            set
+            {
+                if (_AdminNumberPartsBtnsVisibility != value)
+                {
+                    _AdminNumberPartsBtnsVisibility = value;
+                    RaisePropertyChanged("AdminNumberPartsBtnsVisibility");
+                }
+            }
+        }
+
 
         private void OpenEmployeeManageWindow(Numberpart numberpart)
         {

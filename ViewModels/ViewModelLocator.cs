@@ -88,6 +88,9 @@ namespace ECN.ViewModels
         public ConfirmationWindowViewModel ConfirmationWindowViewModel
             => SimpleIoc.Default.GetInstance<ConfirmationWindowViewModel>();
 
+        public NumberPartHistoryChangeViewModel NumberPartHistoryChangeViewModel
+            => SimpleIoc.Default.GetInstance<NumberPartHistoryChangeViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -142,6 +145,7 @@ namespace ECN.ViewModels
             Register<SignUpViewModel, SignUp>();
             Register<NumberPartsPageViewModel, NumberPartsPage>();
             Register<EmployeesPageViewModel, EmployeesPage>();
+            Register<NumberPartHistoryChangeViewModel, NumberPartHistoryChange>();
         }
 
         private void Register<VM, V>()

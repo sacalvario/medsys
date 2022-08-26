@@ -29,7 +29,7 @@
                     <TextBlock Text="Revisión" FontSize="15" FontWeight="SemiBold"  Foreground="Black"/>
                     <TextBlock Text="{Binding NumberPartRev}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black" FontSize="20"/>
                 </StackPanel>
-                <Button Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent" Command="{Binding ElementName=lvNumberParts, Path=DataContext.OpenNumberPartManageWindowCommand}" CommandParameter="{Binding}">
+                <Button Grid.RowSpan="2" Grid.Column="2" HorizontalAlignment="Left" Margin="30, 5, 0, 0" Background="Transparent" Command="{Binding ElementName=lvNumberParts, Path=DataContext.OpenNumberPartManageWindowCommand}" CommandParameter="{Binding}" Visibility="{Binding ElementName=lvNumberParts, Path=DataContext.AdminNumberPartsBtnsVisibility}" >
                     <Image Source="/Assets/edit.png" Width="32" HorizontalAlignment="Left"/>
                 </Button>
             </Grid>
@@ -75,7 +75,7 @@
                      ui:ControlHelper.PlaceholderForeground="White"
                      Width="400"  />
         </StackPanel>
-        <Button HorizontalAlignment="Center" Margin="0, 10, 0, 0" Background="Transparent" Command="{Binding OpenNumberPartManageWindowCommand}">
+        <Button HorizontalAlignment="Center" Margin="0, 10, 0, 0" Background="Transparent" Command="{Binding OpenNumberPartManageWindowCommand}" Visibility="{Binding AdminNumberPartsBtnsVisibility}">
             <StackPanel>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                     <Image Source="/Assets/add.png" Width="24" Height="24" />
