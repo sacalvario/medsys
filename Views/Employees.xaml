@@ -9,7 +9,7 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         DataContext="{Binding EmployeesViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="Employees" Height="555" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+        Title="Empleados" Height="555" Width="600" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
 
     <Window.Resources>
         <DataTemplate x:Key="ItemTemplate">

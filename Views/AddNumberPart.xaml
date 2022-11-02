@@ -9,9 +9,10 @@
         ui:PressHelper.IsEnabled="True"
         ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
+        Icon="/plug.ico"
         DataContext="{Binding AddNumberPartViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="AddNumberPart" Height="450" Width="650">
+        Title="Gestor de números de parte" Height="450" Width="650">
     <Grid>
         <Grid Margin="40, 20, 40, 20">
             <Grid.ColumnDefinitions>

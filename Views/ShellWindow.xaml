@@ -8,6 +8,7 @@
     xmlns:ui="http://schemas.modernwpf.com/2019"
     ui:WindowHelper.UseModernWindowStyle="True"
     DataContext="{Binding ShellViewModel, Source={StaticResource Locator}}"
+    Title="Sistema de ECN'S Electri-Cord"
     mc:Ignorable="d"
     Width="1366"
     Height="768"

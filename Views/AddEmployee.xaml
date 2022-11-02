@@ -8,9 +8,10 @@
         ui:WindowHelper.UseModernWindowStyle="True"
         WindowStartupLocation="CenterScreen"
         ResizeMode="NoResize"
+        Icon="/plug.ico"
         DataContext="{Binding AddEmployeeViewModel, Source={StaticResource Locator}}"
         mc:Ignorable="d"
-        Title="AddEmployee" Height="480" Width="650">
+        Title="Gestor de empleados" Height="480" Width="650">
 
     <Grid>
         <Grid Margin="40, 20, 40, 20">
