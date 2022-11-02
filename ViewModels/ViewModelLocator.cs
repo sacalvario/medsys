@@ -91,6 +91,9 @@ namespace ECN.ViewModels
         public NumberPartHistoryChangeViewModel NumberPartHistoryChangeViewModel
             => SimpleIoc.Default.GetInstance<NumberPartHistoryChangeViewModel>();
 
+        public AddCustomerViewModel AddCustomerViewModel
+            => SimpleIoc.Default.GetInstance<AddCustomerViewModel>();
+
         public ViewModelLocator()
         {
             // App Host
@@ -122,6 +125,7 @@ namespace ECN.ViewModels
             SimpleIoc.Default.Register<EmployeesViewModel>();
             SimpleIoc.Default.Register<AddNumberPartViewModel>();
             SimpleIoc.Default.Register<AddEmployeeViewModel>();
+            SimpleIoc.Default.Register<AddCustomerViewModel>();
             SimpleIoc.Default.Register<ConfirmationWindowViewModel>();
             SimpleIoc.Default.Register<Report>();
             SimpleIoc.Default.Register<ReportViewModel>();

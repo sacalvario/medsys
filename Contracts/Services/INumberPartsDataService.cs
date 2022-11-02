@@ -17,5 +17,6 @@ namespace ECN.Contracts.Services
         Task<IEnumerable<Customer>> GetCustomersAsync();
         bool AddNumberPart(Numberpart numberpart);
         bool UpdateNumberPart(Numberpart numberpart);
+        bool AddCustomer(Customer customer);
     }
 }

@@ -29,7 +29,7 @@ namespace ECN.Models
         public virtual DbSet<EcnRevision> EcnRevisions { get; set; }
         public virtual DbSet<EcoType> EcoTypes { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
-        public virtual DbSet<Numberpart> Numberparts { get; set; }
+        public virtual DbSet<Numberpart> Numberparts { get; set; } 
         public virtual DbSet<NumberpartType> NumberpartTypes { get; set; }
         public virtual DbSet<Status> Statuses { get; set; }
         public virtual DbSet<User> Users { get; set; }
@@ -40,17 +40,7 @@ namespace ECN.Models
             {
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
 
-                _ = optionsBuilder.UseMySql("Server=192.168.36.4;Database=ecn;Uid=usermysql;Pwd=user;SSL Mode=None;", ServerVersion.Parse("8.0.27-mysql")
-                    ,
-                    mySqlOptionsAction: SqlOptions =>
-                    {
-                        _ = SqlOptions.EnableRetryOnFailure(
-                                maxRetryCount: 2,
-                                maxRetryDelay: System.TimeSpan.FromSeconds(10),
-                                errorNumbersToAdd: null
-                            );
-                    }
-                    );
+                _ = optionsBuilder.UseMySql("Server=192.168.36.4;Database=ecn;Uid=usermysql;Pwd=user;SSL Mode=None;", ServerVersion.Parse("8.0.27-mysql"));
             }
         }
 

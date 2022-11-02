@@ -103,7 +103,7 @@
                         <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
-            </ui:SimpleStackPanel>
+            </ui:SimpleStackPanel>           
         </StackPanel>
         <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnCloseTypeVisibility}">
             <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas (opcional)" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
@@ -177,38 +177,34 @@
                         <TextBlock Text="Descripción del cambio" Grid.Row="1" Style="{StaticResource TextStylePropertyName}" />
                         <TextBlock Text="Justificación del cambio" Grid.Row="2" Style="{StaticResource TextStylePropertyName}"/>
                         <TextBlock Text="Afectaciones de manufactura" Grid.Row="3" Style="{StaticResource TextStylePropertyName}"/>
-                        <!--<TextBlock Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic">
+                        <TextBlock Grid.Column="1" Style="{StaticResource TextStyleProperty}" FontStyle="Italic">
                             <Run Text="{Binding Ecn.ChangeType.ChangeTypeName}"/>
                             <Run Text="/" />
                             <Run Text="{Binding Ecn.EcnEco.EcoType.EcoTypeName}" />
-                        </TextBlock>-->
-                        <TextBox Grid.Column="1" Background="Transparent" Text="{Binding Ecn.ChangeType.ChangeTypeName}" BorderThickness="0" IsReadOnly="True"/>
+                        </TextBlock>
                         <TextBox Grid.Column="1" Grid.Row="1" Background="Transparent" Text="{Binding Ecn.ChangeDescription}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="{Binding IsReadOnly}"/>
                         <TextBox Grid.Column="1" Grid.Row="2" Background="Transparent" Text="{Binding Ecn.ChangeJustification}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="{Binding IsReadOnly}"/>
                         <TextBox Grid.Column="1" Grid.Row="3" Background="Transparent" Text="{Binding Ecn.ManufacturingAffectations}" BorderThickness="0" TextWrapping="Wrap" AcceptsReturn="True" IsReadOnly="{Binding IsReadOnly}"/>
-                        <!--<TextBlock Text="{Binding Ecn.ChangeDescription}" Grid.Column="1" Grid.Row="1" Style="{StaticResource TextStyleProperty}" />
-                        <TextBlock Text="{Binding Ecn.ChangeJustification}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextStyleProperty}"/>
-                        <TextBlock Text="{Binding Ecn.ManufacturingAffectations}" Grid.Row="3" Grid.Column="1" Style="{StaticResource TextStyleProperty}" />-->
-                    </Grid>
+                        </Grid>
                     </ScrollViewer>
                     <TextBlock Text="Documento principal" HorizontalAlignment="Center" Grid.Row="1" FontWeight="Black" FontSize="15" Visibility="{Binding EcnIntExtTypeVisibility}" d:IsHidden="True"/>
                     <ui:SimpleStackPanel Spacing="5" Grid.Row="1" Margin="0, 25, 0, 0" Visibility="{Binding EcnIntExtTypeVisibility}">
                         <Image Source="/Assets/document64.png" Width="{Binding DocumentImageWidth}" />
                         <TextBlock HorizontalAlignment="Center">
-                                <Run Text="Tipo de documento: " />
-                                <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
+                            <Run Text="Tipo de documento: " />
+                            <Run Text="{Binding Ecn.DocumentType.DocumentTypeName}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentNameNumberVisibility}">
-                                <Run Text="Número de documento: " />
-                                <Run Text="{Binding Ecn.DocumentNo}" FontWeight="Black" Foreground="Red"/>
+                            <Run Text="Número de documento: " />
+                            <Run Text="{Binding Ecn.DocumentNo}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentNameNumberVisibility}">
-                                <Run Text="Nombre de documento: " />
-                                <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
+                            <Run Text="Nombre de documento: " />
+                            <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
                         <TextBlock HorizontalAlignment="Center" Visibility="{Binding DocumentRevisionVisibility}">
-                                <Run Text="Revisión del documento: " />
-                                <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
+                            <Run Text="Revisión del documento: " />
+                            <Run Text="{Binding Ecn.DocumentName}" FontWeight="Black" Foreground="Red"/>
                         </TextBlock>
                         <Grid Visibility="{Binding DocumentChangeRevisionVisibility}">
                             <Grid.ColumnDefinitions>

@@ -26,7 +26,6 @@ namespace ECN.ViewModels
         private readonly IMailService _mailService;
         private INumberPartsWindow _numberPartsWindow;
         private IEmployeesWindow _employeesWindow;
-        private IConfirmationWindow _confirmationWindow;
 
         private Ecn _ECN;
         public Ecn ECN

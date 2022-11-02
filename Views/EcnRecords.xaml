@@ -108,13 +108,13 @@
                         <DataTemplate>
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="35" />
+                                    <ColumnDefinition Width="55" />
                                     <ColumnDefinition Width="40" />
-                                    <ColumnDefinition Width="80" />
+                                    <ColumnDefinition Width="60" />
                                 </Grid.ColumnDefinitions>
-                                <TextBlock Text="{Binding Id}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0"/>
+                                <TextBlock Text="{Binding Id}" FontSize="18" FontWeight="Black" VerticalAlignment="Center" Margin="0, 0, 5, 0" HorizontalAlignment="Center"/>
                                 <Image Source="/Assets/docs.png" Width="32" Height="32" Grid.Column="1"/>
-                                <Border Visibility="{Binding IsEcoVisibility}" Margin="12, 0" CornerRadius="10" Background="Red" Height="20" Width="45" VerticalAlignment="Center" Grid.Column="2">
+                                <Border Visibility="{Binding IsEcoVisibility}" Margin="6, 0" CornerRadius="10" Background="Red" Height="20" Width="45" VerticalAlignment="Center" Grid.Column="2">
                                     <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15" VerticalAlignment="Center"/>
                                 </Border>
                             </Grid>

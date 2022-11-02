@@ -17,7 +17,6 @@ namespace ECN.ViewModels
     {
         private readonly IEcnDataService _ecnDataService;
         private readonly IWindowManagerService _windowManagerService;
-        private readonly EmployeesPageViewModel _employeesPageVM;
 
         private ObservableCollection<Department> _Departments;
         public ObservableCollection<Department> Departments

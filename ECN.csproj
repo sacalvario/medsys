@@ -21,6 +21,7 @@
     <None Remove="Assets\attachment.png" />
     <None Remove="Assets\change.png" />
     <None Remove="Assets\checkgreen.png" />
+    <None Remove="Assets\customer.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\docs.png" />
@@ -100,6 +101,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\checkgreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\customer.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\dashboardred.png">

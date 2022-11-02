@@ -124,5 +124,17 @@ namespace ECN.Services
             var result = context.SaveChanges();
             return result > 0;
         }
+
+        public bool AddCustomer(Customer customer)
+        {
+            if (customer != null)
+            {
+                context.Customers.Add(customer);
+
+                var result = context.SaveChanges();
+                return result > 0;
+            }
+            return false;
+        }
     }
 }

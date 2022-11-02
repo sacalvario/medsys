@@ -15,6 +15,7 @@ namespace ECN.Views
         {
             InitializeComponent();
             Messenger.Default.Register<NotificationMessage<Numberpart>>(this, NotificationMessageReceived);
+            Messenger.Default.Register<NotificationMessage>(this, NotificationMessageReceived2);
         }
 
         private void NotificationMessageReceived(NotificationMessage<Numberpart> obj)
@@ -28,5 +29,18 @@ namespace ECN.Views
                 _ = addnumberpart.ShowDialog();
             }
         }
+
+        private void NotificationMessageReceived2(NotificationMessage obj)
+        {
+            if (obj.Notification == "ShowManageCustomerWindow")
+            {
+                var addcustomer = new AddCustomer
+                {
+                    DataContext = new AddCustomerViewModel(((NumberPartsPageViewModel)DataContext)._numberPartsDataService, ((NumberPartsPageViewModel)DataContext)._windowManagerService)
+                };
+                _ = addcustomer.ShowDialog();
+            }
+        }
+
     }
 }

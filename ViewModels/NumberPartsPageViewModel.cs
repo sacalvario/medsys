@@ -37,7 +37,7 @@ namespace ECN.ViewModels
 
             CvsNumberParts.Filter += ApplyFilter;
 
-            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 5295)
+            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 2246 || UserRecord.Employee_ID == 212 || UserRecord.Employee_ID == 39)
             {
                 AdminNumberPartsBtnsVisibility = Visibility.Visible;
             }
@@ -57,6 +57,19 @@ namespace ECN.ViewModels
             }
         }
 
+        private ICommand _OpenCustomerManageWindowCommand;
+        public ICommand OpenCustomerManageWindowCommand
+        {
+            get
+            {
+                if (_OpenCustomerManageWindowCommand == null)
+                {
+                    _OpenCustomerManageWindowCommand = new RelayCommand(OpenCustomerManagerWindow);
+                }
+                return _OpenCustomerManageWindowCommand;
+            }
+        }
+
         private Visibility _AdminNumberPartsBtnsVisibility = Visibility.Collapsed;
         public Visibility AdminNumberPartsBtnsVisibility
         {
@@ -69,6 +82,11 @@ namespace ECN.ViewModels
                     RaisePropertyChanged("AdminNumberPartsBtnsVisibility");
                 }
             }
+        }
+
+        private void OpenCustomerManagerWindow()
+        {
+            Messenger.Default.Send(new NotificationMessage("ShowManageCustomerWindow"));
         }
 
 

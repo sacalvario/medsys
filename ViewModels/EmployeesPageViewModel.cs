@@ -33,13 +33,13 @@ namespace ECN.ViewModels
 
             CvsEmployees.Filter += ApplyFilter;
 
-            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 5295)
+            if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 119 || UserRecord.Employee_ID == 212 || UserRecord.Employee_ID == 39)
             {
                 AdminEmployeeBtnsVisibility = Visibility.Visible;
             }
 
         }
-
+                                                
         private ICommand _OpenEmployeeManageWindowCommand;
         public ICommand OpenEmployeeManageWindowCommand
         {
