@@ -14,6 +14,7 @@ namespace ECN.Contracts.Services
         Task<NumberpartType> GetNumberpartTypeAsync(int id);
         Task<ICollection<EcnNumberpart>> GetNumberPartsEcnsAsync(int ecn);
         Task<IEnumerable<EcnNumberpart>> GetNumberPartHistoryAsync();
+        Task<IEnumerable<EcnNumberpart>> GetHistoryAsync();
         Task<IEnumerable<Customer>> GetCustomersAsync();
         bool AddNumberPart(Numberpart numberpart);
         bool UpdateNumberPart(Numberpart numberpart);

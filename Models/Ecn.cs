@@ -119,6 +119,7 @@ namespace ECN.Models
         public string MonthName => System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(StartDate.Month);
         public int Day => StartDate.Day;
         public string ShortDate => StartDate.ToShortDateString();
+        public string CutDate => StartDate.ToString("dd/MM");
         public string LongDate => StartDate.ToLongDateString();
         public string LongEndDate
         {

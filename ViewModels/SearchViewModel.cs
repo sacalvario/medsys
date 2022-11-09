@@ -13,15 +13,16 @@ using System.Windows.Input;
 
 namespace ECN.ViewModels
 {
-    public class NumberPartHistoryViewModel : ViewModelBase, INavigationAware
+    public class SearchViewModel : ViewModelBase, INavigationAware
     {
         private readonly INavigationService _navigationService;
         private readonly IEcnDataService _historyDataService;
         private readonly INumberPartsDataService _numberPartsDataService;
-        public NumberPartHistoryViewModel(INavigationService navigationService, IEcnDataService historyDataService, INumberPartsDataService numberPartsDataService)
+
+        public SearchViewModel(INavigationService navigationService, IEcnDataService ecnDataService, INumberPartsDataService numberPartsDataService)
         {
             _navigationService = navigationService;
-            _historyDataService = historyDataService;
+            _historyDataService = ecnDataService;
             _numberPartsDataService = numberPartsDataService;
 
             CvsNumberPartHistory = new CollectionViewSource();
@@ -101,17 +102,17 @@ namespace ECN.ViewModels
         private async void GetNumberPartHistory()
         {
             NumberPartHistory = new ObservableCollection<EcnNumberpart>();
-            var data = await _numberPartsDataService.GetNumberPartHistoryAsync();
+            var data = await _numberPartsDataService.GetHistoryAsync();
 
-            foreach(var item in data)
+            foreach (var item in data)
             {
                 item.Product = await _numberPartsDataService.GetNumberPartAsync(item.ProductId);
                 item.Product.Customer = await _numberPartsDataService.GetCustomerAsync(item.Product.CustomerId);
                 item.Ecn = await _historyDataService.GetEcnAsync(item.EcnId);
                 item.Ecn.Employee = await _historyDataService.GetEmployeeAsync(item.Ecn.EmployeeId);
                 item.Ecn.Status = await _historyDataService.GetStatusAsync(item.Ecn.StatusId);
-                item.Ecn.DocumentType = await _historyDataService.GetDocumentTypeAsync(item.Ecn.DocumentTypeId);
                 item.Ecn.ChangeType = await _historyDataService.GetChangeTypeAsync(item.Ecn.ChangeTypeId);
+                item.Ecn.DocumentType = await _historyDataService.GetDocumentTypeAsync(item.Ecn.DocumentTypeId);
 
                 if (Convert.ToBoolean(item.Ecn.IsEco))
                 {
@@ -131,7 +132,6 @@ namespace ECN.ViewModels
             GetNumberPartHistory();
             CvsNumberPartHistory.Source = NumberPartHistory;
         }
+
     }
-
-
 }

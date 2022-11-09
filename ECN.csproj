@@ -49,6 +49,7 @@
     <None Remove="Assets\right-arrow.png" />
     <None Remove="Assets\rightred.png" />
     <None Remove="Assets\search.png" />
+    <None Remove="Assets\search2.png" />
     <None Remove="Assets\signing.png" />
     <None Remove="Assets\task2.png" />
     <None Remove="Assets\user128.png" />
@@ -173,6 +174,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\search.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\search2.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\signing.png">

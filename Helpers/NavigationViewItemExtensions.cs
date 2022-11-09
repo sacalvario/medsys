@@ -21,6 +21,7 @@ namespace ModernWpf.Controls
                     "Dashboard" => typeof(DashboardViewModel),
                     "NumberParts" => typeof(NumberPartsPageViewModel),
                     "Employees" => typeof(EmployeesPageViewModel),
+                    "Search" => typeof(SearchViewModel),
                     _ => null,
                 }
                 : null;

@@ -94,6 +94,9 @@ namespace ECN.ViewModels
         public AddCustomerViewModel AddCustomerViewModel
             => SimpleIoc.Default.GetInstance<AddCustomerViewModel>();
 
+        public SearchViewModel SearchViewModel
+            => SimpleIoc.Default.GetInstance<SearchViewModel>(); 
+
         public ViewModelLocator()
         {
             // App Host
@@ -150,6 +153,7 @@ namespace ECN.ViewModels
             Register<NumberPartsPageViewModel, NumberPartsPage>();
             Register<EmployeesPageViewModel, EmployeesPage>();
             Register<NumberPartHistoryChangeViewModel, NumberPartHistoryChange>();
+            Register<SearchViewModel, Search>();
         }
 
         private void Register<VM, V>()

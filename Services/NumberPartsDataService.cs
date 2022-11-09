@@ -136,5 +136,16 @@ namespace ECN.Services
             }
             return false;
         }
+
+        public async Task<IEnumerable<EcnNumberpart>> GetHistoryAsync()
+        {
+            await Task.CompletedTask;
+            return GetHistory();
+        }
+
+        private IEnumerable<EcnNumberpart> GetHistory()
+        {
+            return context.EcnNumberparts.Where(data => data.Ecn.StatusId != 2).ToList();
+        }
     }
 }
