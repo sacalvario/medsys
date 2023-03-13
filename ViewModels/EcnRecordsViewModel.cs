@@ -151,12 +151,12 @@ namespace ECN.ViewModels
 
             SelectedItem = null;
 
-            DispatcherTimer timer = new DispatcherTimer
-            {
-                Interval = TimeSpan.FromSeconds(15)
-            };
-            timer.Tick += new EventHandler(Timer_Tick);
-            timer.Start();
+            //DispatcherTimer timer = new DispatcherTimer
+            //{
+            //    Interval = TimeSpan.FromSeconds(15)
+            //};
+            //timer.Tick += new EventHandler(Timer_Tick);
+            //timer.Start();
         }
         private void Timer_Tick(object sender, EventArgs e)
         {
