@@ -11,14 +11,15 @@
 
     <StackPanel Margin="25" Background="White">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
-            <Image Source="/Assets/plug48.png" Width="42"/>
+            <Image Source="/Assets/logo.png" Width="42"/>
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
-                <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
-                <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
+                <TextBlock Text="Medical" FontSize="15" FontWeight="Black"/>
+                <TextBlock Text="System" FontSize="15" FontWeight="Normal" />
             </StackPanel>
         </StackPanel>
-        <TextBox Text="{Binding EmployeeID}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Número de empleado"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
-        <TextBox Text="{Binding Username}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBox Text="{Binding EmployeeID}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBox Text="{Binding Username}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Correo electronico"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
+        <TextBox Text="{Binding Username}" Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Numero telefonico"  md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" />
         <PasswordBox Margin="30, 15" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Repite la contraseña" PasswordChanged="txtPassword_PasswordChanged1" md:TextFieldAssist.HasClearButton="True" />
         <TextBlock HorizontalAlignment="Center" Margin="0, 30, 0, 0">

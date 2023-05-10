@@ -8,16 +8,22 @@ namespace ECN.Contracts.Services
     public interface IEcnDataService
     {
         Task<IEnumerable<Ecn>> GetHistoryAsync();
+        Task<IEnumerable<Cita>> GetCitasAsync();
+        Task<IEnumerable<Cita>> GetCitasRealizadasAsync();
         Task<IEnumerable<Ecn>> GetEcnRecordsAsync();
         Task<IEnumerable<Ecn>> GetChecklistAsync();
         Task<IEnumerable<Ecn>> GetApprovedAsync();
         Task<Changetype> GetChangeTypeAsync(int id);
+        Task<Diagnostico> GetDiagnosticoAsync(int id);
         Task<Documenttype> GetDocumentTypeAsync(int id);
         Task<Status> GetStatusAsync(int id);
+        Task<Estado> GetEstadoAsync(int id);
         Task<EcnEco> GetEcnEcoAsync(int id);
         Task<Ecn> GetEcnAsync(int id);
         Task<IEnumerable<Employee>> GetEmployeesAsync();
+        Task<IEnumerable<Paciente>> GetPacientesAsync();
         Task<Employee> GetEmployeeAsync(int id);
+        Task<Paciente> GetPacienteAsync(int id);
         Task<IEnumerable<Changetype>> GetChangeTypesAsync();
         Task<IEnumerable<Documenttype>> GetDocumentTypesAsync();
         Task<IEnumerable<EcoType>> GetEcoTypesAsync();
@@ -26,10 +32,18 @@ namespace ECN.Contracts.Services
         Task<ICollection<EcnAttachment>> GetAttachmentsAsync(int ecn);
         Task<Attachment> GetAttachmentAsync(int id);
         Task<EcnRevision> GetCurrentSignatureAsync(int ecn);
+        Task<Enfermedad> GetEnfermedadAsync(int ecn);
         Task<ICollection<EcnRevision>> GetRevisionsAsync(int ecn);
+        Task<ICollection<DiagnosticoSintoma>> GetDiagnosticoSintomasAsync(int ecn);
+        Task<ICollection<DiagnosticoSigno>> GetDiagnosticoSignosAsync(int ecn);
+        Task<ICollection<DiagnosticosLabprueba>> GetLabPruebasAsync(int ecn);
+        Task<ICollection<DiagnosticosPostprueba>> GetPostPruebaAsync(int ecn);
+        Task<ICollection<DiagnosticosTratamiento>> GeTratamientoAsync(int ecn);
         Task<ICollection<EcnDocumenttype>> GetDocumentsAsync(int ecn);
         int GetSignatureCount(int ecn);
         bool SaveEcn(Ecn ecn);
+        bool SaveCita(Cita cita);
+        bool SaveDiagnostico(Diagnostico diagnostico); 
         bool SignEcn(Ecn ecn, string notes);
         bool UpgradeEcn(Ecn ecn);
         bool ApproveEcn(Ecn ecn);
@@ -46,5 +60,6 @@ namespace ECN.Contracts.Services
         int GetClosedEcnCount();
         int GetOnHoldEcnCount();
         int GetApprovedEcnCount();
+
     }
 }

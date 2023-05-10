@@ -11,13 +11,13 @@
 
     <StackPanel Margin="25" Background="White">
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 5">
-            <Image Source="/Assets/plug48.png" Width="42"/>
+            <Image Source="/Assets/logo.png" Width="42"/>
             <StackPanel Margin="10, 0" VerticalAlignment="Center">
-                <TextBlock Text="ECN System" FontSize="18" FontWeight="Black"/>
-                <TextBlock Text="Electri-Cord" FontSize="18" FontWeight="Normal" />
+                <TextBlock Text="MEDICAL" FontSize="15" FontWeight="Black" FontFamily="Quicksand" />
+                <TextBlock Text="System" FontSize="15" FontWeight="Normal" FontFamily="Quicksand"/>
             </StackPanel>
         </StackPanel>
-        <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario o número de empleado"  md:TextFieldAssist.HasClearButton="True"/>
+        <TextBox Text="{Binding Username}" Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintTextBox}" md:HintAssist.Hint="Nombre de usuario"  md:TextFieldAssist.HasClearButton="True"/>
         <PasswordBox Margin="30, 30" Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" md:HintAssist.Hint="Contraseña" PasswordChanged="txtPassword_PasswordChanged" md:TextFieldAssist.HasClearButton="True" Cursor="Arrow"/>
         <TextBlock HorizontalAlignment="Center" Margin="0, 50, 0, 0">
             <Run Text="¿No tienes una cuenta?"/>
