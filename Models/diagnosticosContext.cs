@@ -20,19 +20,15 @@ namespace ECN.Models
         public virtual DbSet<Cita> Citas { get; set; }
         public virtual DbSet<CitasDiagnostico> CitasDiagnosticos { get; set; }
         public virtual DbSet<Diagnostico> Diagnosticos { get; set; }
-        public virtual DbSet<DiagnosticoSigno> DiagnosticoSignos { get; set; }
         public virtual DbSet<DiagnosticoSintoma> DiagnosticoSintomas { get; set; }
-        public virtual DbSet<DiagnosticosLabprueba> DiagnosticosLabpruebas { get; set; }
-        public virtual DbSet<DiagnosticosPostprueba> DiagnosticosPostpruebas { get; set; }
         public virtual DbSet<DiagnosticosTratamiento> DiagnosticosTratamientos { get; set; }
-        public virtual DbSet<Enfermedad> Enfermedades { get; set; }
+        public virtual DbSet<Enfermedade> Enfermedades { get; set; }
         public virtual DbSet<Estado> Estados { get; set; }
         public virtual DbSet<LaboratorioPrueba> LaboratorioPruebas { get; set; }
         public virtual DbSet<Paciente> Pacientes { get; set; }
         public virtual DbSet<PostmortemPrueba> PostmortemPruebas { get; set; }
         public virtual DbSet<PruebasLaboratorioResultado> PruebasLaboratorioResultados { get; set; }
         public virtual DbSet<PruebasPostmortmResultado> PruebasPostmortmResultados { get; set; }
-        public virtual DbSet<Signo> Signos { get; set; }
         public virtual DbSet<Sintoma> Sintomas { get; set; }
         public virtual DbSet<Tratamiento> Tratamientos { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
@@ -42,7 +38,7 @@ namespace ECN.Models
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseMySql("server=192.168.36.4;database=diagnosticos;user=usermysql;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.25-mysql"));
+                optionsBuilder.UseMySql("server=localhost;database=diagnosticos;user=root;password=user", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.30-mysql"));
             }
         }
 
@@ -71,9 +67,9 @@ namespace ECN.Models
 
                 entity.Property(e => e.IdCita).HasColumnName("ID_Cita");
 
-                entity.Property(e => e.FechaHora)
-                    .HasColumnType("datetime")
-                    .HasColumnName("Fecha_Hora");
+                entity.Property(e => e.Fecha).HasColumnType("date");
+
+                entity.Property(e => e.Hora).HasColumnType("time");
 
                 entity.Property(e => e.IdEstado).HasColumnName("ID_Estado");
 
@@ -150,42 +146,33 @@ namespace ECN.Models
 
                 entity.HasIndex(e => e.IdEnfermedad, "fk-enfermedad_idx");
 
+                entity.HasIndex(e => e.IdPruebaLab, "fk-pruebalab_idx");
+
+                entity.HasIndex(e => e.IdPruebaPostMortem, "fk-pruebapost_idx");
+
                 entity.Property(e => e.IdDiagnostico).HasColumnName("ID_Diagnostico");
 
                 entity.Property(e => e.IdEnfermedad).HasColumnName("ID_Enfermedad");
+
+                entity.Property(e => e.IdPruebaLab).HasColumnName("ID_PruebaLab");
+
+                entity.Property(e => e.IdPruebaPostMortem).HasColumnName("ID_PruebaPostMortem");
 
                 entity.HasOne(d => d.IdEnfermedadNavigation)
                     .WithMany(p => p.Diagnosticos)
                     .HasForeignKey(d => d.IdEnfermedad)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk-enfermedad");
-            });
 
-            modelBuilder.Entity<DiagnosticoSigno>(entity =>
-            {
-                entity.HasKey(e => new { e.IdDiagnostico, e.IdSigno })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
+                entity.HasOne(d => d.IdPruebaLabNavigation)
+                    .WithMany(p => p.Diagnosticos)
+                    .HasForeignKey(d => d.IdPruebaLab)
+                    .HasConstraintName("fk-pruebalab");
 
-                entity.ToTable("diagnostico_signos");
-
-                entity.HasIndex(e => e.IdSigno, "signo-fk_idx");
-
-                entity.Property(e => e.IdDiagnostico).HasColumnName("ID_Diagnostico");
-
-                entity.Property(e => e.IdSigno).HasColumnName("ID_Signo");
-
-                entity.HasOne(d => d.IdDiagnosticoNavigation)
-                    .WithMany(p => p.DiagnosticoSignos)
-                    .HasForeignKey(d => d.IdDiagnostico)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("diagnostico-fk");
-
-                entity.HasOne(d => d.IdSignoNavigation)
-                    .WithMany(p => p.DiagnosticoSignos)
-                    .HasForeignKey(d => d.IdSigno)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("signo-fk");
+                entity.HasOne(d => d.IdPruebaPostMortemNavigation)
+                    .WithMany(p => p.Diagnosticos)
+                    .HasForeignKey(d => d.IdPruebaPostMortem)
+                    .HasConstraintName("fk-pruebapost");
             });
 
             modelBuilder.Entity<DiagnosticoSintoma>(entity =>
@@ -215,54 +202,6 @@ namespace ECN.Models
                     .HasConstraintName("sintoma_fk");
             });
 
-            modelBuilder.Entity<DiagnosticosLabprueba>(entity =>
-            {
-                entity.HasKey(e => new { e.IdDiagnostico, e.IdPrueba })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-
-                entity.ToTable("diagnosticos_labpruebas");
-
-                entity.HasIndex(e => e.IdPrueba, "fkprueba_idx");
-
-                entity.Property(e => e.IdDiagnostico).HasColumnName("ID_Diagnostico");
-
-                entity.Property(e => e.IdPrueba).HasColumnName("ID_Prueba");
-
-                entity.HasOne(d => d.IdDiagnosticoNavigation)
-                    .WithMany(p => p.DiagnosticosLabpruebas)
-                    .HasForeignKey(d => d.IdDiagnostico)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fkdiagnostico");
-
-                entity.HasOne(d => d.IdPruebaNavigation)
-                    .WithMany(p => p.DiagnosticosLabpruebas)
-                    .HasForeignKey(d => d.IdPrueba)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("fkprueba");
-            });
-
-            modelBuilder.Entity<DiagnosticosPostprueba>(entity =>
-            {
-                entity.HasKey(e => new { e.IdDiagnostico, e.IdPrueba })
-                    .HasName("PRIMARY")
-                    .HasAnnotation("MySql:IndexPrefixLength", new[] { 0, 0 });
-
-                entity.ToTable("diagnosticos_postpruebas");
-
-                entity.HasIndex(e => e.IdPrueba, "pruebafk_idx");
-
-                entity.Property(e => e.IdDiagnostico).HasColumnName("ID_Diagnostico");
-
-                entity.Property(e => e.IdPrueba).HasColumnName("ID_Prueba");
-
-                entity.HasOne(d => d.IdPruebaNavigation)
-                    .WithMany(p => p.DiagnosticosPostpruebas)
-                    .HasForeignKey(d => d.IdPrueba)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("pruebafk");
-            });
-
             modelBuilder.Entity<DiagnosticosTratamiento>(entity =>
             {
                 entity.HasKey(e => new { e.IdTratamiento, e.IdDiagnostico })
@@ -290,7 +229,7 @@ namespace ECN.Models
                     .HasConstraintName("fk_tratamiento");
             });
 
-            modelBuilder.Entity<Enfermedad>(entity =>
+            modelBuilder.Entity<Enfermedade>(entity =>
             {
                 entity.HasKey(e => e.IdEnfermedad)
                     .HasName("PRIMARY");
@@ -304,10 +243,6 @@ namespace ECN.Models
                     .IsUnique();
 
                 entity.Property(e => e.IdEnfermedad).HasColumnName("ID_Enfermedad");
-
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasMaxLength(500);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -342,10 +277,6 @@ namespace ECN.Models
                     .IsUnique();
 
                 entity.Property(e => e.IdPruebaLab).HasColumnName("ID_PruebaLab");
-
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasMaxLength(200);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -406,10 +337,6 @@ namespace ECN.Models
                     .IsUnique();
 
                 entity.Property(e => e.IdPruebaPost).HasColumnName("ID_PruebaPost");
-
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasMaxLength(200);
 
                 entity.Property(e => e.Nombre)
                     .IsRequired()
@@ -489,30 +416,6 @@ namespace ECN.Models
                     .HasConstraintName("fk_prueba");
             });
 
-            modelBuilder.Entity<Signo>(entity =>
-            {
-                entity.HasKey(e => e.IdSigno)
-                    .HasName("PRIMARY");
-
-                entity.ToTable("signos");
-
-                entity.HasIndex(e => e.IdSigno, "ID_Signo_UNIQUE")
-                    .IsUnique();
-
-                entity.HasIndex(e => e.Nombre, "Nombre_UNIQUE")
-                    .IsUnique();
-
-                entity.Property(e => e.IdSigno).HasColumnName("ID_Signo");
-
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
-                entity.Property(e => e.Nombre)
-                    .IsRequired()
-                    .HasMaxLength(100);
-            });
-
             modelBuilder.Entity<Sintoma>(entity =>
             {
                 entity.HasKey(e => e.IdSintoma)
@@ -528,10 +431,6 @@ namespace ECN.Models
 
                 entity.Property(e => e.IdSintoma).HasColumnName("ID_Sintoma");
 
-                entity.Property(e => e.Descripcion)
-                    .IsRequired()
-                    .HasMaxLength(200);
-
                 entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -544,7 +443,7 @@ namespace ECN.Models
 
                 entity.ToTable("tratamientos");
 
-                entity.HasIndex(e => e.Descripcion, "Descripcion_UNIQUE")
+                entity.HasIndex(e => e.Nombre, "Descripcion_UNIQUE")
                     .IsUnique();
 
                 entity.HasIndex(e => e.IdTratamiento, "ID_Tratamiento_UNIQUE")
@@ -552,7 +451,7 @@ namespace ECN.Models
 
                 entity.Property(e => e.IdTratamiento).HasColumnName("ID_Tratamiento");
 
-                entity.Property(e => e.Descripcion)
+                entity.Property(e => e.Nombre)
                     .IsRequired()
                     .HasMaxLength(200);
             });

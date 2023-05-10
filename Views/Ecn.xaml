@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       xmlns:ui="http://schemas.modernwpf.com/2019"
-      xmlns:dd="urn:gong-wpf-dragdrop"
+      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+      xmlns:md="http://materialdesigninxaml.net/winfx/xaml/themes"
       DataContext="{Binding EcnViewModel, Source={StaticResource Locator}}"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1200"
@@ -97,80 +98,91 @@
         </Style>
     </Page.Resources>
 
-    <Grid Background="#FFE0E0E0" Margin="80, 50">
+    <Grid Background="#FFE0E0E0" Margin="60, 80, 60, 80">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="2*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <ComboBox Grid.ColumnSpan="2"
                 Background="#FFFF0033"
                 BorderBrush="Transparent"
                 Foreground="White"
-                Margin="0, 40, 300, 0"
+                Margin="0, 40, 500, 0"
                 VerticalAlignment="Top"
                 HorizontalAlignment="Stretch"
                 FontFamily="Quicksand Medium"
                 FontSize="15"
-                ItemsSource="{Binding ChangeTypes}"
-                DisplayMemberPath="ChangeTypeName"
-                SelectedValuePath="ChangeTypeId"
-                SelectedItem="{Binding SelectedChangeType, Mode=TwoWay}"
+                ItemsSource="{Binding Pacientes}"
+                SelectedItem="{Binding PacienteSeleccionado}"
                 ui:ControlHelper.Header="Paciente"
                 ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                 ui:ControlHelper.PlaceholderText="Seleccione un paciente"
                 ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
-                ui:ControlHelper.CornerRadius="5"/>
-        <Grid Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Center" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-            <DatePicker Margin="0, 0, 20, 0"
-                    BorderBrush="Transparent"
+                ui:ControlHelper.CornerRadius="5">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/officer.png" Width="28"/>
+                        <TextBlock Text="{Binding Nombre}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                        <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
+                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Orange" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <DatePicker Margin="0, 0, 20, 0"
                     FontFamily="Quicksand Medium"
                     FontSize="15"
-                    ui:ControlHelper.Header="Fecha de la cita"
-                    ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                    ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
-                    ui:ControlHelper.CornerRadius="5" />
-            <TextBox Text="{Binding ECN.LongEndDate}"
-                                 IsEnabled="False"
-                                 BorderBrush="Transparent"
-                                 Foreground="White"
-                                 Grid.Column="1"
-                                 Margin="0, 0, 20, 0"
-                                 FontFamily="Quicksand Medium"
-                                 FontSize="15"
-                                 ui:ControlHelper.Header="Fecha de cierre"
-                                 ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
-                                 ui:ControlHelper.PlaceholderForeground="#FFE6E6E6"
-                                 ui:ControlHelper.CornerRadius="5" />
-        </Grid>
+                    SelectedDate="{Binding Cita.FechaHora}"
+                    DisplayDateStart="{x:Static sys:DateTime.Now}"
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    HorizontalAlignment="Stretch"
+                    md:HintAssist.Hint="Seleccione una fecha"
+                    Style="{StaticResource MaterialDesignFloatingHintDatePicker}">
+        </DatePicker>
+        <md:TimePicker Grid.Column="1"
+                Grid.Row="1"
+                Style="{StaticResource MaterialDesignFloatingHintTimePicker}" 
+                VerticalAlignment="Center"
+                md:HintAssist.Hint="Seleccione una hora"
+                Margin="20, 0, 20, 0"
+                FontFamily="Quicksand Medium"
+                FontSize="15"/>
         <ComboBox x:Name="cbChangeType"
                     Grid.Row="2"
                     Grid.ColumnSpan="2"
                     Background="#FFFF0033"
                     BorderBrush="Transparent"
                     Foreground="White"
-                    Margin="0, 70, 300, 0"
-                    VerticalAlignment="Top"
+                    VerticalAlignment="Center"
+                    Margin="0, 0, 500, 0"
                     HorizontalAlignment="Stretch"
                     FontFamily="Quicksand Medium"
                     FontSize="15"
-                    ItemsSource="{Binding ChangeTypes}"
-                    DisplayMemberPath="ChangeTypeName"
-                    SelectedValuePath="ChangeTypeId"
-                    SelectedItem="{Binding SelectedChangeType, Mode=TwoWay}"
+                    ItemsSource="{Binding Medicos}"
+                    SelectedItem="{Binding MedicoSeleccionado}"
                     ui:ControlHelper.Header="Medico"
                     ui:ControlHelper.HeaderTemplate="{StaticResource RequiredHeaderTemplate}"
                     ui:ControlHelper.PlaceholderText="Seleccione el medico"
                     ui:ControlHelper.PlaceholderForeground="#FFECEAEC"
-                    ui:ControlHelper.CornerRadius="5"/>
-        <Button Content="Generar cita" Width="150" Grid.Row="2" Grid.ColumnSpan="2" Background="#FFE2000A" Foreground="White" FontFamily="Quicksand Medium" HorizontalAlignment="Center" VerticalAlignment="Bottom" Command="{Binding SaveECNCommand}" ui:ControlHelper.CornerRadius="10"/>
+                    ui:ControlHelper.CornerRadius="5">
+            <ComboBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                        <Image Source="/Assets/officer.png" Width="28"/>
+                        <TextBlock Text="{Binding Nombre}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
+                        <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
+                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Orange" FontWeight="SemiBold"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ComboBox.ItemTemplate>
+        </ComboBox>
+        <Button Content="Generar cita" Width="150" Margin="100, 20, 0, 0" VerticalAlignment="Center" Grid.Column="1" Grid.Row="2" Grid.ColumnSpan="2" Background="#FFE2000A" Foreground="White" FontFamily="Quicksand Medium" HorizontalAlignment="Center"  Command="{Binding SaveCitaCommand}" ui:ControlHelper.CornerRadius="10"/>
     </Grid>
 </Page>

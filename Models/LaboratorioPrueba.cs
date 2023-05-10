@@ -14,7 +14,6 @@ namespace ECN.Models
 
         public int IdPruebaLab { get; set; }
         public string Nombre { get; set; }
-        public string Descripcion { get; set; }
 
         public virtual ICollection<PruebasLaboratorioResultado> PruebasLaboratorioResultados { get; set; }
     }

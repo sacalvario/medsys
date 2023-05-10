@@ -27,8 +27,8 @@ namespace ECN.ViewModels
 
         }
 
-        private ObservableCollection<Ecn> _Checklist;
-        public ObservableCollection<Ecn> Checklist
+        private ObservableCollection<Cita> _Checklist;
+        public ObservableCollection<Cita> Checklist
         {
             get => _Checklist;
             set
@@ -40,6 +40,20 @@ namespace ECN.ViewModels
                 }
             }
         }
+
+        //private ObservableCollection<Ecn> _Checklist;
+        //public ObservableCollection<Ecn> Checklist
+        //{
+        //    get => _Checklist;
+        //    set
+        //    {
+        //        if (_Checklist != value)
+        //        {
+        //            _Checklist = value;
+        //            RaisePropertyChanged("Checklist");
+        //        }
+        //    }
+        //}
 
         private int _ChecklistCount;
         public int ChecklistCount
@@ -58,21 +72,12 @@ namespace ECN.ViewModels
 
         private async void GetChecklist()
         {
-            var data = await _ecnDataService.GetChecklistAsync();
+            var data = await _ecnDataService.GetCitasPendientesAsync();
 
             foreach (var item in data)
             {
-                item.ChangeType = await _ecnDataService.GetChangeTypeAsync(item.ChangeTypeId);
-                item.DocumentType = await _ecnDataService.GetDocumentTypeAsync(item.DocumentTypeId);
-                item.Status = await _ecnDataService.GetStatusAsync(item.StatusId);
-                item.Employee = await _ecnDataService.GetEmployeeAsync(item.EmployeeId);
-                item.CurrentSignature = await _ecnDataService.GetCurrentSignatureAsync(item.Id);
-                item.SignatureCount = _ecnDataService.GetSignatureCount(item.Id);
-
-                if (Convert.ToBoolean(item.IsEco))
-                {
-                    item.EcnEco = await _ecnDataService.GetEcnEcoAsync(item.Id);
-                }
+                item.IdPacienteNavigation = await _ecnDataService.GetPacienteAsync(item.IdPaciente);
+                item.IdEstadoNavigation = await _ecnDataService.GetEstadoAsync(item.IdEstado);
 
                 Checklist.Add(item);
             }
@@ -85,7 +90,7 @@ namespace ECN.ViewModels
 
         public void OnNavigatedTo(object parameter)
         {
-            Checklist = new ObservableCollection<Ecn>();
+            Checklist = new ObservableCollection<Cita>();
             GetChecklist();
 
             ChecklistCount = Checklist.Count;
@@ -100,7 +105,7 @@ namespace ECN.ViewModels
 
         private void Timer_Tick(object sender, EventArgs e)
         {
-            Checklist = new ObservableCollection<Ecn>();
+            Checklist = new ObservableCollection<Cita>();
             GetChecklist();
 
             ChecklistCount = Checklist.Count;

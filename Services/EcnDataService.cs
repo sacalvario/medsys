@@ -11,9 +11,12 @@ namespace ECN.Services
     public class EcnDataService : IEcnDataService
     {
         private readonly EcnContext context = null;
+        private readonly diagnosticosContext diagnosticosContext = null;
+
         public EcnDataService()
         {
             context = new EcnContext();
+            diagnosticosContext = new diagnosticosContext();
         }
         public async Task<IEnumerable<Ecn>> GetHistoryAsync()
         {
@@ -456,6 +459,110 @@ namespace ECN.Services
                 return result > 0;
             }
             return false;
+        }
+
+        public Task<IEnumerable<Cita>> GetCitasAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<IEnumerable<Cita>> GetCitasRealizadasAsync()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<Diagnostico> GetDiagnosticoAsync(int id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<Estado> GetEstadoAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetEstado(id);
+        }
+
+
+        private Estado GetEstado(int id)
+        {
+            return diagnosticosContext.Estados.Find(id);
+        }
+
+        public async Task<IEnumerable<Paciente>> GetPacientesAsync()
+        {
+            await Task.CompletedTask;
+            return GetPacientes();
+        }
+
+        private IEnumerable<Paciente> GetPacientes()
+        {
+            return diagnosticosContext.Pacientes.ToList();
+        }
+
+        public Task<Enfermedad> GetEnfermedadAsync(int ecn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<ICollection<DiagnosticoSintoma>> GetDiagnosticoSintomasAsync(int ecn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Task<ICollection<DiagnosticosTratamiento>> GeTratamientoAsync(int ecn)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public bool SaveCita(Cita cita)
+        {
+            if (cita != null)
+            {
+                diagnosticosContext.Citas.Add(cita);
+
+                var result = diagnosticosContext.SaveChanges();
+                return result > 0;
+            }
+            return false;
+        }
+
+        public bool SaveDiagnostico(Diagnostico diagnostico)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<Usuario>> GetMedicosAsync()
+        {
+            await Task.CompletedTask;
+            return GetMedicos();
+        }
+
+        private IEnumerable<Usuario> GetMedicos()
+        {
+            return diagnosticosContext.Usuarios.Where(i => i.TipoUsuario == "M").ToList();
+        }
+
+        public async Task<IEnumerable<Cita>> GetCitasPendientesAsync()
+        {
+            await Task.CompletedTask;
+            return GetCitas();
+        }
+
+        private IEnumerable<Cita> GetCitas()
+        {
+            using diagnosticosContext context = new diagnosticosContext();
+            return context.Citas.Where(i => i.IdEstado == 2 && i.IdMedico == UserRecord.User_ID).ToList();
+        }
+
+        public async Task<Paciente> GetPacienteAsync(int id)
+        {
+            await Task.CompletedTask;
+            return GetPaciente(id);
+        }
+
+        private Paciente GetPaciente(int id)
+        {
+            return diagnosticosContext.Pacientes.Find(id);
         }
     }
 }

@@ -13,7 +13,7 @@ namespace ECN.Models
         }
 
         public int IdTratamiento { get; set; }
-        public string Descripcion { get; set; }
+        public string Nombre { get; set; }
 
         public virtual ICollection<DiagnosticosTratamiento> DiagnosticosTratamientos { get; set; }
     }

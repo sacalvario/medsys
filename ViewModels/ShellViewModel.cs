@@ -25,8 +25,8 @@ namespace ECN.ViewModels
         private ICommand _menuItemInvokedCommand;
         private ICommand _signOutCommand;
 
-        public string Name => UserRecord.Employee.EmployeeFirstName + " " + UserRecord.Employee.EmployeeLastName;
-        public string Department => UserRecord.Employee.Department.DepartmentName;
+        public string Name => UserRecord.Nombre;
+        public string Type => UserRecord.TipoUsuario == "M" ? "Medico" : "Recepcionista";
 
         private bool _Holidays;
         public bool Holidays
@@ -79,12 +79,12 @@ namespace ECN.ViewModels
         {
             _navigationService = navigationService;
             _ecnDataService = ecnDataService;
-            Holidays = Convert.ToBoolean(UserRecord.Employee.EmployeeHolidays);
+            //Holidays = Convert.ToBoolean(UserRecord.Employee.EmployeeHolidays);
             
-            if (UserRecord.Employee_ID == 3806)
-            {
-                ApprovedECNSVisibility = Visibility.Visible;
-            }
+            //if (UserRecord.Employee_ID == 3806)
+            //{
+            //    ApprovedECNSVisibility = Visibility.Visible;
+            //}
         }
 
         private void OnMenuItemInvoked()

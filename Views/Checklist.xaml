@@ -33,13 +33,13 @@
                 </Grid.ColumnDefinitions>
                 <Image Source="/Assets/userblack.png" Width="44" Height="44" Grid.RowSpan="4" Grid.Column="2"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="3" Margin="5, 18, 10, 12" >
-                    <TextBlock Text="{Binding Employee.Name, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
-                    <TextBlock Text="{Binding Employee.Department.DepartmentName}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Red" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
+                    <TextBlock Text="{Binding IdPacienteNavigation.Nombre, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
+                    <TextBlock Text="{Binding IdPacienteNavigation.Telefono}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Red" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
                 </StackPanel>
                 <Image Source="/Assets/docs.png" Width="42" Height="42" Grid.RowSpan="4" />
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12">
                     <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
-                    <TextBlock Text="{Binding Id}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="{Binding IdCita}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
                 <TextBlock Grid.Column="4"
                            Grid.Row="2"
@@ -96,7 +96,7 @@
     <ScrollViewer Background="#FFE0E0E0">
         <Grid>
             <TextBlock VerticalAlignment="Top"  Margin="80, 40" FontSize="20" FontWeight="Bold">
-                <Run Text="ECN's por firmar: " FontStyle="Italic" />
+                <Run Text="Citas pendientes: " FontStyle="Italic" />
                 <Run Text="{Binding ChecklistCount, Mode=OneWay}" Foreground="Red" />
             </TextBlock>
             <ListView x:Name="lvChecklist" ItemsSource="{Binding Checklist}" ItemContainerStyle="{StaticResource ContainerStyle}" ItemTemplate="{StaticResource Template}" Margin="80" >

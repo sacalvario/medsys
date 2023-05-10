@@ -9,9 +9,11 @@ namespace ECN.Services
     public class LoginDataService : ILoginDataService
     {
         private readonly EcnContext context = null;
+        private readonly diagnosticosContext diagnosticosContext = null;
         public LoginDataService()
         {
             context = new EcnContext();
+            diagnosticosContext = new diagnosticosContext();
         }
 
         public bool Exist(string employeeid)
@@ -24,6 +26,11 @@ namespace ECN.Services
                 return employee != null;
             }
             return false;
+        }
+
+        public Usuario IniciarSesion(string username, string password)
+        {
+            return diagnosticosContext.Usuarios.FirstOrDefault(i => i.NombreUsuario == username && i.Contraseña == password);
         }
 
         public bool IsNotRegistered(string employeeid)

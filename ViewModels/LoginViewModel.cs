@@ -97,18 +97,19 @@ namespace ECN.ViewModels
             {
                 string pass = EncodePassword(Password);
 
-                User user = _loginService.Login(Username, pass);
+                Usuario user = _loginService.IniciarSesion(Username, Password);
 
                 await Task.CompletedTask;
 
                 if (user != null)
                 {
-                    Employee emp = await _ecnDataService.GetEmployeeAsync(user.EmployeeId);
-                    user.Employee = emp;
+                    UserRecord.Username = user.NombreUsuario;
+                    UserRecord.Nombre = user.Nombre;
+                    UserRecord.Correo = user.Correo;
+                    UserRecord.TipoUsuario = user.TipoUsuario;
+                    UserRecord.User_ID = user.IdUsuario;
+                    //UserRecord.Telefono = Convert.ToInt32(user.Telefono);
 
-                    UserRecord.Employee = user.Employee;
-                    UserRecord.Username = user.Username;
-                    UserRecord.Employee_ID = user.EmployeeId;
 
                     _ = _windowManagerService.OpenInDialog(typeof(EcnSignedViewModel).FullName, "¡Bienvenido!");
 

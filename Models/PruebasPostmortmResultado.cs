@@ -9,7 +9,7 @@ namespace ECN.Models
     {
         public PruebasPostmortmResultado()
         {
-            DiagnosticosPostpruebas = new HashSet<DiagnosticosPostprueba>();
+            Diagnosticos = new HashSet<Diagnostico>();
         }
 
         public int IdResultado { get; set; }
@@ -19,6 +19,6 @@ namespace ECN.Models
         public string Resultado { get; set; }
 
         public virtual PostmortemPrueba IdPruebaNavigation { get; set; }
-        public virtual ICollection<DiagnosticosPostprueba> DiagnosticosPostpruebas { get; set; }
+        public virtual ICollection<Diagnostico> Diagnosticos { get; set; }
     }
 }

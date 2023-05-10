@@ -9,7 +9,7 @@ namespace ECN.Models
     {
         public PruebasLaboratorioResultado()
         {
-            DiagnosticosLabpruebas = new HashSet<DiagnosticosLabprueba>();
+            Diagnosticos = new HashSet<Diagnostico>();
         }
 
         public int IdPrueba { get; set; }
@@ -19,6 +19,6 @@ namespace ECN.Models
         public string Resultado { get; set; }
 
         public virtual LaboratorioPrueba TipoPruebaNavigation { get; set; }
-        public virtual ICollection<DiagnosticosLabprueba> DiagnosticosLabpruebas { get; set; }
+        public virtual ICollection<Diagnostico> Diagnosticos { get; set; }
     }
 }

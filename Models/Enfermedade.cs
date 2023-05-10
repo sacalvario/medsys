@@ -5,9 +5,9 @@ using System.Collections.Generic;
 
 namespace ECN.Models
 {
-    public partial class Enfermedad
+    public partial class Enfermedade
     {
-        public Enfermedad()
+        public Enfermedade()
         {
             Diagnosticos = new HashSet<Diagnostico>();
         }
