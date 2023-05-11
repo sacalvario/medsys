@@ -58,55 +58,37 @@
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnNewECN" Tag="Ecn" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal" >
-                        <Image Source="/Assets/newred.png" Width="24" VerticalAlignment="Center"/>
+                        <Image Source="/Assets/anadir-evento.png" Width="24" VerticalAlignment="Center"/>
                         <Label Content="Nueva cita" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center"/>
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnPendingECNs" Tag="Checklist" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/task2.png" Width="24" VerticalAlignment="Center" />
+                        <Image Source="/Assets/cita-medica.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Citas" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="History" Margin="0, 2, 0, 0">
+                <ui:NavigationViewItem x:Name="btnHistoryECNs" Tag="NumberParts" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/historyred.png" Width="24" VerticalAlignment="Center"  />
+                        <Image Source="/Assets/enfermedad-del-corazon.png" Width="24" VerticalAlignment="Center"  />
                         <Label Content="Enfermedades" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnSearchECNs" Tag="Search" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/search2.png" Width="24" VerticalAlignment="Center"  />
+                        <Image Source="/Assets/conjunctivitis.png" Width="24" VerticalAlignment="Center"  />
                         <Label Content="Sintomas" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
-                    </StackPanel>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnNumberPartsHistoryECNs" Tag="NumberPartHistory" Margin="0, 2, 0, 0">
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/plugicon.png" Width="24" Height="24" VerticalAlignment="Center"  />
-                        <Label Content="Signos" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem x:Name="btnRecordsECNs" Tag="Records" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/panerecord.png" Width="24" VerticalAlignment="Center" />
+                        <Image Source="/Assets/tratamiento.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Tratamientos" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
-                    </StackPanel>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem x:Name="btnApprovedECN" Tag="Approved" Margin="0, 2, 0, 0" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/approvedfile.png" Width="24" VerticalAlignment="Center" />
-                        <Label Content="Pruebas de laboratorio" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
-                    </StackPanel>
-                </ui:NavigationViewItem>
-                <ui:NavigationViewItem Tag="Approved" Margin="0, 2, 0, 0" >
-                    <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/approvedfile.png" Width="24" VerticalAlignment="Center" />
-                        <Label Content="Pruebas post mortem" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
                 <ui:NavigationViewItem Tag="Approved" Margin="0, 2, 0, 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/approvedfile.png" Width="24" VerticalAlignment="Center" />
+                        <Image Source="/Assets/patient.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Paciente" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>
@@ -114,7 +96,7 @@
             <ui:NavigationView.FooterMenuItems>
                 <ui:NavigationViewItem Tag="NumberParts" Margin="0, 2, 0 , 0">
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/wire.png" Width="24" VerticalAlignment="Center" />
+                        <Image Source="/Assets/userblack.png" Width="24" VerticalAlignment="Center" />
                         <Label Content="Usuarios" FontSize="16" FontFamily="Quicksand Medium" Margin="10, 0, 0, 0" VerticalAlignment="Center" />
                     </StackPanel>
                 </ui:NavigationViewItem>

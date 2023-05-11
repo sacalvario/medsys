@@ -16,19 +16,27 @@
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Assets\add.png" />
+    <None Remove="Assets\anadir-evento.png" />
     <None Remove="Assets\approvedfile.png" />
     <None Remove="Assets\attach.png" />
     <None Remove="Assets\attachment.png" />
     <None Remove="Assets\change.png" />
     <None Remove="Assets\checkgreen.png" />
+    <None Remove="Assets\cita-medica.png" />
+    <None Remove="Assets\cita-medica64.png" />
+    <None Remove="Assets\conjunctivitis.png" />
     <None Remove="Assets\customer.png" />
     <None Remove="Assets\dashboardred.png" />
     <None Remove="Assets\delete.png" />
     <None Remove="Assets\docs.png" />
     <None Remove="Assets\docs96.png" />
+    <None Remove="Assets\doctor.png" />
     <None Remove="Assets\document64.png" />
     <None Remove="Assets\downloadblack.png" />
     <None Remove="Assets\edit.png" />
+    <None Remove="Assets\enfermedad-del-corazon.png" />
+    <None Remove="Assets\estetoscopio.png" />
+    <None Remove="Assets\historial-medico.png" />
     <None Remove="Assets\historyred.png" />
     <None Remove="Assets\leftred.png" />
     <None Remove="Assets\logo.png" />
@@ -36,6 +44,7 @@
     <None Remove="Assets\logout.png" />
     <None Remove="Assets\newred.png" />
     <None Remove="Assets\panerecord.png" />
+    <None Remove="Assets\patient.png" />
     <None Remove="Assets\pdf.png" />
     <None Remove="Assets\plug.png" />
     <None Remove="Assets\plug128.png" />
@@ -53,6 +62,7 @@
     <None Remove="Assets\search2.png" />
     <None Remove="Assets\signing.png" />
     <None Remove="Assets\task2.png" />
+    <None Remove="Assets\tratamiento.png" />
     <None Remove="Assets\user128.png" />
     <None Remove="Assets\user2white.png" />
     <None Remove="Assets\user64.png" />
@@ -106,6 +116,9 @@
     <Content Include="Assets\add.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\anadir-evento.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\attach.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -116,6 +129,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\checkgreen.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\cita-medica.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\cita-medica64.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\conjunctivitis.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\customer.png">
@@ -133,7 +155,19 @@
     <Content Include="Assets\docs96.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\doctor.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Assets\edit.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\enfermedad-del-corazon.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\estetoscopio.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\historial-medico.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\historyred.png">
@@ -150,6 +184,9 @@
     </Content>
     <Content Include="Assets\newred.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\patient.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\pdf.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -200,6 +237,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\task2.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\tratamiento.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\user128.png">

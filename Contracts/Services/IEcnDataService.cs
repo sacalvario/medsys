@@ -11,6 +11,7 @@ namespace ECN.Contracts.Services
         Task<IEnumerable<Cita>> GetCitasAsync();
         Task<IEnumerable<Cita>> GetCitasRealizadasAsync();
         Task<IEnumerable<Sintoma>> GetSintomasAsync();
+        Task<ICollection<Enfermedad>> GetEnfermedadesAsync();
         Task<IEnumerable<Ecn>> GetEcnRecordsAsync();
         Task<IEnumerable<Ecn>> GetChecklistAsync();
         Task<IEnumerable<Cita>> GetCitasPendientesAsync();

@@ -29,12 +29,12 @@
                     <ColumnDefinition Width="350" />
                     <ColumnDefinition Width="150" />
                 </Grid.ColumnDefinitions>
-                <Image Source="/Assets/docs.png" Width="42" Height="42" Grid.RowSpan="4" />
+                <Image Source="/Assets/cita-medica.png" Width="42" Height="42" Grid.RowSpan="4" />
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12">
                     <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding IdCita}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
-                <Image Source="/Assets/userblack.png" Width="44" Height="44" Grid.RowSpan="4" Grid.Column="2"/>
+                <Image Source="/Assets/patient.png" Width="44" Height="44" Grid.RowSpan="4" Grid.Column="2"/>
                 <StackPanel Grid.RowSpan="4" Grid.Column="3" Margin="5, 18, 10, 12" >
                     <TextBlock Text="{Binding IdPacienteNavigation.Nombre, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
                     <TextBlock Text="{Binding IdPacienteNavigation.Telefono}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Red" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>

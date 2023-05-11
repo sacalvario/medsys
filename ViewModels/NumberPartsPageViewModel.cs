@@ -18,24 +18,26 @@ namespace ECN.ViewModels
     {
         public readonly INumberPartsDataService _numberPartsDataService;
         public readonly IWindowManagerService _windowManagerService;
-        public NumberPartsPageViewModel(INumberPartsDataService numberPartsDataService, IWindowManagerService windowManagerService)
+        public readonly IEcnDataService _ecnDataService;
+
+        public NumberPartsPageViewModel(INumberPartsDataService numberPartsDataService, IWindowManagerService windowManagerService, IEcnDataService ecnDataService)
         {
             _numberPartsDataService = numberPartsDataService;
             _windowManagerService = windowManagerService;
+            _ecnDataService = ecnDataService;
 
             GetAll();
 
-            CvsNumberParts = new CollectionViewSource
+            CvsEnfermadades = new CollectionViewSource
             {
-                Source = NumberParts
+                Source = Enfermedades
             };
 
-            CvsNumberParts.SortDescriptions.Add(new SortDescription("Customer.CustomerName", ListSortDirection.Ascending));
-            CvsNumberParts.SortDescriptions.Add(new SortDescription("NumberPartId", ListSortDirection.Ascending));
+            CvsEnfermadades.SortDescriptions.Add(new SortDescription("Nombre", ListSortDirection.Ascending));
 
-            NumberPartCollection = CvsNumberParts.View;
+            EnfermedadesCollection = CvsEnfermadades.View;
 
-            CvsNumberParts.Filter += ApplyFilter;
+            CvsEnfermadades.Filter += ApplyFilter;
 
             if (UserRecord.Employee_ID == 100 || UserRecord.Employee_ID == 2246 || UserRecord.Employee_ID == 212 || UserRecord.Employee_ID == 39)
             {
@@ -95,16 +97,27 @@ namespace ECN.ViewModels
             Messenger.Default.Send(new NotificationMessage<Numberpart>(numberpart, "ShowManageNumberPartWindow"));
         }
 
+        //public async void GetAll()
+        //{
+        //    NumberParts = new ObservableCollection<Numberpart>();
+
+        //    var data = await _numberPartsDataService.GetNumberPartsAsync();
+        //    foreach (var item in data)
+        //    {
+        //        item.NumberPartTypeNavigation = await _numberPartsDataService.GetNumberpartTypeAsync(item.NumberPartType);
+        //        item.Customer = await _numberPartsDataService.GetCustomerAsync(item.CustomerId);
+        //        NumberParts.Add(item);
+        //    }
+        //}
+
         public async void GetAll()
         {
-            NumberParts = new ObservableCollection<Numberpart>();
+            Enfermedades = new ObservableCollection<Enfermedad>();
 
-            var data = await _numberPartsDataService.GetNumberPartsAsync();
+            var data = await _ecnDataService.GetEnfermedadesAsync();
             foreach (var item in data)
             {
-                item.NumberPartTypeNavigation = await _numberPartsDataService.GetNumberpartTypeAsync(item.NumberPartType);
-                item.Customer = await _numberPartsDataService.GetCustomerAsync(item.CustomerId);
-                NumberParts.Add(item);
+                Enfermedades.Add(item);
             }
         }
 
@@ -132,6 +145,35 @@ namespace ECN.ViewModels
                 {
                     _NumberPartCollection = value;
                     RaisePropertyChanged("NumberPartCollection");
+                }
+            }
+        }
+
+
+        private CollectionViewSource _CvsEnfermadades;
+        internal CollectionViewSource CvsEnfermadades
+        {
+            get => _CvsEnfermadades;
+            set
+            {
+                if (_CvsEnfermadades != value)
+                {
+                    _CvsEnfermadades = value;
+                    RaisePropertyChanged("CvsEnfermadades");
+                }
+            }
+        }
+
+        private ICollectionView _EnfermedadesCollection;
+        public ICollectionView EnfermedadesCollection
+        {
+            get => _EnfermedadesCollection;
+            set
+            {
+                if (_EnfermedadesCollection != value)
+                {
+                    _EnfermedadesCollection = value;
+                    RaisePropertyChanged("EnfermedadesCollection");
                 }
             }
         }
@@ -181,6 +223,21 @@ namespace ECN.ViewModels
             }
         }
 
+        private ObservableCollection<Enfermedad> _Enfermedades;
+        public ObservableCollection<Enfermedad> Enfermedades
+        {
+            get => _Enfermedades;
+            set
+            {
+                if (_Enfermedades != value)
+                {
+                    _Enfermedades = value;
+                    RaisePropertyChanged("Enfermedades");
+                }
+            }
+        }
+
+
         private Numberpart _NumberPartSelected;
         public Numberpart NumberPartSelected
         {
@@ -197,9 +254,9 @@ namespace ECN.ViewModels
 
         private void ApplyFilter(object sender, FilterEventArgs e)
         {
-            Numberpart np = (Numberpart)e.Item;
+            Enfermedad np = (Enfermedad)e.Item;
 
-            e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.NumberPartId.ToLower().Contains(Filter.ToLower());
+            e.Accepted = string.IsNullOrWhiteSpace(Filter) || Filter.Length == 0 || np.Nombre.ToLower().Contains(Filter.ToLower());
         }
     }
 }

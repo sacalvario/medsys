@@ -576,5 +576,15 @@ namespace ECN.Services
             return diagnosticosContext.Sintomas.ToList();
         }
 
+        public async Task<ICollection<Enfermedad>> GetEnfermedadesAsync()
+        {
+            await Task.CompletedTask;
+            return GetEnfermedades();
+        }
+
+        private ICollection<Enfermedad> GetEnfermedades()
+        {
+            return diagnosticosContext.Enfermedades.ToList();
+        }
     }
 }

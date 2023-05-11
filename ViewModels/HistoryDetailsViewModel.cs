@@ -126,6 +126,20 @@ namespace ECN.ViewModels
         }
 
 
+        private ObservableCollection<Sintoma> _SintomasSeleccionado;
+        public ObservableCollection<Sintoma> SintomasSeleccionado
+        {
+            get => _SintomasSeleccionado;
+            set
+            {
+                if (_SintomasSeleccionado != value)
+                {
+                    _SintomasSeleccionado = value;
+                    RaisePropertyChanged("SintomasSeleccionado");
+                }
+            }
+        }
+
         //private ICommand _CloseECNCommand;
         //public ICommand CloseECNCommand
         //{
@@ -186,8 +200,9 @@ namespace ECN.ViewModels
             //GetAttachments();
             //GetRevisions();
             //GetDocuments();
+            GetSintomas();
 
-           
+
         }
 
         private async void GetSintomas()

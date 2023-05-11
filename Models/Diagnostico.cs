@@ -21,7 +21,7 @@ namespace ECN.Models
         public sbyte TienePruebaPost { get; set; }
         public sbyte TienePruebaLab { get; set; }
 
-        public virtual Enfermedade IdEnfermedadNavigation { get; set; }
+        public virtual Enfermedad IdEnfermedadNavigation { get; set; }
         public virtual PruebasLaboratorioResultado IdPruebaLabNavigation { get; set; }
         public virtual PruebasPostmortmResultado IdPruebaPostMortemNavigation { get; set; }
         public virtual ICollection<CitasDiagnostico> CitasDiagnosticos { get; set; }

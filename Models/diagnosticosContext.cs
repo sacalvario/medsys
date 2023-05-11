@@ -22,7 +22,7 @@ namespace ECN.Models
         public virtual DbSet<Diagnostico> Diagnosticos { get; set; }
         public virtual DbSet<DiagnosticoSintoma> DiagnosticoSintomas { get; set; }
         public virtual DbSet<DiagnosticosTratamiento> DiagnosticosTratamientos { get; set; }
-        public virtual DbSet<Enfermedade> Enfermedades { get; set; }
+        public virtual DbSet<Enfermedad> Enfermedades { get; set; }
         public virtual DbSet<Estado> Estados { get; set; }
         public virtual DbSet<LaboratorioPrueba> LaboratorioPruebas { get; set; }
         public virtual DbSet<Paciente> Pacientes { get; set; }
@@ -229,7 +229,7 @@ namespace ECN.Models
                     .HasConstraintName("fk_tratamiento");
             });
 
-            modelBuilder.Entity<Enfermedade>(entity =>
+            modelBuilder.Entity<Enfermedad>(entity =>
             {
                 entity.HasKey(e => e.IdEnfermedad)
                     .HasName("PRIMARY");

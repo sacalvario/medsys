@@ -127,10 +127,10 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/officer.png" Width="28"/>
+                        <Image Source="/Assets/patient.png" Width="28"/>
                         <TextBlock Text="{Binding Nombre}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
                         <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
-                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Orange" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="DarkSlateGray" FontWeight="SemiBold"/>
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
@@ -176,10 +176,10 @@
             <ComboBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <Image Source="/Assets/officer.png" Width="28"/>
+                        <Image Source="/Assets/doctor.png" Width="28"/>
                         <TextBlock Text="{Binding Nombre}" Margin="8, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" FontWeight="Bold"/>
                         <TextBlock Text="-" Margin="2, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand Medium"/>
-                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="Orange" FontWeight="SemiBold"/>
+                        <TextBlock Text="{Binding Telefono}" Margin="5, 0, 0, 0" VerticalAlignment="Center" FontFamily="Quicksand" Foreground="DarkSlateGray" FontWeight="SemiBold"/>
                     </StackPanel>
                 </DataTemplate>
             </ComboBox.ItemTemplate>
