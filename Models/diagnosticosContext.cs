@@ -505,6 +505,10 @@ namespace ECN.Models
                     .HasColumnName("Tipo_Usuario");
             });
 
+            _ = modelBuilder.Entity<Cita>().Ignore(t => t.LongDate);
+            _ = modelBuilder.Entity<Cita>().Ignore(t => t.HoraCita);
+            _ = modelBuilder.Entity<Estado>().Ignore(t => t.StatusColor);
+
             OnModelCreatingPartial(modelBuilder);
         }
 

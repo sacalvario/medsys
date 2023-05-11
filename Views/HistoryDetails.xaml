@@ -47,96 +47,33 @@
                 <StackPanel Orientation="Horizontal" Margin="0, 0, 0, 3">
                     <TextBlock FontSize="26" FontWeight="Black" >
                         <Run Text="Folio" />
-                        <Run Text="{Binding Ecn.Id}" Foreground="#FFF1223F"  />
+                        <Run Text="{Binding Cita.IdCita}" Foreground="#FFF1223F"  />
                     </TextBlock>
-                    <Border VerticalAlignment="Top" Height="25" Width="115" Margin="30, 8, 0, 0" Visibility="{Binding Ecn.IsEcoVisibility}" CornerRadius="10" Background="#FFFF0033">
-                        <TextBlock Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15" >
-                            <Run Text="ECO:"/>
-                            <Run Text="{Binding Ecn.EcnEco.IdEco}"/>
-                        </TextBlock>
-                    </Border>
-                    <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Ecn.Status.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
-                        <TextBlock Foreground="White" Text="{Binding Ecn.Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                    <Border VerticalAlignment="Top" CornerRadius="10" Background="{Binding Cita.IdEstadoNavigation.StatusColor}" Height="25" Width="115" Margin="15, 8, 0, 0">
+                        <TextBlock Foreground="White" Text="{Binding Cita.IdEstadoNavigation.Nombre}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
                     </Border>
                 </StackPanel>
                 <TextBlock FontSize="16" >
-                    <Run Text="Fecha de inicio" />
-                    <Run Text="{Binding Ecn.LongDate, Mode=OneWay}" FontWeight="Black" />
+                    <Run Text="Fecha de cita" />
+                    <Run Text="{Binding Cita.LongDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
                 <TextBlock FontSize="16" Visibility="{Binding EcnEstimateCloseDateVisibility}">
-                    <Run Text="Fecha de cierre estimada"/>
-                    <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
+                    <Run Text="Hora de cita"/>
+                    <Run Text="{Binding Cita.Hora, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
-                <TextBlock FontSize="16" Visibility="{Binding EcnCloseDateVisibility}" >
-                    <Run Text="Cerrado el día"/>
+                <TextBlock FontSize="16" Visibility="Hidden" >
+                    <Run Text="Atendida el día"/>
                     <Run Text="{Binding Ecn.LongEndDate, Mode=OneWay}" FontWeight="Black" />
                 </TextBlock>
             </StackPanel>
         </StackPanel>
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" Visibility="{Binding EcnPropietaryVisibility}">
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Margin="100, 20, 50, 0" >
             <Image Source="/Assets/userblack.png" Width="38" Margin="5, 0, 0, 0"/>
-            <TextBlock Text="{Binding Ecn.Employee.Name}" HorizontalAlignment="Center" FontWeight="Black"/>
-            <TextBlock Text="{Binding Ecn.Employee.Department.DepartmentName}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black"/>
+            <TextBlock Text="{Binding Cita.IdPacienteNavigation.Nombre}" HorizontalAlignment="Center" FontWeight="Black"/>
+            <TextBlock Text="{Binding Cita.IdPacienteNavigation.Telefono}" HorizontalAlignment="Center" Foreground="Red" FontWeight="Black"/>
         </StackPanel>
-        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Margin="500, 15, 0, 0" FontSize="18" Visibility="{Binding EcnSignTypeVisibility}">
-            <Run Text="{Binding Ecn.CurrentSignature.RevisionSequence}" FontWeight="Black"/>
-            <Run Text="/" />
-            <Run Text="{Binding Ecn.SignatureCount}" Foreground="Red" FontWeight="Black"/>
-            <Run Text="firmas" />
-        </TextBlock>
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top" Margin="650, 40, 0, 0" Visibility="{Binding ECNNotesVisibility}">
-            <TextBlock Text="Notas de control de documentos: " Foreground="Red" FontWeight="Black" FontStyle="Italic" FontSize="15"/>
-            <TextBlock Text="{Binding Ecn.Notes}" FontStyle="Italic" FontSize="15"/>
-        </StackPanel>
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnSignTypeVisibility}">
-            <TextBox Text="{Binding RevisionNotes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas (opcional)" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
-            <ui:SimpleStackPanel Orientation="Horizontal" Margin="10, 0, 0, 0">
-                <Button Background="Transparent" Command="{Binding VerifiedECNCommand}">
-                    <StackPanel>
-                        <Image Source="/Assets/verified.png"/>
-                        <TextBlock Text="Aprobar" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-                <Button Background="Transparent" Command="{Binding RefuseECNCommand}">
-                    <StackPanel>
-                        <Image Source="/Assets/refuse.png"  />
-                        <TextBlock Text="Rechazar" HorizontalAlignment="Center"/>
-                    </StackPanel>
-                </Button>
-            </ui:SimpleStackPanel>           
-        </StackPanel>
-        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding EcnCloseTypeVisibility}">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa las notas (opcional)" Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
-            <Button Background="Transparent" Command="{Binding CloseECNCommand}" Margin="5, 0, 0, 0">
-                <StackPanel>
-                    <Image Source="/Assets/verified.png"/>
-                    <TextBlock Text="Cerrar" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-            <Button Background="Transparent" Command="{Binding CancelECNCommand}">
-                <StackPanel>
-                    <Image Source="/Assets/refuse.png" />
-                    <TextBlock Text="Cancelar" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </ui:SimpleStackPanel>
-        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="850, 40, 0, 0" Visibility="{Binding CloseEcnVisibility}">
-            <TextBox Text="{Binding Notes}" BorderThickness="0" ui:ControlHelper.PlaceholderText="Ingresa el motivo de cancelación " Width="300" AcceptsReturn="True" ui:ControlHelper.CornerRadius="10"/>
-            <Button Background="Transparent" Command="{Binding CancelECNCommand}">
-                <StackPanel>
-                    <Image Source="/Assets/refuse.png" />
-                    <TextBlock Text="Cancelar" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </ui:SimpleStackPanel>
-        <ui:SimpleStackPanel Orientation="Horizontal" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="250, 50, 0, 0"  Visibility="{Binding UpgradeECNVisibility}">
-            <Button Background="Transparent" Command="{Binding UpgradeECNCommand}">
-                <StackPanel>
-                    <Image Source="/Assets/return.png" Width="28"/>
-                    <TextBlock Text="Modificar" HorizontalAlignment="Center"/>
-                </StackPanel>
-            </Button>
-        </ui:SimpleStackPanel>
+        
+       
         <TabControl VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="50, 130, 10, 10" Style="{StaticResource MahApps.Styles.TabControl}" Background="#FFE0E0E0" SelectedIndex="{Binding SelectedTabItem}">
             <TabItem Height="40">
                 <TabItem.Header>

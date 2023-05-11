@@ -18,7 +18,7 @@ namespace ECN.ViewModels
         private readonly INavigationService _navigationService;
         private ICommand _navigateToCheckCommand;
 
-        public ICommand NavigateToCheckCommand => _navigateToCheckCommand ??= new RelayCommand<Ecn>(NavigateToCheck);
+        public ICommand NavigateToCheckCommand => _navigateToCheckCommand ??= new RelayCommand<Cita>(NavigateToCheck);
 
         public ChecklistViewModel(IEcnDataService ecnDataService, INavigationService navigationService)
         {
@@ -83,9 +83,9 @@ namespace ECN.ViewModels
             }
         }
 
-        private void NavigateToCheck(Ecn ecn)
+        private void NavigateToCheck(Cita cita)
         {
-            _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, ecn);
+            _navigationService.NavigateTo(typeof(HistoryDetailsViewModel).FullName, cita);
         }
 
         public void OnNavigatedTo(object parameter)

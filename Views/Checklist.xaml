@@ -28,59 +28,40 @@
                     <ColumnDefinition Width="240" />
                     <ColumnDefinition Width="350" />
                     <ColumnDefinition Width="150" />
-                    <ColumnDefinition Width="100" />
-                    <ColumnDefinition Width="100" />
                 </Grid.ColumnDefinitions>
-                <Image Source="/Assets/userblack.png" Width="44" Height="44" Grid.RowSpan="4" Grid.Column="2"/>
-                <StackPanel Grid.RowSpan="4" Grid.Column="3" Margin="5, 18, 10, 12" >
-                    <TextBlock Text="{Binding IdPacienteNavigation.Nombre, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
-                    <TextBlock Text="{Binding IdPacienteNavigation.Telefono}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Red" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
-                </StackPanel>
                 <Image Source="/Assets/docs.png" Width="42" Height="42" Grid.RowSpan="4" />
                 <StackPanel Grid.RowSpan="4" Grid.Column="1" Margin="10, 12, 20, 12">
                     <TextBlock Text="Folio" HorizontalAlignment="Center" FontWeight="Bold" Foreground="Black" FontSize="17"/>
                     <TextBlock Text="{Binding IdCita}" FontWeight="Black" Foreground="Red" FontSize="17" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </StackPanel>
+                <Image Source="/Assets/userblack.png" Width="44" Height="44" Grid.RowSpan="4" Grid.Column="2"/>
+                <StackPanel Grid.RowSpan="4" Grid.Column="3" Margin="5, 18, 10, 12" >
+                    <TextBlock Text="{Binding IdPacienteNavigation.Nombre, Mode=OneWay}" HorizontalAlignment="Left" FontWeight="Bold" Foreground="Black" FontSize="14"/>
+                    <TextBlock Text="{Binding IdPacienteNavigation.Telefono}" HorizontalAlignment="Left" FontWeight="DemiBold" Foreground="Red" FontSize="14" VerticalAlignment="Center" FontStyle="Italic"/>
+                </StackPanel>
                 <TextBlock Grid.Column="4"
                            Grid.Row="2"
                            FontSize="14"
                            Margin="20, 0, 0, 0">
-                        <Run Text="Fecha de inicio: " Foreground="Black" FontWeight="Normal"/>
+                        <Run Text="Fecha de cita: " Foreground="Black" FontWeight="Normal"/>
                         <Run Text="{Binding LongDate, Mode=OneWay}" FontWeight="Black" Foreground="Black" />
                 </TextBlock>
                 <TextBlock Grid.Column="4"
                            Grid.Row="3"
                            FontSize="14"
                            Margin="20, 0, 0, 0">
-                            <Run Text="Tipo de cambio: " Foreground="Black" FontWeight="Normal"/>
-                            <Run Text="{Binding ChangeType.ChangeTypeName, Mode=OneWay}" FontWeight="Black" Foreground="#FFD60404" />
+                            <Run Text="Hora de cita: " Foreground="Black" FontWeight="Normal"/>
+                            <Run Text="{Binding Hora, Mode=OneWay}" FontWeight="Black" Foreground="#FFD60404" />
                 </TextBlock>
-                <StackPanel Grid.Column="5" Grid.RowSpan="4" HorizontalAlignment="Center" VerticalAlignment="Center">
-                    <TextBlock HorizontalAlignment="Center" FontWeight="Black" FontSize="24" Foreground="Red">
-                        <Run Text="{Binding CurrentSignature.RevisionSequence}"/>
-                        <Run Text="°" />
-                    </TextBlock>
-                    <TextBlock Text="Persona en firmar" Foreground="Black"/>
-                </StackPanel>
-                <Border Visibility="{Binding IsEcoVisibility}" 
-                        CornerRadius="10"
-                        Background="#FFFF0033"
-                        Grid.Column="6"
-                        Grid.Row="0"
+                <Border CornerRadius="10"
+                        Background="{Binding IdEstadoNavigation.StatusColor}"
+                        Grid.Column="5"
                         Grid.RowSpan="4"
-                        Height="20"
-                        Width="45"
-                        VerticalAlignment="Center">
-                    <TextBlock Foreground="White" Text="ECO" HorizontalAlignment="Center" FontWeight="Black" FontSize="15"/>
+                        VerticalAlignment="Center"
+                        Height="30"
+                        Width="95">
+                    <TextBlock Foreground="White" Text="{Binding IdEstadoNavigation.Nombre}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
                 </Border>
-                <StackPanel Grid.Column="7" Grid.RowSpan="4" VerticalAlignment="Center" >
-                    <Border CornerRadius="10"
-                                    Background="{Binding Status.StatusColor}"
-                                    Height="30"
-                                    Width="95">
-                        <TextBlock Foreground="White" Text="{Binding Status.StatusName}" HorizontalAlignment="Center" VerticalAlignment="Center" FontWeight="Black" FontSize="15"/>
-                    </Border>
-                </StackPanel>
             </Grid>
         </DataTemplate>
 

@@ -51,7 +51,7 @@ namespace ECN.ViewModels
             Cita = new Cita
             {
                 IdUsuario = UserRecord.User_ID,
-                FechaHora = DateTime.Today,
+                Fecha = DateTime.Today,
                 IdEstado = 2,
             };
 
@@ -69,6 +69,7 @@ namespace ECN.ViewModels
         {
             Cita.IdMedicoNavigation = MedicoSeleccionado;
             Cita.IdPacienteNavigation = PacienteSeleccionado;
+            Cita.Hora = HoraSeleccionada.TimeOfDay;
 
             try
             {
@@ -92,12 +93,13 @@ namespace ECN.ViewModels
             Cita = new Cita
             {
                 IdUsuario = UserRecord.User_ID,
-                FechaHora = DateTime.Today,
+                Fecha = DateTime.Today,
                 IdEstado = 2
             };
 
             MedicoSeleccionado = null;
             PacienteSeleccionado = null;
+            HoraSeleccionada = DateTime.Now;
 
         }
 
@@ -158,6 +160,20 @@ namespace ECN.ViewModels
                     _PacienteSeleccionado = value;
                     RaisePropertyChanged("PacienteSeleccionado");
 
+                }
+            }
+        }
+
+        private DateTime _HoraSeleccionada;
+        public DateTime HoraSeleccionada
+        {
+            get => _HoraSeleccionada;
+            set 
+            {
+                if (_HoraSeleccionada != value)
+                {
+                    _HoraSeleccionada = value;
+                    RaisePropertyChanged("HoraSeleccionada");
                 }
             }
         }

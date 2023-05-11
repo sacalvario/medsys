@@ -15,6 +15,9 @@ namespace ECN.Models
         public int IdEstado { get; set; }
         public TimeSpan Hora { get; set; }
 
+        public string LongDate => Fecha.ToLongDateString();
+        public string HoraCita => Hora.ToString("HH:mmmm");
+
         public virtual Estado IdEstadoNavigation { get; set; }
         public virtual Usuario IdMedicoNavigation { get; set; }
         public virtual Paciente IdPacienteNavigation { get; set; }

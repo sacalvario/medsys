@@ -564,5 +564,17 @@ namespace ECN.Services
         {
             return diagnosticosContext.Pacientes.Find(id);
         }
+
+        public async Task<IEnumerable<Sintoma>> GetSintomasAsync()
+        {
+            await Task.CompletedTask;
+            return GetSintomas();
+        }
+
+        private IEnumerable<Sintoma> GetSintomas()
+        {
+            return diagnosticosContext.Sintomas.ToList();
+        }
+
     }
 }
